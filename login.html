@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Login Page</title>
+        <style>
+            .login_container{
+                display: flex;
+                flex-direction: column;
+                height: 100px;
+                width: 100px;
+                margin-left: 450px;
+                margin-top: 150px;
+                padding-top: 30px;
+                padding-left: 60px;
+                padding-right: 80px;
+                border-color: black;
+                border-width: 4px;
+                border-style: solid;
+                padding-bottom: 120px;
+            }
+            .submit_button{
+              width: 55px;
+              margin-left: 20px;
+            }
+            .size{
+                width: 120px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="login_container">
+            <form action="catelog.html" onsubmit="validateForm()">
+            <h5>UserId:</h5>
+            <input type="text" placeholder="Enter your email-id" class="size" id="email-id">
+            <h5>Passwaord:</h5>
+            <input type="text" placeholder="Enter your pasword" class="size" id="password">
+            <br>
+            <button >Submit</button>
+        </form>
+        </div>
+    </body>
+    <script>
+        function solve()
+        {
+        var email=document.getElementById("email-id").value;
+        var pass=document.getElementById("password").value;
+        if(email==="" || pass==="")
+            alert("Enter valid credentials");
+            var log = localStorage.getItem("password");
+        if(pass===log)
+            alert("Login succesful");
+        }
+    </script>
+</html>
