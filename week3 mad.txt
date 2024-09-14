@@ -1,0 +1,270 @@
+Activity_main.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+   xmlns:app="http://schemas.android.com/apk/res-auto"
+   xmlns:tools="http://schemas.android.com/tools"
+   android:id="@+id/fragmentc"
+   android:layout_width="match_parent"
+   android:layout_height="match_parent"
+   tools:context=".Institution">
+
+
+   <FrameLayout
+       android:id="@+id/fragment_container"
+       android:layout_width="388dp"
+       android:layout_height="710dp"
+       app:layout_constraintBottom_toBottomOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintHorizontal_bias="0.5"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintTop_toTopOf="parent">
+
+   </FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+Fragment_institution.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+   xmlns:app="http://schemas.android.com/apk/res-auto"
+   xmlns:tools="http://schemas.android.com/tools"
+   android:layout_width="match_parent"
+   android:layout_height="match_parent"
+   tools:context=".Institution">
+
+   <Button
+       android:id="@+id/students"
+       android:layout_width="207dp"
+       android:layout_height="43dp"
+       android:text="STUDENTS"
+       app:layout_constraintBottom_toBottomOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintHorizontal_bias="0.529"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintTop_toTopOf="parent"
+       app:layout_constraintVertical_bias="0.19" />
+
+   <Button
+       android:id="@+id/faculty"
+       android:layout_width="203dp"
+       android:layout_height="44dp"
+       android:text="FACULTY"
+       app:layout_constraintBottom_toBottomOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintHorizontal_bias="0.519"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintTop_toTopOf="parent"
+       app:layout_constraintVertical_bias="0.286" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+fragment_student.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+   xmlns:app="http://schemas.android.com/apk/res-auto"
+   xmlns:tools="http://schemas.android.com/tools"
+   android:layout_width="match_parent"
+   android:layout_height="match_parent"
+   tools:context=".Student">
+
+
+  <TextView
+       android:id="@+id/textView3"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:text="IT STUDENTS"
+       android:textSize="30dp"
+       app:layout_constraintBottom_toBottomOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+Fragment_faculty.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+   xmlns:app="http://schemas.android.com/apk/res-auto"
+   xmlns:tools="http://schemas.android.com/tools"
+   android:layout_width="match_parent"
+   android:layout_height="match_parent"
+   android:textAlignment="inherit"
+   tools:context=".Faculty">
+
+   <!-- TODO: Update blank fragment layout -->
+
+   <TextView
+       android:id="@+id/textView"
+       android:layout_width="187dp"
+       android:layout_height="33dp"
+       android:text="IT FACULTY"
+       android:textAlignment="center"
+       android:textSize="24sp"
+       app:layout_constraintBottom_toBottomOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintTop_toTopOf="parent"
+       app:layout_constraintVertical_bias="0.207" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+MainActivity.java
+
+package com.example.week3;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+
+public class MainActivity extends AppCompatActivity {
+
+   public static FragmentManager fragmentManager;
+   Button student1,faculty1;
+
+
+   @Override
+   protected void onCreate(Bundle savedInstanceState) {
+       super.onCreate(savedInstanceState);
+       setContentView(R.layout.activity_main);
+
+       fragmentManager=getSupportFragmentManager();
+
+       if(findViewById(R.id.fragment_container)!=null)
+       {
+           if(savedInstanceState!=null)
+           {
+               return ;
+           }
+           FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+           Institution institution=new Institution();
+
+           fragmentTransaction.add(R.id.fragment_container,institution,null);
+           fragmentTransaction.commit();
+       }
+
+   }
+
+
+}
+
+
+Institution.java
+
+package com.example.week3;
+
+import android.os.Bundle;
+
+import androidx.fragment.app.Fragment;
+
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+
+
+public class Institution extends Fragment {
+   Button students, faculty;
+
+
+   public Institution() {
+       // Required empty public constructor
+   }
+
+   @Override
+   public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                            Bundle savedInstanceState) {
+       // Inflate the layout for this fragment
+       View view = inflater.inflate(R.layout.fragment_institution, container, false);
+       students = view.findViewById(R.id.students);
+       faculty=view.findViewById(R.id.faculty);
+       students.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               MainActivity.fragmentManager.beginTransaction().replace(R.id.fragment_container, new Student(), null).addToBackStack(null).commit();
+           }
+       });
+       faculty.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               MainActivity.fragmentManager.beginTransaction().replace(R.id.fragment_container, new Faculty(), null).addToBackStack(null).commit();
+           }
+       });
+       return view;
+
+   }
+}
+
+Student.java
+
+package com.example.week3;
+
+import android.os.Bundle;
+
+import androidx.fragment.app.Fragment;
+
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+
+public class Student extends Fragment {
+
+
+   public Student() {
+
+
+   }
+
+   @Override
+   public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                            Bundle savedInstanceState) {
+
+
+       return inflater.inflate(R.layout.fragment_student, container, false);
+
+   }
+
+}
+
+
+Faculty.java
+
+
+package com.example.week3;
+
+import android.os.Bundle;
+
+import androidx.fragment.app.Fragment;
+
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+
+public class Faculty extends Fragment {
+
+   public Faculty() {
+       // Required empty public constructor
+   }
+
+
+   @Override
+   public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                            Bundle savedInstanceState) {
+       // Inflate the layout for this fragment
+       return inflater.inflate(R.layout.fragment_faculty, container, false);
+   }
+}
+
+
+
+
