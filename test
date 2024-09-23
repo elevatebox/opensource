@@ -1,0 +1,51 @@
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+#include <stdlib.h>
+#include<stdlib.h>
+//Complete the following function.
+
+int marks_summation(int* marks, int number_of_students, char gender) {
+int d;
+if(gender == 'b'&& number_of_students%2==0)
+for(i=0;i<number_of_students;i++){
+    if(i%2==0)
+    d=marks[i];
+}
+
+else if(gender== 'b'&& number_of_students>=5)
+d=marks[0]+marks[2]+marks[4];
+else if(gender== 'b'&& number_of_students<=2)
+d=marks[0];
+else if(gender == 'g'&& number_of_students>=4&&number_of_students<6)
+d=marks[1]+marks[3];
+else if(gender == 'g'&& number_of_students>=6)
+d=marks[1]+marks[3]+marks[5];
+else if(gender =='g' && number_of_students<=3)
+d=marks[1];
+else {
+d=0;
+}
+d=abs(d);
+return d;
+}
+
+int main() {
+    int number_of_students;
+    char gender;
+    int sum;
+  
+    scanf("%d", &number_of_students);
+    int *marks = (int *) malloc(number_of_students * sizeof (int));
+ 
+    for (int student = 0; student < number_of_students; student++) {
+        scanf("%d", (marks + student));
+    }
+    
+    scanf(" %c", &gender);
+    sum = marks_summation(marks, number_of_students, gender);
+    printf("%d", sum);
+    free(marks);
+ 
+    return 0;
+}
