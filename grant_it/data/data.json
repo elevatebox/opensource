@@ -1,0 +1,97 @@
+{
+    "coAdmins": [
+        {
+            "username": "cse_hod",
+            "password": "cse123",
+            "branch": "CSE"
+        },
+        {
+            "username": "eee_hod",
+            "password": "eee123",
+            "branch": "EEE"
+        },
+        {
+            "username": "eie_hod",
+            "password": "eie123",
+            "branch": "EIE"
+        },
+        {
+            "username": "mech_hod",
+            "password": "mech123",
+            "branch": "MECH"
+        },
+        {
+            "username": "civil_hod",
+            "password": "civil123",
+            "branch": "CIVIL"
+        },
+        {
+            "username": "ece_hod",
+            "password": "ece123",
+            "branch": "ECE"
+        }
+    ],
+    "students": [
+        {
+            "username": "student1_cse",
+            "password": "student1",
+            "branch": "CSE"
+        },
+        {
+            "username": "student2_cse",
+            "password": "student2",
+            "branch": "CSE"
+        },
+        {
+            "username": "student1_eee",
+            "password": "student3",
+            "branch": "EEE"
+        },
+        {
+            "username": "student2_eee",
+            "password": "student4",
+            "branch": "EEE"
+        },
+        {
+            "username": "student1_eie",
+            "password": "student5",
+            "branch": "EIE"
+        },
+        {
+            "username": "student2_eie",
+            "password": "student6",
+            "branch": "EIE"
+        },
+        {
+            "username": "student1_mech",
+            "password": "student7",
+            "branch": "MECH"
+        },
+        {
+            "username": "student2_mech",
+            "password": "student8",
+            "branch": "MECH"
+        },
+        {
+            "username": "student1_civil",
+            "password": "student9",
+            "branch": "CIVIL"
+        },
+        {
+            "username": "student2_civil",
+            "password": "student10",
+            "branch": "CIVIL"
+        },
+        {
+            "username": "student1_ece",
+            "password": "student11",
+            "branch": "ECE"
+        },
+        {
+            "username": "student2_ece",
+            "password": "student12",
+            "branch": "ECE"
+        }
+    ],
+    "requests": []
+}

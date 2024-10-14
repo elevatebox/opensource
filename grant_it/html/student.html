@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #a2c4e6, #d4f0fc); /* Light gradient */
+        }
+    </style>
+</head>
+<body onload="loadStudentDashboard()">
+    <div class="container">
+        <h2 class="text-center">Student Dashboard</h2>
+        <ul class="nav nav-tabs" id="studentTabs">
+            <li class="nav-item">
+                <a class="nav-link active" id="request-tab" data-toggle="tab" href="#request" role="tab">Request Permission</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="history-tab" data-toggle="tab" href="#history" role="tab">Request History</a>
+            </li>
+        </ul>
+
+        <div class="tab-content">
+            <!-- Request Permission Tab -->
+            <div class="tab-pane fade show active" id="request" role="tabpanel">
+                <div class="mt-4">
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject" class="form-control" placeholder="Enter the subject of your request">
+                    </div>
+                    <div class="form-group">
+                        <label for="reason">Reason</label>
+                        <textarea id="reason" class="form-control" rows="4" placeholder="Enter the reason for your request"></textarea>
+                    </div>
+                    <button class="btn btn-primary" onclick="submitRequest()">Send</button>
+                </div>
+            </div>
+
+            <!-- Request History Tab -->
+            <div class="tab-pane fade" id="history" role="tabpanel">
+                <table class="table table-bordered mt-4">
+                    <thead>
+                        <tr>
+                            <th>Subject</th>
+                            <th>Reason</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="request-history-tbody">
+                        <!-- History will be populated here dynamically -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/main.js"></script>
+</body>
+</html>

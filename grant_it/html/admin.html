@@ -1,35 +1,221 @@
-<!-- Admin Dashboard (admin.html) -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard - grant.it</title>
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #f0f4c3, #c5e1a5);
+        }
+        
+        .container {
+            margin-top: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .tab-content {
+            margin-top: 20px;
+        }
+
+        .request-button {
+            margin: 5px;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
         <h1>Admin Dashboard</h1>
         <ul class="nav nav-tabs">
             <li class="nav-item">
-                <a class="nav-link active" data-toggle="tab" href="#coAdminTab">Co-admin Management</a>
+                <a class="nav-link active" data-toggle="tab" href="#coadmin-management">Co-admin Management</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#studentTab">Student Management</a>
+                <a class="nav-link" data-toggle="tab" href="#student-management">Student Management</a>
             </li>
         </ul>
+
         <div class="tab-content">
-            <div id="coAdminTab" class="tab-pane fade show active">
-                <h3>Manage Co-admins</h3>
-                <!-- CRUD Operations for Co-admins -->
+            <!-- Co-admin Management Tab -->
+            <div class="tab-pane active" id="coadmin-management">
+                <h2>Manage Co-admins</h2>
+                <form id="coadmin-form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="coadmin-name" placeholder="Co-admin Name" required>
+                        <select class="form-control" id="coadmin-branch" required>
+                            <option value="">Select Branch</option>
+                            <option value="CSE">CSE</option>
+                            <option value="EEE">EEE</option>
+                            <option value="EIE">EIE</option>
+                            <option value="MECH">MECH</option>
+                            <option value="CIVIL">CIVIL</option>
+                            <option value="ECE">ECE</option>
+                        </select>
+                        <button type="submit" class="btn btn-primary request-button">Add Co-admin</button>
+                    </div>
+                </form>
+                <h3>Current Co-admins</h3>
+                <table class="table table-bordered" id="coadmin-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Branch</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="coadmin-tbody">
+                        <!-- Co-admin entries will go here -->
+                    </tbody>
+                </table>
             </div>
-            <div id="studentTab" class="tab-pane fade">
-                <h3>Manage Students</h3>
-                <!-- CRUD Operations for Students -->
+
+            <!-- Student Management Tab -->
+            <div class="tab-pane" id="student-management">
+                <h2>Manage Students</h2>
+                <form id="student-form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="student-name" placeholder="Student Name" required>
+                        <input type="text" class="form-control" id="student-username" placeholder="Username" required>
+                        <select class="form-control" id="student-branch" required>
+                            <option value="">Select Branch</option>
+                            <option value="CSE">CSE</option>
+                            <option value="EEE">EEE</option>
+                            <option value="EIE">EIE</option>
+                            <option value="MECH">MECH</option>
+                            <option value="CIVIL">CIVIL</option>
+                            <option value="ECE">ECE</option>
+                        </select>
+                        <button type="submit" class="btn btn-primary request-button">Add Student</button>
+                    </div>
+                </form>
+                <h3>Current Students</h3>
+                <table class="table table-bordered" id="student-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Username</th>
+                            <th>Branch</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="student-tbody">
+                        <!-- Student entries will go here -->
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
-    <script src="js/main.js"></script>
+
+    <footer class="text-center mt-4">
+        <p>&copy; 2024 grant.it. All rights reserved.</p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="../js/main.js"></script>
+    <script>
+        const coadminTableBody = document.getElementById('coadmin-tbody');
+        const studentTableBody = document.getElementById('student-tbody');
+        
+        // Sample data for co-admins and students
+        let coadmins = [];
+        let students = [];
+
+        // Add Co-admin
+        document.getElementById('coadmin-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const name = document.getElementById('coadmin-name').value;
+            const branch = document.getElementById('coadmin-branch').value;
+
+            // Push new co-admin to the array
+            coadmins.push({ name, branch });
+            updateCoAdminTable();
+            document.getElementById('coadmin-form').reset();
+        });
+
+        // Add Student
+        document.getElementById('student-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const name = document.getElementById('student-name').value;
+            const username = document.getElementById('student-username').value;
+            const branch = document.getElementById('student-branch').value;
+
+            // Push new student to the array
+            students.push({ name, username, branch });
+            updateStudentTable();
+            document.getElementById('student-form').reset();
+        });
+
+        // Update Co-admin Table
+        function updateCoAdminTable() {
+            coadminTableBody.innerHTML = ''; // Clear previous entries
+            coadmins.forEach((coadmin, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${coadmin.name}</td>
+                    <td>${coadmin.branch}</td>
+                    <td>
+                        <button class="btn btn-warning" onclick="editCoAdmin(${index})">Edit</button>
+                        <button class="btn btn-danger" onclick="removeCoAdmin(${index})">Remove</button>
+                    </td>
+                `;
+                coadminTableBody.appendChild(row); // Append row to the table
+            });
+        }
+
+        // Update Student Table
+        function updateStudentTable() {
+            studentTableBody.innerHTML = ''; // Clear previous entries
+            students.forEach((student, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${student.name}</td>
+                    <td>${student.username}</td>
+                    <td>${student.branch}</td>
+                    <td>
+                        <button class="btn btn-warning" onclick="editStudent(${index})">Edit</button>
+                        <button class="btn btn-danger" onclick="removeStudent(${index})">Remove</button>
+                    </td>
+                `;
+                studentTableBody.appendChild(row); // Append row to the table
+            });
+        }
+
+        // Edit Co-admin
+        function editCoAdmin(index) {
+            const coadmin = coadmins[index];
+            document.getElementById('coadmin-name').value = coadmin.name; // Populate fields with existing values
+            document.getElementById('coadmin-branch').value = coadmin.branch;
+            removeCoAdmin(index); // Remove the co-admin from the list to allow for update
+        }
+
+        // Remove Co-admin
+        function removeCoAdmin(index) {
+            coadmins.splice(index, 1); // Remove from the array
+            updateCoAdminTable(); // Refresh table
+        }
+
+        // Edit Student
+        function editStudent(index) {
+            const student = students[index];
+            document.getElementById('student-name').value = student.name; // Populate fields with existing values
+            document.getElementById('student-username').value = student.username;
+            document.getElementById('student-branch').value = student.branch;
+            removeStudent(index); // Remove the student from the list to allow for update
+        }
+
+        // Remove Student
+        function removeStudent(index) {
+            students.splice(index, 1); // Remove from the array
+            updateStudentTable(); // Refresh table
+        }
+    </script>
 </body>
 </html>

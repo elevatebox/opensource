@@ -1,36 +1,232 @@
-<!-- Co-admin Dashboard (coadmin.html) -->
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Co-admin Dashboard - grant.it</title>
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Coadmin Dashboard - grant.it</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #f0f4c3, #c5e1a5);
+        }
+        
+        .container {
+            margin-top: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .tab-content {
+            margin-top: 20px;
+        }
+
+        .request-button {
+            margin: 5px;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <h1>Co-admin Dashboard</h1>
-        <h2>Assigned Branch: [Branch Name]</h2>
+        <h1>Coadmin Dashboard</h1>
         <ul class="nav nav-tabs">
             <li class="nav-item">
-                <a class="nav-link active" data-toggle="tab" href="#studentTab">Student Management</a>
+                <a class="nav-link active" data-toggle="tab" href="#coadmin-management">Co-admin Management</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#requestsTab">Requests</a>
+                <a class="nav-link" data-toggle="tab" href="#student-management">Student Management</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#pending-requests">Pending Requests</a>
             </li>
         </ul>
+
         <div class="tab-content">
-            <div id="studentTab" class="tab-pane fade show active">
-                <h3>Manage Students</h3>
-                <!-- CRUD Operations for Students -->
+            <!-- Co-admin Management Tab -->
+            <div class="tab-pane active" id="coadmin-management">
+                <h2>Current Co-admins</h2>
+                <table class="table table-bordered" id="coadmin-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Branch</th>
+                        </tr>
+                    </thead>
+                    <tbody id="coadmin-tbody">
+                        <!-- Co-admin entries will go here -->
+                    </tbody>
+                </table>
             </div>
-            <div id="requestsTab" class="tab-pane fade">
-                <h3>View Requests</h3>
-                <!-- Approve/Reject Requests -->
+
+            <!-- Student Management Tab -->
+            <div class="tab-pane" id="student-management">
+                <h2>Manage Students</h2>
+                <form id="student-form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="student-name" placeholder="Student Name" required>
+                        <input type="text" class="form-control" id="student-username" placeholder="Username" required>
+                        <select class="form-control" id="student-branch" required>
+                            <option value="">Select Branch</option>
+                            <option value="CSE">CSE</option>
+                            <option value="EEE">EEE</option>
+                            <option value="EIE">EIE</option>
+                            <option value="MECH">MECH</option>
+                            <option value="CIVIL">CIVIL</option>
+                            <option value="ECE">ECE</option>
+                        </select>
+                        <button type="submit" class="btn btn-primary request-button">Add Student</button>
+                    </div>
+                </form>
+                <h3>Current Students</h3>
+                <table class="table table-bordered" id="student-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Username</th>
+                            <th>Branch</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="student-tbody">
+                        <!-- Student entries will go here -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pending Requests Tab -->
+            <div class="tab-pane" id="pending-requests">
+                <h2>Pending Requests</h2>
+                <table class="table table-bordered" id="request-table">
+                    <thead>
+                        <tr>
+                            <th>Student Name</th>
+                            <th>Username</th>
+                            <th>Branch</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="request-tbody">
+                        <!-- Pending request entries will go here -->
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
-    <script src="js/main.js"></script>
+
+    <footer class="text-center mt-4">
+        <p>&copy; 2024 grant.it. All rights reserved.</p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        const coadminTableBody = document.getElementById('coadmin-tbody');
+        const studentTableBody = document.getElementById('student-tbody');
+        const requestTableBody = document.getElementById('request-tbody');
+        
+        // Sample data for co-admins, students, and pending requests
+        let coadmins = [
+            { name: "Ravi (you)", branch: "CSE" },
+            { name: "Priya", branch: "EEE" },
+            { name: "Arjun", branch: "EIE" },
+            { name: "Sneha", branch: "MECH" },
+            { name: "Kiran", branch: "CIVIL" }
+        ];
+        let students = [];
+        let pendingRequests = [];
+
+        // Initialize tables
+        updateCoAdminTable();
+        updateStudentTable();
+        updateRequestTable();
+
+        // Add Student
+        document.getElementById('student-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const name = document.getElementById('student-name').value;
+            const username = document.getElementById('student-username').value;
+            const branch = document.getElementById('student-branch').value;
+
+            // Add new student to the array
+            students.push({ name, username, branch });
+            // Simulate a pending request
+            pendingRequests.push({ name, username, branch });
+            updateStudentTable();
+            updateRequestTable();
+            document.getElementById('student-form').reset();
+        });
+
+        // Update Co-admin Table
+        function updateCoAdminTable() {
+            coadminTableBody.innerHTML = ''; // Clear previous entries
+            coadmins.forEach(coadmin => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${coadmin.name}</td>
+                    <td>${coadmin.branch}</td>
+                `;
+                coadminTableBody.appendChild(row); // Append row to the table
+            });
+        }
+
+        // Update Student Table
+        function updateStudentTable() {
+            studentTableBody.innerHTML = ''; // Clear previous entries
+            students.forEach(student => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${student.name}</td>
+                    <td>${student.username}</td>
+                    <td>${student.branch}</td>
+                    <td>
+                        <button class="btn btn-danger" onclick="removeStudent('${student.username}')">Remove</button>
+                    </td>
+                `;
+                studentTableBody.appendChild(row); // Append row to the table
+            });
+        }
+
+        // Update Pending Requests Table
+        function updateRequestTable() {
+            requestTableBody.innerHTML = ''; // Clear previous entries
+            pendingRequests.forEach((request, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${request.name}</td>
+                    <td>${request.username}</td>
+                    <td>${request.branch}</td>
+                    <td>
+                        <button class="btn btn-success" onclick="approveRequest(${index})">Approve</button>
+                        <button class="btn btn-danger" onclick="denyRequest(${index})">Deny</button>
+                    </td>
+                `;
+                requestTableBody.appendChild(row); // Append row to the table
+            });
+        }
+
+        // Approve Request
+        function approveRequest(index) {
+            const approvedRequest = pendingRequests.splice(index, 1)[0]; // Remove from pending requests
+            students.push(approvedRequest); // Add to the students list
+            updateRequestTable(); // Refresh pending requests table
+            updateStudentTable(); // Refresh students table
+        }
+
+        // Deny Request
+        function denyRequest(index) {
+            pendingRequests.splice(index, 1); // Remove from pending requests
+            updateRequestTable(); // Refresh pending requests table
+        }
+
+        // Remove Student
+        function removeStudent(username) {
+            students = students.filter(student => student.username !== username); // Remove student by username
+            updateStudentTable(); // Refresh students table
+        }
+    </script>
 </body>
 </html>
