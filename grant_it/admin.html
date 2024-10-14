@@ -45,12 +45,33 @@
         h3 {
             color: #4a90e2;
         }
+        .login-section {
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
 
 <div class="container mt-5">
     <h1 class="text-center">Admin - Manage Co-admins and Students</h1>
+
+    <!-- User Login Section -->
+    <div class="login-section">
+        <h3 class="text-center">Login</h3>
+        <form id="login-form" onsubmit="handleLogin(event)">
+            <div class="form-group">
+                <label for="rollNo">Roll No.</label>
+                <input type="text" class="form-control" id="rollNo" required>
+            </div>
+            <div class="form-group">
+                <label for="adminName">Name</label>
+                <input type="text" class="form-control" id="adminName" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Login</button>
+        </form>
+        <div id="login-message" class="mt-2"></div>
+    </div>
+
     <ul class="nav nav-tabs">
         <li class="nav-item">
             <a class="nav-link active" data-toggle="tab" href="#coAdminTab">Manage Co-admins</a>
@@ -107,15 +128,15 @@
                     <input type="text" class="form-control" id="studentName" required>
                 </div>
                 <div class="form-group">
-                    <label for="rollNo">Roll No.</label>
-                    <input type="text" class="form-control" id="rollNo" required>
+                    <label for="rollNoStudent">Roll No.</label>
+                    <input type="text" class="form-control" id="rollNoStudent" required>
                 </div>
                 <div class="form-group">
                     <label for="userName">User Name</label>
                     <input type="text" class="form-control" id="userName" required>
                 </div>
                 <div class="form-group">
-                    <label for="branch">Select Engineering Branch</label>
+                    <label for="studentBranch">Select Engineering Branch</label>
                     <select class="form-control" id="studentBranch" required>
                         <option value="" disabled selected>Select your branch</option>
                         <option value="Computer Science">Computer Science</option>
@@ -146,10 +167,23 @@
 </div>
 
 <script>
+    let isLoggedIn = false; // Flag to check login status
     const coAdmins = [];
     const students = [];
 
+    function handleLogin(event) {
+        event.preventDefault();
+        const rollNo = document.getElementById('rollNo').value;
+        const adminName = document.getElementById('adminName').value;
+
+        // Here you can implement your login logic, e.g., check rollNo and adminName against a database
+        isLoggedIn = true; // Assuming login is successful
+        document.getElementById('login-message').innerText = `Welcome, ${adminName}!`;
+        document.getElementById('login-form').style.display = 'none'; // Hide the login form
+    }
+
     function addCoAdmin(event) {
+        if (!isLoggedIn) return alert('Please log in first!');
         event.preventDefault();
         const coAdminName = document.getElementById('coAdminName').value;
         const branch = document.getElementById('branch').value;
@@ -190,37 +224,23 @@
         const coAdmin = coAdmins[index];
         document.getElementById('coAdminName').value = coAdmin.name;
         document.getElementById('branch').value = coAdmin.branch;
-        deleteCoAdmin(index); // Remove from the list to allow re-adding
+
+        deleteCoAdmin(index); // Remove the old entry
     }
 
     function addStudent(event) {
+        if (!isLoggedIn) return alert('Please log in first!');
         event.preventDefault();
         const studentName = document.getElementById('studentName').value;
-        const rollNo = document.getElementById('rollNo').value;
+        const rollNoStudent = document.getElementById('rollNoStudent').value;
         const userName = document.getElementById('userName').value;
-        const branch = document.getElementById('studentBranch').value;
+        const studentBranch = document.getElementById('studentBranch').value;
 
-        const student = { name: studentName, rollNo, userName, branch };
-
-        // Add student to the students array
-        students.push(student);
-        updateStudentTable();
+        const studentRow = document.createElement('tr');
+        studentRow.innerHTML = `<td>${studentName} (${rollNoStudent}) - ${userName} (${studentBranch})</td>`;
+        document.querySelector('#studentTable tbody').appendChild(studentRow);
+        document.getElementById('add-student-form').reset();
         alert('Student added successfully');
-        document.getElementById('add-student-form').reset(); // Reset the form after submission
-    }
-
-    function updateStudentTable() {
-        const studentTableBody = document.querySelector('#studentTable tbody');
-        studentTableBody.innerHTML = ''; // Clear the table body
-
-        // Populate the table with students
-        students.forEach((student) => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${student.name}</td>
-            `;
-            studentTableBody.appendChild(row);
-        });
     }
 </script>
 
