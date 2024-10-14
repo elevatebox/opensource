@@ -3,40 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>grant.it - Login</title>
-    <link rel="stylesheet" href="../css/style.css">
+    <title>Grant.it - Login</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background: url('https://www.transparenttextures.com/patterns/white-paper.png'), 
+                        linear-gradient(135deg, #6a11cb, #2575fc); /* Background pattern and gradient */
+            color: #fff; /* Light text for better readability */
+            font-family: 'Arial', sans-serif;
+        }
+
+        .container {
+            margin-top: 100px;
+            padding: 30px;
+            background: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+            border-radius: 20px;
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
+            animation: zoomIn 1s;
+        }
+
+        h2 {
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #ff6a00, #ee0979); /* Button gradient */
+            border: none;
+            color: white;
+            border-radius: 50px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .btn:hover {
+            background: linear-gradient(45deg, #ee0979, #ff6a00); /* Reverse gradient on hover */
+            transform: scale(1.05);
+        }
+
+        @keyframes zoomIn {
+            from { opacity: 0; transform: scale(0.5); }
+            to { opacity: 1; transform: scale(1); }
+        }
+    </style>
 </head>
 <body>
-    <div class="container text-center mt-5">
-        <h1 class="app-title text-success font-weight-bold">grant.it</h1>
-
-        <!-- Login Box -->
-        <div class="login-box border rounded p-4 mt-4">
-            <form id="loginForm">
-                <!-- Role Dropdown -->
-                <div class="form-group">
-                    <label for="userRole">Login as:</label>
-                    <select class="form-control" id="userRole">
-                        <option value="admin">Admin</option>
-                        <option value="co-admin">Co-admin</option>
-                        <option value="student">Student</option>
-                    </select>
-                </div>
-                <!-- Username -->
-                <div class="form-group">
-                    <input type="text" id="username" class="form-control" placeholder="Username">
-                </div>
-                <!-- Password -->
-                <div class="form-group">
-                    <input type="password" id="password" class="form-control" placeholder="Password">
-                </div>
-                <!-- Login Button -->
-                <button type="button" id="loginBtn" class="btn btn-success btn-block">Login</button>
-            </form>
-        </div>
+    <div class="container">
+        <h2>Login to Grant.it</h2>
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" class="form-control" id="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" required>
+            </div>
+            <div class="form-group">
+                <label for="role">Login as:</label>
+                <select class="form-control" id="role" required>
+                    <option value="" disabled selected>Select Role</option>
+                    <option value="admin">Admin</option>
+                    <option value="coadmin">Co-admin</option>
+                    <option value="student">Student</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-block">Login</button>
+        </form>
     </div>
 
-    <script src="../js/login.js"></script>
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the form from submitting normally
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value; // Password can be used for actual authentication later
+            const role = document.getElementById('role').value;
+
+            // Redirect to respective pages based on the role
+            if (role === "admin") {
+                window.location.href = "admin_dashboard.html"; // Redirect to Admin Dashboard
+            } else if (role === "coadmin") {
+                window.location.href = "coadmin_dashboard.html"; // Redirect to Co-admin Dashboard
+            } else if (role === "student") {
+                window.location.href = "student_dashboard.html"; // Redirect to Student Dashboard
+            }
+        });
+    </script>
 </body>
 </html>
