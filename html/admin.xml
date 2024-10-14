@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>grant.it - Admin Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/styles-admin.css">
+</head>
+<body>
+  <h1>grant.it - Admin Dashboard</h1>
+  <div class="dashboard-box">
+    <h2>Manage Co-admins and Students</h2>
+    <div class="action-buttons">
+      <button id="addCoAdmin" class="action-button">Add Co-admin</button>
+      <button id="addStudent" class="action-button">Add Student</button>
+    </div>
+  </div>
+  <script src="../js/admin.js"></script>
+</body>
+</html>

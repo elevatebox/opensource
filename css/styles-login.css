@@ -1,0 +1,53 @@
+/* General Styles */
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #FF4C4C; /* Red background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+  
+  /* Login Container */
+  .login-container {
+    width: 400px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.9); /* Semi-transparent white */
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    text-align: center;
+  }
+  
+  /* Input Fields */
+  input, select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1em;
+  }
+  
+  /* Button Styles */
+  .action-button {
+    background-color: #FFD700; /* Gold button color */
+    color: #1E90FF; /* Blue text color */
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .action-button:hover {
+    background-color: #FFC107; /* Slightly darker gold on hover */
+  }
+  
+  /* Message Style */
+  #message {
+    margin-top: 10px;
+    color: red; /* Error message color */
+  }
+  
