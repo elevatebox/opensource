@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Admin Desk</title>
+    <style>
+        body {
+            background-color: #9f23f1;
+        }
+        .admin-desk {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .request {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f1f1f1;
+        }
+    </style>
+</head>
+<body>
+
+<div class="admin-desk">
+    <h1 class="text-center">Admin Desk</h1>
+    <div class="form-group">
+        <label for="admin-role">Select Department:</label>
+        <select id="admin-role" class="form-control">
+            <option value="cse">CSE</option>
+            <option value="ece">ECE</option>
+            <option value="eie">EIE</option>
+            <option value="eee">EEE</option>
+            <option value="mech">MECH</option>
+        </select>
+    </div>
+    
+    <h2>Pending Requests</h2>
+    <div id="requests-container">
+        <!-- Requests will be dynamically added here -->
+    </div>
+
+    <h2>Add Request</h2>
+    <div class="form-group">
+        <label for="student-name">Student Name:</label>
+        <input type="text" id="student-name" class="form-control" placeholder="Enter student name">
+    </div>
+    <div class="form-group">
+        <label for="request-type">Request Type:</label>
+        <input type="text" id="request-type" class="form-control" placeholder="Enter request type">
+    </div>
+    <button class="btn btn-primary" onclick="addRequest()">Add Request</button>
+</div>
+
+<script>
+    const requestsContainer = document.getElementById('requests-container');
+
+    function addRequest() {
+        const studentName = document.getElementById('student-name').value;
+        const requestType = document.getElementById('request-type').value;
+
+        if (!studentName || !requestType) {
+            alert('Please fill in all fields.');
+            return;
+        }
+
+        const requestDiv = document.createElement('div');
+        requestDiv.className = 'request';
+        requestDiv.innerHTML = `
+            <strong>${studentName}</strong> requested: ${requestType}
+            <button class="btn btn-success btn-sm float-right ml-2" onclick="acceptRequest(this)">Accept</button>
+            <button class="btn btn-danger btn-sm float-right" onclick="rejectRequest(this)">Reject</button>
+        `;
+
+        requestsContainer.appendChild(requestDiv);
+
+        // Clear input fields
+        document.getElementById('student-name').value = '';
+        document.getElementById('request-type').value = '';
+    }
+
+    function acceptRequest(button) {
+        const requestDiv = button.parentElement;
+        requestDiv.innerHTML += ' <span class="text-success">Accepted</span>';
+        button.remove();
+        requestDiv.querySelector('.btn-danger').remove();
+    }
+
+    function rejectRequest(button) {
+        const requestDiv = button.parentElement;
+        requestDiv.innerHTML += ' <span class="text-danger">Rejected</span>';
+        button.remove();
+        requestDiv.querySelector('.btn-success').remove();
+    }
+</script>
+
+</body>
+</html>
+
+
