@@ -1,0 +1,107 @@
+<script>
+    let students = [
+        { username: "student1", branch: "Computer Science", rollNo: "CS101" },
+        { username: "student2", branch: "Mechanical Engineering", rollNo: "ME202" }
+    ];
+    let requests = [
+        { student: "student1", branch: "Computer Science", request: "Need leave for a day", status: "Pending", timestamp: new Date().toLocaleString() }
+    ];
+
+    const studentList = document.getElementById('studentList');
+    const requestList = document.getElementById('requestList');
+
+    // Load Students
+    function loadStudents() {
+        studentList.innerHTML = '';
+        students.forEach((student, index) => {
+            const div = document.createElement('div');
+            div.innerHTML = `
+                <div class="student-item d-flex justify-content-between align-items-center">
+                    <span><strong>${student.username}</strong> - ${student.branch} (Roll No: ${student.rollNo})</span>
+                    <div>
+                        <button class="btn btn-primary btn-sm float-right" onclick="editStudent(${index})" data-toggle="modal" data-target="#studentModal">Edit</button>
+                        <button class="btn btn-danger btn-sm float-right" onclick="removeStudent(${index})">Remove</button>
+                    </div>
+                </div>
+            `;
+            studentList.appendChild(div);
+        });
+    }
+
+    // Load Requests
+    function loadRequests() {
+        requestList.innerHTML = '';
+        requests.forEach((request, index) => {
+            const div = document.createElement('div');
+            div.innerHTML = `
+                <div class="request-item">
+                    <strong>${request.student}</strong> (${request.branch})<br>
+                    <em>${request.request}</em><br>
+                    Status: <strong>${request.status}</strong><br>
+                    <small>${request.timestamp}</small>
+                    <button class="btn btn-success btn-sm float-right" onclick="approveRequest(${index})">Approve</button>
+                    <button class="btn btn-danger btn-sm float-right" onclick="rejectRequest(${index})">Reject</button>
+                </div>
+            `;
+            requestList.appendChild(div);
+        });
+    }
+
+    // Add/Edit Student
+    document.getElementById('addStudentBtn').addEventListener('click', function() {
+        document.getElementById('studentForm').reset();
+        document.getElementById('studentModalLabel').innerText = "Add Student";
+        document.getElementById('saveStudentBtn').setAttribute('onclick', 'saveStudent()');
+    });
+
+    function editStudent(index) {
+        const student = students[index];
+        document.getElementById('username').value = student.username;
+        document.getElementById('branch').value = student.branch;
+        document.getElementById('rollNo').value = student.rollNo;
+        document.getElementById('studentModalLabel').innerText = "Edit Student";
+        document.getElementById('saveStudentBtn').setAttribute('onclick', `updateStudent(${index})`);
+    }
+
+    function saveStudent() {
+        const username = document.getElementById('username').value;
+        const branch = document.getElementById('branch').value;
+        const rollNo = document.getElementById('rollNo').value;
+        students.push({ username, branch, rollNo });
+        $('#studentModal').modal('hide');
+        loadStudents();
+    }
+
+    function updateStudent(index) {
+        const username = document.getElementById('username').value;
+        const branch = document.getElementById('branch').value;
+        const rollNo = document.getElementById('rollNo').value;
+        students[index] = { username, branch, rollNo };
+        $('#studentModal').modal('hide');
+        loadStudents();
+    }
+
+    // Remove Student
+    function removeStudent(index) {
+        students.splice(index, 1);
+        loadStudents();
+    }
+
+    // Approve Request
+    function approveRequest(index) {
+        requests[index].status = "Approved";
+        requests.splice(index, 1); // Remove the request from the list
+        loadRequests();
+    }
+
+    // Reject Request
+    function rejectRequest(index) {
+        requests[index].status = "Rejected";
+        requests.splice(index, 1); // Remove the request from the list
+        loadRequests();
+    }
+
+    // Initial Load
+    loadStudents();
+    loadRequests();
+</script>
