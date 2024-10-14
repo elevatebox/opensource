@@ -32,3 +32,47 @@ function submitRequest() {
         alert('Please enter request details.');
     }
 }
+function submitRequest() {
+    // Logic for submitting the request
+    const notification = document.getElementById('notification');
+    notification.innerText = "Request sent successfully";
+    notification.style.display = "block"; // Show the notification
+
+    setTimeout(() => {
+        notification.style.display = "none"; // Hide after 2 seconds
+    }, 2000);
+}
+function updateStudent() {
+    // Logic for updating student details
+    const notification = document.getElementById('notification');
+    notification.innerText = "Student details updated successfully";
+    notification.style.display = "block"; // Show the notification
+
+    setTimeout(() => {
+        notification.style.display = "none"; // Hide after 2 seconds
+    }, 2000);
+}
+
+function submitRequest() {
+    const subjectLine = document.getElementById('subjectLine').value;
+    const requestDetails = document.getElementById('studentRequest').value;
+
+    // Find the student based on the username
+    const username = document.getElementById('studentUsername').value; // Assuming username is used to identify students
+    const student = students.find(s => s.username === username);
+
+    if (student) {
+        // Save the request
+        student.requests.push({ subjectLine, details: requestDetails });
+        
+        // Notify co-admin
+        notifyCoAdmin({ username: student.username, subjectLine, requestDetails });
+
+        const notification = document.getElementById('notification');
+        notification.innerText = "Request sent successfully!";
+        notification.style.display = "block";
+        setTimeout(() => {
+            notification.style.display = "none";
+        }, 2000);
+    }
+}

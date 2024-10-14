@@ -5,33 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <title>Student - grant.it</title>
     <style>
+        body {
+            background-color: #d4edda; /* Light green background for student */
+        }
+        h2 {
+            color: #155724; /* Dark green color for headings */
+        }
         .notification {
-            display: none;
+            display: none; /* Initially hidden */
             position: fixed;
             top: 20px;
             right: 20px;
-            background-color: #28a745;
+            padding: 10px;
+            background-color: #28a745; /* Green background */
             color: white;
-            padding: 15px;
             border-radius: 5px;
-            animation: fadeIn 0.5s, fadeOut 0.5s 3s forwards;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        @keyframes fadeOut {
-            from { opacity: 1; }
-            to { opacity: 0; }
+            z-index: 1000;
         }
     </style>
 </head>
 <body>
     <div class="container mt-5">
-        <h2>Student Dashboard</h2>
-        <h4>Please enter your details:</h4>
+        <h2><i class="fas fa-user-graduate"></i> Student Dashboard</h2>
         <input type="text" id="studentName" placeholder="Your Name" class="form-control mb-2">
         <input type="text" id="studentUsername" placeholder="Username" class="form-control mb-2">
         <input type="text" id="studentRollNo" placeholder="Roll Number" class="form-control mb-2">
@@ -50,10 +48,10 @@
 
         <ul class="nav nav-tabs" id="studentTabs">
             <li class="nav-item">
-                <a class="nav-link active" data-toggle="tab" href="#requestPermission">Request Permission</a>
+                <a class="nav-link active" data-toggle="tab" href="#requestPermission"><i class="fas fa-paper-plane"></i> Request Permission</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#requestHistory">Request History</a>
+                <a class="nav-link" data-toggle="tab" href="#requestHistory"><i class="fas fa-history"></i> Request History</a>
             </li>
         </ul>
 
@@ -74,11 +72,8 @@
 
     <div class="notification" id="notification"></div>
 
-    <script src="js/script.js"></script>
-    
     <script>
-        let students = JSON.parse(localStorage.getItem('students')) || [];
-        let requests = JSON.parse(localStorage.getItem('requests')) || [];
+        const studentsData = []; // Global array to store students' details
 
         function submitDetails() {
             const name = document.getElementById('studentName').value;
@@ -86,71 +81,36 @@
             const rollNo = document.getElementById('studentRollNo').value;
             const branch = document.getElementById('studentBranchSelect').value;
 
-            if (name && username && rollNo && branch) {
-                const studentDetails = { name, username, rollNo, branch };
-                students.push(studentDetails);
-                localStorage.setItem('students', JSON.stringify(students));
-                showNotification("Your details have been submitted to the co-admin.");
-                clearStudentInputs();
-            } else {
-                alert('Please fill in all fields.');
-            }
-        }
+            // Create a student object
+            const student = { name, username, rollNo, branch, requests: [] };
+            studentsData.push(student); // Store student details
 
-        function clearStudentInputs() {
-            document.getElementById('studentName').value = '';
-            document.getElementById('studentUsername').value = '';
-            document.getElementById('studentRollNo').value = '';
-            document.getElementById('studentBranchSelect').value = '';
+            const notification = document.getElementById('notification');
+            notification.innerText = "Details submitted successfully!";
+            notification.style.display = "block";
+            setTimeout(() => {
+                notification.style.display = "none";
+            }, 2000);
         }
 
         function submitRequest() {
             const subjectLine = document.getElementById('subjectLine').value;
-            const details = document.getElementById('studentRequest').value;
+            const requestDetails = document.getElementById('studentRequest').value;
+            const username = document.getElementById('studentUsername').value;
 
-            if (subjectLine && details) {
-                const currentStudent = students[students.length - 1]; // Assuming the last submitted student details
-                const newRequest = {
-                    student: currentStudent,
-                    subjectLine,
-                    details,
-                    status: 'Pending'
-                };
-                requests.push(newRequest);
-                localStorage.setItem('requests', JSON.stringify(requests));
-                showNotification("Request sent successfully.");
-                clearRequestInputs();
-                renderRequestHistory();
-            } else {
-                alert('Please fill in all fields.');
+            // Find the student and add the request
+            const student = studentsData.find(s => s.username === username);
+            if (student) {
+                student.requests.push({ subjectLine, details: requestDetails });
+                
+                const notification = document.getElementById('notification');
+                notification.innerText = "Request sent successfully!";
+                notification.style.display = "block";
+                setTimeout(() => {
+                    notification.style.display = "none";
+                }, 2000);
             }
         }
-
-        function clearRequestInputs() {
-            document.getElementById('subjectLine').value = '';
-            document.getElementById('studentRequest').value = '';
-        }
-
-        function renderRequestHistory() {
-            const list = document.getElementById('requestHistoryList');
-            list.innerHTML = '';
-            requests.forEach((request) => {
-                list.innerHTML += `<li>${request.subjectLine}: ${request.details} - ${request.status} 
-                (Requested by: ${request.student.name}, Roll No: ${request.student.rollNo})</li>`;
-            });
-        }
-
-        function showNotification(message) {
-            const notification = document.getElementById('notification');
-            notification.textContent = message;
-            notification.style.display = 'block';
-            setTimeout(() => {
-                notification.style.display = 'none';
-            }, 4000);
-        }
-
-        // Initial render
-        renderRequestHistory();
     </script>
 </body>
 </html>

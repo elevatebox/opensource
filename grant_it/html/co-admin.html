@@ -5,34 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <title>Co-admin - grant.it</title>
     <style>
-        .notification {
-            display: none;
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background-color: #a79428;
-            color: rgb(33, 21, 21);
-            padding: 15px;
-            border-radius: 5px;
-            animation: fadeIn 0.5s, fadeOut 0.5s 3s forwards;
+        body {
+            background-color: #e7f3fe; /* Light blue background for co-admin */
         }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        @keyframes fadeOut {
-            from { opacity: 1; }
-            to { opacity: 0; }
+        h2 {
+            color: #0056b3; /* Dark blue color for headings */
         }
     </style>
 </head>
 <body>
     <div class="container mt-5">
-        <h2>Co-admin Dashboard</h2>
+        <h2><i class="fas fa-chalkboard-teacher"></i> Co-admin Dashboard</h2>
+
         <h4>Select Your Branch</h4>
-        <select id="branchSelect" class="form-control mb-3" onchange="setBranch()">
+        <select id="branchSelect" class="form-control mb-3" onchange="filterStudents()">
             <option value="">Select a branch</option>
             <option value="Computer Science">Computer Science</option>
             <option value="Information Technology">Information Technology</option>
@@ -41,120 +30,80 @@
             <option value="Civil">Civil</option>
         </select>
 
-        <h4>Assigned Branch: <span id="assignedBranch">None</span></h4>
-        
-        <ul class="nav nav-tabs" id="coadminTabs">
-            <li class="nav-item">
-                <a class="nav-link active" data-toggle="tab" href="#studentManagement">Student Management</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#requests">Requests</a>
-            </li>
-        </ul>
+        <h4>Student Details</h4>
+        <ul id="studentList" class="list-group mb-3"></ul>
 
-        <div class="tab-content">
-            <div class="tab-pane active" id="studentManagement">
-                <h3>Manage Students</h3>
-                <ul id="studentList" class="list-group mb-3"></ul>
-                <h5>Edit Student Details</h5>
-                <input type="text" id="editStudentName" placeholder="New Name" class="form-control mb-2">
-                <input type="text" id="editStudentUsername" placeholder="New Username" class="form-control mb-2">
-                <input type="text" id="editStudentRollNo" placeholder="New Roll Number" class="form-control mb-2">
-                <button class="btn btn-success" onclick="updateStudent()">Update Student</button>
-            </div>
-            <div class="tab-pane" id="requests">
-                <h3>Student Requests</h3>
-                <ul id="requestList" class="mt-3"></ul>
+        <!-- Modal for notifications -->
+        <div class="modal fade" id="notificationModal" tabindex="-1" role="dialog" aria-labelledby="notificationLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="notificationLabel">Student Request</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="notificationContent">
+                        <!-- Dynamic content will be injected here -->
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-success" id="approveButton" onclick="manageRequest('approved')">Approve</button>
+                        <button type="button" class="btn btn-danger" id="rejectButton" onclick="manageRequest('rejected')">Reject</button>
+                    </div>
+                </div>
             </div>
         </div>
+
+        <!-- Co-admin content goes here -->
     </div>
 
-    <div class="notification" id="notification"></div>
-
-    <script src="js/script.js"></script>
-    
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
-        let students = JSON.parse(localStorage.getItem('students')) || [];
-        let requests = JSON.parse(localStorage.getItem('requests')) || [];
-        let assignedBranch = '';
+        let currentRequest = null; // To track the current request being managed
 
-        function setBranch() {
-            assignedBranch = document.getElementById('branchSelect').value;
-            document.getElementById('assignedBranch').innerText = assignedBranch;
-            renderStudentList();
-            renderRequestList();
-        }
+        function filterStudents() {
+            const branch = document.getElementById('branchSelect').value;
+            const studentList = document.getElementById('studentList');
+            studentList.innerHTML = ''; // Clear previous results
 
-        function renderStudentList() {
-            const list = document.getElementById('studentList');
-            list.innerHTML = '';
-            students.forEach((student, index) => {
-                if (student.branch === assignedBranch) {
-                    list.innerHTML += `<li class="list-group-item d-flex justify-content-between align-items-center">
-                        ${student.name} (Roll No: ${student.rollNo})
-                        <button class="btn btn-danger btn-sm" onclick="removeStudent(${index})">Remove</button>
-                        <button class="btn btn-info btn-sm" onclick="editStudent(${index})">Edit</button>
-                    </li>`;
-                }
+            const filteredStudents = studentsData.filter(student => student.branch === branch);
+            filteredStudents.forEach(student => {
+                const li = document.createElement('li');
+                li.className = 'list-group-item';
+                li.innerHTML = `${student.name} (${student.username}) - Roll No: ${student.rollNo} 
+                <button class="btn btn-info btn-sm float-right" onclick="viewRequests('${student.username}')">View Requests</button>`;
+                studentList.appendChild(li);
             });
         }
 
-        function renderRequestList() {
-            const list = document.getElementById('requestList');
-            list.innerHTML = '';
-            requests.forEach((request) => {
-                if (request.student.branch === assignedBranch) {
-                    list.innerHTML += `<li>${request.subjectLine}: ${request.details} - ${request.status} 
-                    (Requested by: ${request.student.name}, Roll No: ${request.student.rollNo})</li>`;
-                }
-            });
-        }
-
-        function editStudent(index) {
-            const student = students[index];
-            document.getElementById('editStudentName').value = student.name;
-            document.getElementById('editStudentUsername').value = student.username;
-            document.getElementById('editStudentRollNo').value = student.rollNo;
-            document.getElementById('editStudentRollNo').setAttribute('data-index', index);
-        }
-
-        function updateStudent() {
-            const index = document.getElementById('editStudentRollNo').getAttribute('data-index');
-            const newName = document.getElementById('editStudentName').value;
-            const newUsername = document.getElementById('editStudentUsername').value;
-            const newRollNo = document.getElementById('editStudentRollNo').value;
-
-            if (index !== null && newName && newUsername && newRollNo) {
-                students[index] = { ...students[index], name: newName, username: newUsername, rollNo: newRollNo };
-                localStorage.setItem('students', JSON.stringify(students));
-                showNotification("Student details updated successfully.");
-                renderStudentList();
-                clearEditInputs();
+        function viewRequests(username) {
+            const student = studentsData.find(s => s.username === username);
+            if (student && student.requests.length > 0) {
+                currentRequest = student.requests[0]; // Take the first request for example
+                const requestDetails = `<strong>${student.name}'s Request</strong><ul>
+                <li>Subject: ${currentRequest.subjectLine}</li>
+                <li>Details: ${currentRequest.details}</li></ul>`;
+                
+                document.getElementById('notificationContent').innerHTML = requestDetails;
+                $('#notificationModal').modal('show');
             } else {
-                alert('Please fill in all fields.');
+                alert("No requests available.");
             }
         }
 
-        function removeStudent(index) {
-            students.splice(index, 1);
-            localStorage.setItem('students', JSON.stringify(students));
-            showNotification("Student removed successfully.");
-            renderStudentList();
-        }
+        function manageRequest(action) {
+            if (currentRequest) {
+                const notification = document.getElementById('notificationContent');
+                notification.innerHTML += `<p>This request has been ${action}.</p>`;
+                $('#notificationModal').modal('hide');
 
-        function showNotification(message) {
-            const notification = document.getElementById('notification');
-            notification.textContent = message;
-            notification.style.display = 'block';
-            setTimeout(() => {
-                notification.style.display = 'none';
-            }, 4000);
-        }
-
-        function clearEditInputs() {
-            document.getElementById('editStudentName').value = '';
-            document.getElementById('editStudentUsername').value = '';
-            document.getElementById('editStudentRollNo').value = '';
+                // Notify the student (for demo purposes, we can log it)
+                console.log(`Request ${action} for ${currentRequest.subjectLine}`);
+                currentRequest = null; // Clear the current request
+            }
         }
     </script>
 </body>

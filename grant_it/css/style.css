@@ -50,3 +50,24 @@ h1 {
 .btn:hover {
     background-color: darkgreen;
 }
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.notification {
+    display: none; /* Initially hidden */
+    animation: fadeIn 0.5s; /* Animation for fading in */
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 10px;
+    background-color: #28a745; /* Green background */
+    color: white;
+    border-radius: 5px;
+    z-index: 1000;
+}
