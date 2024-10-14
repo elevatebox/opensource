@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student - grant.it</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Student Dashboard</h2>
+        <ul class="nav nav-tabs" id="studentTabs">
+            <li class="nav-item">
+                <a class="nav-link active" href="#requestPermissionTab" data-toggle="tab">Request Permission</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#requestHistoryTab" data-toggle="tab">Request History</a>
+            </li>
+        </ul>
+        <div class="tab-content mt-3">
+            <div class="tab-pane fade show active" id="requestPermissionTab">
+                <input type="text" class="form-control mb-2" placeholder="Subject Line">
+                <textarea class="form-control mb-2" rows="4" placeholder="Details"></textarea>
+                <button class="btn btn-primary">Send</button>
+                <button class="btn btn-secondary">Cancel</button>
+            </div>
+            <div class="tab-pane fade" id="requestHistoryTab">
+                <div id="requestHistory"></div>
+            </div>
+        </div>
+    </div>
+    <script src="../js/student.js"></script>
+</body>
+</html>

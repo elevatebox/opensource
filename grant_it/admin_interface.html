@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - grant.it</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Admin Dashboard</h2>
+        <ul class="nav nav-tabs" id="adminTabs">
+            <li class="nav-item">
+                <a class="nav-link active" href="#coadminTab" data-toggle="tab">Co-admin Management</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#studentTab" data-toggle="tab">Student Management</a>
+            </li>
+        </ul>
+        <div class="tab-content mt-3">
+            <div class="tab-pane fade show active" id="coadminTab">
+                <!-- Co-admin Management -->
+                <button class="btn btn-success" onclick="addCoadmin()">Add Co-admin</button>
+                <div id="coadminList"></div>
+            </div>
+            <div class="tab-pane fade" id="studentTab">
+                <!-- Student Management -->
+                <button class="btn btn-success" onclick="addStudent()">Add Student</button>
+                <div id="studentList"></div>
+            </div>
+        </div>
+    </div>
+    <script src="../js/admin.js"></script>
+</body>
+</html>
