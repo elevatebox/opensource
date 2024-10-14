@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Dashboard</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Student Dashboard</h2>
+        <div class="tab-content">
+            <div id="request-permission-tab">
+                <h3>Request Permission</h3>
+                <input type="text" class="form-control" placeholder="Subject" id="requestSubject">
+                <textarea class="form-control" id="requestDetails" rows="4" placeholder="Details"></textarea>
+                <button class="btn btn-success" id="sendRequest">Send</button>
+                <button class="btn btn-danger" id="cancelRequest">Cancel</button>
+            </div>
+            <div id="request-history-tab">
+                <h3>Request History</h3>
+                <!-- Display past requests here -->
+            </div>
+        </div>
+    </div>
+</body>
+</html>
