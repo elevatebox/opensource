@@ -1,0 +1,24 @@
+{
+    "admin": {
+      "username": "admin",
+      "password": "adminpass"
+    },
+    "co-admins": [
+      {
+        "username": "coadmin1",
+        "password": "pass123",
+        "branch": "Science"
+      }
+    ],
+    "students": [
+      {
+        "username": "student1",
+        "password": "studpass",
+        "branch": "Science",
+        "requests": [
+          { "subject": "Medical Leave", "status": "approved" }
+        ]
+      }
+    ]
+  }
+  
