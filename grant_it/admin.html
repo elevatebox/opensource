@@ -1,36 +1,207 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Dashboard</title>
-  <link rel="stylesheet" href="../css/style.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>grant.it - Admin Interface</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .app-name {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #28a745;
+        }
+    </style>
 </head>
 <body>
-  <div class="container mt-5">
-    <h1>Admin Dashboard</h1>
-    <ul class="nav nav-tabs" id="myTab" role="tablist">
-      <li class="nav-item" role="presentation">
-        <button class="nav-link active" id="coadmin-tab" data-bs-toggle="tab" data-bs-target="#coadmin" type="button" role="tab">Co-admin Management</button>
-      </li>
-      <li class="nav-item" role="presentation">
-        <button class="nav-link" id="student-tab" data-bs-toggle="tab" data-bs-target="#student" type="button" role="tab">Student Management</button>
-      </li>
-    </ul>
-    <div class="tab-content mt-3" id="myTabContent">
-      <!-- Co-admin Management Tab -->
-      <div class="tab-pane fade show active" id="coadmin" role="tabpanel">
-        <h3>Manage Co-admins</h3>
-        <!-- CRUD operations for Co-admins will go here -->
-      </div>
-      <!-- Student Management Tab -->
-      <div class="tab-pane fade" id="student" role="tabpanel">
-        <h3>Manage Students</h3>
-        <!-- CRUD operations for Students will go here -->
-      </div>
+    <div class="container mt-3">
+        <h1 class="text-center app-name mb-4">grant.it - Admin Interface</h1>
+
+        <ul class="nav nav-tabs" id="adminTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="co-admin-tab" data-bs-toggle="tab" data-bs-target="#co-admin" type="button" role="tab">Co-admin Management</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="student-tab" data-bs-toggle="tab" data-bs-target="#student" type="button" role="tab">Student Management</button>
+            </li>
+        </ul>
+
+        <div class="tab-content mt-3" id="adminTabContent">
+            <div class="tab-pane fade show active" id="co-admin" role="tabpanel">
+                <h2>Co-admin Management</h2>
+                <form id="coAdminForm" class="mb-4">
+                    <div class="mb-3">
+                        <label for="coAdminName" class="form-label">Name:</label>
+                        <input type="text" class="form-control" id="coAdminName" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="coAdminUsername" class="form-label">Username:</label>
+                        <input type="text" class="form-control" id="coAdminUsername" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="coAdminPassword" class="form-label">Password:</label>
+                        <input type="password" class="form-control" id="coAdminPassword" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="coAdminBranch" class="form-label">Branch:</label>
+                        <select class="form-select" id="coAdminBranch" required>
+                            <option value="">Select branch</option>
+                            <option value="CS">Computer Science</option>
+                            <option value="EE">Electrical Engineering</option>
+                            <option value="ME">Mechanical Engineering</option>
+                            <option value="CE">Civil Engineering</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add Co-admin</button>
+                </form>
+
+                <h3>Existing Co-admins</h3>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Username</th>
+                            <th>Branch</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="coAdminTableBody">
+                        <!-- Co-admins will be dynamically added here -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="tab-pane fade" id="student" role="tabpanel">
+                <h2>Student Management</h2>
+                <form id="studentForm" class="mb-4">
+                    <div class="mb-3">
+                        <label for="studentName" class="form-label">Name:</label>
+                        <input type="text" class="form-control" id="studentName" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="studentUsername" class="form-label">Username:</label>
+                        <input type="text" class="form-control" id="studentUsername" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="studentPassword" class="form-label">Password:</label>
+                        <input type="password" class="form-control" id="studentPassword" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="studentBranch" class="form-label">Branch:</label>
+                        <select class="form-select" id="studentBranch" required>
+                            <option value="">Select branch</option>
+                            <option value="CS">Computer Science</option>
+                            <option value="EE">Electrical Engineering</option>
+                            <option value="ME">Mechanical Engineering</option>
+                            <option value="CE">Civil Engineering</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add Student</button>
+                </form>
+
+                <h3>Existing Students</h3>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Username</th>
+                            <th>Branch</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="studentTableBody">
+                        <!-- Students will be dynamically added here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-  </div>
-  <script src="../js/main.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Dummy data for existing co-admins and students
+        const coAdmins = [
+            { name: "John Doe", username: "john_doe", branch: "CS" },
+            { name: "Jane Smith", username: "jane_smith", branch: "EE" }
+        ];
+
+        const students = [
+            { name: "Alice Johnson", username: "alice_j", branch: "ME" },
+            { name: "Bob Williams", username: "bob_w", branch: "CE" }
+        ];
+
+        // Function to add co-admin to the table
+        function addCoAdminToTable(admin) {
+            const tableBody = document.getElementById('coAdminTableBody');
+            const row = tableBody.insertRow();
+            row.innerHTML = `
+                <td>${admin.name}</td>
+                <td>${admin.username}</td>
+                <td>${admin.branch}</td>
+                <td>
+                    <button class="btn btn-sm btn-warning edit-co-admin">Edit</button>
+                    <button class="btn btn-sm btn-danger delete-co-admin">Delete</button>
+                </td>
+            `;
+        }
+
+        // Function to add student to the table
+        function addStudentToTable(student) {
+            const tableBody = document.getElementById('studentTableBody');
+            const row = tableBody.insertRow();
+            row.innerHTML = `
+                <td>${student.name}</td>
+                <td>${student.username}</td>
+                <td>${student.branch}</td>
+                <td>
+                    <button class="btn btn-sm btn-warning edit-student">Edit</button>
+                    <button class="btn btn-sm btn-danger delete-student">Delete</button>
+                </td>
+            `;
+        }
+
+        // Populate existing co-admins and students
+        window.onload = function() {
+            coAdmins.forEach(admin => addCoAdminToTable(admin));
+            students.forEach(student => addStudentToTable(student));
+        };
+
+        // Handle co-admin form submission
+        document.getElementById('coAdminForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('coAdminName').value;
+            const username = document.getElementById('coAdminUsername').value;
+            const branch = document.getElementById('coAdminBranch').value;
+            addCoAdminToTable({ name, username, branch });
+            this.reset();
+        });
+
+        // Handle student form submission
+        document.getElementById('studentForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('studentName').value;
+            const username = document.getElementById('studentUsername').value;
+            const branch = document.getElementById('studentBranch').value;
+            addStudentToTable({ name, username, branch });
+            this.reset();
+        });
+
+        // Event delegation for edit and delete buttons
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('edit-co-admin')) {
+                alert('Edit co-admin functionality to be implemented');
+            } else if (e.target.classList.contains('delete-co-admin')) {
+                if (confirm('Are you sure you want to delete this co-admin?')) {
+                    e.target.closest('tr').remove();
+                }
+            } else if (e.target.classList.contains('edit-student')) {
+                alert('Edit student functionality to be implemented');
+            } else if (e.target.classList.contains('delete-student')) {
+                if (confirm('Are you sure you want to delete this student?')) {
+                    e.target.closest('tr').remove();
+                }
+            }
+        });
+    </script>
 </body>
 </html>

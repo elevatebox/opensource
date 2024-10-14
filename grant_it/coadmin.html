@@ -1,99 +1,273 @@
+1 message remaining until 6:30 PM
+Subscribe to Pro
+
+Subscribe to Pro for 5x more usage with Claude 3.5 Sonnet.
+Subscribe to Pro
+grant.it Co-admin Interface
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Co-admin Dashboard</title>
-  <link rel="stylesheet" href="../css/style.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>grant.it - Co-admin Interface</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .app-name {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #28a745;
+        }
+        .new-request, .new-student {
+            animation: fadeIn 1s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
 </head>
 <body>
-  <div class="container mt-5">
-    <h1>Co-admin Dashboard</h1>
-    <h3>Branch: <span id="branchName">Science</span></h3> <!-- Display the assigned branch dynamically -->
-    
-    <!-- Tab navigation for the co-admin dashboard -->
-    <ul class="nav nav-tabs" id="myTab" role="tablist">
-      <li class="nav-item" role="presentation">
-        <button class="nav-link active" id="students-tab" data-bs-toggle="tab" data-bs-target="#students" type="button" role="tab">Student Management</button>
-      </li>
-      <li class="nav-item" role="presentation">
-        <button class="nav-link" id="requests-tab" data-bs-toggle="tab" data-bs-target="#requests" type="button" role="tab">Requests</button>
-      </li>
-    </ul>
+    <div class="container mt-3">
+        <h1 class="text-center app-name mb-4">grant.it - Co-admin Interface</h1>
 
-    <!-- Tab content for managing students and handling requests -->
-    <div class="tab-content mt-3" id="myTabContent">
-      <!-- Student Management Tab -->
-      <div class="tab-pane fade show active" id="students" role="tabpanel">
-        <h3>Manage Students</h3>
-        <div class="mb-3">
-          <input type="text" class="form-control" id="studentSearch" placeholder="Search by student name or ID">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="requests-tab" data-bs-toggle="tab" data-bs-target="#requests" type="button" role="tab" aria-controls="requests" aria-selected="true">Student Requests</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="students-tab" data-bs-toggle="tab" data-bs-target="#students" type="button" role="tab" aria-controls="students" aria-selected="false">Student Management</button>
+            </li>
+        </ul>
+
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="requests" role="tabpanel" aria-labelledby="requests-tab">
+                <div class="row mb-3 mt-3">
+                    <div class="col">
+                        <h2>Student Requests</h2>
+                    </div>
+                    <div class="col-auto">
+                        <select id="branchFilter" class="form-select">
+                            <option value="">All Branches</option>
+                            <option value="CS">Computer Science</option>
+                            <option value="EE">Electrical Engineering</option>
+                            <option value="ME">Mechanical Engineering</option>
+                            <option value="CE">Civil Engineering</option>
+                        </select>
+                    </div>
+                </div>
+
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Student Name</th>
+                            <th>Branch</th>
+                            <th>Request Type</th>
+                            <th>Details</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="requestTableBody">
+                        <!-- Requests will be dynamically added here -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="tab-pane fade" id="students" role="tabpanel" aria-labelledby="students-tab">
+                <div class="row mb-3 mt-3">
+                    <div class="col">
+                        <h2>Student Management</h2>
+                    </div>
+                </div>
+
+                <form id="studentForm" class="mb-4">
+                    <div class="row">
+                        <div class="col-md-3 mb-3">
+                            <input type="text" class="form-control" id="studentName" placeholder="Student Name" required>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <input type="text" class="form-control" id="studentId" placeholder="Student ID" required>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <select class="form-select" id="studentBranch" required>
+                                <option value="">Select Branch</option>
+                                <option value="CS">Computer Science</option>
+                                <option value="EE">Electrical Engineering</option>
+                                <option value="ME">Mechanical Engineering</option>
+                                <option value="CE">Civil Engineering</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <button type="submit" class="btn btn-primary w-100">Add Student</button>
+                        </div>
+                    </div>
+                </form>
+
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Student ID</th>
+                            <th>Branch</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="studentTableBody">
+                        <!-- Students will be dynamically added here -->
+                    </tbody>
+                </table>
+            </div>
         </div>
-        <table class="table">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Name</th>
-              <th>Branch</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody id="studentList">
-            <!-- This will be dynamically populated with student data -->
-            <tr>
-              <td>1</td>
-              <td>adish</td>
-              <td>Social</td>
-              <td>
-                <button class="btn btn-warning btn-sm">Edit</button>
-                <button class="btn btn-danger btn-sm">Delete</button>
-              </td>
-            </tr>
-            <!-- Additional student rows can be dynamically added here -->
-          </tbody>
-        </table>
-        <!-- Buttons for adding a new student -->
-        <button class="btn btn-primary">Add Student</button>
-      </div>
-
-      <!-- Requests Tab -->
-      <div class="tab-pane fade" id="requests" role="tabpanel">
-        <h3>Manage Requests</h3>
-        <div class="alert alert-info" id="newRequestAnimation" style="display:none;">New Request Received!</div> <!-- Animation for new requests -->
-        
-        <table class="table">
-          <thead>
-            <tr>
-              <th>Request ID</th>
-              <th>Student Name</th>
-              <th>Subject</th>
-              <th>Status</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody id="requestList">
-            <!-- Dynamically populated with request data -->
-            <tr>
-              <td>REQ123</td>
-              <td>adish</td>
-              <td>Medical Leave</td>
-              <td><span class="badge bg-secondary">Pending</span></td>
-              <td>
-                <button class="btn btn-success btn-sm">Approve</button>
-                <button class="btn btn-danger btn-sm">Reject</button>
-              </td>
-            </tr>
-            <!-- Additional request rows can be dynamically added here -->
-          </tbody>
-        </table>
-      </div>
     </div>
-  </div>
 
-  <!-- Bootstrap JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <!-- Custom JS -->
-  <script src="../js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Dummy data for student requests
+        const studentRequests = [
+            { id: 1, name: "Alice Johnson", branch: "CS", type: "Gatepass", details: "Doctor's appointment", status: "Pending" },
+            { id: 2, name: "Bob Williams", branch: "EE", type: "Outpass", details: "Family function", status: "Pending" },
+            { id: 3, name: "Charlie Brown", branch: "ME", type: "Gatepass", details: "Bank work", status: "Approved" },
+            { id: 4, name: "Diana Smith", branch: "CE", type: "Outpass", details: "Sister's wedding", status: "Rejected" }
+        ];
+
+        // Dummy data for students
+        let students = [
+            { name: "Alice Johnson", id: "CS001", branch: "CS" },
+            { name: "Bob Williams", id: "EE001", branch: "EE" },
+            { name: "Charlie Brown", id: "ME001", branch: "ME" },
+            { name: "Diana Smith", id: "CE001", branch: "CE" }
+        ];
+
+        function addRequestToTable(request) {
+            const tableBody = document.getElementById('requestTableBody');
+            const row = tableBody.insertRow();
+            row.innerHTML = `
+                <td>${request.name}</td>
+                <td>${request.branch}</td>
+                <td>${request.type}</td>
+                <td>${request.details}</td>
+                <td>${request.status}</td>
+                <td>
+                    ${request.status === 'Pending' ? `
+                        <button class="btn btn-sm btn-success approve-request" data-id="${request.id}">Approve</button>
+                        <button class="btn btn-sm btn-danger reject-request" data-id="${request.id}">Reject</button>
+                    ` : ''}
+                </td>
+            `;
+            row.classList.add('new-request');
+        }
+
+        function addStudentToTable(student) {
+            const tableBody = document.getElementById('studentTableBody');
+            const row = tableBody.insertRow();
+            row.innerHTML = `
+                <td>${student.name}</td>
+                <td>${student.id}</td>
+                <td>${student.branch}</td>
+                <td>
+                    <button class="btn btn-sm btn-warning edit-student" data-id="${student.id}">Edit</button>
+                    <button class="btn btn-sm btn-danger remove-student" data-id="${student.id}">Remove</button>
+                </td>
+            `;
+            row.classList.add('new-student');
+        }
+
+        function populateRequestTable(requests) {
+            const tableBody = document.getElementById('requestTableBody');
+            tableBody.innerHTML = '';
+            requests.forEach(request => addRequestToTable(request));
+        }
+
+        function populateStudentTable() {
+            const tableBody = document.getElementById('studentTableBody');
+            tableBody.innerHTML = '';
+            students.forEach(student => addStudentToTable(student));
+        }
+
+        // Initial population of the tables
+        populateRequestTable(studentRequests);
+        populateStudentTable();
+
+        // Branch filter functionality for requests
+        document.getElementById('branchFilter').addEventListener('change', function(e) {
+            const selectedBranch = e.target.value;
+            const filteredRequests = selectedBranch 
+                ? studentRequests.filter(request => request.branch === selectedBranch)
+                : studentRequests;
+            populateRequestTable(filteredRequests);
+        });
+
+        // Event delegation for approve and reject buttons
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('approve-request') || e.target.classList.contains('reject-request')) {
+                const requestId = e.target.getAttribute('data-id');
+                const newStatus = e.target.classList.contains('approve-request') ? 'Approved' : 'Rejected';
+                
+                // Update the request status
+                const request = studentRequests.find(req => req.id === parseInt(requestId));
+                if (request) {
+                    request.status = newStatus;
+                    
+                    // Update the table row
+                    const row = e.target.closest('tr');
+                    row.cells[4].textContent = newStatus;
+                    row.cells[5].innerHTML = ''; // Remove action buttons
+                }
+            } else if (e.target.classList.contains('edit-student')) {
+                const studentId = e.target.getAttribute('data-id');
+                const student = students.find(s => s.id === studentId);
+                if (student) {
+                    document.getElementById('studentName').value = student.name;
+                    document.getElementById('studentId').value = student.id;
+                    document.getElementById('studentBranch').value = student.branch;
+                    document.getElementById('studentForm').setAttribute('data-edit-id', studentId);
+                }
+            } else if (e.target.classList.contains('remove-student')) {
+                const studentId = e.target.getAttribute('data-id');
+                if (confirm('Are you sure you want to remove this student?')) {
+                    students = students.filter(s => s.id !== studentId);
+                    populateStudentTable();
+                }
+            }
+        });
+
+        // Handle student form submission (add/edit student)
+        document.getElementById('studentForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('studentName').value;
+            const id = document.getElementById('studentId').value;
+            const branch = document.getElementById('studentBranch').value;
+            const editId = this.getAttribute('data-edit-id');
+
+            if (editId) {
+                // Edit existing student
+                const index = students.findIndex(s => s.id === editId);
+                if (index !== -1) {
+                    students[index] = { name, id, branch };
+                }
+                this.removeAttribute('data-edit-id');
+            } else {
+                // Add new student
+                students.push({ name, id, branch });
+            }
+
+            populateStudentTable();
+            this.reset();
+        });
+
+        // Simulate new requests coming in (for demonstration purposes)
+        setInterval(() => {
+            const newRequest = {
+                id: studentRequests.length + 1,
+                name: `Student ${studentRequests.length + 1}`,
+                branch: ['CS', 'EE', 'ME', 'CE'][Math.floor(Math.random() * 4)],
+                type: Math.random() > 0.5 ? 'Gatepass' : 'Outpass',
+                details: 'New request details',
+                status: 'Pending'
+            };
+            studentRequests.push(newRequest);
+            addRequestToTable(newRequest);
+        }, 10000); // Add a new request every 10 seconds
+    </script>
 </body>
 </html>
