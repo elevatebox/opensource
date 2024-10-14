@@ -1,0 +1,27 @@
+{
+    "admins": [
+      {
+        "username": "admin",
+        "password": "admin123"
+      }
+    ],
+    "coadmins": [
+      {
+        "username": "coadmin",
+        "password": "coadmin123",
+        "branch": "Computer Science"
+      }
+    ],
+    "students": [
+      {
+        "username": "student",
+        "password": "student123",
+        "branch": "Computer Science"
+      }
+    ],
+    "current_coadmin": {
+      "username": "coadmin1",
+      "branch": "Computer Science"
+    }
+  }
+  

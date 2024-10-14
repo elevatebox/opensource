@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Dashboard - grant.it</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Student Dashboard</h1>
+    <ul class="nav nav-tabs" id="studentTab" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" id="request-tab" data-toggle="tab" href="#request" role="tab">Request Permission</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="history-tab" data-toggle="tab" href="#history" role="tab">Request History</a>
+      </li>
+    </ul>
+
+    <div class="tab-content" id="studentTabContent">
+      <div class="tab-pane fade show active" id="request" role="tabpanel">
+        <h2>Request Permission</h2>
+        <form>
+          <div class="form-group">
+            <label for="subject">Subject:</label>
+            <input type="text" class="form-control" id="subject" placeholder="Subject line">
+          </div>
+          <div class="form-group">
+            <label for="details">Details:</label>
+            <textarea class="form-control" id="details" rows="4" placeholder="Permission details"></textarea>
+          </div>
+          <button type="submit" class="btn btn-success">Send</button>
+          <button type="reset" class="btn btn-danger">Cancel</button>
+        </form>
+      </div>
+      <div class="tab-pane fade" id="history" role="tabpanel">
+        <h2>Request History</h2>
+        <!-- Display past requests with status -->
+      </div>
+    </div>
+  </div>
+  <script src="../js/student.js"></script>
+</body>
+</html>
