@@ -1,72 +1,81 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>grant.it - Login</title>
+    <title>grant.it - Main Page</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/style.css">
     <style>
-        *{
-            background-image: url('/images/backgroundweb.jpg'); /* Correct path to your image */
-
-        }
         body {
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            background-color: #add8e6; /* Light blue background */
+            font-family: 'Times New Roman', Times, serif;
         }
-        .login-container {
-            width: 400px;
-            padding: 30px;
-            background-color: rgba(255, 255, 255, 0.9);
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+        .dashboard-title {
+            color: black;
+            margin-top: 20px;
         }
-        h4 {
-            color: rgba(0, 0, 0, 0.952);
-            text-align: center;
-            font-weight: bold;
-        }
-        .form-control, .btn {
-            margin-bottom: 10px;
+        .login-section {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: white; /* White background for the login box */
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
     </style>
 </head>
 <body>
 
-    <div class="login-container">
-        <h4>GRANT.IT</h1>
-        <form id="loginForm">
+    <div class="container">
+        <h1 class="dashboard-title">Welcome to grant.it</h1>
+        <h4>Your School/College Permission Management System</h4>
+
+        <div class="login-section">
+            <h5>Select your role to log in:</h5>
+            <select class="form-control mb-3" id="userRole">
+                <option value="">Login as...</option>
+                <option value="admin">Admin</option>
+                <option value="coadmin">Co-admin</option>
+                <option value="student">Student</option>
+            </select>
+
             <div class="form-group">
-                <label for="role">Login as:</label>
-                <select class="form-control" id="role" name="role">
-                    <option value="admin">Admin</option>
-                    <option value="co-admin">Co-admin</option>
-                    <option value="student">Student</option>
-                </select>
+                <label for="username">Username:</label>
+                <input type="text" class="form-control" id="username" placeholder="Enter your username">
             </div>
+
             <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" class="form-control" id="username" placeholder="Enter username">
+                <label for="password">Password:</label>
+                <input type="password" class="form-control" id="password" placeholder="Enter your password">
             </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" class="form-control" id="password" placeholder="Enter password">
-            </div>
-            <button type="submit" class="btn btn-primary btn-block">Login</button>
-        </form>
+
+            <button class="btn btn-primary btn-block" onclick="login()">Login</button>
+        </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="/js/login.js"></script>
+    <script>
+        function login() {
+            const role = document.getElementById('userRole').value;
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
 
+            // Simulate login process (Replace this with actual authentication logic)
+            if (role && username && password) {
+                alert(`Logged in as ${role} with username: ${username}`);
+                // Redirect to the appropriate dashboard based on the role
+                if (role === "admin") {
+                    window.location.href = "admin_dashboard.html";
+                } else if (role === "coadmin") {
+                    window.location.href = "coadmin_dashboard.html";
+                } else if (role === "student") {
+                    window.location.href = "student_dashboard.html";
+                }
+            } else {
+                alert('Please fill in all fields.');
+            }
+        }
+    </script>
 </body>
 </html>

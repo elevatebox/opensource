@@ -5,6 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard - grant.it</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #66b3a2; /* Bluish-green background */
+            font-family: 'Times New Roman', Times, serif; /* Set font to Times New Roman */
+        }
+        h1, h3 {
+            color: black; /* Black color for headings */
+        }
+    </style>
 </head>
 <body>
 
@@ -25,7 +34,6 @@
             <div id="coadmin-management" class="tab-pane fade show active">
                 <h3>Manage Co-admins</h3>
                 <button class="btn btn-primary mb-3">Add Co-admin</button>
-                <!-- Co-admin management table (CRUD) -->
                 <table class="table">
                     <thead>
                         <tr>
@@ -44,7 +52,6 @@
             <div id="student-management" class="tab-pane fade">
                 <h3>Manage Students</h3>
                 <button class="btn btn-primary mb-3">Add Student</button>
-                <!-- Student management table (CRUD) -->
                 <table class="table">
                     <thead>
                         <tr>
@@ -64,7 +71,7 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="/js/admin.js"></script>
+    <script src="js/admin.js"></script> <!-- Link to your JavaScript file for admin functionalities -->
 
 </body>
 </html>

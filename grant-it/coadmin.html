@@ -5,12 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Co-admin Dashboard - grant.it</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: 'Times New Roman', Times, serif; /* Set font to Times New Roman */
+            background-color: #66b3a2; /* Bluish-green background */
+        }
+        h1 {
+            color: black; /* Black color for headings */
+        }
+    </style>
 </head>
 <body>
 
     <div class="container">
         <h1 class="my-4">Co-admin Dashboard</h1>
-        <h4>Assigned Branch: <span id="branch">Computer Science</span></h4>
 
         <ul class="nav nav-tabs">
             <li class="nav-item">
@@ -25,7 +33,7 @@
             <!-- Student Management Tab -->
             <div id="student-management" class="tab-pane fade show active">
                 <h3>Manage Students</h3>
-                <!-- Student management table (CRUD) -->
+                <button class="btn btn-primary mb-3">Add Student</button>
                 <table class="table">
                     <thead>
                         <tr>
@@ -46,14 +54,13 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>Request ID</th>
-                            <th>Student Name</th>
-                            <th>Permission Details</th>
+                            <th>Date</th>
+                            <th>Subject</th>
                             <th>Status</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
-                    <tbody id="requestTable">
+                    <tbody id="requestHistoryTable">
                         <!-- Dynamic content via JavaScript -->
                     </tbody>
                 </table>
@@ -61,10 +68,4 @@
         </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="/js/coadmin.js"></script>
-
-</body>
-</html>
+    <script src="https://code.jquery.com/jquery
