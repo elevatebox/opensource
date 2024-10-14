@@ -1,96 +1,153 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
+    <title>Admin Dashboard - grant.it</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
-            background-color: #e9ecef;
-            color: #333;
+            background-color: #f7f9fc;
         }
-        .card {
-            margin-bottom: 20px;
+
+        .dashboard {
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ddd;
             border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
-        .card-header {
-            background-color: #6c757d;
-            color: white;
-            border-top-left-radius: 10px;
-            border-top-right-radius: 10px;
+
+        h2 {
+            color: #007bff;
         }
-        .branch-select {
-            margin-bottom: 10px;
-        }
-        .btn-success {
-            background-color: #28a745;
-        }
+
         .btn-danger {
-            background-color: #dc3545;
-        }
-        .btn-info {
-            background-color: #17a2b8;
-        }
-        .btn-success:hover, .btn-danger:hover, .btn-info:hover {
-            opacity: 0.8;
-        }
-        .list-group-item {
-            background-color: #f8f9fa;
-            border: 2px solid #dee2e6;
-            border-radius: 8px;
-            margin-bottom: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: background-color 0.3s;
-        }
-        .list-group-item:hover {
-            background-color: #e2e6ea; /* Change background color on hover */
+            margin-left: 10px;
         }
     </style>
 </head>
+
 <body>
-    <div class="container mt-5">
-        <h1 class="text-center mb-4" style="color: #007bff;">Admin Dashboard</h1>
+    <div class="container">
+        <div class="dashboard">
+            <h2>Co-admin Management</h2>
+            <form id="coadmin-form" onsubmit="return addOrUpdateCoadmin(event)">
+                <div class="mb-3">
+                    <input type="text" id="coadmin-name" class="form-control" placeholder="Co-admin Name" required>
+                </div>
+                <div class="mb-3">
+                    <select id="branch" class="form-select" required>
+                        <option value="" disabled selected>Select Branch</option>
+                        <option value="Computer Science">Computer Science</option>
+                        <option value="Electronics">Electronics</option>
+                        <option value="Mechanical">Mechanical</option>
+                        <option value="Civil">Civil</option>
+                        <option value="Information Technology">Information Technology</option>
+                        <option value="Biotechnology">Biotechnology</option>
+                        <option value="Electrical">Electrical</option>
+                        <option value="Chemistry">Chemistry</option>
+                        <option value="Mathematics">Mathematics</option>
+                        <option value="Physics">Physics</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary" id="add-update-btn">Add Co-admin</button>
+                <button type="button" class="btn btn-secondary" id="cancel-update-btn" style="display: none;" onclick="cancelUpdate()">Cancel Update</button>
+            </form>
 
-        <!-- Co-admin Management -->
-        <div class="card">
-            <div class="card-header">
-                <h5>Add / Edit Co-admin</h5>
-            </div>
-            <div class="card-body">
-                <input type="hidden" id="coadmin-index" value=""> <!-- Hidden field to store index for updates -->
-                <input type="text" id="coadmin-name" class="form-control mb-2" placeholder="Co-admin Name" required>
-                <select id="branch-select" class="form-select mb-2">
-                    <option value="">Select Branch</option>
-                    <option value="Science">Science</option>
-                    <option value="Arts">Arts</option>
-                    <option value="Commerce">Commerce</option>
-                    <option value="Engineering">Engineering</option>
-                    <option value="Medical">Medical</option>
-                    <option value="Management">Management</option>
-                    <option value="Law">Law</option>
-                    <option value="Education">Education</option>
-                    <option value="Agriculture">Agriculture</option>
-                    <option value="Pharmacy">Pharmacy</option>
-                </select>
-                <button class="btn btn-success mt-2" onclick="addOrUpdateCoadmin()">Add Co-admin</button>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-header">
-                <h5>Manage Co-admins</h5>
-            </div>
-            <div class="card-body">
-                <ul class="list-group" id="coadmin-list">
-                    <!-- Co-admins list will be dynamically populated here -->
-                </ul>
-            </div>
+            <h3 class="mt-4">Existing Co-admins</h3>
+            <ul id="coadmin-list" class="list-group">
+                <!-- List of Co-admins will be dynamically added here -->
+            </ul>
         </div>
     </div>
 
-    <script src="../js/admin.js"></script>
+    <script>
+        // Array to hold Co-admins
+        let coadminList = [];
+        let editIndex = -1; // To keep track of the index being edited
+
+        // Function to add or update Co-admin
+        function addOrUpdateCoadmin(event) {
+            event.preventDefault(); // Prevent form submission
+
+            const name = document.getElementById('coadmin-name').value;
+            const branch = document.getElementById('branch').value;
+
+            if (editIndex === -1) {
+                // Create a new Co-admin object
+                const coadmin = { name, branch };
+                coadminList.push(coadmin); // Add to the list
+            } else {
+                // Update existing Co-admin
+                coadminList[editIndex] = { name, branch };
+                editIndex = -1; // Reset edit index after update
+                document.getElementById('add-update-btn').textContent = 'Add Co-admin'; // Reset button text
+            }
+
+            // Clear the form
+            document.getElementById('coadmin-form').reset();
+
+            // Update the displayed list
+            displayCoadmins();
+        }
+
+        // Function to display Co-admins
+        function displayCoadmins() {
+            const coadminListElement = document.getElementById('coadmin-list');
+            coadminListElement.innerHTML = ''; // Clear the list
+
+            // Loop through Co-admins and create list items
+            coadminList.forEach((coadmin, index) => {
+                const li = document.createElement('li');
+                li.className = 'list-group-item d-flex justify-content-between align-items-center';
+                li.textContent = `${coadmin.name} - ${coadmin.branch}`;
+                
+                // Create edit button
+                const editButton = document.createElement('button');
+                editButton.className = 'btn btn-warning btn-sm';
+                editButton.textContent = 'Edit';
+                editButton.onclick = () => editCoadmin(index); // Bind the edit function
+                li.appendChild(editButton);
+
+                // Create a remove button
+                const removeButton = document.createElement('button');
+                removeButton.className = 'btn btn-danger btn-sm';
+                removeButton.textContent = 'Remove';
+                removeButton.onclick = () => removeCoadmin(index); // Bind the remove function
+                li.appendChild(removeButton);
+
+                coadminListElement.appendChild(li);
+            });
+        }
+
+        // Function to remove Co-admin
+        function removeCoadmin(index) {
+            coadminList.splice(index, 1); // Remove from the array
+            displayCoadmins(); // Update the displayed list
+        }
+
+        // Function to edit Co-admin
+        function editCoadmin(index) {
+            const coadmin = coadminList[index];
+            document.getElementById('coadmin-name').value = coadmin.name; // Set name in input
+            document.getElementById('branch').value = coadmin.branch; // Set branch in select
+            editIndex = index; // Set edit index
+            document.getElementById('add-update-btn').textContent = 'Update Co-admin'; // Change button text
+            document.getElementById('cancel-update-btn').style.display = 'inline'; // Show cancel button
+        }
+
+        // Function to cancel update
+        function cancelUpdate() {
+            editIndex = -1; // Reset edit index
+            document.getElementById('add-update-btn').textContent = 'Add Co-admin'; // Reset button text
+            document.getElementById('cancel-update-btn').style.display = 'none'; // Hide cancel button
+            document.getElementById('coadmin-form').reset(); // Clear form
+        }
+    </script>
 </body>
+
 </html>
+
