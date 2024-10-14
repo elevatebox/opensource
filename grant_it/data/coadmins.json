@@ -1,0 +1,9 @@
+[
+    {
+        "id": 1,
+        "username": "coadmin1",
+        "password": "coadminpass",
+        "name": "HOD",
+        "branch": "cse"
+    }
+]
