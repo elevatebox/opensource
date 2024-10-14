@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <title>Grant.it</title>
+</head>
+<body>
+    <div class="bg-image">
+        <div class="container text-center mt-5">
+            <h1 class="text-white font-weight-bold mb-4">grant.it</h1>
+            <div class="card login-box mx-auto">
+                <div class="card-header bg-primary text-white">
+                    <h5>Login</h5>
+                </div>
+                <div class="card-body">
+                    <select id="userRole" class="form-control mb-3">
+                        <option value="" disabled selected>Login as</option>
+                        <option value="admin">Admin</option>
+                        <option value="co-admin">Co-admin</option>
+                        <option value="student">Student</option>
+                    </select>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-user"></i></span>
+                        </div>
+                        <input type="text" id="username" class="form-control" placeholder="Username" required>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                        </div>
+                        <input type="password" id="password" class="form-control" placeholder="Password" required>
+                    </div>
+                    <button class="btn btn-primary btn-block" id="loginButton">Login</button>
+                    <div class="mt-3">
+                        <a href="#" class="text-primary">Forgot Password?</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../js/main.js"></script>
+</body>
+</html>

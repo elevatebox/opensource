@@ -1,0 +1,10 @@
+body {
+    background-color: #f8f9fa;
+}
+
+.login-box {
+    border: 1px solid #ced4da;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: white;
+}
