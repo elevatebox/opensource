@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grant.it - School/College Management System</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            background-color: #f0f0f0;
+        }
+        .header {
+            background-color: #00FFFF;
+            color: #333;
+            text-align: center;
+            padding: 1rem;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+        .input-group {
+            width: 100%;
+            max-width: 300px;
+        }
+        input, select, button {
+            width: 100%;
+            padding: 0.5rem;
+            margin-top: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        button {
+            background-color: #00FFFF;
+            color: #333;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #00E0E0;
+        }
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+        .tab {
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            background-color: #eee;
+            border: 1px solid #ccc;
+            transition: background-color 0.3s;
+        }
+        .tab:hover {
+            background-color: #ddd;
+        }
+        .tab.active {
+            background-color: #00FFFF;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+        th, td {
+            padding: 0.5rem;
+            border: 1px solid #ccc;
+            text-align: left;
+        }
+        .request-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .request-form textarea {
+            height: 100px;
+            resize: vertical;
+        }
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            display: none;
+            z-index: 1000;
+        }
+        @keyframes newRequest {
+            0% { background-color: #FFFF00; }
+            100% { background-color: transparent; }
+        }
+        .new-request {
+            animation: newRequest 2s;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">Grant.it</header>
+    <div class="container">
+        <div id="loginForm" class="login-form">
+            <div class="input-group">
+                <input type="text" id="username" placeholder="Username" required>
+            </div>
+            <div class="input-group">
+                <input type="password" id="password" placeholder="Password" required>
+            </div>
+            <div class="input-group">
+                <select id="userType">
+                    <option value="admin">Admin</option>
+                    <option value="coadmin">Co-Admin</option>
+                    <option value="student">Student</option>
+                </select>
+            </div>
+            <button onclick="login()">Login</button>
+        </div>
+
+        <div id="adminPanel" style="display: none;">
+            <div class="tabs">
+                <div class="tab active" onclick="showTab('coAdmins')">Co-Admins</div>
+                <div class="tab" onclick="showTab('students')">Students</div>
+            </div>
+            <div id="coAdmins" class="tab-content active">
+                <h2>Co-Admins Management</h2>
+                <button onclick="showCreateCoAdminForm()">Create Co-Admin</button>
+                <table id="coAdminTable">
+                    <tr>
+                        <th>Username</th>
+                        <th>Branch</th>
+                        <th>Actions</th>
+                    </tr>
+                </table>
+            </div>
+            <div id="students" class="tab-content">
+                <h2>Students Management</h2>
+                <table id="studentTable">
+                    <tr>
+                        <th>Username</th>
+                        <th>Branch</th>
+                        <th>Actions</th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div id="coAdminPanel" style="display: none;">
+            <div class="input-group">
+                <select id="branchSelect">
+                    <option value="">Select Branch</option>
+                    <option value="CS">Computer Science</option>
+                    <option value="EE">Electrical Engineering</option>
+                    <option value="ME">Mechanical Engineering</option>
+                </select>
+            </div>
+            <button onclick="selectBranch()">Next</button>
+            <div id="coAdminContent" style="display: none;">
+                <div class="tabs">
+                    <div class="tab active" onclick="showTab('manageStudents')">Manage Students</div>
+                    <div class="tab" onclick="showTab('viewRequests')">View Requests</div>
+                </div>
+                <div id="manageStudents" class="tab-content active">
+                    <h2>Manage Students</h2>
+                    <button onclick="showCreateStudentForm()">Create Student</button>
+                    <table id="coAdminStudentTable">
+                        <tr>
+                            <th>Username</th>
+                            <th>Actions</th>
+                        </tr>
+                    </table>
+                </div>
+                <div id="viewRequests" class="tab-content">
+                    <h2>View Requests</h2>
+                    <table id="requestTable">
+                        <tr>
+                            <th>Student</th>
+                            <th>Subject</th>
+                            <th>Reason</th>
+                            <th>Actions</th>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div id="studentPanel" style="display: none;">
+            <div class="tabs">
+                <div class="tab active" onclick="showTab('newRequest')">New Request</div>
+                <div class="tab" onclick="showTab('requestHistory')">Request History</div>
+            </div>
+            <div id="newRequest" class="tab-content active">
+                <h2>New Request</h2>
+                <form class="request-form" onsubmit="submitRequest(event)">
+                    <input type="text" id="subject" placeholder="Subject" required>
+                    <textarea id="reason" placeholder="Reason for permission (max 4 lines)" required></textarea>
+                    <button type="submit">Send</button>
+                    <button type="button" onclick="cancelRequest()">Cancel</button>
+                </form>
+            </div>
+            <div id="requestHistory" class="tab-content">
+                <h2>Request History</h2>
+                <table id="historyTable">
+                    <tr>
+                        <th>Subject</th>
+                        <th>Reason</th>
+                        <th>Status</th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div id="popup" class="popup">
+        <p id="popupMessage"></p>
+        <button onclick="closePopup()">Close</button>
+    </div>
+
+    <script>
+        // Simulated data storage
+        const users = {
+            admin: { username: 'admin', password: 'admin123', type: 'admin' },
+            hod1: { username: 'hod1', password: 'hod123', type: 'coadmin', branch: 'CS' },
+            student1: { username: 'student1', password: 'student123', type: 'student', branch: 'CS' }
+        };
+
+        const requests = [];
+
+        function login() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const userType = document.getElementById('userType').value;
+
+            const user = users[username];
+            if (user && user.password === password && user.type === userType) {
+                document.getElementById('loginForm').style.display = 'none';
+                switch (userType) {
+                    case 'admin':
+                        document.getElementById('adminPanel').style.display = 'block';
+                        loadCoAdmins();
+                        loadStudents();
+                        break;
+                    case 'coadmin':
+                        document.getElementById('coAdminPanel').style.display = 'block';
+                        break;
+                    case 'student':
+                        document.getElementById('studentPanel').style.display = 'block';
+                        loadRequestHistory();
+                        break;
+                }
+            } else {
+                showPopup('Invalid credentials');
+            }
+        }
+
+        function showTab(tabId) {
+            const tabs = document.querySelectorAll('.tab');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabs.forEach(tab => tab.classList.remove('active'));
+            tabContents.forEach(content => content.classList.remove('active'));
+
+            event.target.classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+        }
+
+        function loadCoAdmins() {
+            const table = document.getElementById('coAdminTable');
+            table.innerHTML = '<tr><th>Username</th><th>Branch</th><th>Actions</th></tr>';
+            Object.values(users).forEach(user => {
+                if (user.type === 'coadmin') {
+                    const row = table.insertRow();
+                    row.insertCell(0).textContent = user.username;
+                    row.insertCell(1).textContent = user.branch;
+                    const actionsCell = row.insertCell(2);
+                    actionsCell.innerHTML = `<button onclick="editUser('${user.username}')">Edit</button>
+                                             <button onclick="deleteUser('${user.username}')">Delete</button>`;
+                }
+            });
+        }
+
+        function loadStudents() {
+            const table = document.getElementById('studentTable');
+            table.innerHTML = '<tr><th>Username</th><th>Branch</th><th>Actions</th></tr>';
+            Object.values(users).forEach(user => {
+                if (user.type === 'student') {
+                    const row = table.insertRow();
+                    row.insertCell(0).textContent = user.username;
+                    row.insertCell(1).textContent = user.branch;
+                    const actionsCell = row.insertCell(2);
+                    actionsCell.innerHTML = `<button onclick="editUser('${user.username}')">Edit</button>
+                                             <button onclick="deleteUser('${user.username}')">Delete</button>`;
+                }
+            });
+        }
+
+        function showCreateCoAdminForm() {
+            showPopup(`
+                <h2>Create Co-Admin</h2>
+                <form onsubmit="createCoAdmin(event)">
+                    <input type="text" id="newCoAdminUsername" placeholder="Username" required>
+                    <input type="password" id="newCoAdminPassword" placeholder="Password" required>
+                    <select id="newCoAdminBranch" required>
+                        <option value="">Select Branch</option>
+                        <option value="CS">Computer Science</option>
+                        <option value="EE">Electrical Engineering</option>
+                        <option value="ME">Mechanical Engineering</option>
+                    </select>
+                    <button type="submit">Create</button>
+                </form>
+            `);
+        }
+
+        function createCoAdmin(event) {
+            event.preventDefault();
+            const username = document.getElementById('newCoAdminUsername').value;
+            const password = document.getElementById('newCoAdminPassword').value;
+            const branch = document.getElementById('newCoAdminBranch').value;
+
+            users[username] = { username, password, type: 'coadmin', branch };
+            loadCoAdmins();
+            closePopup();
+            showPopup('Co-Admin created successfully');
+        }
+
+        function selectBranch() {
+            const branch = document.getElementById('branchSelect').value;
+            if (branch) {
+                document.getElementById('coAdminContent').style.display = 'block';
+                loadCoAdminStudents(branch);
+                loadRequests(branch);
+            }
+        }
+
+        function loadCoAdminStudents(branch) {
+            const table = document.getElementById('coAdminStudentTable');
+            table.innerHTML = '<tr><th>Username</th><th>Actions</th></tr>';
+            Object.values(users).forEach(user => {
+                if (user.type === 'student' && user.branch === branch) {
+                    const row = table.insertRow();
+                    row.insertCell(0).textContent = user.username;
+                    const actionsCell = row.insertCell(1);
+                    actionsCell.innerHTML = `<button onclick="editUser('${user.username}')">Edit</button>
+                                             <button onclick="deleteUser('${user.username}')">Delete</button>`;
+                }
+            });
+        }
+
+        function showCreateStudentForm() {
+            showPopup(`
+                <h2>Create Student</h2>
+                <form onsubmit="createStudent(event)">
+                    <input type="text" id="newStudentUsername" placeholder="Username" required>
+                    <input type="password" id="newStudentPassword" placeholder="Password" required>
+                    <button type="submit">Create</button>
+                </form>
+            `);
+        }
+
+        function createStudent(event) {
+            event.preventDefault();
+            const username = document.getElementById('newStudentUsername').value;
+            const password = document.getElementById('newStudentPassword').value;
+            const branch = document.getElementById('branchSelect').value;
+
+            users[username] = { username, password, type: 'student', branch };
+            loadCoAdminStudents(branch);
+            closePopup();
+            showPopup('Student created successfully');
+        }
+
+        function loadRequests(branch) {
