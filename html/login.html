@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>grant.it - Login</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/styles-login.css">
+</head>
+<body>
+  <div class="login-container">
+    <h1>grant.it</h1>
+    <h2>Login</h2>
+    <form id="loginForm">
+      <select id="role" required>
+        <option value="" disabled selected>Select Role</option>
+        <option value="admin">Admin</option>
+        <option value="co-admin">Co-admin</option>
+        <option value="student">Student</option>
+      </select>
+      <input type="text" id="username" placeholder="Username" required>
+      <input type="password" id="password" placeholder="Password" required>
+      <button type="submit" class="action-button">Login</button>
+    </form>
+    <div id="message"></div>
+  </div>
+  
+  <script src="../js/login.js"></script>
+</body>
+</html>
