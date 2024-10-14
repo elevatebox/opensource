@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Co-admin Dashboard - grant.it</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1 class="my-4">Co-admin Dashboard</h1>
+        <h4>Assigned Branch: <span id="branch">Computer Science</span></h4>
+
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" href="#student-management" data-toggle="tab">Manage Students</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#requests" data-toggle="tab">Requests</a>
+            </li>
+        </ul>
+
+        <div class="tab-content mt-3">
+            <!-- Student Management Tab -->
+            <div id="student-management" class="tab-pane fade show active">
+                <h3>Manage Students</h3>
+                <!-- Student management table (CRUD) -->
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Student Name</th>
+                            <th>Branch</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="coadminStudentTable">
+                        <!-- Dynamic content via JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Requests Tab -->
+            <div id="requests" class="tab-pane fade">
+                <h3>Student Requests</h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Request ID</th>
+                            <th>Student Name</th>
+                            <th>Permission Details</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="requestTable">
+                        <!-- Dynamic content via JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="/js/coadmin.js"></script>
+
+</body>
+</html>
