@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>grant.it - Permission Management</title>
+    <link rel="icon" href="path/to/favicon.ico" type="image/x-icon"> <!-- Update with your favicon path -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lobster&display=swap">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/styles.css"> <!-- Ensure correct path -->
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Lobster', cursive;
+        }
+        .login-box {
+            background: rgb(56, 216, 200);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(199, 188, 188, 0.1);
+            margin-top: 3rem;
+        }
+        .loader {
+            border: 4px solid rgba(67, 134, 222, 0.1);
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 2rem auto;
+            display: none; /* Initially hidden */
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center text-primary font-weight-bold">grant.it</h1>
+        <div id="alert" class="alert alert-danger" role="alert" style="display: none;"></div> <!-- Alert for messages -->
+        <div class="login-box">
+            <select id="role-dropdown" class="form-control mb-3" aria-label="Select Role">
+                <option value="admin">Login as Admin</option>
+                <option value="co-admin">Login as Co-admin</option>
+                <option value="student">Login as Student</option>
+            </select>
+            <input type="text" class="form-control mb-2" placeholder="Username" id="username" aria-label="Username" required>
+            <input type="password" class="form-control mb-2" placeholder="Password" id="password" aria-label="Password" required>
+            <button class="btn btn-danger btn-block" onclick="login()">Login</button>
+        </div>
+        <div id="loader" class="loader"></div> <!-- Loader Animation -->
+    </div>
+    <script src="../js/scripts.js"></script>
+</body>
+</html>
