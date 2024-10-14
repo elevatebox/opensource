@@ -1,0 +1,53 @@
+<h4>hi
+</h4>grant_it
+# grant.it 
+/grant.it
+    /css
+        styles.css
+    /js
+        script.js
+    /html
+        index.html
+    /data
+        users.json
+        requests.json
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+            <link rel="stylesheet" href="css/styles.css">
+            <title>grant.it</title>
+        </head>
+        <body>
+            <div class="container mt-5">
+                <h1 class="text-center font-weight-bold" style="color: green;">grant.it</h1>
+                <div class="card mx-auto" style="width: 400px;">
+                    <div class="card-body">
+                        <form id="loginForm">
+                            <div class="form-group">
+                                <label for="roleSelect">Login as:</label>
+                                <select class="form-control" id="roleSelect">
+                                    <option value="admin">Admin</option>
+                                    <option value="co-admin">Co-admin</option>
+                                    <option value="student">Student</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="username">Username:</label>
+                                <input type="text" class="form-control" id="username" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password:</label>
+                                <input type="password" class="form-control" id="password" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block">Login</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <script src="js/script.js"></script>
+        </body>
+        </html>
+        
