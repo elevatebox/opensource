@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Co-admin Dashboard - grant.it</title>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-success text-center">Co-admin Dashboard</h1>
+        <h2>Assigned Branch: Computer Science</h2>
+        <ul class="nav nav-tabs mt-4">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#student-management">Student Management</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#requests">Requests</a>
+            </li>
+        </ul>
+
+        <div class="tab-content">
+            <div id="student-management" class="tab-pane fade show active">
+                <h2>Manage Students</h2>
+                <button class="btn btn-primary mb-3" onclick="openStudentModal()">Add Student</button>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="student-table-body">
+                        <!-- Student rows will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+            <div id="requests" class="tab-pane fade">
+                <h2>Student Requests</h2>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Request ID</th>
+                            <th>Student Name</th>
+                            <th>Request Details</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="request-table-body">
+                        <!-- Request rows will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/script.js"></script>
+    <script>
+        function openStudentModal() {
+            alert("Open modal to add a student");
+        }
+    </script>
+</body>
+</html>

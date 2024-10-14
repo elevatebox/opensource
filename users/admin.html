@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Admin Dashboard - grant.it</title>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-success text-center">Admin Dashboard</h1>
+        <ul class="nav nav-tabs mt-4">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#co-admins">Co-admin Management</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#students">Student Management</a>
+            </li>
+        </ul>
+
+        <div class="tab-content">
+            <div id="co-admins" class="tab-pane fade show active">
+                <h2>Manage Co-admins</h2>
+                <button class="btn btn-primary mb-3" onclick="openCoAdminModal()">Add Co-admin</button>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Branch</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="co-admin-table-body">
+                        <!-- Co-admin rows will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+            <div id="students" class="tab-pane fade">
+                <h2>Manage Students</h2>
+                <button class="btn btn-primary mb-3" onclick="openStudentModal()">Add Student</button>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Branch</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="student-table-body">
+                        <!-- Student rows will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/script.js"></script>
+    <script>
+        function openCoAdminModal() {
+            alert("Open modal to add a co-admin");
+        }
+        
+        function openStudentModal() {
+            alert("Open modal to add a student");
+        }
+    </script>
+</body>
+</html>
