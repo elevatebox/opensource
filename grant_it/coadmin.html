@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+        }
+
+        .tab-button {
+            flex: 1;
+            padding: 10px;
+            background: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .tab-button.active {
+            background: #0056b3;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        input {
+            padding: 10px;
+            margin-right: 10px;
+            width: calc(50% - 10px);
+        }
+
+        button {
+            padding: 10px 15px;
+            background: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #218838;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Admin Dashboard</h1>
+        <div class="tabs">
+            <button class="tab-button active" onclick="openTab(event, 'co-admins')">Co-admin Management</button>
+            <button class="tab-button" onclick="openTab(event, 'students')">Student Management</button>
+        </div>
+
+        <div id="co-admins" class="tab-content active">
+            <h2>Co-admin Management</h2>
+            <form id="coAdminForm">
+                <input type="text" id="coAdminName" placeholder="Co-admin Name" required>
+                <input type="text" id="coAdminBranch" placeholder="Branch" required>
+                <button type="submit">Add Co-admin</button>
+            </form>
+            <ul id="coAdminList"></ul>
+        </div>
+
+        <div id="students" class="tab-content">
+            <h2>Student Management</h2>
+            <form id="studentForm">
+                <input type="text" id="studentName" placeholder="Student Name" required>
+                <input type="text" id="studentRollNo" placeholder="Roll No" required>
+                <button type="submit">Add Student</button>
+            </form>
+            <ul id="studentList"></ul>
+        </div>
+    </div>
+
+    <script>
+        let coAdmins = [];
+        let students = [];
+
+        // Function to open a tab
+        function openTab(event, tabName) {
+            const tabContents = document.querySelectorAll('.tab-content');
+            const tabButtons = document.querySelectorAll('.tab-button');
+
+            tabContents.forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            tabButtons.forEach(button => {
+                button.classList.remove('active');
+            });
+
+            document.getElementById(tabName).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+
+        // Co-admin Management
+        document.getElementById('coAdminForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const name = document.getElementById('coAdminName').value;
+            const branch = document.getElementById('coAdminBranch').value;
+
+            const coAdmin = { name, branch };
+            coAdmins.push(coAdmin);
+            displayCoAdmins();
+            this.reset();
+        });
+
+        function displayCoAdmins() {
+            const coAdminList = document.getElementById('coAdminList');
+            coAdminList.innerHTML = '';
+            coAdmins.forEach((coAdmin, index) => {
+                const li = document.createElement('li');
+                li.textContent = `${coAdmin.name} (${coAdmin.branch})`;
+                li.appendChild(createDeleteButton(index));
+                coAdminList.appendChild(li);
+            });
+        }
+
+        // Create a delete button for co-admin
+        function createDeleteButton(index) {
+            const button = document.createElement('button');
+            button.textContent = 'Delete';
+            button.style.marginLeft = '10px';
+            button.onclick = function () {
+                coAdmins.splice(index, 1);
+                displayCoAdmins();
+            };
+            return button;
+        }
+
+        // Student Management
+        document.getElementById('studentForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const name = document.getElementById('studentName').value;
+            const rollNo = document.getElementById('studentRollNo').value;
+
+            const student = { name, rollNo };
+            students.push(student);
+            displayStudents();
+            this.reset();
+        });
+
+        function displayStudents() {
+            const studentList = document.getElementById('studentList');
+            studentList.innerHTML = '';
+            students.forEach((student, index) => {
+                const li = document.createElement('li');
+                li.textContent = `${student.name} (Roll No: ${student.rollNo})`;
+                li.appendChild(createStudentDeleteButton(index));
+                studentList.appendChild(li);
+            });
+        }
+
+        // Create a delete button for students
+        function createStudentDeleteButton(index) {
+            const button = document.createElement('button');
+            button.textContent = 'Delete';
+            button.style.marginLeft = '10px';
+            button.onclick = function () {
+                students.splice(index, 1);
+                displayStudents();
+            };
+            return button;
+        }
+    </script>
+</body>
+</html>
