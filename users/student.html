@@ -32,15 +32,14 @@
                             <option value="Chemistry">Chemistry</option>
                             <option value="Computer Science">Computer Science</option>
                             <option value="Biology">Biology</option>
-                            <!-- Add more subjects as needed -->
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="permissionDetails">Permission Details</label>
-                        <textarea class="form-control" id="permissionDetails" rows="4" required></textarea>
+                        <label for="details">Details</label>
+                        <textarea class="form-control" id="details" rows="4" required></textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary">Send</button>
-                    <button type="button" class="btn btn-secondary" id="cancelRequest">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Send Request</button>
+                    <button type="button" class="btn btn-secondary" onclick="cancelRequest()">Cancel</button>
                 </form>
             </div>
             <div id="request-history" class="tab-pane fade">
@@ -55,7 +54,7 @@
                         </tr>
                     </thead>
                     <tbody id="request-history-body">
-                        <!-- Request history will be populated here -->
+                        <!-- Request history rows will be populated here -->
                     </tbody>
                 </table>
             </div>

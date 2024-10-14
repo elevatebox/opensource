@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/coadmin.css">
+    <link rel="stylesheet" href="../css/co-admin.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <title>Co-admin Dashboard - grant.it</title>
 </head>
 <body>
     <div class="container mt-5">
         <h1 class="text-success text-center">Co-admin Dashboard</h1>
-        <h2 class="mt-4">Assigned Branch: <span id="branch-info">Computer Science</span></h2> <!-- Update with actual branch -->
+        <h2>Assigned Branch: <span id="assigned-branch">CSE</span></h2>
         <ul class="nav nav-tabs mt-4">
             <li class="nav-item">
-                <a class="nav-link active" data-toggle="tab" href="#students">Student Management</a>
+                <a class="nav-link active" data-toggle="tab" href="#student-management">Student Management</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" data-toggle="tab" href="#requests">Requests</a>
@@ -21,7 +21,7 @@
         </ul>
 
         <div class="tab-content">
-            <div id="students" class="tab-pane fade show active">
+            <div id="student-management" class="tab-pane fade show active">
                 <h2>Manage Students</h2>
                 <button class="btn btn-primary mb-3" data-toggle="modal" data-target="#addStudentModal">Add Student</button>
                 <table class="table table-striped">
@@ -46,7 +46,8 @@
                         <tr>
                             <th>ID</th>
                             <th>Student Name</th>
-                            <th>Request Details</th>
+                            <th>Subject</th>
+                            <th>Details</th>
                             <th>Status</th>
                             <th>Actions</th>
                         </tr>
@@ -88,8 +89,6 @@
                                 <option value="Chemistry">Chemistry</option>
                                 <option value="Computer Science">Computer Science</option>
                                 <option value="Biology">Biology</option>
-                                <option value="English">English</option>
-                                <!-- Add more subjects as needed -->
                             </select>
                         </div>
                         <button type="submit" class="btn btn-primary">Add Student</button>

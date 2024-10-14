@@ -1,46 +1,44 @@
 // student.js
 
-// Sample request history data
-let requestHistory = [];
+let requests = JSON.parse(localStorage.getItem('requests')) || [];
 
-// Function to render request history
+// Function to render request history in the table
 function renderRequestHistory() {
     const requestHistoryBody = document.getElementById('request-history-body');
     requestHistoryBody.innerHTML = ''; // Clear existing rows
-    requestHistory.forEach((request, index) => {
+    requests.forEach((request, index) => {
         const row = document.createElement('tr');
         row.innerHTML = `
             <td>${index + 1}</td>
             <td>${request.subject}</td>
             <td>${request.details}</td>
-            <td>${request.status}</td>
+            <td>${request.status || 'Pending'}</td>
         `;
         requestHistoryBody.appendChild(row);
     });
 }
 
-// Handle form submission for requesting permission
+// Function to handle request submission
 document.getElementById('requestForm').addEventListener('submit', function(event) {
     event.preventDefault();
     const subject = document.getElementById('subject').value;
-    const details = document.getElementById('permissionDetails').value;
+    const details = document.getElementById('details').value;
 
-    // Add the request to the history
-    requestHistory.push({ subject, details, status: 'Pending' });
-
-    // Show success message
-    alert('Request sent successfully');
-    
-    // Reset the form
-    document.getElementById('requestForm').reset();
-    renderRequestHistory(); // Refresh the request history
+    if (subject && details) {
+        requests.push({ subject, details, status: 'Pending' });
+        localStorage.setItem('requests', JSON.stringify(requests)); // Save to local storage
+        alert('Request sent successfully!');
+        document.getElementById('requestForm').reset();
+        renderRequestHistory(); // Refresh request history
+    } else {
+        alert('Please fill in all fields.');
+    }
 });
 
-// Handle cancel button functionality
-document.getElementById('cancelRequest').addEventListener('click', function() {
+// Function to cancel a request (reset form)
+function cancelRequest() {
     document.getElementById('requestForm').reset();
-    alert('Cancelled');
-});
+}
 
-// Initial render (empty)
+// Initial render of request history
 renderRequestHistory();
