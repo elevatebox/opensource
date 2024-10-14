@@ -99,6 +99,10 @@
               <div class="modal-body">
                 <form id="addCoAdminForm">
                   <div class="mb-3">
+                    <label for="coAdminUsername" class="form-label">Co-admin Username</label>
+                    <input type="text" class="form-control" id="coAdminUsername" required>
+                  </div>
+                  <div class="mb-3">
                     <label for="coAdminName" class="form-label">Co-admin Name</label>
                     <input type="text" class="form-control" id="coAdminName" required>
                   </div>
@@ -134,6 +138,10 @@
               <div class="modal-body">
                 <form id="editCoAdminForm">
                   <div class="mb-3">
+                    <label for="editCoAdminUsername" class="form-label">Co-admin Username</label>
+                    <input type="text" class="form-control" id="editCoAdminUsername" required>
+                  </div>
+                  <div class="mb-3">
                     <label for="editCoAdminName" class="form-label">Co-admin Name</label>
                     <input type="text" class="form-control" id="editCoAdminName" required>
                   </div>
@@ -163,7 +171,8 @@
           <thead>
             <tr>
               <th>#</th>
-              <th>Co-admin Name</th>
+              <th>Username</th>
+              <th>Name</th>
               <th>Branch</th>
               <th>Actions</th>
             </tr>
@@ -179,7 +188,7 @@
         <h3>Manage Students</h3>
         <button class="btn btn-success my-2" data-bs-toggle="modal" data-bs-target="#addStudentModal">Add Student</button>
 
-        <!-- Modal for Adding Student (Same as Co-admin for consistency) -->
+        <!-- Modal for Adding Student -->
         <div class="modal fade" id="addStudentModal" tabindex="-1" aria-labelledby="addStudentModalLabel" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
@@ -194,8 +203,19 @@
                     <input type="text" class="form-control" id="studentName" required>
                   </div>
                   <div class="mb-3">
-                    <label for="rollNumber" class="form-label">Roll Number</label>
-                    <input type="text" class="form-control" id="rollNumber" required>
+                    <label for="studentID" class="form-label">Student ID</label>
+                    <input type="text" class="form-control" id="studentID" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="studentBranch" class="form-label">Branch</label>
+                    <select class="form-select" id="studentBranch" required>
+                      <option value="">Select Branch</option>
+                      <option value="Computer Science">Computer Science</option>
+                      <option value="Mechanical Engineering">Mechanical Engineering</option>
+                      <option value="Electrical Engineering">Electrical Engineering</option>
+                      <option value="Civil Engineering">Civil Engineering</option>
+                      <option value="Electronics Engineering">Electronics Engineering</option>
+                    </select>
                   </div>
                 </form>
               </div>
@@ -222,8 +242,19 @@
                     <input type="text" class="form-control" id="editStudentName" required>
                   </div>
                   <div class="mb-3">
-                    <label for="editRollNumber" class="form-label">Roll Number</label>
-                    <input type="text" class="form-control" id="editRollNumber" required>
+                    <label for="editStudentID" class="form-label">Student ID</label>
+                    <input type="text" class="form-control" id="editStudentID" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="editStudentBranch" class="form-label">Branch</label>
+                    <select class="form-select" id="editStudentBranch" required>
+                      <option value="">Select Branch</option>
+                      <option value="Computer Science">Computer Science</option>
+                      <option value="Mechanical Engineering">Mechanical Engineering</option>
+                      <option value="Electrical Engineering">Electrical Engineering</option>
+                      <option value="Civil Engineering">Civil Engineering</option>
+                      <option value="Electronics Engineering">Electronics Engineering</option>
+                    </select>
                   </div>
                 </form>
               </div>
@@ -241,7 +272,8 @@
             <tr>
               <th>#</th>
               <th>Student Name</th>
-              <th>Roll Number</th>
+              <th>Student ID</th>
+              <th>Branch</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -253,149 +285,142 @@
     </div>
   </div>
 
-  <script src="../js/main.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
   <script>
-    let coAdminIdCounter = 1; // Initialize Co-admin ID counter
-    let studentIdCounter = 1; // Initialize Student ID counter
+    let coAdmins = []; // Array to store co-admins
+    let students = []; // Array to store students
+    let editCAdminIndex = -1; // To track which co-admin is being edited
+    let editStudentIndex = -1; // To track which student is being edited
 
-    // Function to add a new co-admin to the table
-    document.getElementById('submitCoAdminBtn').addEventListener('click', function() {
-      const coAdminName = document.getElementById('coAdminName').value;
-      const branch = document.getElementById('branchSelect').value;
+    // Function to render co-admins in the table
+    function renderCoAdmins() {
+      const tableBody = $('#coadmin-table');
+      tableBody.empty();
+      coAdmins.forEach((coAdmin, index) => {
+        tableBody.append(`
+          <tr>
+            <td>${index + 1}</td>
+            <td>${coAdmin.username}</td>
+            <td>${coAdmin.name}</td>
+            <td>${coAdmin.branch}</td>
+            <td>
+              <button class="btn btn-warning btn-sm edit-coadmin" data-index="${index}">Edit</button>
+              <button class="btn btn-danger btn-sm delete-coadmin" data-index="${index}">Delete</button>
+            </td>
+          </tr>
+        `);
+      });
+    }
 
-      if (coAdminName && branch) {
-        const table = document.getElementById('coadmin-table');
-        const row = table.insertRow();
-        const rowId = coAdminIdCounter;
+    // Function to render students in the table
+    function renderStudents() {
+      const tableBody = $('#student-table');
+      tableBody.empty();
+      students.forEach((student, index) => {
+        tableBody.append(`
+          <tr>
+            <td>${index + 1}</td>
+            <td>${student.name}</td>
+            <td>${student.id}</td>
+            <td>${student.branch}</td>
+            <td>
+              <button class="btn btn-warning btn-sm edit-student" data-index="${index}">Edit</button>
+              <button class="btn btn-danger btn-sm delete-student" data-index="${index}">Delete</button>
+            </td>
+          </tr>
+        `);
+      });
+    }
 
-        row.innerHTML = `
-          <td>${rowId}</td>
-          <td>${coAdminName}</td>
-          <td>${branch}</td>
-          <td>
-            <button class="btn btn-danger btn-sm delete-coadmin">Delete</button>
-            <button class="btn btn-warning btn-sm edit-coadmin" data-id="${rowId}">Edit</button>
-          </td>
-        `;
+    // Add Co-admin
+    $('#submitCoAdminBtn').click(function () {
+      const username = $('#coAdminUsername').val();
+      const name = $('#coAdminName').val();
+      const branch = $('#branchSelect').val();
 
-        // Clear input fields and close modal
-        document.getElementById('addCoAdminForm').reset();
-        const modal = bootstrap.Modal.getInstance(document.getElementById('addCoAdminModal'));
-        modal.hide();
-        coAdminIdCounter++; // Increment counter
+      if (username && name && branch) {
+        coAdmins.push({ username, name, branch });
+        renderCoAdmins();
+        $('#addCoAdminModal').modal('hide');
+        $('#addCoAdminForm')[0].reset(); // Reset the form
       }
     });
 
-    // Event delegation for delete and edit buttons
-    document.getElementById('coadmin-table').addEventListener('click', function(e) {
-      if (e.target.classList.contains('delete-coadmin')) {
-        const row = e.target.closest('tr');
-        row.remove(); // Remove the row from the table
-      }
+    // Edit Co-admin
+    $(document).on('click', '.edit-coadmin', function () {
+      editCAdminIndex = $(this).data('index');
+      const coAdmin = coAdmins[editCAdminIndex];
+      $('#editCoAdminUsername').val(coAdmin.username);
+      $('#editCoAdminName').val(coAdmin.name);
+      $('#editBranchSelect').val(coAdmin.branch);
+      $('#editCoAdminModal').modal('show');
+    });
 
-      if (e.target.classList.contains('edit-coadmin')) {
-        const row = e.target.closest('tr');
-        const coAdminName = row.cells[1].innerText;
-        const branch = row.cells[2].innerText;
+    $('#updateCoAdminBtn').click(function () {
+      const username = $('#editCoAdminUsername').val();
+      const name = $('#editCoAdminName').val();
+      const branch = $('#editBranchSelect').val();
 
-        // Populate the edit modal
-        document.getElementById('editCoAdminName').value = coAdminName;
-        document.getElementById('editBranchSelect').value = branch;
-        document.getElementById('updateCoAdminBtn').setAttribute('data-id', row.rowIndex); // Set data-id for reference
-
-        // Show the edit modal
-        const modal = new bootstrap.Modal(document.getElementById('editCoAdminModal'));
-        modal.show();
+      if (username && name && branch) {
+        coAdmins[editCAdminIndex] = { username, name, branch };
+        renderCoAdmins();
+        $('#editCoAdminModal').modal('hide');
+        $('#editCoAdminForm')[0].reset(); // Reset the form
       }
     });
 
-    // Function to update co-admin information
-    document.getElementById('updateCoAdminBtn').addEventListener('click', function() {
-      const rowId = this.getAttribute('data-id');
-      const coAdminName = document.getElementById('editCoAdminName').value;
-      const branch = document.getElementById('editBranchSelect').value;
+    // Delete Co-admin
+    $(document).on('click', '.delete-coadmin', function () {
+      const index = $(this).data('index');
+      coAdmins.splice(index, 1);
+      renderCoAdmins();
+    });
 
-      if (coAdminName && branch) {
-        const row = document.getElementById('coadmin-table').rows[rowId - 1]; // Adjust for zero-indexing
-        row.cells[1].innerText = coAdminName;
-        row.cells[2].innerText = branch;
+    // Add Student
+    $('#submitStudentBtn').click(function () {
+      const name = $('#studentName').val();
+      const id = $('#studentID').val();
+      const branch = $('#studentBranch').val();
 
-        // Clear input fields and close modal
-        document.getElementById('editCoAdminForm').reset();
-        const modal = bootstrap.Modal.getInstance(document.getElementById('editCoAdminModal'));
-        modal.hide();
+      if (name && id && branch) {
+        students.push({ name, id, branch });
+        renderStudents();
+        $('#addStudentModal').modal('hide');
+        $('#addStudentForm')[0].reset(); // Reset the form
       }
     });
 
-    // Function to add a new student to the table (similar to co-admin)
-    document.getElementById('submitStudentBtn').addEventListener('click', function() {
-      const studentName = document.getElementById('studentName').value;
-      const rollNumber = document.getElementById('rollNumber').value;
+    // Edit Student
+    $(document).on('click', '.edit-student', function () {
+      editStudentIndex = $(this).data('index');
+      const student = students[editStudentIndex];
+      $('#editStudentName').val(student.name);
+      $('#editStudentID').val(student.id);
+      $('#editStudentBranch').val(student.branch);
+      $('#editStudentModal').modal('show');
+    });
 
-      if (studentName && rollNumber) {
-        const table = document.getElementById('student-table');
-        const row = table.insertRow();
-        const rowId = studentIdCounter;
+    $('#updateStudentBtn').click(function () {
+      const name = $('#editStudentName').val();
+      const id = $('#editStudentID').val();
+      const branch = $('#editStudentBranch').val();
 
-        row.innerHTML = `
-          <td>${rowId}</td>
-          <td>${studentName}</td>
-          <td>${rollNumber}</td>
-          <td>
-            <button class="btn btn-danger btn-sm delete-student">Delete</button>
-            <button class="btn btn-warning btn-sm edit-student" data-id="${rowId}">Edit</button>
-          </td>
-        `;
-
-        // Clear input fields and close modal
-        document.getElementById('addStudentForm').reset();
-        const modal = bootstrap.Modal.getInstance(document.getElementById('addStudentModal'));
-        modal.hide();
-        studentIdCounter++; // Increment counter
+      if (name && id && branch) {
+        students[editStudentIndex] = { name, id, branch };
+        renderStudents();
+        $('#editStudentModal').modal('hide');
+        $('#editStudentForm')[0].reset(); // Reset the form
       }
     });
 
-    // Event delegation for delete and edit buttons in student table
-    document.getElementById('student-table').addEventListener('click', function(e) {
-      if (e.target.classList.contains('delete-student')) {
-        const row = e.target.closest('tr');
-        row.remove(); // Remove the row from the table
-      }
-
-      if (e.target.classList.contains('edit-student')) {
-        const row = e.target.closest('tr');
-        const studentName = row.cells[1].innerText;
-        const rollNumber = row.cells[2].innerText;
-
-        // Populate the edit modal
-        document.getElementById('editStudentName').value = studentName;
-        document.getElementById('editRollNumber').value = rollNumber;
-        document.getElementById('updateStudentBtn').setAttribute('data-id', row.rowIndex); // Set data-id for reference
-
-        // Show the edit modal
-        const modal = new bootstrap.Modal(document.getElementById('editStudentModal'));
-        modal.show();
-      }
+    // Delete Student
+    $(document).on('click', '.delete-student', function () {
+      const index = $(this).data('index');
+      students.splice(index, 1);
+      renderStudents();
     });
 
-    // Function to update student information
-    document.getElementById('updateStudentBtn').addEventListener('click', function() {
-      const rowId = this.getAttribute('data-id');
-      const studentName = document.getElementById('editStudentName').value;
-      const rollNumber = document.getElementById('editRollNumber').value;
-
-      if (studentName && rollNumber) {
-        const row = document.getElementById('student-table').rows[rowId - 1]; // Adjust for zero-indexing
-        row.cells[1].innerText = studentName;
-        row.cells[2].innerText = rollNumber;
-
-        // Clear input fields and close modal
-        document.getElementById('editStudentForm').reset();
-        const modal = bootstrap.Modal.getInstance(document.getElementById('editStudentModal'));
-        modal.hide();
-      }
-    });
   </script>
 </body>
 </html>

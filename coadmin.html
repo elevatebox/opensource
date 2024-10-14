@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Co-admin Dashboard - Grant.it</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: white;
+      min-height: 100vh;
+    }
+
+    h1, h3 {
+      font-weight: 700;
+      color: #0d47a1;
+      text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    h5 {
+      font-weight: 500;
+      color: #1565c0;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+    }
+
+    .card {
+      border-radius: 10px;
+      border: 2px solid #0d47a1;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      background-color: white;
+    }
+
+    .nav-link.active {
+      background-color: #42a5f5 !important;
+      color: white !important;
+      border-bottom: 3px solid #1e88e5;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-success, .btn-danger {
+      border-radius: 20px;
+      border: 2px solid rgba(0, 0, 0, 0.2);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      transition: box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+
+    .btn-success:hover, .btn-danger:hover {
+      border-color: #0d47a1;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+    }
+
+    .new-request {
+      background-color: #f8d7da;
+      border-left: 5px solid red;
+      padding: 10px;
+      margin-bottom: 10px;
+      animation: fadein 1s;
+      border-radius: 8px;
+      border: 2px solid rgba(0, 0, 0, 0.2);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    table {
+      border: 2px solid #1565c0;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    table th, table td {
+      border: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    tr:hover {
+      background-color: #e3f2fd;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    @keyframes fadein {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container mt-5">
+    <h1 class="text-center mb-4">Co-admin Dashboard</h1>
+    <h5>Branch: <span id="branch-name">Computer Science</span></h5>
+
+    <!-- Tabbed View for Student Management and Requests -->
+    <ul class="nav nav-tabs" id="coadminTabs">
+      <li class="nav-item">
+        <a class="nav-link active" id="students-tab" data-bs-toggle="tab" href="#students">Manage Students</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="requests-tab" data-bs-toggle="tab" href="#requests">View Requests</a>
+      </li>
+    </ul>
+
+    <div class="tab-content my-4">
+      <!-- Student Management Tab -->
+      <div class="tab-pane fade show active" id="students">
+        <h3>Manage Students</h3>
+        <button class="btn btn-success my-2" data-bs-toggle="modal" data-bs-target="#addStudentModal">Add Student</button>
+        
+        <!-- Modal for Adding Student -->
+        <div class="modal fade" id="addStudentModal" tabindex="-1" aria-labelledby="addStudentModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="addStudentModalLabel">Add New Student</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <form id="addStudentForm">
+                  <div class="mb-3">
+                    <label for="studentName" class="form-label">Student Name</label>
+                    <input type="text" class="form-control" id="studentName" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="rollNumber" class="form-label">Roll Number</label>
+                    <input type="text" class="form-control" id="rollNumber" required>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="submitStudentBtn">Add Student</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- CRUD for managing students -->
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Student Name</th>
+              <th>Roll Number</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="student-table">
+            <!-- Student rows will be added here dynamically -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Requests Tab -->
+      <div class="tab-pane fade" id="requests">
+        <h3>View Requests</h3>
+        <div class="row">
+          <div class="col">
+            <h5>Pending Requests</h5>
+            <div id="pending-requests-container">
+              <div class="new-request" data-request-id="1">
+                <h5>Subject: Need a gate pass</h5>
+                <p>Reason: I need to visit the library for an assignment.</p>
+                <button class="btn btn-success btn-approve">Approve</button>
+                <button class="btn btn-danger btn-reject">Reject</button>
+              </div>
+              <!-- More pending requests here -->
+            </div>
+          </div>
+          <div class="col">
+            <h5>Approved Requests</h5>
+            <div id="approved-requests-container">
+              <!-- Approved requests will be moved here -->
+            </div>
+          </div>
+          <div class="col">
+            <h5>Rejected Requests</h5>
+            <div id="rejected-requests-container">
+              <!-- Rejected requests will be moved here -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/main.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    let studentIdCounter = 1; // Initialize student ID counter
+    let isEditing = false; // Track if we are editing
+
+    // Function to add a new student to the table
+    document.getElementById('submitStudentBtn').addEventListener('click', function() {
+      const studentName = document.getElementById('studentName').value;
+      const rollNumber = document.getElementById('rollNumber').value;
+
+      // If editing, find the row and update it
+      if (isEditing) {
+        const rowToEdit = document.querySelector(`#student-table .editing`);
+        rowToEdit.cells[1].innerText = studentName;
+        rowToEdit.cells[2].innerText = rollNumber;
+
+        // Reset editing state
+        isEditing = false;
+        rowToEdit.classList.remove('editing'); // Remove editing class
+      } else {
+        // Create a new table row
+        const table = document.getElementById('student-table');
+        const newRow = table.insertRow();
+        newRow.innerHTML = `
+          <td>${studentIdCounter++}</td>
+          <td>${studentName}</td>
+          <td>${rollNumber}</td>
+          <td>
+            <button class="btn btn-warning btn-edit">Edit</button>
+            <button class="btn btn-danger btn-delete">Delete</button>
+          </td>
+        `;
+      }
+
+      // Reset the form
+      document.getElementById('addStudentForm').reset();
+
+      // Close the modal
+      const modal = bootstrap.Modal.getInstance(document.getElementById('addStudentModal'));
+      modal.hide();
+    });
+
+    // Event delegation for Edit and Delete buttons
+    document.getElementById('student-table').addEventListener('click', function(event) {
+      if (event.target.classList.contains('btn-delete')) {
+        const row = event.target.closest('tr');
+        if (row) {
+          row.remove(); // Remove the row from the table
+        }
+      } else if (event.target.classList.contains('btn-edit')) {
+        const row = event.target.closest('tr');
+        const studentName = row.cells[1].innerText;
+        const rollNumber = row.cells[2].innerText;
+
+        // Populate the form with the current student details
+        document.getElementById('studentName').value = studentName;
+        document.getElementById('rollNumber').value = rollNumber;
+
+        // Show the modal again
+        const modal = new bootstrap.Modal(document.getElementById('addStudentModal'));
+        modal.show();
+
+        // Set editing state
+        isEditing = true;
+        row.classList.add('editing'); // Mark row as being edited
+
+        // Optionally remove the row for editing
+        // row.remove();
+      }
+    });
+
+    // Approve or Reject Request
+    document.getElementById('pending-requests-container').addEventListener('click', function(event) {
+      if (event.target.classList.contains('btn-approve')) {
+        const requestDiv = event.target.closest('.new-request');
+        const requestId = requestDiv.getAttribute('data-request-id');
+        
+        // Move to approved requests container
+        document.getElementById('approved-requests-container').appendChild(requestDiv);
+        event.target.remove(); // Remove approve button
+        requestDiv.querySelector('.btn-reject').remove(); // Remove reject button
+      } else if (event.target.classList.contains('btn-reject')) {
+        const requestDiv = event.target.closest('.new-request');
+        const requestId = requestDiv.getAttribute('data-request-id');
+        
+        // Move to rejected requests container
+        document.getElementById('rejected-requests-container').appendChild(requestDiv);
+        event.target.remove(); // Remove reject button
+        requestDiv.querySelector('.btn-approve').remove(); // Remove approve button
+      }
+    });
+  </script>
+</body>
+</html>
