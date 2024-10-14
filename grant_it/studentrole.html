@@ -4,51 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/styles.css">
-    <title>Student Dashboard - grant.it</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <title>Student Dashboard</title>
 </head>
 <body>
     <div class="container mt-5">
-        <h2 class="text-center mb-4">Student Dashboard</h2>
-        <div class="tab-content">
-            <div class="tab-pane active" id="requestPermission">
-                <h4>Request Permission</h4>
-                <form id="request-form" class="mb-4">
-                    <div class="form-group">
+        <h1>Student Dashboard</h1>
+        <div class="tabs">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="request-tab" data-toggle="tab" href="#requestPermission" role="tab" aria-controls="requestPermission" aria-selected="true">Request Permission</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="history-tab" data-toggle="tab" href="#requestHistory" role="tab" aria-controls="requestHistory" aria-selected="false">Request History</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="requestPermission" role="tabpanel" aria-labelledby="request-tab">
+                    <div class="form-group mt-4">
                         <label for="subject">Subject</label>
-                        <input type="text" class="form-control" id="subject" placeholder="Enter subject">
+                        <input type="text" class="form-control" id="subject" placeholder="Enter subject" required>
                     </div>
                     <div class="form-group">
-                        <label for="details">Permission Details</label>
-                        <textarea class="form-control" id="details" rows="4" placeholder="Enter permission details"></textarea>
+                        <label for="permissionDetails">Permission Details</label>
+                        <textarea class="form-control" id="permissionDetails" rows="4" placeholder="Enter permission details" required></textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary">Send</button>
-                    <button type="button" class="btn btn-secondary" onclick="cancelRequest()">Cancel</button>
-                </form>
-            </div>
-            <div class="tab-pane" id="requestHistory">
-                <h4>Request History</h4>
-                <div class="alert alert-info animated fade-in" id="noRequestsMessage">
-                    There are no requests up until now.
+                    <button id="sendRequest" class="btn btn-success">Send</button>
                 </div>
-                <div class="list-group" id="requestList" style="display:none;">
-                    <!-- Dynamically populated requests will go here -->
+                <div class="tab-pane fade" id="requestHistory" role="tabpanel" aria-labelledby="history-tab">
+                    <h5 class="mt-4">Past Requests</h5>
+                    <ul id="requestList" class="list-group"></ul>
+                    <div id="noRequestsMessage" class="text-muted mt-2" style="display: none;">No requests yet.</div>
                 </div>
             </div>
         </div>
-        <ul class="nav nav-tabs mt-4">
-            <li class="nav-item">
-                <a class="nav-link active" href="#requestPermission" data-toggle="tab">Request Permission</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#requestHistory" data-toggle="tab">Request History</a>
-            </li>
-        </ul>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="../js/scripts.js"></script>
+    <script src="js/student.js"></script>
 </body>
 </html>

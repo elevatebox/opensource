@@ -10,7 +10,7 @@
 <body>
     <div class="container-fluid d-flex justify-content-center align-items-center vh-100 bg-gradient">
         <div class="card shadow-lg p-4" style="width: 400px; border-radius: 15px;">
-            <h2 class="text-center text-success mb-4 animated fadeInDown">grant.it</h2>
+            <h2 class="text-center text-success mb-4">grant.it</h2>
             <form id="login-form">
                 <div class="form-group">
                     <label for="username">Username</label>
@@ -29,7 +29,7 @@
                         <option value="student">Student</option>
                     </select>
                 </div>
-                <button type="submit" class="btn btn-success btn-block animated pulse">Login</button>
+                <button type="submit" class="btn btn-success btn-block">Login</button>
             </form>
             <div id="loginMessage" class="mt-3 text-center" style="display: none;"></div>
         </div>
@@ -39,5 +39,27 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="js/scripts.js"></script>
+
+    <script>
+        // JavaScript to handle the login form submission
+        document.getElementById('login-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            // Get the input values
+            const username = document.getElementById('username').value;
+            const role = document.getElementById('role').value;
+
+            // Display a login message
+            const loginMessage = document.getElementById('loginMessage');
+            loginMessage.style.display = 'block';
+            loginMessage.innerHTML = `Logged in as ${role.charAt(0).toUpperCase() + role.slice(1)}: ${username}`;
+            loginMessage.classList.add('text-success');
+
+            // Optionally, you can redirect to a different page after a timeout
+            // setTimeout(() => {
+            //     window.location.href = 'dashboard.html'; // Redirect to a dashboard page
+            // }, 2000); // Redirects after 2 seconds
+        });
+    </script>
 </body>
 </html>
