@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <title>Admin Dashboard - grant.it</title>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center text-primary">Admin Dashboard</h1>
+        <ul class="nav nav-tabs mt-4" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="coadmin-tab" data-toggle="tab" href="#coadmin-management" role="tab">Co-admin Management</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="student-tab" data-toggle="tab" href="#student-management" role="tab">Student Management</a>
+            </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+            <!-- Co-admin Management Tab -->
+            <div class="tab-pane fade show active" id="coadmin-management" role="tabpanel">
+                <div class="card mt-4 p-4" style="background-color: #ffeb3b;">
+                    <h3>Co-admin Management</h3>
+                    <form id="coadmin-form">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="coadmin-name" placeholder="Co-admin Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="coadmin-branch" placeholder="Branch" required>
+                        </div>
+                        <button type="submit" class="btn btn-success">Add Co-admin</button>
+                    </form>
+                    <div id="coadmin-list" class="mt-3">
+                        <!-- Co-admins will be listed here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Student Management Tab -->
+            <div class="tab-pane fade" id="student-management" role="tabpanel">
+                <div class="card mt-4 p-4" style="background-color: #8bc34a;">
+                    <h3>Student Management</h3>
+                    <form id="student-form">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="student-name" placeholder="Student Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="student-id" placeholder="Student ID" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Add Student</button>
+                    </form>
+                    <div id="student-list" class="mt-3">
+                        <!-- Students will be listed here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="../js/scripts.js"></script>
+</body>
+</html>
