@@ -6,10 +6,48 @@
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <title>Student - grant.it</title>
+    <style>
+        .notification {
+            display: none;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #28a745;
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            animation: fadeIn 0.5s, fadeOut 0.5s 3s forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+    </style>
 </head>
 <body>
     <div class="container mt-5">
         <h2>Student Dashboard</h2>
+        <h4>Please enter your details:</h4>
+        <input type="text" id="studentName" placeholder="Your Name" class="form-control mb-2">
+        <input type="text" id="studentUsername" placeholder="Username" class="form-control mb-2">
+        <input type="text" id="studentRollNo" placeholder="Roll Number" class="form-control mb-2">
+        
+        <h4>Select Your Branch</h4>
+        <select id="studentBranchSelect" class="form-control mb-3">
+            <option value="">Select a branch</option>
+            <option value="Computer Science">Computer Science</option>
+            <option value="Information Technology">Information Technology</option>
+            <option value="Electronics">Electronics</option>
+            <option value="Mechanical">Mechanical</option>
+            <option value="Civil">Civil</option>
+        </select>
+        
+        <button class="btn btn-primary mb-3" onclick="submitDetails()">Submit Details</button>
+
         <ul class="nav nav-tabs" id="studentTabs">
             <li class="nav-item">
                 <a class="nav-link active" data-toggle="tab" href="#requestPermission">Request Permission</a>
@@ -22,9 +60,10 @@
         <div class="tab-content">
             <div class="tab-pane active" id="requestPermission">
                 <h3>Request Permission</h3>
-                <input type="text" id="studentRequest" placeholder="Request Details" class="form-control mb-2">
-                <button class="btn btn-primary" onclick="submitRequest()">Submit Request</button>
-                <ul id="studentRequestList" class="mt-3"></ul>
+                <input type="text" id="subjectLine" placeholder="Subject Line" class="form-control mb-2">
+                <textarea id="studentRequest" placeholder="Permission Details" rows="4" class="form-control mb-2"></textarea>
+                <button class="btn btn-primary" onclick="submitRequest()">Send</button>
+                <button class="btn btn-secondary" onclick="cancelRequest()">Cancel</button>
             </div>
             <div class="tab-pane" id="requestHistory">
                 <h3>Request History</h3>
@@ -33,49 +72,84 @@
         </div>
     </div>
 
+    <div class="notification" id="notification"></div>
+
     <script src="js/script.js"></script>
     
     <script>
+        let students = JSON.parse(localStorage.getItem('students')) || [];
         let requests = JSON.parse(localStorage.getItem('requests')) || [];
 
-        function submitRequest() {
-            const details = document.getElementById('studentRequest').value;
-            if (details) {
-                requests.push({ student: details, status: 'Pending' });
-                localStorage.setItem('requests', JSON.stringify(requests));
-                document.getElementById('studentRequest').value = '';
-                renderRequestList();
-                renderRequestHistory();
+        function submitDetails() {
+            const name = document.getElementById('studentName').value;
+            const username = document.getElementById('studentUsername').value;
+            const rollNo = document.getElementById('studentRollNo').value;
+            const branch = document.getElementById('studentBranchSelect').value;
+
+            if (name && username && rollNo && branch) {
+                const studentDetails = { name, username, rollNo, branch };
+                students.push(studentDetails);
+                localStorage.setItem('students', JSON.stringify(students));
+                showNotification("Your details have been submitted to the co-admin.");
+                clearStudentInputs();
             } else {
-                alert('Please enter request details.');
+                alert('Please fill in all fields.');
             }
         }
 
-        function renderRequestList() {
-            const list = document.getElementById('studentRequestList');
-            list.innerHTML = '';
-            requests.forEach((request, index) => {
-                list.innerHTML += `<li>${request.student} - ${request.status} <button onclick="deleteRequest(${index})">Delete</button></li>`;
-            });
+        function clearStudentInputs() {
+            document.getElementById('studentName').value = '';
+            document.getElementById('studentUsername').value = '';
+            document.getElementById('studentRollNo').value = '';
+            document.getElementById('studentBranchSelect').value = '';
         }
 
-        function deleteRequest(index) {
-            requests.splice(index, 1);
-            localStorage.setItem('requests', JSON.stringify(requests));
-            renderRequestList();
-            renderRequestHistory();
+        function submitRequest() {
+            const subjectLine = document.getElementById('subjectLine').value;
+            const details = document.getElementById('studentRequest').value;
+
+            if (subjectLine && details) {
+                const currentStudent = students[students.length - 1]; // Assuming the last submitted student details
+                const newRequest = {
+                    student: currentStudent,
+                    subjectLine,
+                    details,
+                    status: 'Pending'
+                };
+                requests.push(newRequest);
+                localStorage.setItem('requests', JSON.stringify(requests));
+                showNotification("Request sent successfully.");
+                clearRequestInputs();
+                renderRequestHistory();
+            } else {
+                alert('Please fill in all fields.');
+            }
+        }
+
+        function clearRequestInputs() {
+            document.getElementById('subjectLine').value = '';
+            document.getElementById('studentRequest').value = '';
         }
 
         function renderRequestHistory() {
             const list = document.getElementById('requestHistoryList');
             list.innerHTML = '';
-            requests.forEach(request => {
-                list.innerHTML += `<li>${request.student} - ${request.status}</li>`;
+            requests.forEach((request) => {
+                list.innerHTML += `<li>${request.subjectLine}: ${request.details} - ${request.status} 
+                (Requested by: ${request.student.name}, Roll No: ${request.student.rollNo})</li>`;
             });
         }
 
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.style.display = 'block';
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 4000);
+        }
+
         // Initial render
-        renderRequestList();
         renderRequestHistory();
     </script>
 </body>

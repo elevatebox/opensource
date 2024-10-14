@@ -12,8 +12,8 @@
             position: fixed;
             top: 20px;
             right: 20px;
-            background-color: #28a745;
-            color: white;
+            background-color: #a79428;
+            color: rgb(33, 21, 21);
             padding: 15px;
             border-radius: 5px;
             animation: fadeIn 0.5s, fadeOut 0.5s 3s forwards;
@@ -31,7 +31,7 @@
 <body>
     <div class="container mt-5">
         <h2>Co-admin Dashboard</h2>
-        <h4>Select Branch</h4>
+        <h4>Select Your Branch</h4>
         <select id="branchSelect" class="form-control mb-3" onchange="setBranch()">
             <option value="">Select a branch</option>
             <option value="Computer Science">Computer Science</option>
@@ -40,6 +40,7 @@
             <option value="Mechanical">Mechanical</option>
             <option value="Civil">Civil</option>
         </select>
+
         <h4>Assigned Branch: <span id="assignedBranch">None</span></h4>
         
         <ul class="nav nav-tabs" id="coadminTabs">
@@ -54,12 +55,15 @@
         <div class="tab-content">
             <div class="tab-pane active" id="studentManagement">
                 <h3>Manage Students</h3>
-                <input type="text" id="coStudentName" placeholder="Student Name" class="form-control mb-2">
-                <button class="btn btn-primary" onclick="addCoAdminStudent()">Add Student</button>
-                <ul id="coStudentList" class="mt-3"></ul>
+                <ul id="studentList" class="list-group mb-3"></ul>
+                <h5>Edit Student Details</h5>
+                <input type="text" id="editStudentName" placeholder="New Name" class="form-control mb-2">
+                <input type="text" id="editStudentUsername" placeholder="New Username" class="form-control mb-2">
+                <input type="text" id="editStudentRollNo" placeholder="New Roll Number" class="form-control mb-2">
+                <button class="btn btn-success" onclick="updateStudent()">Update Student</button>
             </div>
             <div class="tab-pane" id="requests">
-                <h3>Requests</h3>
+                <h3>Student Requests</h3>
                 <ul id="requestList" class="mt-3"></ul>
             </div>
         </div>
@@ -75,63 +79,67 @@
         let assignedBranch = '';
 
         function setBranch() {
-            const branch = document.getElementById('branchSelect').value;
-            assignedBranch = branch;
-            document.getElementById('assignedBranch').textContent = branch || 'None';
-            renderCoAdminStudentList();
+            assignedBranch = document.getElementById('branchSelect').value;
+            document.getElementById('assignedBranch').innerText = assignedBranch;
+            renderStudentList();
+            renderRequestList();
         }
 
-        // Student Management
-        function addCoAdminStudent() {
-            const name = document.getElementById('coStudentName').value;
-            if (name && assignedBranch) {
-                students.push({ name, branch: assignedBranch });
-                localStorage.setItem('students', JSON.stringify(students));
-                document.getElementById('coStudentName').value = '';
-                renderCoAdminStudentList();
-            } else {
-                alert('Please enter a name and select a branch.');
-            }
-        }
-
-        function renderCoAdminStudentList() {
-            const list = document.getElementById('coStudentList');
+        function renderStudentList() {
+            const list = document.getElementById('studentList');
             list.innerHTML = '';
             students.forEach((student, index) => {
                 if (student.branch === assignedBranch) {
-                    list.innerHTML += `<li>${student.name} <button onclick="deleteCoAdminStudent(${index})">Delete</button> <button onclick="viewRequests(${index})">View Requests</button></li>`;
+                    list.innerHTML += `<li class="list-group-item d-flex justify-content-between align-items-center">
+                        ${student.name} (Roll No: ${student.rollNo})
+                        <button class="btn btn-danger btn-sm" onclick="removeStudent(${index})">Remove</button>
+                        <button class="btn btn-info btn-sm" onclick="editStudent(${index})">Edit</button>
+                    </li>`;
                 }
             });
         }
 
-        function deleteCoAdminStudent(index) {
-            students.splice(index, 1);
-            localStorage.setItem('students', JSON.stringify(students));
-            renderCoAdminStudentList();
-        }
-
-        function viewRequests(studentIndex) {
+        function renderRequestList() {
             const list = document.getElementById('requestList');
             list.innerHTML = '';
-            const studentRequests = requests.filter(req => req.studentIndex === studentIndex);
+            requests.forEach((request) => {
+                if (request.student.branch === assignedBranch) {
+                    list.innerHTML += `<li>${request.subjectLine}: ${request.details} - ${request.status} 
+                    (Requested by: ${request.student.name}, Roll No: ${request.student.rollNo})</li>`;
+                }
+            });
+        }
 
-            if (studentRequests.length > 0) {
-                studentRequests.forEach((request, reqIndex) => {
-                    list.innerHTML += `<li>${request.details} - ${request.status} 
-                        <button onclick="updateRequest(${reqIndex}, 'Accepted', ${studentIndex})">Accept</button>
-                        <button onclick="updateRequest(${reqIndex}, 'Rejected', ${studentIndex})">Reject</button>
-                    </li>`;
-                });
+        function editStudent(index) {
+            const student = students[index];
+            document.getElementById('editStudentName').value = student.name;
+            document.getElementById('editStudentUsername').value = student.username;
+            document.getElementById('editStudentRollNo').value = student.rollNo;
+            document.getElementById('editStudentRollNo').setAttribute('data-index', index);
+        }
+
+        function updateStudent() {
+            const index = document.getElementById('editStudentRollNo').getAttribute('data-index');
+            const newName = document.getElementById('editStudentName').value;
+            const newUsername = document.getElementById('editStudentUsername').value;
+            const newRollNo = document.getElementById('editStudentRollNo').value;
+
+            if (index !== null && newName && newUsername && newRollNo) {
+                students[index] = { ...students[index], name: newName, username: newUsername, rollNo: newRollNo };
+                localStorage.setItem('students', JSON.stringify(students));
+                showNotification("Student details updated successfully.");
+                renderStudentList();
+                clearEditInputs();
             } else {
-                list.innerHTML = '<li>No requests found for this student.</li>';
+                alert('Please fill in all fields.');
             }
         }
 
-        function updateRequest(reqIndex, status, studentIndex) {
-            requests[reqIndex].status = status;
-            localStorage.setItem('requests', JSON.stringify(requests));
-            showNotification(`Request has been ${status.toLowerCase()}.`);
-            viewRequests(studentIndex); // Refresh the request view
+        function removeStudent(index) {
+            students.splice(index, 1);
+            localStorage.setItem('students', JSON.stringify(students));
+            showNotification("Student removed successfully.");
+            renderStudentList();
         }
 
         function showNotification(message) {
@@ -143,8 +151,11 @@
             }, 4000);
         }
 
-        // Initial render
-        renderCoAdminStudentList();
+        function clearEditInputs() {
+            document.getElementById('editStudentName').value = '';
+            document.getElementById('editStudentUsername').value = '';
+            document.getElementById('editStudentRollNo').value = '';
+        }
     </script>
 </body>
 </html>
