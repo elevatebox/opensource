@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Interface - Grant.it</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #ffebcd; /* Peach background */
+        }
+
+        h1 {
+            text-align: center;
+            color: #b65d4d; /* Darker peach color */
+            margin-top: 20px;
+        }
+
+        .table th, .table td {
+            text-align: center;
+        }
+
+        .btn-danger {
+            margin-left: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Admin Interface</h1>
+    
+    <div class="container">
+        <h2>Co-admin Management</h2>
+        <form id="coadmin-form" onsubmit="addCoadmin(event)">
+            <div class="mb-3">
+                <label for="coadmin-username" class="form-label">Username</label>
+                <input type="text" class="form-control" id="coadmin-username" required>
+            </div>
+            <div class="mb-3">
+                <label for="coadmin-branch" class="form-label">Select Branch</label>
+                <select class="form-select" id="coadmin-branch" required>
+                    <option value="" disabled selected>Select a branch</option>
+                    <option value="CSE">CSE</option>
+                    <option value="ECE">ECE</option>
+                    <option value="ME">Mechanical</option>
+                    <option value="CE">Civil</option>
+                    <option value="IT">Information Technology</option>
+                    <option value="AE">Aeronautical</option>
+                    <option value="CE">Chemical</option>
+                    <option value="EE">Electrical</option>
+                    <option value="BBA">BBA</option>
+                    <option value="MBA">MBA</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Coadmin</button>
+        </form>
+        
+        <table class="table table-striped mt-4">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Branch</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="coadmin-list">
+                <!-- Coadmin list will be dynamically populated here -->
+            </tbody>
+        </table>
+
+        <h2 class="mt-5">Student Management</h2>
+        <form id="student-form" onsubmit="addStudent(event)">
+            <div class="mb-3">
+                <label for="student-username" class="form-label">Username</label>
+                <input type="text" class="form-control" id="student-username" required>
+            </div>
+            <div class="mb-3">
+                <label for="student-branch" class="form-label">Select Branch</label>
+                <select class="form-select" id="student-branch" required>
+                    <option value="" disabled selected>Select a branch</option>
+                    <option value="CSE">CSE</option>
+                    <option value="ECE">ECE</option>
+                    <option value="ME">Mechanical</option>
+                    <option value="CE">Civil</option>
+                    <option value="IT">Information Technology</option>
+                    <option value="AE">Aeronautical</option>
+                    <option value="CE">Chemical</option>
+                    <option value="EE">Electrical</option>
+                    <option value="BBA">BBA</option>
+                    <option value="MBA">MBA</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Student</button>
+        </form>
+        
+        <table class="table table-striped mt-4">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Branch</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="student-list">
+                <!-- Student list will be dynamically populated here -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // Store Coadmins and Students in local storage for demo purposes
+        const storeCoadmins = () => {
+            const coadmins = JSON.parse(localStorage.getItem('coadmins')) || [];
+            return coadmins;
+        };
+
+        const storeStudents = () => {
+            const students = JSON.parse(localStorage.getItem('students')) || [];
+            return students;
+        };
+
+        function addCoadmin(event) {
+            event.preventDefault();
+            const username = document.getElementById('coadmin-username').value;
+            const branch = document.getElementById('coadmin-branch').value;
+
+            const coadmins = storeCoadmins();
+            coadmins.push({ username, branch });
+            localStorage.setItem('coadmins', JSON.stringify(coadmins));
+
+            document.getElementById('coadmin-form').reset();
+            displayCoadmins();
+        }
+
+        function displayCoadmins() {
+            const coadmins = storeCoadmins();
+            const coadminList = document.getElementById('coadmin-list');
+            coadminList.innerHTML = '';
+
+            coadmins.forEach((coadmin, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${coadmin.username}</td>
+                    <td>${coadmin.branch}</td>
+                    <td>
+                        <button class="btn btn-danger" onclick="removeCoadmin(${index})">Remove</button>
+                    </td>
+                `;
+                coadminList.appendChild(row);
+            });
+        }
+
+        function removeCoadmin(index) {
+            const coadmins = storeCoadmins();
+            coadmins.splice(index, 1);
+            localStorage.setItem('coadmins', JSON.stringify(coadmins));
+            displayCoadmins();
+        }
+
+        function addStudent(event) {
+            event.preventDefault();
+            const username = document.getElementById('student-username').value;
+            const branch = document.getElementById('student-branch').value;
+
+            const students = storeStudents();
+            students.push({ username, branch });
+            localStorage.setItem('students', JSON.stringify(students));
+
+            document.getElementById('student-form').reset();
+            displayStudents();
+        }
+
+        function displayStudents() {
+            const students = storeStudents();
+            const studentList = document.getElementById('student-list');
+            studentList.innerHTML = '';
+
+            students.forEach((student, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${student.username}</td>
+                    <td>${student.branch}</td>
+                    <td>
+                        <button class="btn btn-danger" onclick="removeStudent(${index})">Remove</button>
+                    </td>
+                `;
+                studentList.appendChild(row);
+            });
+        }
+
+        function removeStudent(index) {
+            const students = storeStudents();
+            students.splice(index, 1);
+            localStorage.setItem('students', JSON.stringify(students));
+            displayStudents();
+        }
+
+        window.onload = function() {
+            displayCoadmins();
+            displayStudents();
+        };
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
