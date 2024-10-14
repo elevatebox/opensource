@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>grant.it - Login</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/styles-login.css">
+</head>
+<body>
+  <div class="login-container">
+    <h1>grant.it</h1>
+    <h2>Login</h2>
+    <form id="loginForm">
+      <select id="role" required>
+        <option value="" disabled selected>Select Role</option>
+        <option value="admin">Admin</option>
+        <option value="coadmin">Co-admin</option>
+        <option value="student">Student</option>
+      </select>
+      <input type="text" id="username" placeholder="Username" required>
+      <input type="password" id="password" placeholder="Password" required>
+      <button type="submit" class="action-button">Login</button>
+    </form>
+    <div id="message"></div>
+  </div>
+  
+  <script src="../js/login.js"></script>
+  <script>
+    // Sample user data for demonstration
+    const users = {
+      admin: { username: 'admin', password: 'admin123', redirect: 'admin-dashboard.html' },
+      coadmin: { username: 'coadmin', password: 'coadmin123', redirect: 'coadmin-dashboard.html' },
+      student: { username: 'student', password: 'student123', redirect: 'student-dashboard.html' }
+    };
+
+    document.getElementById('loginForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const role = document.getElementById('role').value;
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      const messageDiv = document.getElementById('message');
+
+      // Check if user credentials match
+      if (users[role] && users[role].username === username && users[role].password === password) {
+        messageDiv.innerHTML = "Login successful! Redirecting...";
+        messageDiv.style.color = "green";
+        // Redirect to the corresponding dashboard
+        setTimeout(() => {
+          window.location.href = users[role].redirect;
+        }, 1000);
+      } else {
+        messageDiv.innerHTML = "Invalid credentials. Please try again.";
+        messageDiv.style.color = "red";
+      }
+    });
+  </script>
+</body>
+</html>

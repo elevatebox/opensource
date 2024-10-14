@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>grant.it - Admin Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/styles-admin.css">
+</head>
+<body>
+  <h1 class="text-center">grant.it - Admin Dashboard</h1>
+  
+  <!-- Floating Shapes -->
+  <div class="shape circle" style="top: 50px; right: 50px;"></div>
+  <div class="shape square" style="bottom: 100px; left: 60px;"></div>
+  <div class="shape circle-small" style="top: 150px; left: 200px;"></div>
+  <div class="shape circle-small" style="bottom: 200px; right: 150px;"></div>
+  
+  <!-- Dashboard Content -->
+  <div class="dashboard-box">
+    <div class="tabs">
+      <button id="adminsTab" class="active">Admin Management</button>
+      <button id="coAdminsTab">Co-admin Management</button>
+      <button id="studentsTab">Student Management</button>
+    </div>
+    
+    <!-- Admin Management Tab -->
+    <div id="adminsContent" class="tab-content show">
+      <h2>Manage Admins</h2>
+      
+      <!-- Add Admin Form -->
+      <form id="addAdminForm">
+        <input type="text" id="newAdminUsername" placeholder="Admin Username" required>
+        <input type="password" id="newAdminPassword" placeholder="Password" required>
+        <button type="submit">Add Admin</button>
+      </form>
+      
+      <!-- Admin Management Table -->
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Admin ID</th>
+            <th>Username</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="adminsTableBody">
+          <!-- Sample data; replace with dynamic data -->
+          <tr>
+            <td>1</td>
+            <td>admin1</td>
+            <td>
+              <button class="btn btn-primary" onclick="editAdmin(1)">Edit</button>
+              <button class="btn btn-danger" onclick="deleteAdmin(1)">Delete</button>
+            </td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>admin2</td>
+            <td>
+              <button class="btn btn-primary" onclick="editAdmin(2)">Edit</button>
+              <button class="btn btn-danger" onclick="deleteAdmin(2)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    
+    <!-- Co-admin Management Tab -->
+    <div id="coAdminsContent" class="tab-content">
+      <h2>Manage Co-admins</h2>
+      
+      <!-- Add Co-admin Form -->
+      <form id="addCoAdminForm">
+        <input type="text" id="newCoAdminUsername" placeholder="Co-admin Username" required>
+        <input type="password" id="newCoAdminPassword" placeholder="Password" required>
+        <button type="submit">Add Co-admin</button>
+      </form>
+      
+      <!-- Co-admin Management Table -->
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Co-admin ID</th>
+            <th>Username</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="coAdminsTableBody">
+          <!-- Sample data; replace with dynamic data -->
+          <tr>
+            <td>1</td>
+            <td>coadmin1</td>
+            <td>
+              <button class="btn btn-primary" onclick="editCoAdmin(1)">Edit</button>
+              <button class="btn btn-danger" onclick="deleteCoAdmin(1)">Delete</button>
+            </td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>coadmin2</td>
+            <td>
+              <button class="btn btn-primary" onclick="editCoAdmin(2)">Edit</button>
+              <button class="btn btn-danger" onclick="deleteCoAdmin(2)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Student Management Tab -->
+    <div id="studentsContent" class="tab-content">
+      <h2>Manage Students</h2>
+      <!-- Student Management Table or Content -->
+    </div>
+  </div>
+  
+  <script src="../js/admin.js"></script>
+  <script>
+    // Sample functions for admin actions
+    document.getElementById('addAdminForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      const username = document.getElementById('newAdminUsername').value;
+      const password = document.getElementById('newAdminPassword').value;
+
+      // Here, you would typically send this data to your server
+      alert(`Admin ${username} added!`);
+      
+      // Clear the form
+      this.reset();
+    });
+
+    function editAdmin(id) {
+      // Here, you would typically fetch the admin details to edit
+      alert(`Editing Admin with ID: ${id}`);
+    }
+
+    function deleteAdmin(id) {
+      // Here, you would typically confirm and delete the admin
+      if (confirm(`Are you sure you want to delete Admin with ID: ${id}?`)) {
+        alert(`Admin with ID: ${id} deleted!`);
+      }
+    }
+
+    // Sample functions for co-admin actions
+    document.getElementById('addCoAdminForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      const username = document.getElementById('newCoAdminUsername').value;
+      const password = document.getElementById('newCoAdminPassword').value;
+
+      // Here, you would typically send this data to your server
+      alert(`Co-admin ${username} added!`);
+      
+      // Clear the form
+      this.reset();
+    });
+
+    function editCoAdmin(id) {
+      // Here, you would typically fetch the co-admin details to edit
+      alert(`Editing Co-admin with ID: ${id}`);
+    }
+
+    function deleteCoAdmin(id) {
+      // Here, you would typically confirm and delete the co-admin
+      if (confirm(`Are you sure you want to delete Co-admin with ID: ${id}?`)) {
+        alert(`Co-admin with ID: ${id} deleted!`);
+      }
+    }
+  </script>
+</body>
+</html>

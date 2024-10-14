@@ -1,0 +1,63 @@
+/* General Styles */
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #FF4C4C; /* Red background */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    position: relative;
+  }
+  
+  /* Header */
+  h1 {
+    color: #FFFFFF; /* White color for text */
+    font-size: 3em;
+    font-weight: bold;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+  }
+  
+  /* Dashboard Box */
+  .dashboard-box {
+    width: 700px;
+    padding: 40px;
+    background: rgba(255, 255, 255, 0.85); /* Semi-transparent background */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    border-radius: 15px;
+    position: relative;
+    z-index: 2;
+  }
+  
+  /* Section Titles */
+  h2 {
+    color: #333; /* Dark text color for section titles */
+    font-size: 1.8em;
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+  
+  /* Button Styles */
+  .action-button {
+    background-color: #FFD700; /* Gold button color */
+    color: #1E90FF; /* Blue text color */
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    font-size: 1.1em;
+    cursor: pointer;
+    margin: 10px 5px; /* Space between buttons */
+    font-family: 'Montserrat', sans-serif; /* Modern font for buttons */
+    transition: background 0.3s ease;
+  }
+  
+  .action-button:hover {
+    background-color: #FFC107; /* Slightly darker gold on hover */
+  }
+  
