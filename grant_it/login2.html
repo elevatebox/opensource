@@ -12,7 +12,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            font-family: 'Arial', sans-serif;
+            font-family: Arial, sans-serif;
             overflow: hidden;
             background-color: #f0f4f8;
         }
@@ -25,7 +25,7 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(135deg, #6a82fb, #fc5c7d);
-            animation: gradientAnimation 10s ease infinite;
+            animation: gradientAnimation 5s ease infinite;
             z-index: -1;
         }
 
@@ -39,7 +39,7 @@
         .app-name {
             font-weight: bold;
             color: #4a90e2;
-            font-size: 3rem;
+            font-size: 2.5rem;
             margin-bottom: 1rem;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
@@ -89,8 +89,13 @@
         h2 {
             font-weight: bold;
             color: #4a90e2;
-            font-size: 2rem;
-            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+
+        .request-history {
+            max-height: 300px;
+            overflow-y: auto;
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -125,6 +130,43 @@
                 <button type="submit" class="btn btn-gradient btn-block">Login</button>
             </form>
         </div>
+
+        <!-- Request Management for Student -->
+        <div id="student-section" class="mt-5" style="display: none;">
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#requestTab">Request Permission</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#historyTab">Request History</a>
+                </li>
+            </ul>
+
+            <div class="tab-content">
+                <!-- Request Permission Tab -->
+                <div id="requestTab" class="tab-pane fade show active">
+                    <form id="request-form" onsubmit="handleRequest(event)">
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text" class="form-control" id="subject" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="details">Request Details</label>
+                            <textarea class="form-control" id="details" rows="4" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-gradient btn-block">Send Request</button>
+                    </form>
+                </div>
+
+                <!-- Request History Tab -->
+                <div id="historyTab" class="tab-pane fade">
+                    <h3>Request History</h3>
+                    <div class="request-history" id="request-history">
+                        <!-- Requests will be displayed here -->
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -134,18 +176,47 @@
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
 
+            // Here, you can add the logic to validate the user credentials
             console.log(`Logged in as: ${role}, Username: ${username}`);
-            
-            // Redirect to appropriate page based on the role
-            if (role === "admin") {
-                window.location.href = 'admin.html'; 
-            } else if (role === "co-admin") {
-                window.location.href = 'co-admin.html'; 
+
+            // Show student section if role is student
+            if (role === "student") {
+                document.querySelector('.login-box').style.display = 'none'; // Hide login box
+                document.getElementById('student-section').style.display = 'block'; // Show student section
             } else {
-                window.location.href = 'student.html'; 
+                // Redirect to appropriate page based on the role
+                if (role === "admin") {
+                    window.location.href = 'admin.html'; // Replace with actual admin page
+                } else if (role === "co-admin") {
+                    window.location.href = 'co-admin.html'; // Replace with actual co-admin page
+                }
             }
+        }
+
+        function handleRequest(event) {
+            event.preventDefault(); // Prevent form submission
+
+            const subject = document.getElementById('subject').value;
+            const details = document.getElementById('details').value;
+
+            // Create a new request element
+            const requestItem = document.createElement('div');
+            requestItem.className = 'request-item mb-2 p-2 border rounded';
+            requestItem.innerHTML = `<strong>${subject}</strong><p>${details}</p>`;
+
+            // Append the request to the request history
+            document.getElementById('request-history').appendChild(requestItem);
+
+            // Clear the form fields
+            document.getElementById('request-form').reset();
+
+            // Show success message
+            alert('Request sent successfully');
         }
     </script>
 
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
