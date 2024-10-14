@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body {
-            background: linear-gradient(135deg, #a2c4e6, #d4f0fc); /* Light gradient */
+            background: linear-gradient(135deg, #f0f4c3, #c5e1a5); /* Light gradient matching co-admin */
         }
     </style>
 </head>
@@ -57,6 +57,45 @@
         </div>
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="../js/main.js"></script>
+
+    <script>
+        const requestHistoryTbody = document.getElementById('request-history-tbody');
+        const requests = []; // Array to hold requests
+
+        function submitRequest() {
+            const subject = document.getElementById('subject').value;
+            const reason = document.getElementById('reason').value;
+
+            // Add the request to the requests array
+            requests.push({ subject, reason, status: 'Pending' });
+
+            // Clear the input fields
+            document.getElementById('subject').value = '';
+            document.getElementById('reason').value = '';
+
+            // Update the request history table
+            updateRequestHistory();
+
+            // You can add additional logic for what happens after submitting a request
+        }
+
+        // Function to update the request history table
+        function updateRequestHistory() {
+            requestHistoryTbody.innerHTML = ''; // Clear previous entries
+            requests.forEach(request => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${request.subject}</td>
+                    <td>${request.reason}</td>
+                    <td>${request.status}</td>
+                `;
+                requestHistoryTbody.appendChild(row); // Append row to the table
+            });
+        }
+    </script>
 </body>
 </html>
