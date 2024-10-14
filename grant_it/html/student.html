@@ -1,0 +1,18 @@
+<!-- Student HTML -->
+<h1>Welcome, Student</h1>
+<div class="tabs">
+    <button class="tablink" onclick="openTab(event, 'RequestPermission')">Request Permission</button>
+    <button class="tablink" onclick="openTab(event, 'RequestHistory')">Request History</button>
+</div>
+
+<div id="RequestPermission" class="tabcontent">
+    <h2>Request Permission</h2>
+    <input type="text" placeholder="Subject" class="subject-input">
+    <textarea rows="4" placeholder="Permission Details"></textarea>
+    <button onclick="sendRequest()">Send</button>
+    <button onclick="cancelRequest()">Cancel</button>
+</div>
+
+<div id="RequestHistory" class="tabcontent">
+    <h2>Request History</h2>
+</div>

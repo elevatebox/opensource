@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/style.css">
+    <title>Admin Dashboard</title>
+</head>
+<body>
+    <div class="dashboard-container">
+        <h1>Welcome, Admin</h1>
+        <div class="tabs">
+            <button class="tablink" onclick="openTab(event, 'CoAdminManagement')">Co-admin Management</button>
+            <button class="tablink" onclick="openTab(event, 'StudentManagement')">Student Management</button>
+        </div>
+
+        <div id="CoAdminManagement" class="tabcontent">
+            <h2>Manage Co-admins</h2>
+            <form id="coadmin-form">
+                <input type="text" id="coadmin-username" placeholder="Co-admin Username" required>
+                <input type="password" id="coadmin-password" placeholder="Co-admin Password" required>
+                <button type="submit">Add Co-admin</button>
+            </form>
+            <h3>Existing Co-admins</h3>
+            <ul id="coadmin-list"></ul>
+        </div>
+
+        <div id="StudentManagement" class="tabcontent">
+            <h2>Manage Students</h2>
+            <form id="student-form">
+                <input type="text" id="student-username" placeholder="Student Username" required>
+                <input type="password" id="student-password" placeholder="Student Password" required>
+                <button type="submit">Add Student</button>
+            </form>
+            <h3>Existing Students</h3>
+            <ul id="student-list"></ul>
+        </div>
+    </div>
+
+    <script src="../js/script.js"></script>
+</body>
+</html>

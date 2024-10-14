@@ -1,0 +1,30 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}
+.login-container {
+    max-width: 400px;
+    margin: 100px auto;
+    background: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+.app-name {
+    font-size: 2em;
+    font-weight: bold;
+    color: green;
+}
+.form-group {
+    margin: 15px 0;
+}
+input, select, button {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+}
+button {
+    background-color: green;
+    color: white;
+    cursor: pointer;
+}
