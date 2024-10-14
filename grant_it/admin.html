@@ -3,35 +3,174 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin - grant.it</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Admin Dashboard - Permission Management</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            margin-top: 30px;
+            border-radius: 8px;
+            background: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #007bff;
+        }
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #e9ecef;
+            border-radius: 5px;
+            transition: transform 0.3s;
+        }
+        .section:hover {
+            transform: scale(1.02);
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        .message {
+            margin-top: 10px;
+        }
+        .status {
+            margin-left: 10px;
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        .accepted {
+            background-color: #28a745;
+            color: white;
+        }
+        .denied {
+            background-color: #dc3545;
+            color: white;
+        }
+    </style>
 </head>
 <body>
-    <div class="container mt-5">
-        <h2>Admin Dashboard</h2>
-        <ul class="nav nav-tabs" id="adminTabs">
-            <li class="nav-item">
-                <a class="nav-link active" href="#coadminTab" data-toggle="tab">Co-admin Management</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#studentTab" data-toggle="tab">Student Management</a>
-            </li>
-        </ul>
-        <div class="tab-content mt-3">
-            <div class="tab-pane fade show active" id="coadminTab">
-                <!-- Co-admin Management -->
-                <button class="btn btn-success" onclick="addCoadmin()">Add Co-admin</button>
-                <div id="coadminList"></div>
-            </div>
-            <div class="tab-pane fade" id="studentTab">
-                <!-- Student Management -->
-                <button class="btn btn-success" onclick="addStudent()">Add Student</button>
-                <div id="studentList"></div>
-            </div>
+    <div class="container fade-in">
+        <h1>Admin Dashboard</h1>
+
+        <!-- Co-admin Management Section -->
+        <div class="section">
+            <h2>Co-admin Management</h2>
+            <form id="coAdminForm">
+                <div class="form-row">
+                    <div class="col">
+                        <input type="text" id="coAdminName" class="form-control" placeholder="Co-admin Name" required>
+                    </div>
+                    <div class="col">
+                        <button type="submit" class="btn btn-primary">Add Co-admin</button>
+                    </div>
+                </div>
+            </form>
+            <ul id="coAdminList" class="list-group mt-3"></ul>
+        </div>
+
+        <!-- Student Management Section -->
+        <div class="section">
+            <h2>Student Management</h2>
+            <form id="studentForm">
+                <div class="form-row">
+                    <div class="col">
+                        <input type="text" id="studentName" class="form-control" placeholder="Student Name" required>
+                    </div>
+                    <div class="col">
+                        <button type="submit" class="btn btn-primary">Add Student</button>
+                    </div>
+                </div>
+            </form>
+            <ul id="studentList" class="list-group mt-3"></ul>
         </div>
     </div>
-    <script src="admin.js"></script>
+
+    <script>
+        let coAdmins = [];
+        let students = [];
+
+        // Co-admin Management
+        document.getElementById('coAdminForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const name = document.getElementById('coAdminName').value;
+
+            const coAdmin = { name, status: null };
+            coAdmins.push(coAdmin);
+            displayCoAdmins();
+            this.reset();
+        });
+
+        function displayCoAdmins() {
+            const coAdminList = document.getElementById('coAdminList');
+            coAdminList.innerHTML = '';
+            coAdmins.forEach((coAdmin, index) => {
+                const li = document.createElement('li');
+                li.className = 'list-group-item d-flex justify-content-between align-items-center';
+                li.textContent = coAdmin.name;
+                
+                const messageContainer = document.createElement('div');
+                const messageInput = document.createElement('select');
+                messageInput.className = 'custom-select message';
+                messageInput.innerHTML = `
+                    <option selected>Status</option>
+                    <option value="accepted">Accepted</option>
+                    <option value="denied">Denied</option>
+                `;
+                messageInput.onchange = function () {
+                    coAdmin.status = messageInput.value;
+                    updateStatus(li, coAdmin.status);
+                };
+
+                messageContainer.appendChild(messageInput);
+                li.appendChild(messageContainer);
+                coAdminList.appendChild(li);
+            });
+        }
+
+        function updateStatus(li, status) {
+            let statusLabel = document.createElement('span');
+            statusLabel.className = `status ${status}`;
+            statusLabel.textContent = status.charAt(0).toUpperCase() + status.slice(1);
+            li.appendChild(statusLabel);
+        }
+
+        // Student Management
+        document.getElementById('studentForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const name = document.getElementById('studentName').value;
+
+            const student = { name };
+            students.push(student);
+            displayStudents();
+            this.reset();
+        });
+
+        function displayStudents() {
+            const studentList = document.getElementById('studentList');
+            studentList.innerHTML = '';
+            students.forEach((student) => {
+                const li = document.createElement('li');
+                li.className = 'list-group-item';
+                li.textContent = student.name;
+                studentList.appendChild(li);
+            });
+        }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
-

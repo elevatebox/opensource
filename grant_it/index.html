@@ -3,25 +3,180 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>grant.it - School Permission Management</title>
-    <link rel="stylesheet" href="../css/styles.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Permission Management System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            flex: 1;
+        }
+
+        .form-section, .history-section {
+            width: 48%; /* Adjust width for both sections */
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        h1, h2 {
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px 15px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #218838;
+        }
+
+        .history {
+            margin-top: 20px;
+        }
+
+        .history ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .history li {
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between; /* Space between text and buttons */
+            align-items: center;
+        }
+
+        .approved {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+        }
+
+        .denied {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px; /* Space between buttons */
+        }
+
+        .accept, .deny {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .accept {
+            background: #28a745;
+            color: white;
+        }
+
+        .deny {
+            background: #dc3545;
+            color: white;
+        }
+
+        .accept:hover {
+            background: #218838;
+        }
+
+        .deny:hover {
+            background: #c82333;
+        }
+    </style>
 </head>
 <body>
-    <div class="container text-center mt-5">
-        <h1 style="font-weight: bold; color: green;">grant.it</h1>
-        <div class="login-box mt-4">
-            <select id="loginRole" class="form-control mb-3">
-                <option value="" disabled selected>Login as</option>
-                <option value="admin">Admin</option>
-                <option value="coadmin">Co-admin</option>
-                <option value="student">Student</option>
-            </select>
-            <input type="text" class="form-control mb-3" placeholder="Username" id="username">
-            <input type="password" class="form-control mb-3" placeholder="Password" id="password">
-            <button class="btn btn-primary" onclick="login()">Login</button>
+    <div class="container">
+        <!-- Form Section -->
+        <div class="form-section">
+            <h1>Permission Request Form</h1>
+            <form id="permissionForm">
+                <label for="subject">Subject:</label>
+                <input type="text" id="subject" required>
+
+                <label for="message">Permission Message:</label>
+                <textarea id="message" required></textarea>
+
+                <button type="submit">Submit Request</button>
+            </form>
+        </div>
+
+        <!-- History Section -->
+        <div class="history-section">
+            <h2>Request History</h2>
+            <ul id="requestHistory">
+                <!-- Request history will be populated here -->
+            </ul>
         </div>
     </div>
-    <script src="../js/main.js"></script>
+
+    <script>
+        document.getElementById('permissionForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+
+            addRequestToHistory(subject, message);
+
+            // Clear form fields
+            document.getElementById('permissionForm').reset();
+        });
+
+        function addRequestToHistory(subject, message) {
+            const requestHistory = document.getElementById('requestHistory');
+            const listItem = document.createElement('li');
+            listItem.innerHTML = `<strong>Subject:</strong> ${subject}<br>
+                                  <strong>Message:</strong> ${message}<br>
+                                  <div class="action-buttons">
+                                      <button class="accept" onclick="updateRequestStatus(this, 'approved')">Accept</button>
+                                      <button class="deny" onclick="updateRequestStatus(this, 'denied')">Deny</button>
+                                  </div>`;
+            requestHistory.appendChild(listItem);
+        }
+
+        function updateRequestStatus(button, status) {
+            const listItem = button.closest('li');
+            listItem.classList.add(status === 'approved' ? 'approved' : 'denied');
+            button.parentElement.innerHTML = `<strong>Status:</strong> ${status.charAt(0).toUpperCase() + status.slice(1)}`;
+        }
+    </script>
 </body>
 </html>

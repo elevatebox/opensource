@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Grant.it</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f4f4f4;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .header {
+            background-color: #e91e63;
+            color: #fff;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-weight: bold;
+        }
+
+        .tab-content {
+            margin-top: 20px;
+        }
+
+        .management-box {
+            display: none;
+            background-color: #fff;
+            border: 1px solid #e91e63;
+            padding: 20px;
+            border-radius: 5px;
+            transition: max-height 0.5s ease, opacity 0.5s ease;
+            opacity: 0;
+            max-height: 0;
+            overflow: hidden;
+        }
+
+        .management-box.active {
+            display: block;
+            opacity: 1;
+            max-height: 300px; /* adjust based on content */
+        }
+
+        .request-box {
+            display: none;
+            background-color: #e8f5e9;
+            border: 1px solid #4caf50;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 5px;
+            transition: all 0.5s ease;
+        }
+
+        .request-box.active {
+            display: block;
+        }
+
+        .btn-delete {
+            background-color: #f44336;
+            border: none;
+            color: white;
+        }
+
+        .btn-edit {
+            background-color: #4caf50;
+            border: none;
+            color: white;
+        }
+
+        footer {
+            text-align: center;
+            padding: 15px;
+            background-color: #333;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <div class="header">
+        <h1>Grant.it - Admin Dashboard</h1>
+        <p>Manage Co-admins and Students</p>
+    </div>
+
+    <!-- Tabs for Admin Dashboard -->
+    <div class="container">
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" href="#" id="coAdminTab">Co-admin Management</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" id="studentManagementTab">Student Management</a>
+            </li>
+        </ul>
+        
+        <div class="tab-content">
+            <div id="coAdminManagement" class="management-box active">
+                <h4>Total HODs: <span id="totalHODs">3</span></h4>
+                <ul id="hodList" class="list-group">
+                    <li class="list-group-item">
+                        HOD 1 - <span>Computer Science</span>
+                        <button class="btn btn-edit float-right" onclick="editHOD('HOD 1')">Edit</button>
+                        <button class="btn btn-delete float-right mr-2" onclick="deleteHOD('HOD 1')">Delete</button>
+                    </li>
+                    <li class="list-group-item">
+                        HOD 2 - <span>Mathematics</span>
+                        <button class="btn btn-edit float-right" onclick="editHOD('HOD 2')">Edit</button>
+                        <button class="btn btn-delete float-right mr-2" onclick="deleteHOD('HOD 2')">Delete</button>
+                    </li>
+                    <li class="list-group-item">
+                        HOD 3 - <span>Physics</span>
+                        <button class="btn btn-edit float-right" onclick="editHOD('HOD 3')">Edit</button>
+                        <button class="btn btn-delete float-right mr-2" onclick="deleteHOD('HOD 3')">Delete</button>
+                    </li>
+                </ul>
+                <div class="form-group mt-3">
+                    <label for="branchSelect">Select Branch for New HOD:</label>
+                    <select class="form-control" id="branchSelect">
+                        <option value="Computer Science">Computer Science</option>
+                        <option value="Mathematics">Mathematics</option>
+                        <option value="Physics">Physics</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="studentManagement" class="management-box">
+                <h4>Student Management Section (Not implemented)</h4>
+            </div>
+
+            <!-- Co-admin Requests Section -->
+            <div class="request-box" id="requestBox">
+                <h4>Co-admin Requests</h4>
+                <ul class="list-group" id="requestList">
+                    <li class="list-group-item">Request from Co-admin 1</li>
+                    <li class="list-group-item">Request from Co-admin 2</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Grant.it. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        // Show/Hide Management Sections
+        document.getElementById('coAdminTab').addEventListener('click', function() {
+            document.getElementById('coAdminManagement').classList.add('active');
+            document.getElementById('studentManagement').classList.remove('active');
+            document.getElementById('requestBox').classList.add('active');
+        });
+
+        document.getElementById('studentManagementTab').addEventListener('click', function() {
+            document.getElementById('studentManagement').classList.add('active');
+            document.getElementById('coAdminManagement').classList.remove('active');
+            document.getElementById('requestBox').classList.remove('active');
+        });
+
+        // Functions to Handle HOD Actions
+        function deleteHOD(hodName) {
+            alert(`${hodName} has been deleted.`);
+            // Logic to remove the HOD from the list (mock)
+            const listItem = document.querySelector(`li:contains('${hodName}')`);
+            if (listItem) {
+                listItem.remove();
+                updateHODCount();
+            }
+        }
+
+        function editHOD(hodName) {
+            alert(`Edit HOD: ${hodName}`);
+            // Logic for editing HOD (mock)
+            const newBranch = prompt("Enter new branch name for " + hodName);
+            if (newBranch) {
+                const branchSpan = document.querySelector(`li:contains('${hodName}') span`);
+                if (branchSpan) {
+                    branchSpan.textContent = newBranch;
+                }
+            }
+        }
+
+        function updateHODCount() {
+            const hodListItems = document.querySelectorAll('#hodList .list-group-item');
+            document.getElementById('totalHODs').textContent = hodListItems.length;
+        }
+    </script>
+</body>
+</html>

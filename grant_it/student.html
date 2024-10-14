@@ -3,33 +3,139 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student - grant.it</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Permission Request</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-section {
+            flex: 2; /* Allow form section to take more space */
+            margin-right: 20px;
+        }
+
+        .history-section {
+            flex: 1; /* Request history section */
+            border-left: 2px solid #ddd;
+            padding-left: 20px;
+        }
+
+        h1, h2 {
+            text-align: center;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px 15px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #218838;
+        }
+
+        .history {
+            margin-top: 20px;
+        }
+
+        .history ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .history li {
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .pending {
+            background-color: #fff3cd;
+            border-color: #ffeeba;
+        }
+    </style>
 </head>
 <body>
-    <div class="container mt-5">
-        <h2>Student Dashboard</h2>
-        <ul class="nav nav-tabs" id="studentTabs">
-            <li class="nav-item">
-                <a class="nav-link active" href="#requestPermissionTab" data-toggle="tab">Request Permission</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#requestHistoryTab" data-toggle="tab">Request History</a>
-            </li>
-        </ul>
-        <div class="tab-content mt-3">
-            <div class="tab-pane fade show active" id="requestPermissionTab">
-                <input type="text" class="form-control mb-2" placeholder="Subject Line">
-                <textarea class="form-control mb-2" rows="4" placeholder="Details"></textarea>
-                <button class="btn btn-primary">Send</button>
-                <button class="btn btn-secondary">Cancel</button>
-            </div>
-            <div class="tab-pane fade" id="requestHistoryTab">
-                <div id="requestHistory"></div>
-            </div>
+    <div class="container">
+        <div class="form-section">
+            <h1>Permission Request Form</h1>
+            <form id="permissionForm">
+                <label for="subject">Subject:</label>
+                <input type="text" id="subject" required>
+
+                <label for="message">Permission Message:</label>
+                <textarea id="message" required></textarea>
+
+                <button type="submit">Submit Request</button>
+            </form>
+        </div>
+
+        <div class="history-section">
+            <h2>Request History</h2>
+            <ul id="requestHistory">
+                <!-- Request history will be populated here -->
+            </ul>
         </div>
     </div>
-    <script src="student.js"></script>
+
+    <script>
+        document.getElementById('permissionForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+            const status = 'pending'; // All new requests start as pending
+
+            addRequestToHistory(subject, message, status);
+
+            // Clear form fields
+            document.getElementById('permissionForm').reset();
+        });
+
+        function addRequestToHistory(subject, message, status) {
+            const requestHistory = document.getElementById('requestHistory');
+            const listItem = document.createElement('li');
+            listItem.className = 'pending'; // Apply pending class for new requests
+            listItem.innerHTML = `<strong>Subject:</strong> ${subject}<br>
+                                  <strong>Message:</strong> ${message}<br>
+                                  <strong>Status:</strong> ${status.charAt(0).toUpperCase() + status.slice(1)}`;
+            requestHistory.appendChild(listItem);
+        }
+    </script>
 </body>
 </html>
