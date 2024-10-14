@@ -1,41 +1,96 @@
-<!-- /html/admin.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
-    <link rel="stylesheet" href="../css/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #e9ecef;
+            color: #333;
+        }
+        .card {
+            margin-bottom: 20px;
+            border-radius: 10px;
+        }
+        .card-header {
+            background-color: #6c757d;
+            color: white;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+        .branch-select {
+            margin-bottom: 10px;
+        }
+        .btn-success {
+            background-color: #28a745;
+        }
+        .btn-danger {
+            background-color: #dc3545;
+        }
+        .btn-info {
+            background-color: #17a2b8;
+        }
+        .btn-success:hover, .btn-danger:hover, .btn-info:hover {
+            opacity: 0.8;
+        }
+        .list-group-item {
+            background-color: #f8f9fa;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s;
+        }
+        .list-group-item:hover {
+            background-color: #e2e6ea; /* Change background color on hover */
+        }
+    </style>
 </head>
 <body>
     <div class="container mt-5">
-        <h1 class="text-center">Admin Dashboard</h1>
-        <ul class="nav nav-tabs" id="adminTabs" role="tablist">
-            <li class="nav-item" role="presentation">
-                <button class="nav-link active" id="coadmin-tab" data-bs-toggle="tab" data-bs-target="#coadmin" type="button" role="tab">Co-admin Management</button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="student-tab" data-bs-toggle="tab" data-bs-target="#student" type="button" role="tab">Student Management</button>
-            </li>
-        </ul>
-        <div class="tab-content mt-4">
-            <!-- Co-admin Tab Content -->
-            <div class="tab-pane fade show active" id="coadmin" role="tabpanel">
-                <h3>Manage Co-admins</h3>
-                <!-- CRUD Operations for Co-admins -->
-                <!-- Add your Co-admin CRUD functionality here -->
+        <h1 class="text-center mb-4" style="color: #007bff;">Admin Dashboard</h1>
+
+        <!-- Co-admin Management -->
+        <div class="card">
+            <div class="card-header">
+                <h5>Add / Edit Co-admin</h5>
             </div>
-            
-            <!-- Student Tab Content -->
-            <div class="tab-pane fade" id="student" role="tabpanel">
-                <h3>Manage Students</h3>
-                <!-- CRUD Operations for Students -->
-                <!-- Add your Student CRUD functionality here -->
+            <div class="card-body">
+                <input type="hidden" id="coadmin-index" value=""> <!-- Hidden field to store index for updates -->
+                <input type="text" id="coadmin-name" class="form-control mb-2" placeholder="Co-admin Name" required>
+                <select id="branch-select" class="form-select mb-2">
+                    <option value="">Select Branch</option>
+                    <option value="Science">Science</option>
+                    <option value="Arts">Arts</option>
+                    <option value="Commerce">Commerce</option>
+                    <option value="Engineering">Engineering</option>
+                    <option value="Medical">Medical</option>
+                    <option value="Management">Management</option>
+                    <option value="Law">Law</option>
+                    <option value="Education">Education</option>
+                    <option value="Agriculture">Agriculture</option>
+                    <option value="Pharmacy">Pharmacy</option>
+                </select>
+                <button class="btn btn-success mt-2" onclick="addOrUpdateCoadmin()">Add Co-admin</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h5>Manage Co-admins</h5>
+            </div>
+            <div class="card-body">
+                <ul class="list-group" id="coadmin-list">
+                    <!-- Co-admins list will be dynamically populated here -->
+                </ul>
             </div>
         </div>
     </div>
 
-    <script src="../js/app.js"></script>
+    <script src="../js/admin.js"></script>
 </body>
 </html>
