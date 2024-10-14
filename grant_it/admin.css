@@ -1,0 +1,35 @@
+body {
+    background-color: #190536; /* Dark background */
+}
+
+.dashboard-container {
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+h1, h3 {
+    color: #D3EE98; /* Light color for headings */
+}
+
+.nav-tabs .nav-link {
+    background-color: #ffffff; /* Tab background color */
+    color: #2424aa;
+}
+
+.nav-tabs .nav-link.active {
+    background-color: #032232; /* Active tab color */
+}
+
+.list-group-item {
+    background-color: #FEFF9F; /* Background color for list items */
+}
+
+.btn-danger {
+    background-color: #FF6F61; /* Red for delete button */
+}
+
+.btn-info {
+    background-color: #57A6A1; /* Blue for edit button */
+}

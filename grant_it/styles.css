@@ -1,15 +1,48 @@
 body {
-    background-color: #f8f9fa;
+    background-color: #013853;
     font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.app-title {
+    text-align: center;
+    color: #000000;
+    font-weight: bold;
+    font-size: 2.5rem;
+}
+
+.login-container {
+    width: 400px;
 }
 
 .login-box {
-    background-color: #fff;
-    border-radius: 8px;
-    width: 100%;
-    max-width: 400px;
+    background-color: #000000;
+    padding: 20px;
+    border-radius: 10px;
 }
 
-h1 {
-    font-size: 36px;
+.card-body {
+    padding: 20px;
 }
+
+label {
+    color: #000000;
+}
+
+.form-control {
+    margin-bottom: 15px;
+}
+
+.btn-primary {
+    background-color: #57A6A1;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #344C64;
+    border: none;
+}
+

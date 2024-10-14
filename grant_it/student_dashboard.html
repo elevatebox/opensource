@@ -1,40 +1,92 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Dashboard - grant.it</title>
-    <link rel="stylesheet" href="../css/styles.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Student Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #e0f7fa; /* Light blue background */
+        }
+        .dashboard-container {
+            margin-top: 50px;
+            background-color: #81d4fa; /* Lighter blue for the container */
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .nav-tabs .nav-link {
+            background-color: #ffffff; /* Bright blue for the active tab */
+            color: rgb(10, 10, 10);
+        }
+        .nav-tabs .nav-link.active {
+            background-color: #ffffff; /* Darker blue for active tab */
+        }
+        .nav-tabs .nav-link:hover {
+            background-color: #0d232d; /* Lighter blue on hover */
+        }
+        h1, h3 {
+            color: #000000; /* White text for headers */
+        }
+        .btn-success {
+            background-color: #00796b; /* Teal button */
+            border-color: #00796b;
+        }
+        .btn-danger {
+            background-color: #ff0000; /* Red button */
+            border-color: #ff0000;
+        }
+        .btn-success:hover, .btn-danger:hover {
+            opacity: 0.9; /* Slightly fade on hover */
+        }
+        .list-group-item {
+            background-color: #b3e5fc; /* Light blue for list items */
+            border: none;
+        }
+        .list-group-item.pending {
+            background-color: #f0f364; /* Yellow for pending requests */
+        }
+        .list-group-item.approved {
+            background-color: #72ed77; /* Green for approved requests */
+        }
+        .list-group-item:hover {
+            background-color: #81d4fa; /* Hover effect for list items */
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <h1 class="text-center text-success fw-bold mt-5">Student Dashboard</h1>
-        <ul class="nav nav-tabs mt-4" id="studentTabs">
+    <div class="container dashboard-container">
+        <h1 class="text-center">Student Dashboard</h1>
+        <ul class="nav nav-tabs">
             <li class="nav-item">
-                <a class="nav-link active" id="request-tab" data-bs-toggle="tab" href="#request">Request Permission</a>
+                <a class="nav-link active" href="#request" data-toggle="tab">Request Permission</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="history-tab" data-bs-toggle="tab" href="#history">Request History</a>
+                <a class="nav-link" href="#history" data-toggle="tab">Request History</a>
             </li>
         </ul>
-
-        <div class="tab-content mt-3">
-            <!-- Request Permission -->
-            <div class="tab-pane fade show active" id="request">
-                <h2 class="mt-4">Request Permission</h2>
-                <form>
-                    <div class="mb-3">
-                        <input type="text" class="form-control" placeholder="Subject">
-                    </div>
-                    <div class="mb-3">
-                        <textarea class="form-control" rows="4" placeholder="Enter your message"></textarea>
-                    </div>
+        <div class="tab-content">
+            <div id="request" class="tab-pane fade show active">
+                <h3 class="text-light">Request Permission</h3>
+                <form id="requestForm">
+                    <input type="text" class="form-control mb-2" placeholder="Subject" id="subject" required>
+                    <textarea class="form-control mb-2" rows="4" placeholder="Details..." id="details" required></textarea>
                     <button type="submit" class="btn btn-success">Send</button>
-                    <button type="button" class="btn btn-danger">Cancel</button>
+                    <button type="button" class="btn btn-danger" id="cancelButton">Cancel</button>
                 </form>
             </div>
+            <div id="history" class="tab-pane fade">
+                <h3 class="text-light">Request History</h3>
+                <ul class="list-group" id="requestHistoryList"></ul>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="student.js"></script>
+</body>
+</html>
 
-            <!-- Request History -->
-            <div class="tab-pane fade" id="history">
-                <h2 class="
+

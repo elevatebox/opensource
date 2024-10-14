@@ -3,39 +3,191 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard - grant.it</title>
-    <link rel="stylesheet" href="../css/styles.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #e3f2fd; /* Light blue background */
+        }
+        .dashboard-container {
+            background-color: #bbdefb; /* Light blue for the container */
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        h1, h3 {
+            color: #0d47a1; /* Dark blue for headings */
+        }
+        .list-group-item {
+            background-color: #90caf9; /* Slightly darker blue for list items */
+            border: none;
+        }
+        .list-group-item:hover {
+            background-color: #64b5f6; /* Even darker blue on hover */
+        }
+        .button-group {
+            display: flex;
+            align-items: center; /* Align buttons vertically */
+        }
+        .btn {
+            margin-left: 5px; /* Space between buttons */
+        }
+        .table {
+            background-color: #bbdefb; /* Light blue for the table */
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <h1 class="text-center text-success fw-bold mt-5">Admin Dashboard</h1>
-        <ul class="nav nav-tabs mt-4" id="adminTabs">
+    <div class="container dashboard-container">
+        <h1 class="text-center text-light">Admin Dashboard</h1>
+        <ul class="nav nav-tabs">
             <li class="nav-item">
-                <a class="nav-link active" id="coadmin-tab" data-bs-toggle="tab" href="#coadmin">Co-admin Management</a>
+                <a class="nav-link active" href="#coadmin" data-toggle="tab">Co-admin Management</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="student-tab" data-bs-toggle="tab" href="#students">Student Management</a>
+                <a class="nav-link" href="#student" data-toggle="tab">Student Management</a>
             </li>
         </ul>
-
-        <div class="tab-content mt-3">
-            <!-- Co-admin Management -->
-            <div class="tab-pane fade show active" id="coadmin">
-                <h2 class="mt-4">Manage Co-admins</h2>
-                <button class="btn btn-success">Add Co-admin</button>
-                <!-- Add Co-admin management UI here -->
+        <div class="tab-content">
+            <div id="coadmin" class="tab-pane fade show active">
+                <h3 class="text-light">Manage Co-admins (HODs)</h3>
+                <div id="coadminBox" class="bg-light p-3" style="display: none;">
+                    <h5>Total HODs: <span id="totalHODs">0</span></h5>
+                    <ul class="list-group" id="hodList"></ul>
+                </div>
+                <button class="btn btn-primary" id="showHODsButton">Show HODs</button>
+                <button class="btn btn-success" data-toggle="modal" data-target="#addCoAdminModal">Add Co-admin</button>
             </div>
-            
-            <!-- Student Management -->
-            <div class="tab-pane fade" id="students">
-                <h2 class="mt-4">Manage Students</h2>
-                <button class="btn btn-success">Add Student</button>
-                <!-- Add Student management UI here -->
+            <div id="student" class="tab-pane fade">
+                <h3 class="text-light">Manage Students</h3>
+                <button class="btn btn-success mb-3" data-toggle="modal" data-target="#addStudentModal">Add Student</button>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Roll Number</th>
+                            <th>Branch</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="studentList">
+                        <!-- Student entries will be added here dynamically -->
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Modal for Adding Students -->
+    <div class="modal fade" id="addStudentModal" tabindex="-1" role="dialog" aria-labelledby="addStudentModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addStudentModalLabel">Add Student</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="addStudentForm">
+                        <div class="form-group">
+                            <label for="studentName">Name</label>
+                            <input type="text" class="form-control" id="studentName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="rollNumber">Roll Number</label>
+                            <input type="text" class="form-control" id="rollNumber" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="branchSelect">Select Branch</label>
+                            <select class="form-control" id="branchSelect" required>
+                                <option value="">Select Branch</option>
+                                <option value="Computer Science">Computer Science</option>
+                                <option value="Mechanical">Mechanical</option>
+                                <option value="Electrical">Electrical</option>
+                                <option value="Civil">Civil</option>
+                                <!-- Add more branches as needed -->
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-success">Add Student</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Sample data for demonstration
+        let students = [];
+
+        // Function to update the student list
+        function updateStudentList() {
+            const studentList = document.getElementById('studentList');
+            studentList.innerHTML = '';
+            students.forEach((student, index) => {
+                const row = `
+                    <tr>
+                        <td>${student.name}</td>
+                        <td>${student.rollNumber}</td>
+                        <td>${student.branch}</td>
+                        <td class="button-group">
+                            <button class="btn btn-warning btn-sm" onclick="editStudent(${index})">Edit</button>
+                            <button class="btn btn-danger btn-sm" onclick="deleteStudent(${index})">Delete</button>
+                        </td>
+                    </tr>
+                `;
+                studentList.innerHTML += row;
+            });
+        }
+
+        // Function to add a student
+        document.getElementById('addStudentForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const studentName = document.getElementById('studentName').value;
+            const rollNumber = document.getElementById('rollNumber').value;
+            const branch = document.getElementById('branchSelect').value;
+
+            students.push({ name: studentName, rollNumber, branch });
+            updateStudentList();
+            $('#addStudentModal').modal('hide');
+            this.reset();
+        });
+
+        // Function to delete a student
+        function deleteStudent(index) {
+            students.splice(index, 1);
+            updateStudentList();
+        }
+
+        // Function to edit a student
+        function editStudent(index) {
+            const student = students[index];
+            document.getElementById('studentName').value = student.name;
+            document.getElementById('rollNumber').value = student.rollNumber;
+            document.getElementById('branchSelect').value = student.branch;
+
+            $('#addStudentModal').modal('show');
+
+            // Update the event listener to edit instead of add
+            const form = document.getElementById('addStudentForm');
+            form.onsubmit = function(event) {
+                event.preventDefault();
+                student.name = document.getElementById('studentName').value;
+                student.rollNumber = document.getElementById('rollNumber').value;
+                student.branch = document.getElementById('branchSelect').value;
+
+                updateStudentList();
+                $('#addStudentModal').modal('hide');
+                form.reset();
+                form.onsubmit = function(event) {
+                    event.preventDefault();
+                    // Your original add student code here
+                };
+            };
+        }
+    </script>
 </body>
 </html>

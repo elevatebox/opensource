@@ -1,0 +1,39 @@
+body {
+    background-color: #240750;
+}
+
+.dashboard-container {
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+h1, h3 {
+    color: #D3EE98; /* Light color for headings */
+}
+
+.nav-tabs .nav-link {
+    background-color: #344C64;
+    color: #fff;
+}
+
+.nav-tabs .nav-link.active {
+    background-color: #577B8D;
+}
+
+.form-control {
+    background-color: #344C64;
+    color: #fff;
+    border: 1px solid #57A6A1;
+}
+
+.btn-success {
+    background-color: #57A6A1;
+    border: none;
+}
+
+.btn-danger {
+    background-color: #FF6F61; /* Red for cancel button */
+    border: none;
+}
