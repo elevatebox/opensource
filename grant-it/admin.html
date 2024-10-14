@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - grant.it</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1 class="my-4">Admin Dashboard</h1>
+        
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" href="#coadmin-management" data-toggle="tab">Co-admin Management</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#student-management" data-toggle="tab">Student Management</a>
+            </li>
+        </ul>
+
+        <div class="tab-content mt-3">
+            <!-- Co-admin Management Tab -->
+            <div id="coadmin-management" class="tab-pane fade show active">
+                <h3>Manage Co-admins</h3>
+                <button class="btn btn-primary mb-3">Add Co-admin</button>
+                <!-- Co-admin management table (CRUD) -->
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Co-admin Name</th>
+                            <th>Branch</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="coadminTable">
+                        <!-- Dynamic content via JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Student Management Tab -->
+            <div id="student-management" class="tab-pane fade">
+                <h3>Manage Students</h3>
+                <button class="btn btn-primary mb-3">Add Student</button>
+                <!-- Student management table (CRUD) -->
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Student Name</th>
+                            <th>Branch</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="studentTable">
+                        <!-- Dynamic content via JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="/js/admin.js"></script>
+
+</body>
+</html>
