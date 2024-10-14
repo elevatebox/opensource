@@ -1,24 +1,290 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Co-admin Dashboard</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Co-admin Dashboard - grant.it</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <style>
+    /* Animation for new requests */
+    @keyframes slideIn {
+      from {
+        transform: translateY(-20px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+    .new-request {
+      animation: slideIn 0.5s ease forwards;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h2>Co-admin Dashboard</h2>
-        <p>Assigned Branch: [Branch Name]</p>
-        <ul class="nav nav-tabs">
-            <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#student">Student Management</a></li>
-            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#requests">Requests</a></li>
-        </ul>
-        <div class="tab-content">
-            <div id="student" class="tab-pane fade show active">
-                <!-- Student Management Content -->
-            </div>
-            <div id="requests" class="tab-pane fade">
-                <!-- Requests Content -->
-            </div>
-        </div>
+  <div class="container">
+    <h2 class="text-success font-weight-bold text-underline">Co-admin Dashboard</h2>
+    
+    <!-- Co-admin Name and Assigned Branch Information -->
+    <div class="alert alert-info" role="alert">
+      <strong>Co-admin Name:</strong> <span id="coadminName">Alice Johnson</span><br>
+      <strong>Assigned Branch:</strong> <span id="assignedBranch">Computer Science</span>
     </div>
+
+    <ul class="nav nav-tabs" id="coadminTabs" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" id="student-management-tab" data-toggle="tab" href="#studentManagement" role="tab">Student Management</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="requests-tab" data-toggle="tab" href="#requests" role="tab">Requests</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="req-approved-tab" data-toggle="tab" href="#reqApproved" role="tab">Req Approved</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="req-rejected-tab" data-toggle="tab" href="#reqRejected" role="tab">Req Rejected</a>
+      </li>
+    </ul>
+    
+    <div class="tab-content" id="coadminTabContent">
+      <div class="tab-pane fade show active" id="studentManagement" role="tabpanel">
+        <h3>Manage Students</h3>
+        
+        <!-- Add Student Form -->
+        <form id="addStudentForm" class="mb-3">
+          <div class="form-group">
+            <label for="studentName">Student Name:</label>
+            <input type="text" class="form-control" id="studentName" required>
+          </div>
+          <div class="form-group">
+            <label for="studentRollNumber">Roll Number:</label>
+            <input type="text" class="form-control" id="studentRollNumber" required>
+          </div>
+          <div class="form-group">
+            <label for="studentBranch">Branch:</label>
+            <input type="text" class="form-control" id="studentBranch" required>
+          </div>
+          <button type="button" id="addStudentButton" class="btn btn-primary">Add Student</button>
+        </form>
+
+        <table class="table table-bordered mt-3" id="studentTable">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Roll Number</th>
+              <th>Branch</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Student entries will be dynamically added here -->
+          </tbody>
+        </table>
+      </div>
+
+      <div class="tab-pane fade" id="requests" role="tabpanel">
+        <h3>Student Requests</h3>
+        <table class="table table-bordered mt-3" id="requestTable">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Student Name</th>
+              <th>Request Details</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="requestList">
+            <!-- Requests will be dynamically added here -->
+          </tbody>
+        </table>
+      </div>
+
+      <div class="tab-pane fade" id="reqApproved" role="tabpanel">
+        <h3>Approved Requests</h3>
+        <table class="table table-bordered mt-3" id="approvedTable">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Student Name</th>
+              <th>Request Details</th>
+            </tr>
+          </thead>
+          <tbody id="approvedList">
+            <!-- Approved requests will be added here -->
+          </tbody>
+        </table>
+      </div>
+
+      <div class="tab-pane fade" id="reqRejected" role="tabpanel">
+        <h3>Rejected Requests</h3>
+        <table class="table table-bordered mt-3" id="rejectedTable">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Student Name</th>
+              <th>Request Details</th>
+            </tr>
+          </thead>
+          <tbody id="rejectedList">
+            <!-- Rejected requests will be added here -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // JavaScript for handling add, edit, and delete operations for Students
+
+    // Handle adding a new student
+    $('#addStudentButton').on('click', function() {
+      const name = $('#studentName').val();
+      const rollNumber = $('#studentRollNumber').val();
+      const branch = $('#studentBranch').val();
+
+      if (name && rollNumber && branch) {
+        const newRow = `<tr>
+                          <td></td>
+                          <td>${name}</td>
+                          <td>${rollNumber}</td>
+                          <td>${branch}</td>
+                          <td>
+                            <button class="btn btn-warning btn-sm editStudentBtn">Edit</button>
+                            <button class="btn btn-danger btn-sm deleteStudentBtn">Delete</button>
+                          </td>
+                        </tr>`;
+        
+        $('#studentTable tbody').append(newRow);
+        $('#studentName').val(''); // Clear input field
+        $('#studentRollNumber').val(''); // Clear input field
+        $('#studentBranch').val(''); // Clear input field
+        updateStudentRowNumbers(); // Update row numbers
+      } else {
+        alert("Please fill in all fields."); // Alert if fields are empty
+      }
+    });
+
+    // Handle editing a student
+    $(document).on('click', '.editStudentBtn', function() {
+      const row = $(this).closest('tr');
+      const name = row.find('td:eq(1)').text();
+      const rollNumber = row.find('td:eq(2)').text();
+      const branch = row.find('td:eq(3)').text();
+
+      $('#studentName').val(name);
+      $('#studentRollNumber').val(rollNumber);
+      $('#studentBranch').val(branch);
+
+      // Remove the row to allow adding it again
+      row.remove();
+      updateStudentRowNumbers(); // Update row numbers
+    });
+
+    // Handle deleting a student
+    $(document).on('click', '.deleteStudentBtn', function() {
+      $(this).closest('tr').remove();
+      updateStudentRowNumbers(); // Update row numbers
+    });
+
+    // Function to update student row numbers
+    function updateStudentRowNumbers() {
+      $('#studentTable tbody tr').each(function(index) {
+        $(this).find('td:first').text(index + 1);
+      });
+    }
+
+    // Handle adding requests to the requests table
+    function addRequestToTable(studentName, requestDetails) {
+      const newRow = `<tr>
+                        <td></td>
+                        <td>${studentName}</td>
+                        <td>${requestDetails}</td>
+                        <td>Pending</td>
+                        <td>
+                          <button class="btn btn-success btn-sm approveRequestBtn">Approve</button>
+                          <button class="btn btn-danger btn-sm rejectRequestBtn">Reject</button>
+                        </td>
+                      </tr>`;
+      $('#requestList').prepend(newRow);
+      updateRequestRowNumbers(); // Update request row numbers
+    }
+
+    // Function to update request row numbers
+    function updateRequestRowNumbers() {
+      $('#requestTable tbody tr').each(function(index) {
+        $(this).find('td:first').text(index + 1);
+      });
+    }
+
+    // Handle approving a request
+    $(document).on('click', '.approveRequestBtn', function() {
+      const row = $(this).closest('tr');
+      const studentName = row.find('td:eq(1)').text();
+      const requestDetails = row.find('td:eq(2)').text();
+
+      // Remove from requests table
+      row.remove();
+
+      // Add to approved requests table
+      const approvedRow = `<tr>
+                             <td></td>
+                             <td>${studentName}</td>
+                             <td>${requestDetails}</td>
+                           </tr>`;
+      $('#approvedList').append(approvedRow);
+      updateApprovedRowNumbers(); // Update approved requests row numbers
+    });
+
+    // Function to update approved row numbers
+    function updateApprovedRowNumbers() {
+      $('#approvedTable tbody tr').each(function(index) {
+        $(this).find('td:first').text(index + 1);
+      });
+    }
+
+    // Handle rejecting a request
+    $(document).on('click', '.rejectRequestBtn', function() {
+      const row = $(this).closest('tr');
+      const studentName = row.find('td:eq(1)').text();
+      const requestDetails = row.find('td:eq(2)').text();
+
+      // Remove from requests table
+      row.remove();
+
+      // Add to rejected requests table
+      const rejectedRow = `<tr>
+                             <td></td>
+                             <td>${studentName}</td>
+                             <td>${requestDetails}</td>
+                           </tr>`;
+      $('#rejectedList').append(rejectedRow);
+      updateRejectedRowNumbers(); // Update rejected requests row numbers
+    });
+
+    // Function to update rejected row numbers
+    function updateRejectedRowNumbers() {
+      $('#rejectedTable tbody tr').each(function(index) {
+        $(this).find('td:first').text(index + 1);
+      });
+    }
+
+    // Simulate new requests every 5 seconds (for demonstration purposes)
+    setInterval(function() {
+      addRequestToTable("Student XYZ", "Permission Request for Lab Work");
+    }, 5000);
+
+    // Handle adding a new request on page load
+    $(document).ready(function() {
+      addRequestToTable("John Doe", "Leave Request");
+      addRequestToTable("Jane Smith", "Extra Lab Access Request");
+    });
+  </script>
 </body>
 </html>
