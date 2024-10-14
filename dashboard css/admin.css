@@ -1,0 +1,48 @@
+/* admin.css */
+
+/* General styles for the admin dashboard */
+body {
+    background-image: url('https://vnrvjiet.ac.in/assets/images/Numbers-Image.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Dashboard container */
+.container {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+    padding: 30px;
+}
+
+/* Heading styles */
+h1 {
+    color: #28a745;
+}
+
+/* Navbar styles */
+.nav-tabs .nav-link {
+    color: #007bff;
+}
+.nav-tabs .nav-link.active {
+    background-color: #28a745;
+    color: white;
+}
+
+/* Button styles */
+.btn {
+    border-radius: 5px;
+    padding: 10px 20px;
+}
+
+/* Table styles */
+.table {
+    margin-top: 20px;
+}
+
+/* Additional styling for admin-specific elements */
+h2 {
+    color: #007bff; /* Different color for h2 in Admin Dashboard */
+}

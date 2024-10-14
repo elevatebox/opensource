@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Login - grant.it</title>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-success text-center">granit</h1>
+        <div class="login-box">
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="role">Login as:</label>
+                    <select class="form-control" id="role" required>
+                        <option value="" disabled selected>Select Role</option>
+                        <option value="admin">Admin</option>
+                        <option value="co-admin">Co-admin</option>
+                        <option value="student">Student</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" class="form-control" id="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="../js/script.js"></script>
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            const role = document.getElementById('role').value;
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // Here you would typically validate the username and password
+            // For now, we will just simulate a successful login
+            alert(`Logged in as ${role} with username: ${username}`);
+
+            // Redirect to the appropriate dashboard based on role
+            if (role === "admin") {
+                window.location.href = "users/admin.html";
+            } else if (role === "co-admin") {
+                window.location.href = "users/co-admin.html";
+            } else if (role === "student") {
+                window.location.href = "users/student.html";
+            }
+        });
+    </script>
+</body>
+</html>
