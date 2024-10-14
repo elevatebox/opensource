@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Co-admin Dashboard</title>
+    <style>
+        body {
+            background-color: #f8f9fa; /* Light background */
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #ffffff; /* White background for card */
+            border-radius: 10px; /* Rounded corners */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Soft shadow */
+        }
+        .student-item {
+            padding: 10px;
+            border: 1px solid #007bff; /* Border color */
+            border-radius: 5px;
+            margin-bottom: 10px;
+            background-color: #e7f1ff; /* Light blue background */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .request-item {
+            padding: 10px;
+            border: 1px solid #28a745; /* Border color for requests */
+            border-radius: 5px;
+            margin-bottom: 10px;
+            background-color: #d4edda; /* Light green background */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center">Co-admin Dashboard</h1>
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#student-management">Student Management</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#requests">Requests</a>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div id="student-management" class="tab-pane fade show active">
+                <h3 class="mt-3">Manage Students</h3>
+                <input type="text" class="form-control mb-2" placeholder="Student Name" id="student-name">
+                <input type="text" class="form-control mb-2" placeholder="Roll Number" id="roll-number">
+                <button class="btn btn-primary mb-3" onclick="addStudent()">Add Student</button>
+                <div id="student-list-coadmin"></div>
+            </div>
+            <div id="requests" class="tab-pane fade">
+                <h3 class="mt-3">Student Requests</h3>
+                <div id="request-list"></div>
+                <textarea class="form-control mb-2" id="message" rows="3" placeholder="Send a message to admin"></textarea>
+                <button class="btn btn-success" onclick="sendMessage()">Send Message</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        const students = [];
+        const requests = [];
+
+        function addStudent() {
+            const name = document.getElementById('student-name').value.trim();
+            const rollNo = document.getElementById('roll-number').value.trim();
+
+            if (name && rollNo) {
+                const student = { id: Date.now(), name: name, rollNo: rollNo };
+                students.push(student);
+                document.getElementById('student-name').value = '';
+                document.getElementById('roll-number').value = '';
+                updateStudentList();
+            } else {
+                alert('Please fill in both fields.');
+            }
+        }
+
+        function updateStudentList() {
+            const studentList = document.getElementById('student-list-coadmin');
+            studentList.innerHTML = ''; // Clear existing list
+
+            students.forEach(student => {
+                const studentDiv = document.createElement('div');
+                studentDiv.classList.add('student-item');
+                studentDiv.innerHTML = `<strong>${student.name}</strong> - Roll No: ${student.rollNo}`;
+                studentList.appendChild(studentDiv);
+            });
+
+            // Simulate a request for each student
+            simulateRequests();
+        }
+
+        function simulateRequests() {
+            requests.length = 0; // Clear previous requests
+            students.forEach(student => {
+                requests.push({ text: `Request from ${student.name} (Roll No: ${student.rollNo})`, id: student.id });
+            });
+            updateRequestList();
+        }
+
+        function updateRequestList() {
+            const requestList = document.getElementById('request-list');
+            requestList.innerHTML = ''; // Clear existing requests
+
+            requests.forEach(request => {
+                const requestDiv = document.createElement('div');
+                requestDiv.classList.add('request-item');
+                requestDiv.innerHTML = `
+                    ${request.text}
+                    <div>
+                        <button class="btn btn-success btn-sm" onclick="acceptRequest(${request.id})">Accept</button>
+                        <button class="btn btn-danger btn-sm" onclick="denyRequest(${request.id})">Deny</button>
+                    </div>
+                `;
+                requestList.appendChild(requestDiv);
+            });
+        }
+
+        function acceptRequest(id) {
+            const requestIndex = requests.findIndex(req => req.id === id);
+            if (requestIndex !== -1) {
+                alert(`Request accepted for Roll No: ${id}`);
+                requests.splice(requestIndex, 1); // Remove the accepted request
+                updateRequestList(); // Refresh the request list
+            }
+        }
+
+        function denyRequest(id) {
+            const requestIndex = requests.findIndex(req => req.id === id);
+            if (requestIndex !== -1) {
+                alert(`Request denied for Roll No: ${id}`);
+                requests.splice(requestIndex, 1); // Remove the denied request
+                updateRequestList(); // Refresh the request list
+            }
+        }
+
+        function sendMessage() {
+            const message = document.getElementById('message').value.trim();
+            if (message) {
+                alert('Message sent to admin: ' + message);
+                document.getElementById('message').value = ''; // Clear input
+            } else {
+                alert('Please enter a message.');
+            }
+        }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
