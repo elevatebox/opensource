@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Admin - grant.it</title>
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Admin Dashboard</h2>
+        <ul class="nav nav-tabs" id="adminTabs">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#coadmin">Co-admin Management</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#students">Student Management</a>
+            </li>
+        </ul>
+
+        <div class="tab-content">
+            <div class="tab-pane active" id="coadmin">
+                <h3>Manage Co-admins</h3>
+                <input type="text" id="coadminName" placeholder="Co-admin Name" class="form-control mb-2">
+                <button class="btn btn-primary" onclick="addCoAdmin()">Add Co-admin</button>
+                <ul id="coadminList" class="mt-3"></ul>
+            </div>
+            <div class="tab-pane" id="students">
+                <h3>Manage Students</h3>
+                <input type="text" id="studentName" placeholder="Student Name" class="form-control mb-2">
+                <button class="btn btn-primary" onclick="addStudent()">Add Student</button>
+                <ul id="studentList" class="mt-3"></ul>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+    <script>
+        let coAdmins = JSON.parse(localStorage.getItem('coAdmins')) || [];
+        let students = JSON.parse(localStorage.getItem('students')) || [];
+
+        function addCoAdmin() {
+            const name = document.getElementById('coadminName').value;
+            if (name) {
+                coAdmins.push({ name });
+                localStorage.setItem('coAdmins', JSON.stringify(coAdmins));
+                document.getElementById('coadminName').value = '';
+                renderCoAdminList();
+            } else {
+                alert('Please enter a name.');
+            }
+        }
+
+        function renderCoAdminList() {
+            const list = document.getElementById('coadminList');
+            list.innerHTML = '';
+            coAdmins.forEach((coAdmin, index) => {
+                list.innerHTML += `<li>${coAdmin.name} <button onclick="deleteCoAdmin(${index})">Delete</button></li>`;
+            });
+        }
+
+        function deleteCoAdmin(index) {
+            coAdmins.splice(index, 1);
+            localStorage.setItem('coAdmins', JSON.stringify(coAdmins));
+            renderCoAdminList();
+        }
+
+        function addStudent() {
+            const name = document.getElementById('studentName').value;
+            if (name) {
+                students.push({ name });
+                localStorage.setItem('students', JSON.stringify(students));
+                document.getElementById('studentName').value = '';
+                renderStudentList();
+            } else {
+                alert('Please enter a name.');
+            }
+        }
+
+        function renderStudentList() {
+            const list = document.getElementById('studentList');
+            list.innerHTML = '';
+            students.forEach((student, index) => {
+                list.innerHTML += `<li>${student.name} <button onclick="deleteStudent(${index})">Delete</button></li>`;
+            });
+        }
+
+        function deleteStudent(index) {
+            students.splice(index, 1);
+            localStorage.setItem('students', JSON.stringify(students));
+            renderStudentList();
+        }
+
+        // Initial render
+        renderCoAdminList();
+        renderStudentList();
+    </script>
+</body>
+</html>

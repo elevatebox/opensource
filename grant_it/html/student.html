@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <title>Student - grant.it</title>
+    <style>
+        body {
+            background-color: #d4edda;
+        }
+        h2 {
+            color: #155724;
+        }
+        .notification {
+            display: none;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border-radius: 5px;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h2><i class="fas fa-user-graduate"></i> Student Dashboard</h2>
+        <input type="text" id="studentName" placeholder="Your Name" class="form-control mb-2">
+        <input type="text" id="studentUsername" placeholder="Username" class="form-control mb-2">
+        <input type="text" id="studentRollNo" placeholder="Roll Number" class="form-control mb-2">
+        
+        <h4>Select Your Branch</h4>
+        <select id="studentBranchSelect" class="form-control mb-3">
+            <option value="">Select a branch</option>
+            <option value="Computer Science">Computer Science</option>
+            <option value="Information Technology">Information Technology</option>
+            <option value="Electronics">Electronics</option>
+            <option value="Mechanical">Mechanical</option>
+            <option value="Civil">Civil</option>
+        </select>
+        
+        <button class="btn btn-primary mb-3" onclick="submitDetails()">Submit Details</button>
+
+        <ul class="nav nav-tabs" id="studentTabs">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#requestPermission"><i class="fas fa-paper-plane"></i> Request Permission</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#requestHistory"><i class="fas fa-history"></i> Request History</a>
+            </li>
+        </ul>
+
+        <div class="tab-content">
+            <div class="tab-pane active" id="requestPermission">
+                <h3>Request Permission</h3>
+                <input type="text" id="subjectLine" placeholder="Subject Line" class="form-control mb-2">
+                <textarea id="studentRequest" placeholder="Permission Details" rows="4" class="form-control mb-2"></textarea>
+                <button class="btn btn-primary" onclick="submitRequest()">Send</button>
+                <button class="btn btn-secondary" onclick="cancelRequest()">Cancel</button>
+            </div>
+            <div class="tab-pane" id="requestHistory">
+                <h3>Request History</h3>
+                <ul id="requestHistoryList" class="mt-3"></ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="notification" id="notification"></div>
+
+    <script>
+        const studentsData = []; // Global array to store students' details
+
+        function submitDetails() {
+            const name = document.getElementById('studentName').value;
+            const username = document.getElementById('studentUsername').value;
+            const rollNo = document.getElementById('studentRollNo').value;
+            const branch = document.getElementById('studentBranchSelect').value;
+
+            // Create a student object
+            const student = { name, username, rollNo, branch, requests: [] };
+            studentsData.push(student); // Store student details
+
+            const notification = document.getElementById('notification');
+            notification.innerText = "Details submitted successfully!";
+            notification.style.display = "block";
+            setTimeout(() => {
+                notification.style.display = "none";
+            }, 2000);
+        }
+
+        function submitRequest() {
+            const subjectLine = document.getElementById('subjectLine').value;
+            const requestDetails = document.getElementById('studentRequest').value;
+            const username = document.getElementById('studentUsername').value;
+
+            // Find the student and add the request
+            const student = studentsData.find(s => s.username === username);
+            if (student) {
+                student.requests.push({ subjectLine, details: requestDetails });
+                
+                const notification = document.getElementById('notification');
+                notification.innerText = "Request sent successfully!";
+                notification.style.display = "block";
+                setTimeout(() => {
+                    notification.style.display = "none";
+                }, 2000);
+            }
+        }
+    </script>
+</body>
+</html>
