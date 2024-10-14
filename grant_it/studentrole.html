@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <title>Student Dashboard</title>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Student Dashboard</h1>
+        <div class="tabs">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="request-tab" data-toggle="tab" href="#requestPermission" role="tab" aria-controls="requestPermission" aria-selected="true">Request Permission</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="history-tab" data-toggle="tab" href="#requestHistory" role="tab" aria-controls="requestHistory" aria-selected="false">Request History</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="requestPermission" role="tabpanel" aria-labelledby="request-tab">
+                    <div class="form-group mt-4">
+                        <label for="subject">Subject</label>
+                        <input type="text" class="form-control" id="subject" placeholder="Enter subject" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="permissionDetails">Permission Details</label>
+                        <textarea class="form-control" id="permissionDetails" rows="4" placeholder="Enter permission details" required></textarea>
+                    </div>
+                    <button id="sendRequest" class="btn btn-success">Send</button>
+                </div>
+                <div class="tab-pane fade" id="requestHistory" role="tabpanel" aria-labelledby="history-tab">
+                    <h5 class="mt-4">Past Requests</h5>
+                    <ul id="requestList" class="list-group"></ul>
+                    <div id="noRequestsMessage" class="text-muted mt-2" style="display: none;">No requests yet.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="js/student.js"></script>
+</body>
+</html>
