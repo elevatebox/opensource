@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cool Student Dashboard 2.0 - grant.it</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+        
+        :root {
+            --primary-color: #4a90e2;
+            --secondary-color: #f39c12;
+            --background-color: #f4f6f9;
+            --text-color: #333;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        .dashboard {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 250px;
+            background: linear-gradient(to bottom, var(--primary-color), #2980b9);
+            color: white;
+            padding: 2rem 1rem;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .nav-tabs {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .nav-tabs .nav-item {
+            margin-bottom: 1rem;
+        }
+
+        .nav-tabs .nav-link {
+            display: block;
+            padding: 0.75rem 1rem;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-tabs .nav-link:hover,
+        .nav-tabs .nav-link.active {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .main-content {
+            flex-grow: 1;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        .content-header {
+            margin-bottom: 2rem;
+        }
+
+        .content-header h1 {
+            font-size: 2rem;
+            color: var(--primary-color);
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #2980b9;
+        }
+
+        .btn-danger {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background-color: #c0392b;
+        }
+
+        .request-item {
+            background-color: var(--card-bg);
+            border-radius: 5px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .request-item h3 {
+            margin-top: 0;
+            color: var(--primary-color);
+        }
+
+        .request-status {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 3px;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .status-pending {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .status-approved {
+            background-color: #2ecc71;
+            color: white;
+        }
+
+        .status-rejected {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <aside class="sidebar">
+            <div class="logo">
+                <i class="fas fa-graduation-cap"></i> Grant.it
+            </div>
+            <ul class="nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="request-tab" data-toggle="tab" href="#request" role="tab">
+                        <i class="fas fa-paper-plane"></i> Request Permission
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="history-tab" data-toggle="tab" href="#history" role="tab">
+                        <i class="fas fa-history"></i> Request History
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            <div class="content-header">
+                <h1>Student Dashboard</h1>
+            </div>
+
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="request" role="tabpanel">
+                    <div class="card fade-in">
+                        <h2><i class="fas fa-edit"></i> New Request</h2>
+                        <form id="requestForm">
+                            <div class="form-group">
+                                <label for="subject"><i class="fas fa-heading"></i> Subject Line</label>
+                                <input type="text" class="form-control" id="subject" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="details"><i class="fas fa-align-left"></i> Permission Details</label>
+                                <textarea class="form-control" id="details" rows="4" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Send</button>
+                            <button type="button" class="btn btn-danger" id="cancelButton"><i class="fas fa-times"></i> Cancel</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="history" role="tabpanel">
+                    <div class="card fade-in">
+                        <h2><i class="fas fa-list-alt"></i> Request History</h2>
+                        <div id="requestHistory" class="mt-3"></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+    <script>
+        let requestHistory = [];
+
+        document.getElementById('requestForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const subject = document.getElementById('subject').value;
+            const details = document.getElementById('details').value;
+
+            const request = { subject, details, status: 'Pending', timestamp: new Date().toLocaleString() };
+            requestHistory.unshift(request);
+            showAlert('Request sent successfully', 'success');
+            displayRequestHistory();
+            this.reset();
+        });
+
+        document.getElementById('cancelButton').addEventListener('click', function() {
+            showAlert('Request cancelled', 'danger');
+            document.getElementById('requestForm').reset();
+        });
+
+        function displayRequestHistory() {
+            const historyContainer = document.getElementById('requestHistory');
+            historyContainer.innerHTML = '';
+            
+            if (requestHistory.length === 0) {
+                historyContainer.innerHTML = '<p class="text-muted text-center">No requests yet</p>';
+                return;
+            }
+            
+            requestHistory.forEach((request, index) => {
+                const statusClass = request.status === 'Approved' ? 'status-approved' : 
+                                    request.status === 'Rejected' ? 'status-rejected' : 'status-pending';
+                const statusIcon = request.status === 'Approved' ? 'fa-check-circle' : 
+                                   request.status === 'Rejected' ? 'fa-times-circle' : 'fa-clock';
+                
+                const requestEntry = `
+                    <div class="request-item fade-in" style="animation-delay: ${index * 0.1}s">
+                        <h3>${request.subject}</h3>
+                        <p>${request.details}</p>
+                        <p class="text-muted"><small><i class="far fa-clock"></i> ${request.timestamp}</small></p>
+                        <span class="request-status ${statusClass}">
+                            <i class="fas ${statusIcon}"></i> ${request.status}
+                        </span>
+                    </div>
+                `;
+                historyContainer.innerHTML += requestEntry;
+            });
+        }
+
+        function showAlert(message, type) {
+            const alertDiv = document.createElement('div');
+            alertDiv.className = `alert alert-${type} alert-dismissible fade show fade-in`;
+            alertDiv.innerHTML = `
+                ${message}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            `;
+            document.querySelector('.main-content').insertAdjacentElement('afterbegin', alertDiv);
+            setTimeout(() => alertDiv.remove(), 5000);
+        }
+
+        displayRequestHistory();
+
+        // Simple tab functionality
+        document.querySelectorAll('.nav-link').forEach(tab => {
+            tab.addEventListener('click', (e) => {
+                e.preventDefault();
+                document.querySelectorAll('.nav-link').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('show', 'active'));
+                
+                tab.classList.add('active');
+                const tabId = tab.getAttribute('href').substring(1);
+                document.getElementById(tabId).classList.add('show', 'active');
+            });
+        });
+    </script>
+</body>
+</html>

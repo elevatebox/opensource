@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - grant.it</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .tab-content {
+            padding: 20px;
+            background-color: white;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .btn-custom {
+            background-color: #ff6b6b;
+            color: white;
+        }
+        .btn-custom:hover {
+            background-color: #f0e130;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container mt-5">
+    <h1 class="text-center">Admin Dashboard</h1>
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="co-admin-tab" data-toggle="tab" href="#co-admin" role="tab" aria-controls="co-admin" aria-selected="true">Co-admin Management</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="student-tab" data-toggle="tab" href="#student" role="tab" aria-controls="student" aria-selected="false">Student Management</a>
+        </li>
+    </ul>
+    
+    <div class="tab-content" id="myTabContent">
+        <!-- Co-admin Management Tab -->
+        <div class="tab-pane fade show active" id="co-admin" role="tabpanel" aria-labelledby="co-admin-tab">
+            <h3>Manage Co-admins</h3>
+            <button class="btn btn-custom mb-3" data-toggle="modal" data-target="#addCoAdminModal">Add Co-admin</button>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Branch</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="coAdminTableBody">
+                    <!-- Co-admin entries will be inserted here -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Student Management Tab -->
+        <div class="tab-pane fade" id="student" role="tabpanel" aria-labelledby="student-tab">
+            <h3>Manage Students</h3>
+            <button class="btn btn-custom mb-3" data-toggle="modal" data-target="#addStudentModal">Add Student</button>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Branch</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="studentTableBody">
+                    <!-- Student entries will be inserted here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Add Co-admin Modal -->
+<div class="modal fade" id="addCoAdminModal" tabindex="-1" role="dialog" aria-labelledby="addCoAdminLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addCoAdminLabel">Add Co-admin</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="coAdminForm">
+                    <div class="form-group">
+                        <label for="coAdminName">Name</label>
+                        <input type="text" class="form-control" id="coAdminName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="coAdminBranch">Branch</label>
+                        <input type="text" class="form-control" id="coAdminBranch" required>
+                    </div>
+                    <button type="submit" class="btn btn-custom">Add Co-admin</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add Student Modal -->
+<div class="modal fade" id="addStudentModal" tabindex="-1" role="dialog" aria-labelledby="addStudentLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addStudentLabel">Add Student</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="studentForm">
+                    <div class="form-group">
+                        <label for="studentName">Name</label>
+                        <input type="text" class="form-control" id="studentName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="studentBranch">Branch</label>
+                        <input type="text" class="form-control" id="studentBranch" required>
+                    </div>
+                    <button type="submit" class="btn btn-custom">Add Student</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    // Co-admins data array
+    let coAdmins = [];
+    // Students data array
+    let students = [];
+
+    // Function to add a co-admin
+    document.getElementById('coAdminForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const name = document.getElementById('coAdminName').value;
+        const branch = document.getElementById('coAdminBranch').value;
+        const newCoAdmin = { id: coAdmins.length + 1, name, branch };
+        coAdmins.push(newCoAdmin);
+        displayCoAdmins();
+        $('#addCoAdminModal').modal('hide');
+        this.reset();
+    });
+
+    // Function to display co-admins
+    function displayCoAdmins() {
+        const coAdminTableBody = document.getElementById('coAdminTableBody');
+        coAdminTableBody.innerHTML = '';
+        coAdmins.forEach(coAdmin => {
+            const row = `<tr>
+                            <td>${coAdmin.id}</td>
+                            <td>${coAdmin.name}</td>
+                            <td>${coAdmin.branch}</td>
+                            <td>
+                                <button class="btn btn-danger btn-sm" onclick="deleteCoAdmin(${coAdmin.id})">Delete</button>
+                            </td>
+                        </tr>`;
+            coAdminTableBody.innerHTML += row;
+        });
+    }
+
+    // Function to delete a co-admin
+    function deleteCoAdmin(id) {
+        coAdmins = coAdmins.filter(coAdmin => coAdmin.id !== id);
+        displayCoAdmins();
+    }
+
+    // Function to add a student
+    document.getElementById('studentForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const name = document.getElementById('studentName').value;
+        const branch = document.getElementById('studentBranch').value;
+        const newStudent = { id: students.length + 1, name, branch };
+        students.push(newStudent);
+        displayStudents();
+        $('#addStudentModal').modal('hide');
+        this.reset();
+    });
+
+    // Function to display students
+    function displayStudents() {
+        const studentTableBody = document.getElementById('studentTableBody');
+        studentTableBody.innerHTML = '';
+        students.forEach(student => {
+            const row = `<tr>
+                            <td>${student.id}</td>
+                            <td>${student.name}</td>
+                            <td>${student.branch}</td>
+                            <td>
+                                <button class="btn btn-danger btn-sm" onclick="deleteStudent(${student.id})">Delete</button>
+                            </td>
+                        </tr>`;
+            studentTableBody.innerHTML += row;
+        });
+    }
+
+    // Function to delete a student
+    function deleteStudent(id) {
+        students = students.filter(student => student.id !== id);
+        displayStudents();
+    }
+</script>
+</body>
+</html>
