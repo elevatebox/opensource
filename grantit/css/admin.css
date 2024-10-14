@@ -1,0 +1,80 @@
+/* Styles for the Admin Dashboard */
+
+/* Body styles to set the background image */
+body {
+    background-image: url('../images/maksim-samuilionak-_BR3-t7VRrw-unsplash.jpg'); /* Background image */
+    background-size: cover; /* Cover full screen */
+    background-position: center; /* Center the background image */
+    background-repeat: no-repeat; /* No repeating */
+    height: 100vh; /* Full screen height */
+    display: flex; /* Use flexbox for centering */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    font-family: 'Roboto', sans-serif; /* Apply custom font */
+}
+
+/* Specific styles for the Admin Dashboard container */
+.admin-dashboard {
+    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent background for content */
+    padding: 25px; /* Adjusted padding */
+    border-radius: 20px; /* Rounded corners */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Shadow effect */
+    max-width: 700px; /* Set a maximum width for the dialog */
+    width: 100%; /* Make it responsive */
+    margin: 20px; /* Margin for responsiveness */
+}
+
+/* Heading styles */
+h1 {
+    color: #0056b3; /* Modify the color of the title */
+}
+
+/* Tab styles */
+.nav-tabs .nav-link.active {
+    background-color: #55b5f1; /* Change active tab color */
+    color: white; /* Change active tab text color */
+}
+
+.nav-tabs .nav-link {
+    color: #0056b3; /* Change inactive tab color */
+}
+
+/* Tab content padding */
+.tab-content {
+    padding-top: 20px; /* Add some padding above the content */
+}
+
+/* Hover effects for tabs */
+.nav-tabs .nav-link:hover {
+    background-color: #e7f3ff; /* Slight background change on hover */
+    color: #0056b3; /* Hover text color */
+}
+
+/* Button styles */
+.btn-success {
+    background-color: #28a745; /* Green background */
+    border: none; /* Remove border */
+    transition: background-color 0.3s; /* Smooth transition */
+}
+
+.btn-success:hover {
+    background-color: #218838; /* Darker green on hover */
+}
+
+/* Form input styles */
+input.form-control {
+    border: 1px solid #ced4da; /* Standard border */
+    border-radius: 0.25rem; /* Rounded corners */
+}
+
+input.form-control:focus {
+    border-color: #80bdff; /* Blue border on focus */
+    outline: 0; /* Remove default outline */
+}
+
+/* Responsive design */
+@media (max-width: 576px) {
+    .admin-dashboard {
+        padding: 15px; /* Less padding on smaller screens */
+    }
+}

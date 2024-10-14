@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Co-admin Dashboard - grant.it</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/coadmin.css"> <!-- Link to Co-admin CSS -->
+</head>
+<body>
+    <div class="container mt-5 co-admin-dashboard">
+        <h1>Co-admin Dashboard</h1>
+        <div class="branch-info mb-4">
+            <h3>Your Assigned Branch: <span id="branch-name">Science</span></h3>
+        </div>
+        <ul class="nav nav-tabs" id="coAdminTabs" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="student-management-tab" data-bs-toggle="tab" href="#student-management" role="tab">Student Management</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="requests-tab" data-bs-toggle="tab" href="#requests" role="tab">Requests</a>
+            </li>
+        </ul>
+
+        <div class="tab-content mt-4" id="coAdminTabsContent">
+            <!-- Student Management -->
+            <div class="tab-pane fade show active" id="student-management" role="tabpanel">
+                <h3>Manage Students</h3>
+                <form id="studentForm" class="mb-4">
+                    <div class="mb-3">
+                        <label for="studentName" class="form-label">Student Name</label>
+                        <input type="text" class="form-control" id="studentName" placeholder="Enter student name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="studentUsername" class="form-label">Student Username</label>
+                        <input type="text" class="form-control" id="studentUsername" placeholder="Enter student username" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="studentBranch" class="form-label">Branch Name</label>
+                        <input type="text" class="form-control" id="studentBranch" placeholder="Enter branch name" required>
+                    </div>
+                    <button type="submit" class="btn btn-success">Add Student</button>
+                </form>
+                <h4>Student List</h4>
+                <ul id="studentList" class="list-group"></ul>
+            </div>
+            <!-- Requests -->
+            <div class="tab-pane fade" id="requests" role="tabpanel">
+                <h3>Student Requests</h3>
+                <h4>Pending Requests</h4>
+                <ul id="requestList" class="list-group"></ul>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Load requests from localStorage
+        function loadRequests() {
+            const requests = JSON.parse(localStorage.getItem("studentRequests")) || [];
+            document.getElementById("requestList").innerHTML = ""; // Clear the list before loading
+            requests.forEach((request, index) => addRequestToList(request, index));
+        }
+
+        // Add a request to the request list
+        function addRequestToList(request, index) {
+            const li = document.createElement("li");
+            li.className = "list-group-item d-flex justify-content-between align-items-center";
+            li.textContent = `${request.subject} - ${request.details} | Status: ${request.status || 'Pending'}`;
+
+            // Approve button
+            const approveBtn = document.createElement("button");
+            approveBtn.className = "btn btn-success btn-sm";
+            approveBtn.textContent = "Approve";
+            approveBtn.onclick = function () {
+                approveRequest(index);
+            };
+
+            // Reject button
+            const rejectBtn = document.createElement("button");
+            rejectBtn.className = "btn btn-danger btn-sm ms-2";
+            rejectBtn.textContent = "Reject";
+            rejectBtn.onclick = function () {
+                rejectRequest(index);
+            };
+
+            li.appendChild(approveBtn);
+            li.appendChild(rejectBtn);
+            document.getElementById("requestList").appendChild(li);
+        }
+
+        // Approve a request
+        function approveRequest(index) {
+            const requests = JSON.parse(localStorage.getItem("studentRequests")) || [];
+            requests[index].status = "Approved"; // Update the status
+            localStorage.setItem("studentRequests", JSON.stringify(requests)); // Update local storage
+            loadRequests(); // Refresh the display
+            alert(`Request approved!`);
+        }
+
+        // Reject a request
+        function rejectRequest(index) {
+            const requests = JSON.parse(localStorage.getItem("studentRequests")) || [];
+            requests[index].status = "Rejected"; // Update the status
+            localStorage.setItem("studentRequests", JSON.stringify(requests)); // Update local storage
+            loadRequests(); // Refresh the display
+            alert(`Request rejected!`);
+        }
+
+        // Event listener for student form submission
+        document.getElementById("studentForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+            const studentName = document.getElementById("studentName").value;
+            const studentUsername = document.getElementById("studentUsername").value;
+            const studentBranch = document.getElementById("studentBranch").value;
+
+            const student = {
+                name: studentName,
+                username: studentUsername,
+                branch: studentBranch,
+            };
+
+            // Add student to the student list
+            const studentList = document.getElementById("studentList");
+            const li = document.createElement("li");
+            li.className = "list-group-item";
+            li.textContent = `${student.name} (${student.username}) - ${student.branch}`;
+            studentList.appendChild(li);
+
+            // Reset the form
+            this.reset();
+        });
+
+        // Load requests on page load
+        loadRequests();
+    </script>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width" />
+    <title>Student Dashboard - grant.it</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/student.css" /> <!-- Link to Student CSS -->
+</head>
+<body>
+    <div class="container mt-5 student-dashboard">
+        <h1>Student Dashboard</h1>
+        <ul class="nav nav-tabs" id="studentTabs" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="request-permission-tab" data-bs-toggle="tab" href="#request-permission" role="tab">Request Permission</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="request-history-tab" data-bs-toggle="tab" href="#request-history" role="tab">Request History</a>
+            </li>
+        </ul>
+
+        <div class="tab-content mt-4" id="studentTabsContent">
+            <!-- Request Permission -->
+            <div class="tab-pane fade show active" id="request-permission" role="tabpanel">
+                <h3>Request Permission</h3>
+                <form id="requestForm">
+                    <div class="mb-3">
+                        <label for="subject" class="form-label">Subject</label>
+                        <input type="text" class="form-control" id="subject" placeholder="Enter subject" required />
+                    </div>
+                    <div class="mb-3">
+                        <label for="details" class="form-label">Permission Details</label>
+                        <textarea class="form-control" id="details" rows="4" placeholder="Enter details" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-success w-100">Send</button>
+                    <button type="button" class="btn btn-danger w-100 mt-2">Cancel</button>
+                </form>
+            </div>
+            <!-- Request History -->
+            <div class="tab-pane fade" id="request-history" role="tabpanel">
+                <h3>Request History</h3>
+                <div id="requestHistory" class="row row-cols-1 row-cols-md-2 g-4"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.getElementById("requestForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const subject = document.getElementById("subject").value;
+            const details = document.getElementById("details").value;
+
+            // Create the request object
+            const request = { subject, details, status: "pending" };
+
+            // Save the request to localStorage
+            let requests = JSON.parse(localStorage.getItem("studentRequests")) || [];
+            requests.push(request);
+            localStorage.setItem("studentRequests", JSON.stringify(requests));
+
+            // Optionally display in request history
+            displayRequestInHistory(request);
+
+            // Reset the form
+            this.reset();
+        });
+
+        // Function to display request in request history
+        function displayRequestInHistory(request) {
+            const col = document.createElement("div");
+            col.className = "col";
+
+            const card = document.createElement("div");
+            card.className = "card h-100";
+
+            const cardBody = document.createElement("div");
+            cardBody.className = "card-body";
+
+            const cardTitle = document.createElement("h5");
+            cardTitle.className = "card-title";
+            cardTitle.textContent = request.subject;
+
+            const cardText = document.createElement("p");
+            cardText.className = "card-text";
+            cardText.textContent = request.details;
+
+            const statusBadge = document.createElement("span");
+            statusBadge.className = "badge bg-warning text-dark";
+            statusBadge.textContent = request.status;
+
+            cardBody.appendChild(cardTitle);
+            cardBody.appendChild(cardText);
+            cardBody.appendChild(statusBadge);
+            card.appendChild(cardBody);
+            col.appendChild(card);
+
+            document.getElementById("requestHistory").appendChild(col);
+        }
+
+        // Load request history on page load
+        window.onload = function () {
+            const requests = JSON.parse(localStorage.getItem("studentRequests")) || [];
+            requests.forEach(displayRequestInHistory);
+        };
+    </script>
+</body>
+</html>

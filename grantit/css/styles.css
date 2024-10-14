@@ -1,0 +1,40 @@
+body {
+    background-color: #c5ced0;
+    font-family: 'Arial', sans-serif;
+}
+
+.login-box {
+    max-width: 400px;
+    margin: auto;
+    background-color: #07070761;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.login-box h3 {
+    color: #050000;
+    margin-bottom: 20px;
+}
+
+.app-title {
+    font-size: 3rem; /* Increased font size */
+}
+
+.text-green {
+    color: #2e0ae5; /* Main grant.it color */
+}
+
+.text-contrast {
+    color: #000d0e; /* Contrast color for thumbs-up icon */
+    margin-left: 10px;
+}
+
+.fas.fa-thumbs-up {
+    font-size: 3.5rem; /* Size for thumbs-up icon */
+}
+body {
+    background-image: url('C:\Users\kashy\Desktop\opensource\grantit\images\scott-lord-sk6cihbV0KA-unsplash.jpg'); /* Path to the background image */
+    background-size: cover; /* Makes sure the background image covers the entire screen */
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+}

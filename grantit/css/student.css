@@ -1,0 +1,69 @@
+/* Styles for the Student Dashboard */
+
+body {
+    background-image: url('../images/mikael-kristenson-3aVlWP-7bg8-unsplash.jpg'); /* Background image */
+    background-size: cover; /* Cover full screen */
+    background-position: center top; /* Center the background image */
+    background-repeat: no-repeat; /* No repeating */
+    height: 100vh; /* Full screen height */
+    display: flex; /* Use flexbox for centering */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+}
+
+.student-dashboard {
+    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent background */
+    padding: 30px; /* Increased padding for better spacing */
+    border-radius: 20px; /* Rounded corners */
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+    max-width: 800px; /* Set maximum width */
+    width: 100%; /* Full width */
+    margin: 30px; /* Margin for responsiveness */
+}
+
+/* Heading styles */
+h1 {
+    color: #0056b3; /* Title color */
+    text-align: center; /* Center title */
+}
+
+h3 {
+    color: #333; /* Subtitle color */
+}
+
+/* Tab styles */
+.nav-tabs {
+    justify-content: center; /* Center tabs */
+}
+
+.nav-tabs .nav-link {
+    color: #0056b3; /* Inactive tab color */
+    border-radius: 10px 10px 0 0; /* Rounded corners for tabs */
+}
+
+.nav-tabs .nav-link.active {
+    background-color: #55b5f1; /* Active tab color */
+    color: white; /* Active tab text color */
+}
+
+.nav-tabs .nav-link:hover {
+    background-color: #e7f3ff; /* Hover background color */
+    color: #0056b3; /* Hover text color */
+}
+
+/* Card styles for request history (if you have any cards in your request history) */
+.card {
+    border-radius: 10px; /* Rounded corners for cards */
+    margin-bottom: 15px; /* Spacing between cards */
+}
+
+/* Button styles */
+.btn {
+    border-radius: 25px; /* Rounded corners for buttons */
+    transition: background-color 0.3s; /* Smooth transition for hover effects */
+}
+
+.btn:hover {
+    background-color: #007bff; /* Button hover color */
+    color: white; /* Button text color on hover */
+}

@@ -1,0 +1,54 @@
+/* Styles for the Co-admin Dashboard */
+body {
+    background-image: url('../images/maksim-samuilionak-_BR3-t7VRrw-unsplash.jpg');
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.co-admin-dashboard {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 700px;
+    width: 100%;
+    margin: 20px;
+}
+
+h1 {
+    color: #0056b3;
+}
+
+h3 {
+    color: #333;
+}
+
+.nav-tabs .nav-link.active {
+    background-color: #55b5f1;
+    color: white;
+}
+
+.nav-tabs .nav-link {
+    color: #0056b3;
+}
+
+.nav-tabs .nav-link:hover {
+    background-color: #e7f3ff;
+    color: #0056b3;
+}
+
+/* New styles for button alignment */
+.request-buttons {
+    display: flex; /* Use flexbox for alignment */
+    justify-content: flex-end; /* Align buttons to the right */
+    margin-left: auto; /* Add margin to push buttons to the right */
+}
+
+.request-buttons button {
+    margin-left: 5px; /* Add space between buttons */
+}
