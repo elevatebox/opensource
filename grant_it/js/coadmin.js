@@ -121,7 +121,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Function to logout
     window.logout = function () {
         // Redirect to the login page
-        window.location.href = "../login.html";
+        window.location.href = "../html/index.html";
     };
 
     // Initial population of the tables
