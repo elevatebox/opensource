@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>grant.it - Permission Management</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    /* Gradient Background Animation */
+    body, html {
+      height: 100%;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: Arial, sans-serif;
+      overflow: hidden;
+      color: #333;
+    }
+
+    .background-animation {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, #4a90e2, #50c9c3, #f5af19, #e42d2d);
+      background-size: 400% 400%;
+      animation: gradientAnimation 15s ease infinite;
+      z-index: -1;
+    }
+
+    @keyframes gradientAnimation {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* App Name Styling */
+    .app-name {
+      font-weight: bold;
+      color: #4a90e2;
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    /* Responsive Font Sizing */
+    @media (max-width: 768px) {
+      .app-name {
+        font-size: 2rem;
+      }
+      .login-box {
+        width: 90%;
+      }
+      h2 {
+        font-size: 1.5rem;
+      }
+    }
+
+    /* Login Box Styling */
+    .login-box {
+      width: 400px;
+      background-color: #ffffffcc;
+      border-radius: 10px;
+      animation: fadeIn 1.5s ease-out;
+      padding: 2rem;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Button Gradient and Hover */
+    .btn-gradient {
+      background: linear-gradient(135deg, #4a90e2, #50c9c3);
+      border: none;
+      color: #fff;
+      font-weight: bold;
+      font-size: 1.1rem;
+      transition: background 0.3s, transform 0.2s;
+      padding: 0.8rem;
+    }
+
+    .btn-gradient:hover {
+      background: linear-gradient(135deg, #50c9c3, #4a90e2);
+      transform: scale(1.05);
+    }
+
+    /* Form Elements Hover */
+    .form-control:focus, .form-control:hover {
+      border-color: #50c9c3;
+      box-shadow: 0 0 8px rgba(80, 201, 195, 0.5);
+    }
+
+    label {
+      color: #333;
+      font-weight: bold;
+    }
+
+    h2 {
+      font-weight: bold;
+      color: #4a90e2;
+      font-size: 1.8rem;
+    }
+  </style>
+</head>
+<body>
+  <!-- Animated Background -->
+  <div class="background-animation"></div>
+
+  <div class="container mt-5">
+    <!-- Application Name -->
+    <h1 class="text-center app-name">grant.it</h1>
+
+    <!-- Login Box with Fade-in Animation -->
+    <div class="login-box mt-5 mx-auto p-4 border shadow animate-fade-in">
+      <h2 class="text-center">Login</h2>
+      <form id="login-form">
+        <div class="form-group">
+          <label for="role">Login as</label>
+          <select class="form-control" id="role">
+            <option value="admin">Admin</option>
+            <option value="co-admin">Co-admin</option>
+            <option value="student">Student</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" class="form-control" id="username" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" class="form-control" id="password" required>
+        </div>
+        <button type="submit" class="btn btn-gradient btn-block">Login</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>
