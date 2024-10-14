@@ -4,277 +4,205 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard - grant.it</title>
+    <title>Admin Interface - Grant.it</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
-            background-color: #ffccbc; /* Peach background */
-            color: #333;
-        }
-
-        .dashboard {
-            margin: 20px;
-            padding: 20px;
-            border-radius: 10px;
-            background-color: #ffffff; /* White background for dashboard */
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            background-color: #ffebcd; /* Peach background */
         }
 
         h1 {
             text-align: center;
-            color: #d32f2f; /* Dark red color for the main title */
-            margin-bottom: 20px;
+            color: #b65d4d; /* Darker peach color */
+            margin-top: 20px;
         }
 
-        h2 {
-            color: #1976d2; /* Blue color for subheadings */
+        .table th, .table td {
+            text-align: center;
         }
 
-        .btn-primary {
-            background-color: #ff4081; /* Vibrant pink */
-            border: none;
-        }
-
-        .btn-primary:hover {
-            background-color: #f50057; /* Darker pink on hover */
-        }
-
-        .alert-success {
-            background-color: #c8e6c9; /* Light green alert background */
-            color: #2e7d32; /* Dark green text */
-        }
-
-        .list-group-item {
-            background-color: #f1f8e9; /* Light green for list items */
-            border: 1px solid #a5d6a7; /* Light green border */
-        }
-
-        .text-warning {
-            color: #ffb300; /* Bright yellow for pending status */
-        }
-
-        .text-success {
-            color: #388e3c; /* Dark green for approved status */
-        }
-
-        .student-actions {
-            margin-top: 10px;
+        .btn-danger {
+            margin-left: 10px;
         }
     </style>
 </head>
 
 <body>
+    <h1>Admin Interface</h1>
+    
     <div class="container">
-        <h1>Admin Interface</h1>
-        <div class="dashboard">
-            <h2>Co-admin Management</h2>
-            <form id="coadmin-form" onsubmit="addCoadmin(event)">
-                <div class="mb-3">
-                    <input type="text" id="coadmin-name" class="form-control" placeholder="Co-admin Name" required>
-                </div>
-                <div class="mb-3">
-                    <select id="branch" class="form-select" required>
-                        <option value="" disabled selected>Select Branch</option>
-                        <option value="CS">Computer Science</option>
-                        <option value="IT">Information Technology</option>
-                        <option value="EE">Electrical Engineering</option>
-                        <option value="ME">Mechanical Engineering</option>
-                        <option value="CE">Civil Engineering</option>
-                        <option value="AE">Aerospace Engineering</option>
-                        <option value="BT">Biotechnology</option>
-                        <option value="MCE">Marine Engineering</option>
-                        <option value="CHE">Chemical Engineering</option>
-                        <option value="AE">Automobile Engineering</option>
-                    </select>
-                </div>
-                <button type="submit" class="btn btn-primary">Add Co-admin</button>
-            </form>
-            <div id="response" class="mt-3"></div>
-        </div>
+        <h2>Co-admin Management</h2>
+        <form id="coadmin-form" onsubmit="addCoadmin(event)">
+            <div class="mb-3">
+                <label for="coadmin-username" class="form-label">Username</label>
+                <input type="text" class="form-control" id="coadmin-username" required>
+            </div>
+            <div class="mb-3">
+                <label for="coadmin-branch" class="form-label">Select Branch</label>
+                <select class="form-select" id="coadmin-branch" required>
+                    <option value="" disabled selected>Select a branch</option>
+                    <option value="CSE">CSE</option>
+                    <option value="ECE">ECE</option>
+                    <option value="ME">Mechanical</option>
+                    <option value="CE">Civil</option>
+                    <option value="IT">Information Technology</option>
+                    <option value="AE">Aeronautical</option>
+                    <option value="CE">Chemical</option>
+                    <option value="EE">Electrical</option>
+                    <option value="BBA">BBA</option>
+                    <option value="MBA">MBA</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Coadmin</button>
+        </form>
+        
+        <table class="table table-striped mt-4">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Branch</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="coadmin-list">
+                <!-- Coadmin list will be dynamically populated here -->
+            </tbody>
+        </table>
 
-        <div class="dashboard mt-4">
-            <h2>Co-admins List</h2>
-            <ul id="coadmin-list" class="list-group">
-                <!-- List of Co-admins will be dynamically added here -->
-            </ul>
-        </div>
-
-        <div class="dashboard mt-4">
-            <h2>Student Management</h2>
-            <form id="student-form" onsubmit="addStudent(event)">
-                <div class="mb-3">
-                    <input type="text" id="student-name" class="form-control" placeholder="Student Name" required>
-                </div>
-                <div class="mb-3">
-                    <select id="branch-student" class="form-select" required>
-                        <option value="" disabled selected>Select Branch</option>
-                        <option value="CS">Computer Science</option>
-                        <option value="IT">Information Technology</option>
-                        <option value="EE">Electrical Engineering</option>
-                        <option value="ME">Mechanical Engineering</option>
-                        <option value="CE">Civil Engineering</option>
-                        <option value="AE">Aerospace Engineering</option>
-                        <option value="BT">Biotechnology</option>
-                        <option value="MCE">Marine Engineering</option>
-                        <option value="CHE">Chemical Engineering</option>
-                        <option value="AE">Automobile Engineering</option>
-                    </select>
-                </div>
-                <button type="submit" class="btn btn-primary">Add Student</button>
-            </form>
-            <div id="response-student" class="mt-3"></div>
-        </div>
-
-        <div class="dashboard mt-4">
-            <h2>Students List</h2>
-            <ul id="student-list" class="list-group">
-                <!-- List of Students will be dynamically added here -->
-            </ul>
-        </div>
+        <h2 class="mt-5">Student Management</h2>
+        <form id="student-form" onsubmit="addStudent(event)">
+            <div class="mb-3">
+                <label for="student-username" class="form-label">Username</label>
+                <input type="text" class="form-control" id="student-username" required>
+            </div>
+            <div class="mb-3">
+                <label for="student-branch" class="form-label">Select Branch</label>
+                <select class="form-select" id="student-branch" required>
+                    <option value="" disabled selected>Select a branch</option>
+                    <option value="CSE">CSE</option>
+                    <option value="ECE">ECE</option>
+                    <option value="ME">Mechanical</option>
+                    <option value="CE">Civil</option>
+                    <option value="IT">Information Technology</option>
+                    <option value="AE">Aeronautical</option>
+                    <option value="CE">Chemical</option>
+                    <option value="EE">Electrical</option>
+                    <option value="BBA">BBA</option>
+                    <option value="MBA">MBA</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Student</button>
+        </form>
+        
+        <table class="table table-striped mt-4">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Branch</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="student-list">
+                <!-- Student list will be dynamically populated here -->
+            </tbody>
+        </table>
     </div>
 
     <script>
-        const coadmins = []; // Array to store co-admin data
-        const students = []; // Array to store student data
+        // Store Coadmins and Students in local storage for demo purposes
+        const storeCoadmins = () => {
+            const coadmins = JSON.parse(localStorage.getItem('coadmins')) || [];
+            return coadmins;
+        };
+
+        const storeStudents = () => {
+            const students = JSON.parse(localStorage.getItem('students')) || [];
+            return students;
+        };
 
         function addCoadmin(event) {
-            event.preventDefault(); // Prevent form submission
+            event.preventDefault();
+            const username = document.getElementById('coadmin-username').value;
+            const branch = document.getElementById('coadmin-branch').value;
 
-            const coadminName = document.getElementById('coadmin-name').value;
-            const branch = document.getElementById('branch').value;
+            const coadmins = storeCoadmins();
+            coadmins.push({ username, branch });
+            localStorage.setItem('coadmins', JSON.stringify(coadmins));
 
-            const coadmin = {
-                id: coadmins.length + 1, // Generate a unique ID
-                name: coadminName,
-                branch: branch
-            };
-
-            coadmins.push(coadmin); // Add co-admin to the array
-            document.getElementById('response').innerHTML = `<div class="alert alert-success">${coadminName} has been added successfully.</div>`;
-            document.getElementById('coadmin-form').reset(); // Reset the form
-            displayCoadmins(); // Update the co-admin list
-        }
-
-        function addStudent(event) {
-            event.preventDefault(); // Prevent form submission
-
-            const studentName = document.getElementById('student-name').value;
-            const branch = document.getElementById('branch-student').value;
-
-            const student = {
-                id: students.length + 1, // Generate a unique ID
-                name: studentName,
-                branch: branch
-            };
-
-            students.push(student); // Add student to the array
-            document.getElementById('response-student').innerHTML = `<div class="alert alert-success">${studentName} has been added successfully.</div>`;
-            document.getElementById('student-form').reset(); // Reset the form
-            displayStudents(); // Update the student list
+            document.getElementById('coadmin-form').reset();
+            displayCoadmins();
         }
 
         function displayCoadmins() {
-            const coadminListElement = document.getElementById('coadmin-list');
-            coadminListElement.innerHTML = ''; // Clear the list
+            const coadmins = storeCoadmins();
+            const coadminList = document.getElementById('coadmin-list');
+            coadminList.innerHTML = '';
 
-            coadmins.forEach(coadmin => {
-                const li = document.createElement('li');
-                li.className = 'list-group-item d-flex justify-content-between align-items-center';
-                li.textContent = `${coadmin.name} (${coadmin.branch})`;
-
-                // Create buttons for update and remove actions
-                const actionDiv = document.createElement('div');
-                actionDiv.className = 'student-actions';
-
-                const updateButton = document.createElement('button');
-                updateButton.className = 'btn btn-primary btn-sm';
-                updateButton.textContent = 'Update';
-                updateButton.onclick = () => updateCoadmin(coadmin.id);
-
-                const removeButton = document.createElement('button');
-                removeButton.className = 'btn btn-danger btn-sm';
-                removeButton.textContent = 'Remove';
-                removeButton.onclick = () => removeCoadmin(coadmin.id);
-
-                actionDiv.appendChild(updateButton);
-                actionDiv.appendChild(removeButton);
-                li.appendChild(actionDiv);
-                coadminListElement.appendChild(li);
+            coadmins.forEach((coadmin, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${coadmin.username}</td>
+                    <td>${coadmin.branch}</td>
+                    <td>
+                        <button class="btn btn-danger" onclick="removeCoadmin(${index})">Remove</button>
+                    </td>
+                `;
+                coadminList.appendChild(row);
             });
+        }
+
+        function removeCoadmin(index) {
+            const coadmins = storeCoadmins();
+            coadmins.splice(index, 1);
+            localStorage.setItem('coadmins', JSON.stringify(coadmins));
+            displayCoadmins();
+        }
+
+        function addStudent(event) {
+            event.preventDefault();
+            const username = document.getElementById('student-username').value;
+            const branch = document.getElementById('student-branch').value;
+
+            const students = storeStudents();
+            students.push({ username, branch });
+            localStorage.setItem('students', JSON.stringify(students));
+
+            document.getElementById('student-form').reset();
+            displayStudents();
         }
 
         function displayStudents() {
-            const studentListElement = document.getElementById('student-list');
-            studentListElement.innerHTML = ''; // Clear the list
+            const students = storeStudents();
+            const studentList = document.getElementById('student-list');
+            studentList.innerHTML = '';
 
-            students.forEach(student => {
-                const li = document.createElement('li');
-                li.className = 'list-group-item d-flex justify-content-between align-items-center';
-                li.textContent = `${student.name} (${student.branch})`;
-
-                // Create buttons for update and remove actions
-                const actionDiv = document.createElement('div');
-                actionDiv.className = 'student-actions';
-
-                const updateButton = document.createElement('button');
-                updateButton.className = 'btn btn-primary btn-sm';
-                updateButton.textContent = 'Update';
-                updateButton.onclick = () => updateStudent(student.id);
-
-                const removeButton = document.createElement('button');
-                removeButton.className = 'btn btn-danger btn-sm';
-                removeButton.textContent = 'Remove';
-                removeButton.onclick = () => removeStudent(student.id);
-
-                actionDiv.appendChild(updateButton);
-                actionDiv.appendChild(removeButton);
-                li.appendChild(actionDiv);
-                studentListElement.appendChild(li);
+            students.forEach((student, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${student.username}</td>
+                    <td>${student.branch}</td>
+                    <td>
+                        <button class="btn btn-danger" onclick="removeStudent(${index})">Remove</button>
+                    </td>
+                `;
+                studentList.appendChild(row);
             });
         }
 
-        function updateCoadmin(id) {
-            const coadmin = coadmins.find(c => c.id === id);
-            if (coadmin) {
-                const newName = prompt("Enter new name for co-admin:", coadmin.name);
-                const newBranch = prompt("Enter new branch for co-admin:", coadmin.branch);
-                if (newName && newBranch) {
-                    coadmin.name = newName;
-                    coadmin.branch = newBranch;
-                    displayCoadmins(); // Refresh the list
-                }
-            }
+        function removeStudent(index) {
+            const students = storeStudents();
+            students.splice(index, 1);
+            localStorage.setItem('students', JSON.stringify(students));
+            displayStudents();
         }
 
-        function removeCoadmin(id) {
-            const index = coadmins.findIndex(c => c.id === id);
-            if (index !== -1) {
-                coadmins.splice(index, 1); // Remove co-admin from the array
-                displayCoadmins(); // Refresh the list
-            }
-        }
-
-        function updateStudent(id) {
-            const student = students.find(s => s.id === id);
-            if (student) {
-                const newName = prompt("Enter new name for student:", student.name);
-                const newBranch = prompt("Enter new branch for student:", student.branch);
-                if (newName && newBranch) {
-                    student.name = newName;
-                    student.branch = newBranch;
-                    displayStudents(); // Refresh the list
-                }
-            }
-        }
-
-        function removeStudent(id) {
-            const index = students.findIndex(s => s.id === id);
-            if (index !== -1) {
-                students.splice(index, 1); // Remove student from the array
-                displayStudents(); // Refresh the list
-            }
-        }
+        window.onload = function() {
+            displayCoadmins();
+            displayStudents();
+        };
     </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
