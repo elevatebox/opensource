@@ -6,11 +6,42 @@
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <title>Co-admin - grant.it</title>
+    <style>
+        .notification {
+            display: none;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #28a745;
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            animation: fadeIn 0.5s, fadeOut 0.5s 3s forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+    </style>
 </head>
 <body>
     <div class="container mt-5">
         <h2>Co-admin Dashboard</h2>
-        <h4>Assigned Branch: Computer Science</h4>
+        <h4>Select Branch</h4>
+        <select id="branchSelect" class="form-control mb-3" onchange="setBranch()">
+            <option value="">Select a branch</option>
+            <option value="Computer Science">Computer Science</option>
+            <option value="Information Technology">Information Technology</option>
+            <option value="Electronics">Electronics</option>
+            <option value="Mechanical">Mechanical</option>
+            <option value="Civil">Civil</option>
+        </select>
+        <h4>Assigned Branch: <span id="assignedBranch">None</span></h4>
+        
         <ul class="nav nav-tabs" id="coadminTabs">
             <li class="nav-item">
                 <a class="nav-link active" data-toggle="tab" href="#studentManagement">Student Management</a>
@@ -34,22 +65,32 @@
         </div>
     </div>
 
+    <div class="notification" id="notification"></div>
+
     <script src="js/script.js"></script>
     
     <script>
         let students = JSON.parse(localStorage.getItem('students')) || [];
         let requests = JSON.parse(localStorage.getItem('requests')) || [];
+        let assignedBranch = '';
+
+        function setBranch() {
+            const branch = document.getElementById('branchSelect').value;
+            assignedBranch = branch;
+            document.getElementById('assignedBranch').textContent = branch || 'None';
+            renderCoAdminStudentList();
+        }
 
         // Student Management
         function addCoAdminStudent() {
             const name = document.getElementById('coStudentName').value;
-            if (name) {
-                students.push({ name });
+            if (name && assignedBranch) {
+                students.push({ name, branch: assignedBranch });
                 localStorage.setItem('students', JSON.stringify(students));
                 document.getElementById('coStudentName').value = '';
                 renderCoAdminStudentList();
             } else {
-                alert('Please enter a name.');
+                alert('Please enter a name and select a branch.');
             }
         }
 
@@ -57,7 +98,9 @@
             const list = document.getElementById('coStudentList');
             list.innerHTML = '';
             students.forEach((student, index) => {
-                list.innerHTML += `<li>${student.name} <button onclick="deleteCoAdminStudent(${index})">Delete</button> <button onclick="viewRequests(${index})">View Requests</button></li>`;
+                if (student.branch === assignedBranch) {
+                    list.innerHTML += `<li>${student.name} <button onclick="deleteCoAdminStudent(${index})">Delete</button> <button onclick="viewRequests(${index})">View Requests</button></li>`;
+                }
             });
         }
 
@@ -73,12 +116,31 @@
             const studentRequests = requests.filter(req => req.studentIndex === studentIndex);
 
             if (studentRequests.length > 0) {
-                studentRequests.forEach((request) => {
-                    list.innerHTML += `<li>${request.details} - ${request.status}</li>`;
+                studentRequests.forEach((request, reqIndex) => {
+                    list.innerHTML += `<li>${request.details} - ${request.status} 
+                        <button onclick="updateRequest(${reqIndex}, 'Accepted', ${studentIndex})">Accept</button>
+                        <button onclick="updateRequest(${reqIndex}, 'Rejected', ${studentIndex})">Reject</button>
+                    </li>`;
                 });
             } else {
                 list.innerHTML = '<li>No requests found for this student.</li>';
             }
+        }
+
+        function updateRequest(reqIndex, status, studentIndex) {
+            requests[reqIndex].status = status;
+            localStorage.setItem('requests', JSON.stringify(requests));
+            showNotification(`Request has been ${status.toLowerCase()}.`);
+            viewRequests(studentIndex); // Refresh the request view
+        }
+
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.style.display = 'block';
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 4000);
         }
 
         // Initial render

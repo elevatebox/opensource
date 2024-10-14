@@ -18,10 +18,17 @@ function openTab(tabName) {
     document.getElementById(tabName).style.display = 'block';
 }
 
-function sendRequest() {
-    alert("Request sent successfully");
-}
-
-function cancelRequest() {
-    alert("Cancelled");
+function submitRequest() {
+    const details = document.getElementById('studentRequest').value;
+    const studentIndex = k;
+    
+    if (details) {
+        requests.push({ studentIndex, details, status: 'Pending' });
+        localStorage.setItem('requests', JSON.stringify(requests));
+        document.getElementById('studentRequest').value = '';
+        renderRequestList();
+        renderRequestHistory();
+    } else {
+        alert('Please enter request details.');
+    }
 }
