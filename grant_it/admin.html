@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
+
+        /* Multicolored background with semi-transparent design */
+        body {
+            background: linear-gradient(270deg, rgba(255, 126, 185, 0.5), rgba(255, 101, 163, 0.5), rgba(122, 252, 255, 0.5), rgba(254, 255, 156, 0.5), rgba(255, 247, 64, 0.5)),
+                        url('https://www.transparenttextures.com/patterns/debut-dark.png'); /* Pattern overlay */
+            background-size: 1000% 1000%, auto;
+            animation: gradientAnimation 15s ease infinite;
+            color: white;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Keyframes for smooth background animation */
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        h2 {
+            color: #fff;
+            text-shadow: 0 0 10px #fff, 0 0 20px #00d4ff;
+            font-weight: 900;
+            font-size: 2.5rem;
+            margin-top: 20px;
+        }
+
+        /* Style for tabs and active states */
+        .nav-tabs .nav-link {
+            color: #fff;
+            background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent */
+            border-radius: 15px;
+            margin-right: 10px;
+            padding: 10px 20px;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .nav-tabs .nav-link.active {
+            background-color: #00d4ff;
+            color: #fff;
+            box-shadow: 0 0 10px rgba(0, 212, 255, 0.8);
+        }
+
+        .nav-tabs .nav-link:hover {
+            background-color: #0099cc;
+            box-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+        }
+
+        .tab-pane h3 {
+            color: #fff;
+            font-size: 1.8rem;
+            text-shadow: 0 0 5px #fff, 0 0 10px #00d4ff;
+        }
+
+        /* Card style similar to the login page */
+        .card {
+            background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+            backdrop-filter: blur(8px); /* Apply blur to the background */
+            border: none;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .coadmin-details {
+            color: white;
+            text-shadow: 0 0 5px #00ff00; /* Neon green glow */
+            margin: 15px 0; /* Increased line spacing */
+        }
+
+        .btn {
+            margin: 1.5cm 0.5cm; /* Increased space between buttons */
+        }
+
+        .btn-primary {
+            background-color: #00d4ff;
+            border: none;
+            font-weight: bold;
+            border-radius: 25px;
+            padding: 0.75rem 1.5rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #0099cc;
+            transform: scale(1.1);
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.8);
+        }
+
+        .btn-danger {
+            margin-left: 10px; /* Increased space for delete button */
+        }
+
+        th {
+            color: white; /* Column names in white */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 class="text-center">Admin Dashboard</h2>
+        <div class="card">
+            <ul class="nav nav-tabs" id="adminTabs">
+                <li class="nav-item">
+                    <a class="nav-link active" id="coadmin-tab" data-toggle="tab" href="#coadmin">Manage Co-admins</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="student-tab" data-toggle="tab" href="#student">Manage Students</a>
+                </li>
+            </ul>
+
+            <div class="tab-content">
+                <div id="coadmin" class="tab-pane fade show active">
+                    <h3>Co-admin Management</h3>
+                    <button class="btn btn-primary mb-3" id="addCoadminBtn">Add Co-admin</button>
+                    
+                    <!-- Form for adding co-admins -->
+                    <form id="addCoadminForm" style="display: none;">
+                        <div class="form-group">
+                            <label for="coadminName">Name</label>
+                            <input type="text" class="form-control" id="coadminName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="coadminID">ID</label>
+                            <input type="text" class="form-control" id="coadminID" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="coadminBranch">Branch</label>
+                            <input type="text" class="form-control" id="coadminBranch" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="button" class="btn btn-danger" onclick="document.getElementById('addCoadminForm').style.display='none'">Cancel</button>
+                    </form>
+
+                    <!-- Table to display co-admins -->
+                    <table class="table table-striped mt-3" id="coadminTable">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Branch</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Co-admins will be added here -->
+                        </tbody>
+                    </table>
+                </div>
+                <div id="student" class="tab-pane fade">
+                    <h3>Student Management</h3>
+                    <button class="btn btn-primary mb-3" id="addStudentBtn">Add Student</button>
+                    <!-- Add your form or functionality to add students here -->
+                    <form id="addStudentForm" style="display: none;">
+                        <div class="form-group">
+                            <label for="studentUsername">Username</label>
+                            <input type="text" class="form-control" id="studentUsername" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="studentPassword">Password</label>
+                            <input type="password" class="form-control" id="studentPassword" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="button" class="btn btn-danger" onclick="document.getElementById('addStudentForm').style.display='none'">Cancel</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="../js/app.js"></script>
+    <script>
+        // Show and hide forms for adding co-admins and students
+        document.getElementById('addCoadminBtn').onclick = function() {
+            document.getElementById('addCoadminForm').style.display = 'block';
+        };
+
+        // Handle co-admin form submission
+        document.getElementById('addCoadminForm').onsubmit = function(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            // Get the values from the form
+            const name = document.getElementById('coadminName').value;
+            const branch = document.getElementById('coadminBranch').value;
+
+            // Create a new row and cells
+            const table = document.getElementById('coadminTable').getElementsByTagName('tbody')[0];
+            const newRow = table.insertRow();
+            const nameCell = newRow.insertCell(0);
+            const branchCell = newRow.insertCell(1);
+            const actionsCell = newRow.insertCell(2);
+
+            // Set the cell values
+            nameCell.innerHTML = `<span class="coadmin-details">${name}</span>`;
+            branchCell.innerHTML = `<span class="coadmin-details">${branch}</span>`;
+
+            // Add Edit and Delete buttons
+            actionsCell.innerHTML = `
+                <button class="btn btn-warning btn-sm" onclick="editCoadmin(this)">Edit</button>
+                <button class="btn btn-danger btn-sm" onclick="deleteCoadmin(this)">Delete</button>
+            `;
+
+            // Clear the form and hide it
+            document.getElementById('addCoadminForm').reset();
+            document.getElementById('addCoadminForm').style.display = 'none';
+        };
+
+        function editCoadmin(button) {
+            const row = button.parentNode.parentNode;
+            const nameCell = row.cells[0].querySelector('.coadmin-details').textContent;
+            const branchCell = row.cells[1].querySelector('.coadmin-details').textContent;
+
+            // Populate the form with current data
+            document.getElementById('coadminName').value = nameCell;
+            document.getElementById('coadminBranch').value = branchCell;
+            document.getElementById('addCoadminForm').style.display = 'block';
+
+            // Remove the row for updating
+            deleteCoadmin(button);
+        }
+
+        function deleteCoadmin(button) {
+            const row = button.parentNode.parentNode;
+            row.parentNode.removeChild(row);
+        }
+
+        document.getElementById('addStudentBtn').onclick = function() {
+            document.getElementById('addStudentForm').style.display = 'block';
+        };
+    </script>
+</body>
+</html>

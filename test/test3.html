@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>grant.it - Login</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
+
+        /* Apply the SVG pattern as the background */
+        body {
+            background-image: url('https://www.heropatterns.com/static/media/signal.8706240d.svg'); /* Add your SVG pattern here */
+            background-size: 500px 500px; /* Scale the pattern larger */
+            background-color: rgba(0, 0, 0, 0.9); /* Dark semi-transparent overlay for sophistication */
+            background-blend-mode: overlay; /* Blend pattern with the dark background */
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            height: 100vh; /* Make sure the background covers the whole screen */
+        }
+
+        h1 {
+            color: #fff;
+            text-shadow: 0 0 10px #fff, 0 0 20px #00d4ff;
+            font-weight: 900;
+            font-size: 3rem;
+        }
+
+        .card {
+            background-color: rgba(0, 0, 0, 0.7);
+            border: none;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+        }
+
+        .card-title {
+            color: #fff;
+            font-size: 1.5rem;
+        }
+
+        label {
+            color: #fff;
+            font-size: 1.1rem;
+        }
+
+        .form-control {
+            background-color: #333;
+            color: white;
+            border: 1px solid #00d4ff;
+            border-radius: 20px;
+        }
+
+        .form-control:focus {
+            background-color: #444;
+            border-color: #00d4ff;
+            box-shadow: 0 0 10px rgba(0, 212, 255, 0.8);
+        }
+
+        .btn-primary {
+            background-color: #00d4ff;
+            border: none;
+            font-weight: bold;
+            border-radius: 25px;
+            padding: 0.75rem 1.5rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #0099cc;
+            transform: scale(1.1);
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.8);
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">grant.it</h1>
+        <div class="card mt-4">
+            <div class="card-body">
+                <h5 class="card-title text-center">Login</h5>
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="roleSelect">Login as:</label>
+                        <select class="form-control" id="roleSelect" required>
+                            <option value="">Select Role</option>
+                            <option value="admin">Admin</option>
+                            <option value="coadmin">Co-admin</option>
+                            <option value="student">Student</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" class="form-control" id="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Login</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/scripts.js"></script>
+</body>
+</html>

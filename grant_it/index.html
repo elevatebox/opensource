@@ -1,0 +1,117 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>grant.it - Login</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
+        
+        /* Multicolored background with semi-transparent design */
+        body {
+            background: linear-gradient(270deg, rgba(255, 126, 185, 0.5), rgba(255, 101, 163, 0.5), rgba(122, 252, 255, 0.5), rgba(254, 255, 156, 0.5), rgba(255, 247, 64, 0.5)), 
+                        url('https://www.transparenttextures.com/patterns/debut-dark.png'); /* Pattern overlay */
+            background-size: 1000% 1000%, auto;
+            animation: gradientAnimation 15s ease infinite;
+            color: white;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Keyframes for smooth background animation */
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        h1 {
+            color: #fff;
+            text-shadow: 0 0 10px #fff, 0 0 20px #00d4ff;
+            font-weight: 900;
+            font-size: 3rem;
+        }
+
+        /* Semi-transparent card with blur and soft shadows */
+        .card {
+            background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+            backdrop-filter: blur(8px); /* Apply blur to the background */
+            border: none;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+        }
+
+        .card-title {
+            color: #fff;
+            font-size: 1.5rem;
+        }
+
+        label {
+            color: #fff;
+            font-size: 1.1rem;
+        }
+
+        .form-control {
+            background-color: #333;
+            color: white;
+            border: 1px solid #00d4ff;
+            border-radius: 20px;
+        }
+
+        .form-control:focus {
+            background-color: #444;
+            border-color: #00d4ff;
+            box-shadow: 0 0 10px rgba(0, 212, 255, 0.8);
+        }
+
+        /* Button styles with hover animations */
+        .btn-primary {
+            background-color: #00d4ff;
+            border: none;
+            font-weight: bold;
+            border-radius: 25px;
+            padding: 0.75rem 1.5rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #0099cc;
+            transform: scale(1.1);
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.8);
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">grant.it</h1>
+        <div class="card mt-4">
+            <div class="card-body">
+                <h5 class="card-title text-center">Login</h5>
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="roleSelect">Login as:</label>
+                        <select class="form-control" id="roleSelect" required>
+                            <option value="">Select Role</option>
+                            <option value="admin">Admin</option>
+                            <option value="coadmin">Co-admin</option>
+                            <option value="student">Student</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" class="form-control" id="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Login</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/scripts.js"></script>
+</body>
+</html>

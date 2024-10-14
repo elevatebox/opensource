@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Co-admin Dashboard</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
+
+        /* Multicolored background with semi-transparent design */
+        body {
+            background: linear-gradient(270deg, rgba(255, 126, 185, 0.5), rgba(255, 101, 163, 0.5), rgba(122, 252, 255, 0.5), rgba(254, 255, 156, 0.5), rgba(255, 247, 64, 0.5)),
+                        url('https://www.transparenttextures.com/patterns/debut-dark.png');
+            background-size: 1000% 1000%, auto;
+            animation: gradientAnimation 15s ease infinite;
+            color: white;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        h2 {
+            color: #fff;
+            text-shadow: 0 0 10px #fff, 0 0 20px #00d4ff;
+            font-weight: 900;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .nav-tabs .nav-link {
+            background-color: rgba(0, 0, 0, 0.7);
+            border: none;
+            color: #00d4ff;
+            font-weight: bold;
+        }
+
+        .nav-tabs .nav-link.active {
+            background-color: rgba(0, 212, 255, 0.8);
+            border-radius: 15px;
+        }
+
+        .card {
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            border: none;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+            margin-top: 20px;
+        }
+
+        h3 {
+            color: #fff;
+            text-align: center;
+        }
+
+        .btn {
+            background-color: #00d4ff;
+            border: none;
+            font-weight: bold;
+            border-radius: 25px;
+            padding: 0.75rem 1.5rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #0099cc;
+            transform: scale(1.1);
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.8);
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Co-admin Dashboard</h2>
+        <p class="text-center">Branch: <strong id="branchInfo"></strong></p>
+        <ul class="nav nav-tabs justify-content-center" id="coadminTabs">
+            <li class="nav-item">
+                <a class="nav-link active" id="student-tab" data-toggle="tab" href="#students">Manage Students</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="requests-tab" data-toggle="tab" href="#requests">Requests</a>
+            </li>
+        </ul>
+
+        <div class="tab-content">
+            <div id="students" class="tab-pane fade show active card p-3">
+                <h3>Student Management</h3>
+                <!-- CRUD Operations for Students -->
+            </div>
+            <div id="requests" class="tab-pane fade card p-3">
+                <h3>Student Requests</h3>
+                <!-- List of requests with Approve/Reject option -->
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/app.js"></script>
+</body>
+</html>
