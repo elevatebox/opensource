@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>grant.it - School Permission Management</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container text-center mt-5">
+        <h1 style="font-weight: bold; color: green;">grant.it</h1>
+        <div class="login-box mt-4">
+            <select id="loginRole" class="form-control mb-3">
+                <option value="" disabled selected>Login as</option>
+                <option value="admin">Admin</option>
+                <option value="coadmin">Co-admin</option>
+                <option value="student">Student</option>
+            </select>
+            <input type="text" class="form-control mb-3" placeholder="Username" id="username">
+            <input type="password" class="form-control mb-3" placeholder="Password" id="password">
+            <button class="btn btn-primary" onclick="login()">Login</button>
+        </div>
+    </div>
+    <script src="../js/main.js"></script>
+</body>
+</html>
