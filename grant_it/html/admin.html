@@ -1,0 +1,35 @@
+<!-- Admin Dashboard (admin.html) -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - grant.it</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Admin Dashboard</h1>
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#coAdminTab">Co-admin Management</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#studentTab">Student Management</a>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div id="coAdminTab" class="tab-pane fade show active">
+                <h3>Manage Co-admins</h3>
+                <!-- CRUD Operations for Co-admins -->
+            </div>
+            <div id="studentTab" class="tab-pane fade">
+                <h3>Manage Students</h3>
+                <!-- CRUD Operations for Students -->
+            </div>
+        </div>
+    </div>
+    <script src="js/main.js"></script>
+</body>
+</html>
