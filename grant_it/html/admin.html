@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>grant.it - Admin Dashboard</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        /* General styling */
+        body {
+            background-color: #f1f1f1;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .tab-content {
+            padding: 20px;
+            border-radius: 15px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        /* Tabs */
+        .nav-tabs .nav-link {
+            border-radius: 10px;
+            margin-right: 10px;
+        }
+
+        /* Management Box */
+        .management-box {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .management-box h4 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .table {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Styling the add button */
+        .btn-primary {
+            background-color: #28a745;
+            border-color: #28a745;
+            border-radius: 20px;
+        }
+
+        .btn-primary:hover {
+            background-color: #218838;
+            border-color: #1e7e34;
+        }
+
+        /* Responsive design */
+        @media (max-width: 576px) {
+            .management-box {
+                padding: 20px;
+            }
+
+            .btn-primary {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container mt-4">
+        <h2 class="fw-bold text-success">grant.it - Admin Dashboard</h2>
+        
+        <ul class="nav nav-tabs mt-4" id="adminTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="coadmins-tab" data-bs-toggle="tab" data-bs-target="#coadmins" type="button" role="tab" aria-controls="coadmins" aria-selected="true">Co-admin Management</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="students-tab" data-bs-toggle="tab" data-bs-target="#students" type="button" role="tab" aria-controls="students" aria-selected="false">Student Management</button>
+            </li>
+        </ul>
+
+        <div class="tab-content" id="adminTabsContent">
+            <!-- Co-admin Management Tab -->
+            <div class="tab-pane fade show active" id="coadmins" role="tabpanel" aria-labelledby="coadmins-tab">
+                <div class="management-box">
+                    <h4>Manage Co-admins</h4>
+                    <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addCoadminModal">Add Co-admin</button>
+                    <table class="table table-bordered" id="coadminTable">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Branch</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Co-admins will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Student Management Tab -->
+            <div class="tab-pane fade" id="students" role="tabpanel" aria-labelledby="students-tab">
+                <div class="management-box">
+                    <h4>Manage Students</h4>
+                    <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addStudentModal">Add Student</button>
+                    <table class="table table-bordered" id="studentTable">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Branch</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Students will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Logout Button -->
+        <button class="btn btn-danger float-end mt-3" id="logoutBtn" onclick="logout()">Logout</button>
+    </div>
+
+    <!-- Add Co-admin Modal -->
+    <div class="modal fade" id="addCoadminModal" tabindex="-1" aria-labelledby="addCoadminModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <form id="addCoadminForm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addCoadminModalLabel">Add Co-admin</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="coadminUsername" class="form-label">Username</label>
+                            <input type="text" class="form-control" id="coadminUsername" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="coadminPassword" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="coadminPassword" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="coadminName" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="coadminName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="coadminBranch" class="form-label">Branch</label>
+                            <select class="form-control" id="coadminBranch" required>
+                                <option value="" disabled selected>Select a Branch</option>
+                                <option value="CS">Computer Science</option>
+                                <option value="ECE">Electronics and Communication</option>
+                                <option value="IT">Information Technology</option>
+                                <option value="CE">Civil Engineering</option>
+                                <option value="EIE">Electronics and Instrumentation Engineering</option>
+                                <option value="ME">Mechanical Engineering</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Add Co-admin</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add Student Modal -->
+    <div class="modal fade" id="addStudentModal" tabindex="-1" aria-labelledby="addStudentModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <form id="addStudentForm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addStudentModalLabel">Add Student</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="studentUsername" class="form-label">Roll number</label>
+                            <input type="text" class="form-control" id="studentUsername" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="studentPassword" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="studentPassword" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="studentName" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="studentName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="studentBranch" class="form-label">Branch</label>
+                            <select class="form-control" id="studentBranch" required>
+                                <option value="" disabled selected>Select a Branch</option>
+                                <option value="CS">Computer Science</option>
+                                <option value="ECE">Electronics and Communication</option>
+                                <option value="IT">Information Technology</option>
+                                <option value="ME">Mechanical Engineering</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Add Student</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS & Dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="../js/admin.js"></script>
+
+    <script>
+        // Logout function
+        function logout() {
+    // Optionally, clear session storage or local storage if you have set any
+    // sessionStorage.clear(); // For clearing session storage
+    // localStorage.clear(); // For clearing local storage
+    
+    // Redirect to the login page
+    window.location.href = "../html/index.html"; // Make sure the path is correct
+}
+    </script>
+</body>
+</html>

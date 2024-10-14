@@ -1,0 +1,9 @@
+[
+    {
+        "id": 1,
+        "username": "student1",
+        "password": "studentpass",
+        "name": "Alice",
+        "branch": "Science"
+    }
+]
