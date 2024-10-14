@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/styles1.css">
+    <link rel="stylesheet" href="../css/coadmin.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <title>Co-admin Dashboard - grant.it</title>
 </head>
 <body>
     <div class="container mt-5">
         <h1 class="text-success text-center">Co-admin Dashboard</h1>
-        <h2>Assigned Branch: Computer Science</h2>
+        <h2 class="mt-4">Assigned Branch: <span id="branch-info">Computer Science</span></h2> <!-- Update with actual branch -->
         <ul class="nav nav-tabs mt-4">
             <li class="nav-item">
-                <a class="nav-link active" data-toggle="tab" href="#student-management">Student Management</a>
+                <a class="nav-link active" data-toggle="tab" href="#students">Student Management</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" data-toggle="tab" href="#requests">Requests</a>
@@ -21,14 +21,16 @@
         </ul>
 
         <div class="tab-content">
-            <div id="student-management" class="tab-pane fade show active">
+            <div id="students" class="tab-pane fade show active">
                 <h2>Manage Students</h2>
-                <button class="btn btn-primary mb-3" onclick="openStudentModal()">Add Student</button>
-                <table class="table">
+                <button class="btn btn-primary mb-3" data-toggle="modal" data-target="#addStudentModal">Add Student</button>
+                <table class="table table-striped">
                     <thead>
                         <tr>
                             <th>ID</th>
                             <th>Name</th>
+                            <th>Branch</th>
+                            <th>Subject</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -39,10 +41,10 @@
             </div>
             <div id="requests" class="tab-pane fade">
                 <h2>Student Requests</h2>
-                <table class="table">
+                <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th>Request ID</th>
+                            <th>ID</th>
                             <th>Student Name</th>
                             <th>Request Details</th>
                             <th>Status</th>
@@ -57,13 +59,49 @@
         </div>
     </div>
 
-    <script src="../js/script.js"></script>
-    <script>
-        function openStudentModal() {
-            alert("Open modal to add a student");
-        }
-    </script>
+    <!-- Add Student Modal -->
+    <div class="modal fade" id="addStudentModal" tabindex="-1" aria-labelledby="addStudentModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addStudentModalLabel">Add Student</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="addStudentForm">
+                        <div class="form-group">
+                            <label for="studentName">Name</label>
+                            <input type="text" class="form-control" id="studentName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="studentBranch">Branch</label>
+                            <input type="text" class="form-control" id="studentBranch" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="studentSubject">Subject</label>
+                            <select class="form-control" id="studentSubject" required>
+                                <option value="">Select a subject</option>
+                                <option value="Mathematics">Mathematics</option>
+                                <option value="Physics">Physics</option>
+                                <option value="Chemistry">Chemistry</option>
+                                <option value="Computer Science">Computer Science</option>
+                                <option value="Biology">Biology</option>
+                                <option value="English">English</option>
+                                <!-- Add more subjects as needed -->
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Add Student</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/coadmin.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
-
-<link rel="stylesheet" href="../dashboard css/coadmin.css">
