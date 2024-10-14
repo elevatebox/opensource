@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>grant.it - Student Dashboard</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <div class="container mt-4">
+        <h2 class="fw-bold text-success">grant.it - Student Dashboard</h2>
+        <button class="btn btn-danger float-end" id="logoutBtn">Logout</button>
+        <ul class="nav nav-tabs mt-4" id="studentTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="request-tab" data-bs-toggle="tab" data-bs-target="#request" type="button" role="tab" aria-controls="request" aria-selected="true">Request Permission</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="history-tab" data-bs-toggle="tab" data-bs-target="#history" type="button" role="tab" aria-controls="history" aria-selected="false">Request History</button>
+            </li>
+        </ul>
+        <div class="tab-content" id="studentTabsContent">
+            <!-- Request Permission Tab -->
+            <div class="tab-pane fade show active" id="request" role="tabpanel" aria-labelledby="request-tab">
+                <div class="mt-3">
+                    <h4>Request Permission</h4>
+                    <form id="permissionForm">
+                        <div class="mb-3">
+                            <label for="subject" class="form-label">Subject</label>
+                            <input type="text" class="form-control" id="subject" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="details" class="form-label">Details</label>
+                            <textarea class="form-control" id="details" rows="4" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-success">Send</button>
+                        <button type="button" class="btn btn-secondary" id="cancelBtn">Cancel</button>
+                    </form>
+                </div>
+            </div>
+            <!-- Request History Tab -->
+            <div class="tab-pane fade" id="history" role="tabpanel" aria-labelledby="history-tab">
+                <div class="mt-3">
+                    <h4>Request History</h4>
+                    <table class="table table-bordered" id="historyTable">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Subject</th>
+                                <th>Details</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Request history will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS & Dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="../js/student.js"></script>
+</body>
+</html>
