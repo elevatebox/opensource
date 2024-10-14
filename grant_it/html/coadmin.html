@@ -1,0 +1,36 @@
+<!-- Co-admin Dashboard (coadmin.html) -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Co-admin Dashboard - grant.it</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Co-admin Dashboard</h1>
+        <h2>Assigned Branch: [Branch Name]</h2>
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#studentTab">Student Management</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#requestsTab">Requests</a>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div id="studentTab" class="tab-pane fade show active">
+                <h3>Manage Students</h3>
+                <!-- CRUD Operations for Students -->
+            </div>
+            <div id="requestsTab" class="tab-pane fade">
+                <h3>View Requests</h3>
+                <!-- Approve/Reject Requests -->
+            </div>
+        </div>
+    </div>
+    <script src="js/main.js"></script>
+</body>
+</html>
