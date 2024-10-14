@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard - grant.it</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-image: url('/images/backgroundweb.jpg'); /* Ensure correct path */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .dashboard-container {
+            width: 80%;
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container dashboard-container">
+        <h1 class="my-4">Student Dashboard</h1>
+
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" href="#request-permission" data-toggle="tab">Request Permission</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#request-history" data-toggle="tab">Request History</a>
+            </li>
+        </ul>
+
+        <div class="tab-content mt-3">
+            <!-- Request Permission Tab -->
+            <div id="request-permission" class="tab-pane fade show active">
+                <h3>Request Permission</h3>
+                <form id="requestForm">
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" class="form-control" id="subject" placeholder="Enter subject">
+                    </div>
+                    <div class="form-group">
+                        <label for="details">Permission Details</label>
+                        <textarea class="form-control" id="details" rows="4" placeholder="Enter details"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send</button>
+                    <button type="button" class="btn btn-secondary" id="cancelRequest">Cancel</button>
+                </form>
+            </div>
+
+            <!-- Request History Tab -->
+            <div id="request-history" class="tab-pane fade">
+                <h3>Request History</h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Subject</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="requestHistoryTable">
+                        <tr>
+                            <td>2024-10-14</td>
+                            <td>Permission for leave</td>
+                            <td>Approved</td>
+                        </tr>
+                        <tr>
+                            <td>2024-10-15</td>
+                            <td>Permission for outing</td>
+                            <td>Rejected</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        // Inline JavaScript to test form submission
+        document.getElementById('requestForm').onsubmit = function(event) {
+            event.preventDefault();
+            alert('Request sent successfully!');
+            // Optionally, reset the form
+            this.reset();
+        };
+        
+        document.getElementById('cancelRequest').onclick = function() {
+            alert('Cancelled');
+        };
+    </script>
+
+</body>
+</html>
