@@ -37,14 +37,15 @@
     <script src="js/script.js"></script>
     
     <script>
-        let coStudents = JSON.parse(localStorage.getItem('coStudents')) || [];
+        let students = JSON.parse(localStorage.getItem('students')) || [];
         let requests = JSON.parse(localStorage.getItem('requests')) || [];
 
+        // Student Management
         function addCoAdminStudent() {
             const name = document.getElementById('coStudentName').value;
             if (name) {
-                coStudents.push({ name });
-                localStorage.setItem('coStudents', JSON.stringify(coStudents));
+                students.push({ name });
+                localStorage.setItem('students', JSON.stringify(students));
                 document.getElementById('coStudentName').value = '';
                 renderCoAdminStudentList();
             } else {
@@ -55,40 +56,33 @@
         function renderCoAdminStudentList() {
             const list = document.getElementById('coStudentList');
             list.innerHTML = '';
-            coStudents.forEach((student, index) => {
-                list.innerHTML += `<li>${student.name} <button onclick="deleteCoAdminStudent(${index})">Delete</button></li>`;
+            students.forEach((student, index) => {
+                list.innerHTML += `<li>${student.name} <button onclick="deleteCoAdminStudent(${index})">Delete</button> <button onclick="viewRequests(${index})">View Requests</button></li>`;
             });
         }
 
         function deleteCoAdminStudent(index) {
-            coStudents.splice(index, 1);
-            localStorage.setItem('coStudents', JSON.stringify(coStudents));
+            students.splice(index, 1);
+            localStorage.setItem('students', JSON.stringify(students));
             renderCoAdminStudentList();
         }
 
-        function renderRequests() {
+        function viewRequests(studentIndex) {
             const list = document.getElementById('requestList');
             list.innerHTML = '';
-            requests.forEach((request, index) => {
-                list.innerHTML += `<li>${request.student} - ${request.status} <button onclick="approveRequest(${index})">Approve</button> <button onclick="rejectRequest(${index})">Reject</button></li>`;
-            });
-        }
+            const studentRequests = requests.filter(req => req.studentIndex === studentIndex);
 
-        function approveRequest(index) {
-            requests[index].status = 'Approved';
-            localStorage.setItem('requests', JSON.stringify(requests));
-            renderRequests();
-        }
-
-        function rejectRequest(index) {
-            requests[index].status = 'Rejected';
-            localStorage.setItem('requests', JSON.stringify(requests));
-            renderRequests();
+            if (studentRequests.length > 0) {
+                studentRequests.forEach((request) => {
+                    list.innerHTML += `<li>${request.details} - ${request.status}</li>`;
+                });
+            } else {
+                list.innerHTML = '<li>No requests found for this student.</li>';
+            }
         }
 
         // Initial render
         renderCoAdminStudentList();
-        renderRequests();
     </script>
 </body>
 </html>
