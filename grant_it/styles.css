@@ -1,0 +1,15 @@
+body {
+    background-color: #f8f9fa;
+    font-family: Arial, sans-serif;
+}
+
+.login-box {
+    background-color: #fff;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 400px;
+}
+
+h1 {
+    font-size: 36px;
+}
