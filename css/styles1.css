@@ -1,0 +1,140 @@
+/* General styles */
+body {
+    background-image: url('https://d35w6hwqhdq0in.cloudfront.net/transform/scale,h=165,w=400,fillArea=True:compress/af441ff9a99d63f859ca75a89231658d.jpg'); /* Your background image */
+    background-size: cover; /* Cover the entire viewport */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Prevent the image from repeating */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; /* Full viewport height */
+    margin: 0; /* Remove default margin */
+    font-family: 'Arial', sans-serif; /* Font style */
+}
+
+
+
+/* General styles */
+body {
+    background-color: #f8f4f8; /* Light background for contrast */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    font-family: 'Arial', sans-serif; /* Font style */
+}
+
+/* Container for the login box */
+.login-box {
+    width: 400px; /* Wider login box */
+    padding: 30px; /* Padding for aesthetics */
+    border: 1px solid #a2aba4; /* Border styling */
+    background: #a2aba4; /* White background for the login box */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+/* Header styles */
+h1 {
+    text-align: center; /* Centered text */
+    color: #4d4dc6; /* Green color for title */
+    margin-bottom: 20px; /* Spacing below title */
+}
+
+/* Form styles */
+.form-group {
+    margin-bottom: 15px; /* Spacing between form elements */
+}
+
+label {
+    font-weight: bold; /* Bold labels */
+}
+
+/* Input field styles */
+input[type="text"],
+input[type="password"],
+select {
+    width: 100%; /* Full width for inputs */
+    padding: 10px; /* Padding for input fields */
+    border: 1px solid #ced4da; /* Border color */
+    border-radius: 5px; /* Rounded corners */
+    transition: border-color 0.3s; /* Smooth border color transition */
+}
+
+/* Change border color on focus */
+input:focus,
+select:focus {
+    border-color: #80bdff; /* Highlighted border color */
+    outline: none; /* Remove default outline */
+}
+
+/* Button styles */
+.btn {
+    background-color: #007bff; /* Blue background for buttons */
+    color: white; /* White text */
+    border-radius: 5px; /* Rounded corners */
+    transition: background-color 0.3s; /* Smooth transition */
+}
+
+/* Change button color on hover */
+.btn:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Tab styles */
+.nav-tabs .nav-link {
+    border: none; /* Remove border */
+    color: #007bff; /* Tab text color */
+    border-radius: 0; /* Square corners */
+}
+
+.nav-tabs .nav-link.active {
+    background-color: #e9ecef; /* Active tab background */
+    color: #495057; /* Active tab text color */
+}
+
+/* Request history table */
+table {
+    width: 100%; /* Full width for tables */
+    border-collapse: collapse; /* Collapse borders */
+    margin-top: 20px; /* Spacing above table */
+}
+
+table th,
+table td {
+    padding: 12px; /* Padding for table cells */
+    text-align: left; /* Left-align text */
+    border-bottom: 1px solid #dee2e6; /* Bottom border for rows */
+}
+
+table th {
+    background-color: #f8f9fa; /* Header background color */
+}
+
+/* Progress bar styles */
+.progress {
+    height: 20px; /* Height of progress bar */
+    border-radius: 5px; /* Rounded corners */
+}
+
+/* Pop-up messages */
+.popup-message {
+    display: none; /* Initially hidden */
+    position: fixed; /* Fixed position */
+    top: 20px; /* Position from top */
+    right: 20px; /* Position from right */
+    background-color: #28a745; /* Green background for success */
+    color: white; /* White text */
+    padding: 10px 20px; /* Padding for pop-up */
+    border-radius: 5px; /* Rounded corners */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Shadow */
+    transition: opacity 0.3s ease-in-out; /* Smooth transition */
+    opacity: 0; /* Start hidden */
+}
+
+/* Show pop-up when visible */
+.popup-message.show {
+    display: block; /* Show block */
+    opacity: 1; /* Fully visible */
+}

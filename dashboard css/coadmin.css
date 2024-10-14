@@ -1,0 +1,48 @@
+/* co-admin.css */
+
+/* General styles for the co-admin dashboard */
+body {
+    background-image: url('https://d35w6hwqhdq0in.cloudfront.net/transform/scale,h=165,w=400,fillArea=True:compress/af441ff9a99d63f859ca75a89231658d.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Dashboard container */
+.container {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+    padding: 30px;
+}
+
+/* Heading styles */
+h1 {
+    color: #007bff; /* Different color for co-admin h1 */
+}
+
+/* Navbar styles */
+.nav-tabs .nav-link {
+    color: #28a745; /* Different color for co-admin tab links */
+}
+.nav-tabs .nav-link.active {
+    background-color: #007bff; /* Blue for active tab */
+    color: white;
+}
+
+/* Button styles */
+.btn {
+    border-radius: 5px;
+    padding: 10px 20px;
+}
+
+/* Table styles */
+.table {
+    margin-top: 20px;
+}
+
+/* Additional styling for co-admin-specific elements */
+h2 {
+    color: #28a745; /* Different color for h2 in Co-admin Dashboard */
+}

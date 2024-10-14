@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/admin.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <title>Admin Dashboard - grant.it</title>
 </head>
@@ -22,8 +22,8 @@
         <div class="tab-content">
             <div id="co-admins" class="tab-pane fade show active">
                 <h2>Manage Co-admins</h2>
-                <button class="btn btn-primary mb-3" onclick="openCoAdminModal()">Add Co-admin</button>
-                <table class="table">
+                <button class="btn btn-primary mb-3" data-toggle="modal" data-target="#addCoAdminModal">Add Co-admin</button>
+                <table class="table table-striped">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -39,8 +39,8 @@
             </div>
             <div id="students" class="tab-pane fade">
                 <h2>Manage Students</h2>
-                <button class="btn btn-primary mb-3" onclick="openStudentModal()">Add Student</button>
-                <table class="table">
+                <button class="btn btn-primary mb-3" data-toggle="modal" data-target="#addStudentModal">Add Student</button>
+                <table class="table table-striped">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -57,15 +57,65 @@
         </div>
     </div>
 
+    <!-- Add Co-admin Modal -->
+    <div class="modal fade" id="addCoAdminModal" tabindex="-1" aria-labelledby="addCoAdminModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addCoAdminModalLabel">Add Co-admin</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="addCoAdminForm">
+                        <div class="form-group">
+                            <label for="coAdminName">Name</label>
+                            <input type="text" class="form-control" id="coAdminName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="coAdminBranch">Branch</label>
+                            <input type="text" class="form-control" id="coAdminBranch" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Add Co-admin</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Student Modal -->
+    <div class="modal fade" id="addStudentModal" tabindex="-1" aria-labelledby="addStudentModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addStudentModalLabel">Add Student</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="addStudentForm">
+                        <div class="form-group">
+                            <label for="studentName">Name</label>
+                            <input type="text" class="form-control" id="studentName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="studentBranch">Branch</label>
+                            <input type="text" class="form-control" id="studentBranch" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Add Student</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="../js/script.js"></script>
-    <script>
-        function openCoAdminModal() {
-            alert("Open modal to add a co-admin");
-        }
-        
-        function openStudentModal() {
-            alert("Open modal to add a student");
-        }
-    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
+
+<link rel="stylesheet" href="../dashboard css/admin.css">
