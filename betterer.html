@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grant.it - Permission Management System</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Header with Application Name -->
+  <div class="text-center mt-4 mb-4">
+    <h1 class="" style="color: rgb(255, 0, 157);">Grant.it </h1>
+  </div>
+
+  <!-- Login Box -->
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-4 col-md-6">
+        <div class="card p-4 shadow">
+          <h2 class="text-center mb-4">Login</h2>
+          
+          <!-- Role Selection Dropdown -->
+          <div class="mb-3">
+            <label for="role" class="form-label">Login as:</label>
+            <select class="form-select" id="role">
+              <option value="admin">Admin</option>
+              <option value="co-admin">Co-admin</option>
+              <option value="student">Student</option>
+            </select>
+          </div>
+
+          <!-- Username Input -->
+          <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" class="form-control" id="username" placeholder="Enter username">
+          </div>
+
+          <!-- Password Input -->
+          <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" id="password" placeholder="Enter password">
+          </div>
+
+          <!-- Login Button -->
+          <div class="d-grid">
+            <button class="btn btn-success" onclick="login()">Login</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/main.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

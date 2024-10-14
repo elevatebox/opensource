@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - Grant.it</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: white;
+      min-height: 100vh;
+    }
+
+    h1, h3 {
+      font-weight: 700;
+      color: #0d47a1;
+      text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    h5 {
+      font-weight: 500;
+      color: #1565c0;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+    }
+
+    .card {
+      border-radius: 10px;
+      border: 2px solid #0d47a1;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      background-color: white;
+    }
+
+    .nav-link.active {
+      background-color: #42a5f5 !important;
+      color: white !important;
+      border-bottom: 3px solid #1e88e5;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-success, .btn-danger {
+      border-radius: 20px;
+      border: 2px solid rgba(0, 0, 0, 0.2);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      transition: box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+
+    .btn-success:hover, .btn-danger:hover {
+      border-color: #0d47a1;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+    }
+
+    table {
+      border: 2px solid #1565c0;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    table th, table td {
+      border: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    tr:hover {
+      background-color: #e3f2fd;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container mt-5">
+    <h1 class="text-center mb-4">Admin Dashboard</h1>
+
+    <!-- Tabbed View for Co-admin Management and Student Management -->
+    <ul class="nav nav-tabs" id="adminTabs">
+      <li class="nav-item">
+        <a class="nav-link active" id="coadmin-tab" data-bs-toggle="tab" href="#coadmins">Manage Co-admins</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="students-tab" data-bs-toggle="tab" href="#students">Manage Students</a>
+      </li>
+    </ul>
+
+    <div class="tab-content my-4">
+      <!-- Co-admin Management Tab -->
+      <div class="tab-pane fade show active" id="coadmins">
+        <h3>Manage Co-admins</h3>
+        <button class="btn btn-success my-2" data-bs-toggle="modal" data-bs-target="#addCoAdminModal">Add Co-admin</button>
+
+        <!-- Modal for Adding Co-admin -->
+        <div class="modal fade" id="addCoAdminModal" tabindex="-1" aria-labelledby="addCoAdminModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="addCoAdminModalLabel">Add New Co-admin</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <form id="addCoAdminForm">
+                  <div class="mb-3">
+                    <label for="coAdminUsername" class="form-label">Co-admin Username</label>
+                    <input type="text" class="form-control" id="coAdminUsername" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="coAdminName" class="form-label">Co-admin Name</label>
+                    <input type="text" class="form-control" id="coAdminName" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="branchSelect" class="form-label">Branch</label>
+                    <select class="form-select" id="branchSelect" required>
+                      <option value="">Select Branch</option>
+                      <option value="Computer Science">Computer Science</option>
+                      <option value="Mechanical Engineering">Mechanical Engineering</option>
+                      <option value="Electrical Engineering">Electrical Engineering</option>
+                      <option value="Civil Engineering">Civil Engineering</option>
+                      <option value="Electronics Engineering">Electronics Engineering</option>
+                    </select>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="submitCoAdminBtn">Add Co-admin</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modal for Editing Co-admin -->
+        <div class="modal fade" id="editCoAdminModal" tabindex="-1" aria-labelledby="editCoAdminModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="editCoAdminModalLabel">Edit Co-admin</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <form id="editCoAdminForm">
+                  <div class="mb-3">
+                    <label for="editCoAdminUsername" class="form-label">Co-admin Username</label>
+                    <input type="text" class="form-control" id="editCoAdminUsername" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="editCoAdminName" class="form-label">Co-admin Name</label>
+                    <input type="text" class="form-control" id="editCoAdminName" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="editBranchSelect" class="form-label">Branch</label>
+                    <select class="form-select" id="editBranchSelect" required>
+                      <option value="">Select Branch</option>
+                      <option value="Computer Science">Computer Science</option>
+                      <option value="Mechanical Engineering">Mechanical Engineering</option>
+                      <option value="Electrical Engineering">Electrical Engineering</option>
+                      <option value="Civil Engineering">Civil Engineering</option>
+                      <option value="Electronics Engineering">Electronics Engineering</option>
+                    </select>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="updateCoAdminBtn">Update Co-admin</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CRUD for managing co-admins -->
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Username</th>
+              <th>Name</th>
+              <th>Branch</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="coadmin-table">
+            <!-- Co-admin rows will be added here dynamically -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Student Management Tab -->
+      <div class="tab-pane fade" id="students">
+        <h3>Manage Students</h3>
+        <button class="btn btn-success my-2" data-bs-toggle="modal" data-bs-target="#addStudentModal">Add Student</button>
+
+        <!-- Modal for Adding Student -->
+        <div class="modal fade" id="addStudentModal" tabindex="-1" aria-labelledby="addStudentModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="addStudentModalLabel">Add New Student</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <form id="addStudentForm">
+                  <div class="mb-3">
+                    <label for="studentName" class="form-label">Student Name</label>
+                    <input type="text" class="form-control" id="studentName" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="studentID" class="form-label">Student ID</label>
+                    <input type="text" class="form-control" id="studentID" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="studentBranch" class="form-label">Branch</label>
+                    <select class="form-select" id="studentBranch" required>
+                      <option value="">Select Branch</option>
+                      <option value="Computer Science">Computer Science</option>
+                      <option value="Mechanical Engineering">Mechanical Engineering</option>
+                      <option value="Electrical Engineering">Electrical Engineering</option>
+                      <option value="Civil Engineering">Civil Engineering</option>
+                      <option value="Electronics Engineering">Electronics Engineering</option>
+                    </select>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="submitStudentBtn">Add Student</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modal for Editing Student -->
+        <div class="modal fade" id="editStudentModal" tabindex="-1" aria-labelledby="editStudentModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="editStudentModalLabel">Edit Student</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <form id="editStudentForm">
+                  <div class="mb-3">
+                    <label for="editStudentName" class="form-label">Student Name</label>
+                    <input type="text" class="form-control" id="editStudentName" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="editStudentID" class="form-label">Student ID</label>
+                    <input type="text" class="form-control" id="editStudentID" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="editStudentBranch" class="form-label">Branch</label>
+                    <select class="form-select" id="editStudentBranch" required>
+                      <option value="">Select Branch</option>
+                      <option value="Computer Science">Computer Science</option>
+                      <option value="Mechanical Engineering">Mechanical Engineering</option>
+                      <option value="Electrical Engineering">Electrical Engineering</option>
+                      <option value="Civil Engineering">Civil Engineering</option>
+                      <option value="Electronics Engineering">Electronics Engineering</option>
+                    </select>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="updateStudentBtn">Update Student</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CRUD for managing students -->
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Student Name</th>
+              <th>Student ID</th>
+              <th>Branch</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="student-table">
+            <!-- Student rows will be added here dynamically -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    let coAdmins = []; // Array to store co-admins
+    let students = []; // Array to store students
+    let editCAdminIndex = -1; // To track which co-admin is being edited
+    let editStudentIndex = -1; // To track which student is being edited
+
+    // Function to render co-admins in the table
+    function renderCoAdmins() {
+      const tableBody = $('#coadmin-table');
+      tableBody.empty();
+      coAdmins.forEach((coAdmin, index) => {
+        tableBody.append(`
+          <tr>
+            <td>${index + 1}</td>
+            <td>${coAdmin.username}</td>
+            <td>${coAdmin.name}</td>
+            <td>${coAdmin.branch}</td>
+            <td>
+              <button class="btn btn-warning btn-sm edit-coadmin" data-index="${index}">Edit</button>
+              <button class="btn btn-danger btn-sm delete-coadmin" data-index="${index}">Delete</button>
+            </td>
+          </tr>
+        `);
+      });
+    }
+
+    // Function to render students in the table
+    function renderStudents() {
+      const tableBody = $('#student-table');
+      tableBody.empty();
+      students.forEach((student, index) => {
+        tableBody.append(`
+          <tr>
+            <td>${index + 1}</td>
+            <td>${student.name}</td>
+            <td>${student.id}</td>
+            <td>${student.branch}</td>
+            <td>
+              <button class="btn btn-warning btn-sm edit-student" data-index="${index}">Edit</button>
+              <button class="btn btn-danger btn-sm delete-student" data-index="${index}">Delete</button>
+            </td>
+          </tr>
+        `);
+      });
+    }
+
+    // Add Co-admin
+    $('#submitCoAdminBtn').click(function () {
+      const username = $('#coAdminUsername').val();
+      const name = $('#coAdminName').val();
+      const branch = $('#branchSelect').val();
+
+      if (username && name && branch) {
+        coAdmins.push({ username, name, branch });
+        renderCoAdmins();
+        $('#addCoAdminModal').modal('hide');
+        $('#addCoAdminForm')[0].reset(); // Reset the form
+      }
+    });
+
+    // Edit Co-admin
+    $(document).on('click', '.edit-coadmin', function () {
+      editCAdminIndex = $(this).data('index');
+      const coAdmin = coAdmins[editCAdminIndex];
+      $('#editCoAdminUsername').val(coAdmin.username);
+      $('#editCoAdminName').val(coAdmin.name);
+      $('#editBranchSelect').val(coAdmin.branch);
+      $('#editCoAdminModal').modal('show');
+    });
+
+    $('#updateCoAdminBtn').click(function () {
+      const username = $('#editCoAdminUsername').val();
+      const name = $('#editCoAdminName').val();
+      const branch = $('#editBranchSelect').val();
+
+      if (username && name && branch) {
+        coAdmins[editCAdminIndex] = { username, name, branch };
+        renderCoAdmins();
+        $('#editCoAdminModal').modal('hide');
+        $('#editCoAdminForm')[0].reset(); // Reset the form
+      }
+    });
+
+    // Delete Co-admin
+    $(document).on('click', '.delete-coadmin', function () {
+      const index = $(this).data('index');
+      coAdmins.splice(index, 1);
+      renderCoAdmins();
+    });
+
+    // Add Student
+    $('#submitStudentBtn').click(function () {
+      const name = $('#studentName').val();
+      const id = $('#studentID').val();
+      const branch = $('#studentBranch').val();
+
+      if (name && id && branch) {
+        students.push({ name, id, branch });
+        renderStudents();
+        $('#addStudentModal').modal('hide');
+        $('#addStudentForm')[0].reset(); // Reset the form
+      }
+    });
+
+    // Edit Student
+    $(document).on('click', '.edit-student', function () {
+      editStudentIndex = $(this).data('index');
+      const student = students[editStudentIndex];
+      $('#editStudentName').val(student.name);
+      $('#editStudentID').val(student.id);
+      $('#editStudentBranch').val(student.branch);
+      $('#editStudentModal').modal('show');
+    });
+
+    $('#updateStudentBtn').click(function () {
+      const name = $('#editStudentName').val();
+      const id = $('#editStudentID').val();
+      const branch = $('#editStudentBranch').val();
+
+      if (name && id && branch) {
+        students[editStudentIndex] = { name, id, branch };
+        renderStudents();
+        $('#editStudentModal').modal('hide');
+        $('#editStudentForm')[0].reset(); // Reset the form
+      }
+    });
+
+    // Delete Student
+    $(document).on('click', '.delete-student', function () {
+      const index = $(this).data('index');
+      students.splice(index, 1);
+      renderStudents();
+    });
+
+  </script>
+</body>
+</html>
