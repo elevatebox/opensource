@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Grant.it</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #00c6ff, #0072ff); /* Blue gradient background */
+            color: #fff; /* White text for better readability */
+            font-family: 'Arial', sans-serif;
+            padding: 20px;
+        }
+
+        .container {
+            margin-top: 20px;
+            padding: 30px;
+            background: rgba(0, 0, 0, 0.7); /* Darker semi-transparent background */
+            border-radius: 20px;
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
+            transition: transform 0.2s;
+        }
+
+        .container:hover {
+            transform: scale(1.02); /* Zoom effect on hover */
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Shadow for title */
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #ff6a00, #ee0979); /* Button gradient */
+            border: none;
+            color: white;
+            border-radius: 50px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .btn:hover {
+            background: linear-gradient(45deg, #ee0979, #ff6a00); /* Reverse gradient on hover */
+            transform: scale(1.05);
+        }
+
+        .list-group-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            animation: fadeIn 0.5s; /* Fade-in effect for list items */
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .covalent {
+            color: #ffcc00; /* Coadmin color */
+        }
+
+        .student {
+            color: #00ff99; /* Student color */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Admin Dashboard</h2>
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="students-tab" data-toggle="tab" href="#students" role="tab" aria-controls="students" aria-selected="true">Manage Students</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="coadmins-tab" data-toggle="tab" href="#coadmins" role="tab" aria-controls="coadmins" aria-selected="false">Manage Co-admins</a>
+            </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="students" role="tabpanel" aria-labelledby="students-tab">
+                <div class="form-group mt-3">
+                    <label for="branchSelect">Select Branch:</label>
+                    <select class="form-control" id="branchSelect" onchange="filterStudents()">
+                        <option value="" disabled selected>Select Branch</option>
+                        <option value="CSE">Computer Science</option>
+                        <option value="ECE">Electronics</option>
+                        <option value="ME">Mechanical</option>
+                        <option value="CE">Civil</option>
+                    </select>
+                </div>
+                
+                <h5>Students in Selected Branch</h5>
+                <ul id="studentList" class="list-group"></ul>
+                <button class="btn btn-primary mt-2" onclick="addStudent()">Add Student</button>
+            </div>
+
+            <div class="tab-pane fade" id="coadmins" role="tabpanel" aria-labelledby="coadmins-tab">
+                <h4 class="mt-3">Manage Co-admins</h4>
+                <ul id="coadminList" class="list-group"></ul>
+                <button class="btn btn-primary mt-2" onclick="addCoadmin()">Add Co-admin</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample data for students and co-admins
+        const students = [
+            { name: "Alice", rollNo: "CSE101", branch: "CSE" },
+            { name: "Bob", rollNo: "CSE102", branch: "CSE" },
+            { name: "Charlie", rollNo: "CSE103", branch: "CSE" },
+            { name: "David", rollNo: "ECE101", branch: "ECE" },
+            { name: "Eva", rollNo: "ECE102", branch: "ECE" },
+            { name: "Frank", rollNo: "ECE103", branch: "ECE" },
+            { name: "George", rollNo: "ME101", branch: "ME" },
+            { name: "Hannah", rollNo: "ME102", branch: "ME" },
+            { name: "Ian", rollNo: "ME103", branch: "ME" },
+            { name: "Jack", rollNo: "CE101", branch: "CE" },
+            { name: "Kathy", rollNo: "CE102", branch: "CE" },
+            { name: "Laura", rollNo: "CE103", branch: "CE" }
+        ];
+
+        const coadmins = [
+            { name: "Coadmin 1", branch: "CSE" },
+            { name: "Coadmin 2", branch: "ECE" },
+            { name: "Coadmin 3", branch: "ME" }
+        ];
+
+        function filterStudents() {
+            const selectedBranch = document.getElementById('branchSelect').value;
+            const studentList = document.getElementById('studentList');
+
+            // Clear previous list
+            studentList.innerHTML = '';
+
+            // Filter students based on selected branch
+            const filteredStudents = students.filter(student => student.branch === selectedBranch);
+            filteredStudents.forEach(student => {
+                const studentItem = document.createElement('li');
+                studentItem.className = 'list-group-item student'; // Apply color to student names
+                studentItem.textContent = `${student.name} (Roll No: ${student.rollNo})`;
+
+                const updateButton = document.createElement('button');
+                updateButton.className = 'btn btn-warning btn-sm';
+                updateButton.textContent = 'Update';
+                updateButton.onclick = () => updateStudent(student.rollNo);
+                
+                const removeButton = document.createElement('button');
+                removeButton.className = 'btn btn-danger btn-sm';
+                removeButton.textContent = 'Remove';
+                removeButton.onclick = () => removeStudent(student.rollNo);
+
+                studentItem.appendChild(updateButton);
+                studentItem.appendChild(removeButton);
+                studentList.appendChild(studentItem);
+            });
+        }
+
+        function addStudent() {
+            const name = prompt("Enter Student Name:");
+            const rollNo = prompt("Enter Roll No:");
+            const branch = document.getElementById('branchSelect').value;
+
+            if (name && rollNo && branch) {
+                students.push({ name, rollNo, branch });
+                alert(`Student ${name} added successfully.`);
+                filterStudents(); // Refresh the student list
+            } else {
+                alert("Please fill in all fields.");
+            }
+        }
+
+        function removeStudent(rollNo) {
+            const studentIndex = students.findIndex(student => student.rollNo === rollNo);
+            if (studentIndex > -1) {
+                students.splice(studentIndex, 1);
+                alert(`Student with Roll No: ${rollNo} has been removed.`);
+                filterStudents(); // Refresh the student list
+            }
+        }
+
+        function updateStudent(rollNo) {
+            const student = students.find(s => s.rollNo === rollNo);
+            if (student) {
+                const newName = prompt("Update Student Name:", student.name);
+                const newRollNo = prompt("Update Roll No:", student.rollNo);
+                if (newName && newRollNo) {
+                    student.name = newName;
+                    student.rollNo = newRollNo;
+                    alert(`Student with Roll No: ${rollNo} has been updated to ${newName}.`);
+                    filterStudents(); // Refresh the student list
+                }
+            }
+        }
+
+        function addCoadmin() {
+            const name = prompt("Enter Co-admin Name (e.g., Coadmin 4):");
+            const branch = prompt("Enter Co-admin Branch:");
+
+            if (name && branch) {
+                coadmins.push({ name, branch });
+                alert(`Co-admin ${name} added successfully.`);
+                displayCoadmins(); // Refresh the co-admin list
+            } else {
+                alert("Please fill in all fields.");
+            }
+        }
+
+        function displayCoadmins() {
+            const coadminList = document.getElementById('coadminList');
+            coadminList.innerHTML = ''; // Clear previous list
+
+            coadmins.forEach(coadmin => {
+                const coadminItem = document.createElement('li');
+                coadminItem.className = 'list-group-item covalent'; // Apply color to coadmin names
+                coadminItem.textContent = `${coadmin.name} (Branch: ${coadmin.branch})`;
+
+                const updateButton = document.createElement('button');
+                updateButton.className = 'btn btn-warning btn-sm';
+                updateButton.textContent = 'Update';
+                updateButton.onclick = () => updateCoadmin(coadmin.name);
+                
+                const removeButton = document.createElement('button');
+                removeButton.className = 'btn btn-danger btn-sm';
+                removeButton.textContent = 'Remove';
+                removeButton.onclick = () => removeCoadmin(coadmin.name);
+
+                coadminItem.appendChild(updateButton);
+                coadminItem.appendChild(removeButton);
+                coadminList.appendChild(coadminItem);
+            });
+        }
+
+        function updateCoadmin(name) {
+            const coadmin = coadmins.find(c => c.name === name);
+            if (coadmin) {
+                const newName = prompt("Update Co-admin Name:", coadmin.name);
+                const newBranch = prompt("Update Co-admin Branch:", coadmin.branch);
+                if (newName && newBranch) {
+                    coadmin.name = newName;
+                    coadmin.branch = newBranch;
+                    alert(`Co-admin ${name} has been updated to ${newName}.`);
+                    displayCoadmins(); // Refresh the co-admin list
+                }
+            }
+        }
+
+        function removeCoadmin(name) {
+            const coadminIndex = coadmins.findIndex(c => c.name === name);
+            if (coadminIndex > -1) {
+                coadmins.splice(coadminIndex, 1);
+                alert(`Co-admin ${name} has been removed.`);
+                displayCoadmins(); // Refresh the co-admin list
+            }
+        }
+
+        // Initial display
+        filterStudents();
+        displayCoadmins();
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
