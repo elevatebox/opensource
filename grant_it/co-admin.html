@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Co-admin - Manage Students</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f4f8;
+        }
+        .tab-content {
+            margin-top: 20px;
+        }
+        .btn-add {
+            background-color: #5cb85c;
+            color: white;
+            transition: background-color 0.3s;
+        }
+        .btn-add:hover {
+            background-color: #4cae4c;
+            transform: scale(1.05);
+        }
+        .btn-delete {
+            background-color: #d9534f;
+            color: white;
+            transition: background-color 0.3s;
+        }
+        .btn-delete:hover {
+            background-color: #c9302c;
+            transform: scale(1.05);
+        }
+        h3 {
+            color: #4a90e2;
+        }
+        .request-history {
+            max-height: 300px;
+            overflow-y: auto;
+            margin-top: 15px;
+        }
+        .request-item {
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 1px solid #4a90e2;
+            border-radius: 10px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container mt-5">
+    <h1 class="text-center">Co-admin - Manage Students</h1>
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#studentManagementTab">Manage Students</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#requestTab">Requests</a>
+        </li>
+    </ul>
+
+    <div class="tab-content">
+        <!-- Manage Students Tab -->
+        <div id="studentManagementTab" class="tab-pane fade show active">
+            <h3>Add Student</h3>
+            <form id="add-student-form" onsubmit="addStudent(event)">
+                <div class="form-group">
+                    <label for="studentName">Student Name</label>
+                    <input type="text" class="form-control" id="studentName" required>
+                </div>
+                <div class="form-group">
+                    <label for="rollNo">Roll No.</label>
+                    <input type="text" class="form-control" id="rollNo" required>
+                </div>
+                <div class="form-group">
+                    <label for="userName">User Name</label>
+                    <input type="text" class="form-control" id="userName" required>
+                </div>
+                <div class="form-group">
+                    <label for="branch">Select Engineering Branch</label>
+                    <select class="form-control" id="branch" required>
+                        <option value="" disabled selected>Select your branch</option>
+                        <option value="Computer Science">Computer Science</option>
+                        <option value="Information Technology">Information Technology</option>
+                        <option value="Mechanical Engineering">Mechanical Engineering</option>
+                        <option value="Civil Engineering">Civil Engineering</option>
+                        <option value="Electrical Engineering">Electrical Engineering</option>
+                        <option value="Electronics and Communication">Electronics and Communication</option>
+                        <option value="Electronics and Instrumentation">Electronics and Instrumentation</option>
+                        <option value="Chemical Engineering">Chemical Engineering</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-add btn-block">Add Student</button>
+            </form>
+
+            <h3 class="mt-4">Student List</h3>
+            <table class="table table-striped" id="studentTable">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Roll No.</th>
+                        <th>User Name</th>
+                        <th>Branch</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Student entries will be added here -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Requests Tab -->
+        <div id="requestTab" class="tab-pane fade">
+            <h3>Incoming Requests</h3>
+            <div class="request-history" id="coadmin-request-history">
+                <!-- Display requests here -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const requests = []; // This should be populated from the student request management
+    const students = []; // Store students here
+
+    // Function to populate incoming requests for co-admin
+    function loadRequests() {
+        const requestHistory = document.getElementById('coadmin-request-history');
+        requests.forEach(request => {
+            const requestItem = document.createElement('div');
+            requestItem.className = 'request-item mb-2';
+            requestItem.innerHTML = `<strong>${request.subject}</strong><p>${request.details}</p>`;
+            requestHistory.appendChild(requestItem);
+        });
+    }
+
+    // Call loadRequests when the page loads
+    window.onload = loadRequests;
+
+    function addStudent(event) {
+        event.preventDefault();
+        const studentName = document.getElementById('studentName').value;
+        const rollNo = document.getElementById('rollNo').value;
+        const userName = document.getElementById('userName').value;
+        const branch = document.getElementById('branch').value;
+
+        const student = { name: studentName, rollNo, userName, branch };
+
+        // Add student to the students array
+        students.push(student);
+        updateStudentTable();
+        alert('Student added successfully');
+        document.getElementById('add-student-form').reset(); // Reset the form after submission
+    }
+
+    function updateStudentTable() {
+        const studentTableBody = document.querySelector('#studentTable tbody');
+        studentTableBody.innerHTML = ''; // Clear the table body
+
+        // Populate the table with students
+        students.forEach((student, index) => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${student.name}</td>
+                <td>${student.rollNo}</td>
+                <td>${student.userName}</td>
+                <td>${student.branch}</td>
+                <td><button class="btn btn-delete" onclick="deleteStudent(${index})">Delete</button></td>
+            `;
+            studentTableBody.appendChild(row);
+        });
+    }
+
+    function deleteStudent(index) {
+        // Remove the student from the array
+        students.splice(index, 1);
+        updateStudentTable(); // Refresh the table
+        alert('Student deleted successfully');
+    }
+</script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
