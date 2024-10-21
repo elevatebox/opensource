@@ -1,0 +1,62 @@
+import requests
+from bs4 import BeautifulSoup
+import csv
+import json
+import time
+
+# URL to scrape
+url = 'https://www.google.com/about/careers/applications/jobs/results/?location=India'
+
+# Headers to mimic a browser request
+headers = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+}
+
+# Function to scrape data 20 times
+def scrape_data():
+    data_list = []
+    
+    for i in range(20):
+        print(f"Scraping iteration {i+1}")
+        response = requests.get(url, headers=headers)
+        if response.status_code == 200:
+            soup = BeautifulSoup(response.content, 'html.parser')
+            
+            # Extracting the required data
+            company_name = soup.find('p', class_='l103df').text if soup.find('p', class_='l103df') else 'N/A'
+            job_title = soup.find('h3', class_='QJPWVe').text if soup.find('h3', class_='QJPWVe') else 'N/A'
+            location = soup.find('span', class_='r0wTof').text if soup.find('span', class_='r0wTof') else 'N/A'
+            
+            # Store the extracted data
+            data_list.append({
+                'Company': company_name,
+                'Job Title': job_title,
+                'Location': location
+            })
+            
+            # Introduce a small delay between requests
+            time.sleep(2)
+        else:
+            print(f"Failed to retrieve data. HTTP Status Code: {response.status_code}")
+    
+    return data_list
+
+# Write data to CSV
+def write_to_csv(data):
+    with open('jobs_data.csv', mode='w', newline='', encoding='utf-8') as file:
+        writer = csv.DictWriter(file, fieldnames=['Company', 'Job Title', 'Location'])
+        writer.writeheader()
+        for row in data:
+            writer.writerow(row)
+
+# Write data to JSON
+def write_to_json(data):
+    with open('jobs_data.json', mode='w', encoding='utf-8') as file:
+        json.dump(data, file, ensure_ascii=False, indent=4)
+
+# Main execution
+if __name__ == "__main__":
+    scraped_data = scrape_data()
+    write_to_csv(scraped_data)
+    write_to_json(scraped_data)
+    print("Scraping completed and files saved.")
