@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
 
-# Sample HTML content (make sure it matches the actual structure of the webpage)
+# Sample HTML  content (make sure it matches the actual structure of the webpage)
 html_content = '''
 <h2 class="p1N2lc">Digital Business Marketing Apprenticeship, March 2025 Start (English)</h2>
 <span>Intern and Apprentice</span>

@@ -1,7 +1,7 @@
 import csv
 from bs4 import BeautifulSoup
 
-# Sample HTML content (this should match the actual webpage structure)
+# Sample HTML  content (this should match the actual webpage structure)
 html_content = '''
 <h2 class="p1N2lc">Digital Business Marketing Apprenticeship, March 2025 Start (English)</h2>
 <span>Intern and Apprentice</span>
