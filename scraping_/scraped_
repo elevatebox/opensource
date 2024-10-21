@@ -1,0 +1,64 @@
+import requests
+from bs4 import BeautifulSoup
+import csv
+import json
+
+# Step 1: Request the webpage
+url = "https://www.ycombinator.com/jobs"
+response = requests.get(url)
+
+# Step 2: Parse the HTML using BeautifulSoup
+soup = BeautifulSoup(response.content, 'html.parser')
+
+# Step 3: Find all job listings
+job_listings = soup.find_all('li', class_='my-2 flex h-auto w-full flex-col flex-nowrap rounded border border-[#ccc] bg-beige-lighter px-5 py-3')
+
+# Prepare lists to store data for CSV and JSON
+jobs_data = []
+
+# Display job count
+print(f"Total Jobs Found: {len(job_listings)}\n")
+
+for index, job in enumerate(job_listings):
+    # Extract the company name
+    company_name_tag = job.find('span', class_='block font-bold md:inline')
+    company_name = company_name_tag.text.strip() if company_name_tag else 'N/A'
+
+    # Extract the job title
+    job_title_tag = job.find('span', class_='text-gray-700 md:mr-2')
+    job_title = job_title_tag.text.strip() if job_title_tag else 'N/A'
+
+    # Extract the job type
+    job_type_tag = job.find_all('div', class_='border-r border-gray-300 px-2')
+    job_type = job_type_tag[0].text.strip() if len(job_type_tag) > 0 else 'N/A'
+
+    # Extract the location
+    location = job_type_tag[1].text.strip() if len(job_type_tag) > 1 else 'N/A'
+
+    # Append data to the list for CSV/JSON
+    jobs_data.append({
+        "Company": company_name,
+        "Job Title": job_title,
+        "Job Type": job_type,
+        "Location": location
+    })
+
+    # Print the extracted data for each job
+    print(f"Job {index + 1}:")
+    print(f"Company: {company_name}")
+    print(f"Job Title: {job_title}")
+    print(f"Job Type: {job_type}")
+    print(f"Location: {location}")
+    print("-" * 40)  # Separator between jobs
+
+# Step 4: Save the data to CSV
+with open('yc_jobs.csv', mode='w', newline='') as file:
+    writer = csv.DictWriter(file, fieldnames=['Company', 'Job Title', 'Job Type', 'Location'])
+    writer.writeheader()
+    writer.writerows(jobs_data)
+
+# Step 5: Save the data to JSON
+with open('yc_jobs.json', 'w') as json_file:
+    json.dump(jobs_data, json_file, indent=4)
+
+print("\nJob details have been saved to 'yc_jobs.csv' and 'yc_jobs.json'.")
