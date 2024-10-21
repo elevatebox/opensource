@@ -1,0 +1,40 @@
+import requests
+from bs4 import BeautifulSoup
+
+# URL for the job site
+url = 'https://www.workatastartup.com/jobs'
+
+# Send a request to fetch the webpage content
+response = requests.get(url)
+
+# Check if the request was successful
+if response.status_code == 200:
+    html_content = response.text  # Get the HTML content from the response
+else:
+    print(f"Failed to retrieve webpage. Status code: {response.status_code}")
+    exit()
+
+# Base URL for the job site (for constructing full job links)
+base_url = 'https://www.workatastartup.com'
+
+# Parse the HTML content using BeautifulSoup
+soup = BeautifulSoup(html_content, 'html.parser')
+
+# Use soup.prettify() to inspect the structure if needed
+# print(soup.prettify())
+
+# Try printing out different parts of the page to understand the structure
+# For example, print all 'li' elements and their contents
+all_li_elements = soup.find_all('li')
+for i, li in enumerate(all_li_elements):
+    print(f"--- Job Listing {i+1} ---")
+    print(li.text)  # This will help you see the content of each 'li'
+
+# Try inspecting if there are any 'a' tags or 'div' tags with specific class names containing job links or names
+all_a_tags = soup.find_all('a')
+for i, a_tag in enumerate(all_a_tags):
+    print(f"--- Link {i+1} ---")
+    print(f"Text: {a_tag.text}")
+    print(f"Link: {a_tag['href']}")
+
+# Adjust your selectors based on the actual structure from the above debugging output

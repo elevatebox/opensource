@@ -1,0 +1,24 @@
+import requests
+from bs4 import BeautifulSoup
+
+# URL to be scraped
+url = 'https://www.adobe.com/in/creativecloud.html'
+
+# Send a GET request to fetch the HTML content
+response = requests.get(url)
+
+# Check if the request was successful
+if response.status_code == 200:
+    # Parse the HTML content using BeautifulSoup
+    soup = BeautifulSoup(response.text, 'html.parser')
+
+    # Find the <h1> element with the specific id
+    heading = soup.find('h1', {'id': 'start-your-creative-cloud-free-trial'})
+
+    # Print the extracted text if the element exists
+    if heading:
+        print("Extracted Text: ", heading.text.strip())
+    else:
+        print("Text not found.")
+else:
+    print(f"Failed to retrieve the page. Status code: {response.status_code}")
