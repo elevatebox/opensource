@@ -1,0 +1,40 @@
+import requests
+from bs4 import BeautifulSoup
+import csv
+import json
+
+# URL to scrape
+url = 'https://www.adobe.com/in/creativecloud.html?gclid=CjwKCAjw1NK4BhAwEiwAVUHPUDFN32qzmLXw2HqW6ymX0pX27NHb3hRUO8F2AlSgOAHGmhWimAyyXRoCsvQQAvD_BwE&sdid=DHWC19Q8&mv=search&mv2=paidsearch&ef_id=CjwKCAjw1NK4BhAwEiwAVUHPUDFN32qzmLXw2HqW6ymX0pX27NHb3hRUO8F2AlSgOAHGmhWimAyyXRoCsvQQAvD_BwE:G:s&s_kwcid=AL!3085!3!645660843518!e!!g!!adobe!221174108!17525765108&gad_source=1'
+
+# Send GET request to the URL
+response = requests.get(url)
+
+# Check if the request was successful (status code 200)
+if response.status_code == 200:
+    # Parse the HTML content
+    soup = BeautifulSoup(response.content, 'html.parser')
+    
+    # Find the <h1> tag with the specific id
+    h1_tag = soup.find('h1', id='start-your-creative-cloud-free-trial')
+    
+    if h1_tag:
+        # Extract the title text
+        title = h1_tag.get_text(strip=True)
+        print(f"Title: {title}")
+        
+        # Save the title to a CSV file
+        with open('creative_cloud_title.csv', mode='w', newline='', encoding='utf-8') as file:
+            writer = csv.writer(file)
+            writer.writerow(['Title'])
+            writer.writerow([title])
+        
+        # Save the title to a JSON file
+        data = {'Title': title}
+        with open('creative_cloud_title.json', mode='w', encoding='utf-8') as json_file:
+            json.dump(data, json_file, indent=4)
+        
+        print("Data saved to CSV and JSON files successfully!")
+    else:
+        print("The specified <h1> tag was not found.")
+else:
+    print(f"Failed to retrieve the webpage. Status code: {response.status_code}")
