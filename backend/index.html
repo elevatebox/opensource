@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello World API</title>
+</head>
+<body>
+    <h1 id="greeting">Loading...</h1>
+    <script>
+        fetch('/api/hello')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('greeting').innerText = data.message;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('greeting').innerText = 'Error fetching message';
+            });
+    </script>
+</body>
+</html>
