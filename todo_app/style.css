@@ -1,0 +1,27 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+#app {
+    width: 400px;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+button {
+    margin: 5px;
+    padding: 5px 10px;
+}
+
+.task-item {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+button.update { background-color: yellow; }
+button.delete { background-color: red; color: white; }
