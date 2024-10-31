@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VNR TODO App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <h2>VNR TODO App</h2>
+
+        <!-- About Section -->
+        <button onclick="fetchAbout()">About VNR</button>
+        <p id="aboutContent"></p>
+
+        <!-- Student Form -->
+        <h3>Add Student</h3>
+        <input type="text" id="studentName" placeholder="Name">
+        <input type="text" id="rollNumber" placeholder="Roll Number">
+        <input type="text" id="section" placeholder="Section">
+        <select id="branch">
+            <option value="CSE">CSE</option>
+            <option value="ECE">ECE</option>
+            <option value="EEE">EEE</option>
+            <option value="MECH">MECH</option>
+        </select>
+        <input type="email" id="email" placeholder="Email">
+        <button onclick="addStudent()">Add Student</button>
+
+        <!-- TODO List Section -->
+        <h3>TODO List</h3>
+        <input type="text" id="taskName" placeholder="Task Name">
+        <input type="date" id="deadline">
+        <select id="priority">
+            <option value="High">High</option>
+            <option value="Medium">Medium</option>
+            <option value="Low">Low</option>
+        </select>
+        <button onclick="createTask()">Create Task</button>
+
+        <div id="taskList"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
