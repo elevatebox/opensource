@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About VNR VJIET</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .info {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>About VNR VJIET</h1>
+    <div class="info" id="info"></div>
+
+    <script>
+        fetch('http://localhost:3000/vnr_about')
+            .then(response => response.json())
+            .then(data => {
+                const infoDiv = document.getElementById('info');
+                infoDiv.innerHTML = `
+                    <h1>${data.name}</h1>
+                    <p><strong>Location:</strong> ${data.location}</p>
+                    <p><strong>Established:</strong> ${data.established}</p>
+                    <p><strong>Courses Offered:</strong> ${data.courses.join(', ')}</p>
+                    <p>${data.description}</p>
+                `;
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
+    </script>
+</body>
+</html>
