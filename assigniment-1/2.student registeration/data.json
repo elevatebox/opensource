@@ -1,0 +1,37 @@
+[
+  {
+    "name": "John Doe",
+    "rollNumber": "101",
+    "section": "A",
+    "branch": "Computer Science",
+    "email": "johndoe@vnrvjiet.in"
+  },
+  {
+    "name": "Alice Smith",
+    "rollNumber": "102",
+    "section": "B",
+    "branch": "Electronics",
+    "email": "alicesmith@vnrvjiet.in"
+  },
+  {
+    "name": "Emma Brown",
+    "rollNumber": "104",
+    "section": "C",
+    "branch": "Information Technology",
+    "email": "emmabrown@vnrvjiet.in"
+  },
+  {
+    "name": "David Wilson",
+    "rollNumber": "105",
+    "section": "B",
+    "branch": "Civil Engineering",
+    "email": "davidwilson@vnrvjiet.in"
+  },
+  {
+    "name": "Michael Johnson",
+    "rollNumber": "103",
+    "section": "A",
+    "branch": "Mechanical",
+    "email": "michaelj@vnrvjiet.in"
+  }
+]
