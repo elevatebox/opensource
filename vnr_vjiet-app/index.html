@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VNR Application</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 600px; margin: auto; }
+    h1 { color: #0056b3; }
+    section { margin-top: 20px; }
+    form input, button { margin: 5px 0; padding: 8px; font-size: 1rem; }
+    ul { list-style-type: none; padding: 0; }
+  </style>
+</head>
+<body>
+  <h1>VNR Application</h1>
+
+  <!-- About Section -->
+  <section id="about">
+    <h2>About VNR</h2>
+    <p id="aboutInfo">Loading...</p>
+  </section>
+
+  <!-- Student Registration Form -->
+  <section>
+    <h2>Student Registration</h2>
+    <form id="studentForm">
+      <input type="text" id="studentName" placeholder="Name" required>
+      <input type="email" id="studentEmail" placeholder="Email" required>
+      <button type="submit">Register</button>
+    </form>
+    <p id="studentMessage"></p>
+  </section>
+
+  <!-- To-Do List Form and Display -->
+  <section>
+    <h2>To-Do List</h2>
+    <form id="todoForm">
+      <input type="text" id="todoTask" placeholder="Enter a task" required>
+      <button type="submit">Add Task</button>
+    </form>
+    <ul id="todoList"></ul>
+  </section>
+
+  <script>
+    // Fetch About Info
+    fetch('/about_vnr')
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById('aboutInfo').textContent = 
+          `${data.appName} - ${data.description} (v${data.version})`;
+      });
+
+    // Register Student
+    document.getElementById('studentForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('studentName').value;
+      const email = document.getElementById('studentEmail').value;
+
+      fetch('/vnr_student', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email }),
+      })
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById('studentMessage').textContent = data.message || data.error;
+      });
+    });
+
+    // Create To-Do Item
+    document.getElementById('todoForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const id = Date.now().toString();
+      const task = document.getElementById('todoTask').value;
+
+      fetch('/todo/create', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id, task }),
+      })
+      .then(() => {
+        loadTodoList();
+        document.getElementById('todoTask').value = '';
+      });
+    });
+
+    // Load To-Do List
+    function loadTodoList() {
+      fetch('/todo/list')
+        .then(response => response.text())
+        .then(data => {
+          const todoList = document.getElementById('todoList');
+          todoList.innerHTML = '';
+          data.trim().split('\n').slice(1).forEach(row => {
+            const [id, task] = row.split(',');
+            const li = document.createElement('li');
+            li.textContent = task;
+            todoList.appendChild(li);
+          });
+        });
+    }
+    
+    loadTodoList(); // Load to-do list on page load
+  </script>
+</body>
+</html>
+
