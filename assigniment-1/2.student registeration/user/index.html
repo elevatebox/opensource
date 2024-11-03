@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VNR Student Registration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .form-container {
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-container">
+    <h2>Register Student</h2>
+    <form id="studentForm">
+        <input type="text" id="name" placeholder="Name" required>
+        <input type="text" id="rollNumber" placeholder="Roll Number" required>
+        <input type="text" id="section" placeholder="Section" required>
+        <input type="text" id="branch" placeholder="Branch" required>
+        <input type="email" id="email" placeholder="Email (xxxxx@vnrvjiet.in)" required>
+        <button type="submit">Submit</button>
+        <div id="message"></div>
+    </form>
+</div>
+
+<script>
+    document.getElementById('studentForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const name = document.getElementById('name').value;
+        const rollNumber = document.getElementById('rollNumber').value;
+        const section = document.getElementById('section').value;
+        const branch = document.getElementById('branch').value;
+        const email = document.getElementById('email').value;
+
+        const response = await fetch('http://localhost:3000/vnr_students', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ name, rollNumber, section, branch, email })
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+            document.getElementById('message').innerHTML = `<p style="color: green;">${result.message}</p>`;
+        } else {
+            document.getElementById('message').innerHTML = `<p style="color: red;">${result.errors[0].msg}</p>`;
+        }
+    });
+</script>
+
+</body>
+</html>
