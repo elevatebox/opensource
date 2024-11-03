@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Management</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Arial', sans-serif;
+      background-color: #f0f0f0; /* Plain background color */
+    }
+
+    .content {
+      padding: 20px;
+      color: #333;
+      text-align: center;
+    }
+
+    .title {
+      font-size: 4.5em;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    button {
+      background-color: #5785d5;
+      color: white;
+      padding: 15px 20px;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.2s;
+      font-size: 1.1em;
+      margin: 10px;
+    }
+
+    button:hover {
+      background-color: #3e2b13;
+      transform: scale(1.05);
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    section {
+      display: none; /* Hide all sections initially */
+      margin-top: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th, td {
+      border: 1px solid #000000;
+      padding: 8px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #5785d5;
+    }
+
+    #loading {
+      display: none;
+      font-size: 1.5em;
+      color: #333;
+    }
+    /* Input and select styling */
+    input[type="text"],
+        input[type="date"],
+                select {
+            width: 100%;
+            max-width: 200px;
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+  </style>
+</head>
+<body>
+  <div class="content">
+    <h1 class="title">Student Management</h1>
+
+    <div class="button-container">
+      <button onclick="showSection('studentFormSection')">Register Student</button>
+      <button onclick="showSection('studentsListSection')">Show Students</button>
+      <button onclick="showSection('deleteStudentSection')">Delete Student</button>
+      <button onclick="showSection('deleteAllStudentsSection')">Delete All Students</button>
+    </div>
+
+    <!-- Registration Form Section -->
+    <section id="studentFormSection">
+      <h2>Student Registration</h2>
+      <form id="studentForm">
+        <label>Name:</label><input type="text" id="name" required><br>
+        <label>Roll Number:</label><input type="text" id="roll_no" required><br>
+        <label>Branch:</label>
+        <select id="branch">
+          <option value="CSE">CSE</option>
+          <option value="ECE">ECE</option>
+          <option value="EEE">EEE</option>
+          <option value="IT">IT</option>
+        </select><br>
+        <label>Section:</label>
+        <select id="section">
+          <option value="A">A</option>
+          <option value="B">B</option>
+        </select><br>
+        <label>Email:</label><input type="email" id="email" required><br>
+        <button type="submit">Submit</button>
+      </form>
+    </section>
+
+    <!-- Existing Students Section -->
+    <section id="studentsListSection">
+      <h2>Existing Students</h2>
+      <table id="studentsTable">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Roll Number</th>
+            <th>Branch</th>
+            <th>Section</th>
+            <th>Email</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Student rows will be populated here -->
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Delete Student Section -->
+    <section id="deleteStudentSection">
+      <h2>Delete Student</h2>
+      <label>Enter Student ID to Delete:</label>
+      <input type="text" id="deleteId" required>
+      <button id="deleteStudent">Delete Student</button>
+    </section>
+
+    <!-- Delete All Students Section -->
+    <section id="deleteAllStudentsSection">
+      <h2>Delete All Students</h2>
+      <button id="deleteAllStudents">Delete All Students</button>
+    </section>
+
+    <div id="loading">Loading...</div>
+  </div>
+
+  <script>
+    // Function to show the relevant section
+    function showSection(sectionId) {
+      const sections = document.querySelectorAll('section');
+      sections.forEach(section => section.style.display = 'none'); // Hide all sections
+      document.getElementById(sectionId).style.display = 'block'; // Show selected section
+    }
+
+    // Function to handle student registration
+    document.getElementById("studentForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const name = document.getElementById("name").value;
+      const roll_no = document.getElementById("roll_no").value;
+      const branch = document.getElementById("branch").value;
+      const section = document.getElementById("section").value;
+      const email = document.getElementById("email").value;
+
+      try {
+        const response = await fetch("http://localhost:3000/vnr_students", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ name, roll_no, branch, section, email }),
+        });
+
+        const data = await response.json();
+        if (response.ok) {
+          alert(data.message);
+          loadStudents(); // Reload student list
+        } else {
+          alert(data.error);
+        }
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    });
+
+    // Function to load existing students
+    async function loadStudents() {
+      try {
+        const response = await fetch("http://localhost:3000/students");
+        const students = await response.json();
+
+        const tbody = document.querySelector("#studentsTable tbody");
+        tbody.innerHTML = ""; // Clear existing rows
+
+        students.forEach(student => {
+          const row = document.createElement("tr");
+          row.innerHTML = `
+            <td>${student.id}</td>
+            <td>${student.name}</td>
+            <td>${student.roll_number}</td>
+            <td>${student.branch}</td>
+            <td>${student.section}</td>
+            <td>${student.email}</td>
+          `;
+          tbody.appendChild(row);
+        });
+      } catch (error) {
+        console.error("Error loading students:", error);
+      }
+    }
+
+    // Function to delete a specific student by ID
+    document.getElementById("deleteStudent").addEventListener("click", async () => {
+      const studentId = document.getElementById("deleteId").value;
+
+      try {
+        const response = await fetch(`http://localhost:3000/student_delete/${studentId}`, {
+          method: "DELETE",
+        });
+
+        const data = await response.json();
+        if (response.ok) {
+          alert(data.message);
+          loadStudents(); // Reload student list
+        } else {
+          alert(data.error);
+        }
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    });
+
+    // Function to delete all students
+    document.getElementById("deleteAllStudents").addEventListener("click", async () => {
+      if (confirm("Are you sure you want to delete all students? This action cannot be undone.")) {
+        try {
+          const response = await fetch("http://localhost:3000/student_delete_all", {
+            method: "DELETE",
+          });
+
+          const data = await response.json();
+          if (response.ok) {
+            alert(data.message);
+            loadStudents(); // Reload student list
+          } else {
+            alert(data.error);
+          }
+        } catch (error) {
+          console.error("Error:", error);
+        }
+      }
+    });
+
+    // Load students on page load
+    window.onload = loadStudents;
+  </script>
+</body>
+</html>

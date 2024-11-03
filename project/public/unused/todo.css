@@ -1,0 +1,76 @@
+/* todo.css */
+
+/* Style for the background image */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  .background-image {
+    background-image: url('https://plus.unsplash.com/premium_photo-1694743671394-60034a1b2f65?q=80&w=1856&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+    background-size: cover;
+    background-position: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    opacity: 0.9;
+  }
+  
+  /* Main content styling */
+  .content {
+    position: relative;
+    z-index: 1;
+    padding: 20px;
+    color: #333;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    text-align: center; /* Center the content */
+  }
+  
+  /* Title styling */
+  .title {
+    font-size: 2.5em; /* Large size for the title */
+    margin-bottom: 20px; /* Space below the title */
+    font-family: 'Helvetica Neue', sans-serif; /* Attractive font */
+    color: #e0ebf1; /* Dark color for contrast */
+  }
+  
+  /* Button container styling */
+  .button-container {
+    display: flex;
+    justify-content: center; /* Center the buttons */
+    gap: 15px; /* Space between buttons */
+    margin-bottom: 20px; /* Space below buttons */
+  }
+  
+  /* Button styles */
+  button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px 20px;
+    border: none;
+    border-radius: 25px; /* Curvy shape */
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    font-size: 1.1em; /* Slightly larger text */
+  }
+  
+  button:hover {
+    background-color: #45a049; /* Darker green on hover */
+    transform: scale(1.05); /* Slightly enlarge on hover */
+  }
+  
+  /* Existing todos section */
+  #todoList div {
+    background: rgba(211, 193, 193, 0.8);
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  

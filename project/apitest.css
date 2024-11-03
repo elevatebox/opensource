@@ -1,0 +1,39 @@
+body {
+    background-color: #f8f9fa; /* Light gray background */
+    background-image: url('https://images.unsplash.com/photo-1730126679136-d02a717b4bdf?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDE4fGhtZW52UWhVbXhNfHxlbnwwfHx8fHw%3D'); /* Your image link */
+    background-size: cover; /* Cover the entire area */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Prevent repeating the image */
+}
+
+h1 {
+    color: #007bff; /* Bootstrap primary color */
+    text-align: center;
+    padding: 20px; /* Add some padding for better visibility */
+    background-color: rgba(255, 255, 255, 0.8); /* Optional: White background with transparency */
+}
+
+.section {
+    margin-top: 20px;
+}
+
+.list-group-item {
+    transition: background-color 0.3s;
+}
+
+.list-group-item:hover {
+    background-color: #e2e6ea; /* Light gray on hover */
+}
+
+.btn {
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.hidden {
+    display: none;
+}
+
+.form-group label {
+    font-weight: bold;
+}
