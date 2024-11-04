@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VNR EIE Full Stack Attendance</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">VNR EIE Full Stack Attendance</h1>
+        <div class="d-flex justify-content-between align-items-center">
+            <div id="date-display" class="text-white"></div>
+            <button class="btn btn-primary" data-toggle="modal" data-target="#createStudentModal">Create Student</button>
+        </div>
+
+        <!-- Attendance Table -->
+        <table class="table table-striped mt-3">
+            <thead>
+                <tr>
+                    <th>Roll Number</th>
+                    <th>Name</th>
+                    <th>Present</th>
+                </tr>
+            </thead>
+            <tbody id="student-table-body">
+                <!-- Dynamic student rows will be injected here -->
+            </tbody>
+        </table>
+
+        <!-- Attendance Report Section -->
+        <div id="attendance-report"></div>
+
+        <!-- Modal for Creating Student -->
+        <div class="modal fade" id="createStudentModal" tabindex="-1" role="dialog" aria-labelledby="createStudentModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="createStudentModalLabel">Create Student</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="create-student-form">
+                            <div class="form-group">
+                                <label for="roll-number">Roll Number</label>
+                                <input type="text" class="form-control" id="roll-number" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="first-name">First Name</label>
+                                <input type="text" class="form-control" id="first-name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="last-name">Last Name</label>
+                                <input type="text" class="form-control" id="last-name" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer Section -->
+        <footer class="text-center mt-4">
+            <button class="btn btn-success" onclick="fetchAttendanceReport()">Download Attendance Report</button>
+        </footer>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="script.js"></script>
+    <script>
+        // Display current date and day
+        document.getElementById('date-display').innerText = new Date().toLocaleDateString('en-US', {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+    </script>
+</body>
+</html>
