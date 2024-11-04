@@ -1,0 +1,30 @@
+[
+  {
+    "name": "Ananya Sharma",
+    "rollNumber": "18BCS001",
+    "section": "A",
+    "branch": "CSE",
+    "email": "ananya@vnrvjiet.in"
+  },
+  {
+    "name": "Rahul Mehta",
+    "rollNumber": "18ECE021",
+    "section": "B",
+    "branch": "ECE",
+    "email": "rahul@vnrvjiet.in"
+  },
+  {
+    "name": "Sreeja Reddy",
+    "rollNumber": "18MECH010",
+    "section": "C",
+    "branch": "Mechanical",
+    "email": "sreeja@vnrvjiet.in"
+  },
+  {
+    "name": "Vikram Patil",
+    "rollNumber": "18EEE015",
+    "section": "A",
+    "branch": "EEE",
+    "email": "vikram@vnrvjiet.in"
+  }
+]
