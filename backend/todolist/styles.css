@@ -1,0 +1,66 @@
+body {
+    background-color: black;
+    color: white;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+#app {
+    text-align: center;
+    width: 100%;
+}
+
+#todoList {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+.task {
+    color: black;
+    background: white;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+    position: relative;
+}
+
+.task .completed {
+    color: blue;
+    font-size: 1.2em;
+    position: absolute;
+    right: 10px;
+}
+
+.actions {
+    display: flex;
+    justify-content: space-around;
+    position: fixed;
+    bottom: 20px;
+    width: 80%;
+}
+
+button {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+#createBtn {
+    background-color: white;
+    color: black;
+}
+
+#updateBtn {
+    background-color: yellow;
+}
+
+#deleteBtn {
+    background-color: red;
+}

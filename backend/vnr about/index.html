@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VNRVJIET About Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+    .container {
+      width: 80%;
+      margin: auto;
+      padding: 20px;
+      background: #fff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      margin-top: 20px;
+    }
+    h1 {
+      color: #0056b3;
+      text-align: center;
+    }
+    h2 {
+      color: #333;
+      text-decoration: underline;
+      font-weight: bold;
+    }
+    p, ul {
+      color: #666;
+      line-height: 1.6;
+    }
+    ul {
+      list-style-type: disc;
+      margin-left: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 id="title">Welcome to VNRVJIET</h1>
+    <p id="description"></p>
+    <h2>Vision</h2>
+    <p id="vision"></p>
+    <h2>Mission</h2>
+    <ul id="mission"></ul>
+  </div>
+
+  <script>
+    fetch('http://localhost:3000/vnr_about')
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById('title').textContent = data.title;
+        document.getElementById('description').textContent = data.description;
+
+        document.getElementById('vision').textContent = data.vision;
+
+        const missionList = document.getElementById('mission');
+        data.mission.forEach(item => {
+          const li = document.createElement('li');
+          li.textContent = item;
+          missionList.appendChild(li);
+        });
+      })
+      .catch(error => console.error('Error fetching the data:', error));
+  </script>
+</body>
+</html>
