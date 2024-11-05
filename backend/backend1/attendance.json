@@ -1,0 +1,76 @@
+{
+  "students": [
+    {
+      "rollNo": 1,
+      "studentName": "John Doe",
+      "attendance": [
+        {
+          "date": "2024-10-07",
+          "status": "absent"
+        },
+        {
+          "date": "2024-10-14",
+          "status": "absent"
+        },
+        {
+          "date": "2024-10-21",
+          "status": "absent"
+        },
+        {
+          "date": "2024-10-28",
+          "status": "absent"
+        }
+      ]
+    },
+    {
+      "rollNo": 2,
+      "studentName": "Jane Smith",
+      "attendance": [
+        {
+          "date": "2024-10-07",
+          "status": "absent"
+        },
+        {
+          "date": "2024-10-14",
+          "status": "absent"
+        },
+        {
+          "date": "2024-10-21",
+          "status": "absent"
+        },
+        {
+          "date": "2024-10-28",
+          "status": "absent"
+        }
+      ]
+    },
+    {
+      "rollNo": "3",
+      "studentName": "saraswathi",
+      "attendance": [
+        {
+          "date": "2024-10-07",
+          "status": "absent"
+        },
+        {
+          "date": "2024-10-14",
+          "status": "absent"
+        },
+        {
+          "date": "2024-10-21",
+          "status": "absent"
+        },
+        {
+          "date": "2024-10-28",
+          "status": "absent"
+        }
+      ]
+    }
+  ],
+  "mondays": [
+    "2024-10-07",
+    "2024-10-14",
+    "2024-10-21",
+    "2024-10-28"
+  ]
+}
