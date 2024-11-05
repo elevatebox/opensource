@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Attendance</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f4f7fc;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      padding: 10px;
+      text-align: center;
+      border: 1px solid #ddd;
+    }
+    td input {
+      width: 50px;
+      height: 30px;
+      background-color: #f0f0f0;
+      border: none;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+    td input.present {
+      background-color: green;
+    }
+    td input.absent {
+      background-color: grey;
+    }
+    button {
+      background-color: #4caf50;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <h2>Student Attendance</h2>
+  <table id="attendanceTable">
+    <thead>
+      <tr>
+        <th>Roll No</th>
+        <th>Student Name</th>
+        <th>Attendance</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Attendance rows will be inserted here -->
+    </tbody>
+  </table>
+
+  <button onclick="submitAttendance()">Submit Attendance</button>
+
+  <script>
+    // Array of sample student data, you can dynamically load it from your backend
+    const students = [
+      { rollNo: 1, name: 'John Doe' },
+      { rollNo: 2, name: 'Jane Smith' },
+      { rollNo: 3, name: 'David Johnson' }
+    ];
+
+    // Function to generate the table rows for attendance
+    function generateAttendanceTable() {
+      const tableBody = document.querySelector('#attendanceTable tbody');
+      students.forEach(student => {
+        const row = document.createElement('tr');
+
+        const rollNoCell = document.createElement('td');
+        rollNoCell.textContent = student.rollNo;
+        row.appendChild(rollNoCell);
+
+        const nameCell = document.createElement('td');
+        nameCell.textContent = student.name;
+        row.appendChild(nameCell);
+
+        const attendanceCell = document.createElement('td');
+        const input = document.createElement('input');
+        input.type = 'checkbox';
+        input.classList.add('absent'); // Default to absent
+        attendanceCell.appendChild(input);
+        row.appendChild(attendanceCell);
+
+        tableBody.appendChild(row);
+
+        // Add event listener to toggle the attendance
+        input.addEventListener('click', function () {
+          if (input.classList.contains('absent')) {
+            input.classList.remove('absent');
+            input.classList.add('present');
+          } else {
+            input.classList.remove('present');
+            input.classList.add('absent');
+          }
+        });
+      });
+    }
+
+    // Call this function to initialize the table when the page loads
+    generateAttendanceTable();
+
+    // Submit the attendance
+    function submitAttendance() {
+      const attendanceData = [];
+      const rows = document.querySelectorAll('#attendanceTable tbody tr');
+
+      rows.forEach(row => {
+        const rollNo = row.cells[0].textContent;
+        const attendanceStatus = row.cells[2].querySelector('input').classList.contains('present') ? 'present' : 'absent';
+        attendanceData.push({ rollNo, status: attendanceStatus });
+      });
+
+      console.log('Attendance Data:', attendanceData);
+
+      // Now send this data to your backend (e.g., using fetch)
+      fetch('/api/attendance', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ date: new Date().toISOString(), attendance: attendanceData }),
+      })
+      .then(response => response.json())
+      .then(data => {
+        alert('Attendance submitted successfully!');
+        console.log(data);
+      })
+      .catch(error => {
+        alert('Error submitting attendance');
+        console.error(error);
+      });
+    }
+  </script>
+</body>
+</html>
+
