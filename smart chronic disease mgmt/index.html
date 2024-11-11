@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chronic Disease Management</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <header class="header">
+            <h1>Chronic Disease Management</h1>
+            <nav>
+                <ul>
+                    <li><a href="#dashboard" onclick="showPage('dashboard')">Dashboard</a></li>
+                    <li><a href="#care-plan" onclick="showPage('care-plan')">Care Plan</a></li>
+                    <li><a href="#monitoring" onclick="showPage('monitoring')">Remote Monitoring</a></li>
+                    <li><a href="#telehealth" onclick="showPage('telehealth')">Telehealth</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main id="main-content">
+            <!-- Dashboard Section -->
+            <section id="dashboard" class="page-content">
+                <h2>Welcome to Your Health Dashboard</h2>
+                <p>Your chronic disease management in one place.</p>
+                <button onclick="showPage('care-plan')">View Care Plan</button>
+                <button onclick="showPage('monitoring')">Remote Monitoring</button>
+                <button onclick="showPage('telehealth')">Start Telehealth Consultation</button>
+            </section>
+
+            <!-- Care Plan Section -->
+            <section id="care-plan" class="page-content">
+                <h2>Your Personalized Care Plan</h2>
+                <label for="health-goal">Health Goal:</label>
+                <input type="text" id="health-goal" placeholder="Enter your health goal" />
+                <button onclick="updateCarePlan()">Update Care Plan</button>
+            </section>
+
+            <!-- Remote Monitoring Section -->
+            <section id="monitoring" class="page-content">
+                <h2>Remote Monitoring</h2>
+                <p>Monitoring your vitals in real-time...</p>
+                <p>Heart Rate: <span id="heart-rate">75 bpm</span></p>
+                <p>Blood Pressure: <span id="blood-pressure">120/80 mmHg</span></p>
+            </section>
+
+            <!-- Telehealth Section -->
+            <section id="telehealth" class="page-content">
+                <h2>Telehealth Consultation</h2>
+                <button onclick="startConsultation()">Start Consultation</button>
+            </section>
+        </main>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
