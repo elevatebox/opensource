@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Grocery Shopping</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>Smart Grocery Shopping</h1>
+  
+  <h2>Your Grocery List</h2>
+  <ul id="grocery-list"></ul>
+  
+  <button onclick="window.location.href='add-item.html'">Add New Item</button>
+
+  <script src="app.js"></script>
+</body>
+</html>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Grocery Item</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>Add Grocery Item</h1>
+  
+  <form id="add-item-form">
+    <label for="name">Name:</label>
+    <input type="text" id="name" required>
+    
+    <label for="quantity">Quantity:</label>
+    <input type="number" id="quantity" required>
+    
+    <label for="expiryDate">Expiry Date:</label>
+    <input type="date" id="expiryDate" required>
+    
+    <label for="category">Category:</label>
+    <input type="text" id="category">
+    
+    <button type="submit">Add Item</button>
+  </form>
+
+  <script src="add-item.js"></script>
+</body>
+</html>
