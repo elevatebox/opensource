@@ -79,7 +79,7 @@ body {
 /* General Card Styling */
 .event-card, .card {
     background-color: #4db6ad;
-    padding: 2px;
+    padding: 1px;
     margin-bottom: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);

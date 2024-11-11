@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Waste Management & Recycling</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* Global Styles */
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            width: 85%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Forest-Themed Header Section */
+        header {
+            background: url('https://images.unsplash.com/photo-1516741178400-85b928586baf?w=1600&auto=format&fit=crop&q=60') no-repeat center center; 
+            background-size: cover;
+            color: #fff;
+            padding: 50px 0;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            font-size: 32px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 700;
+            color: #f1f1f1;
+            margin: 0;
+        }
+
+        /* Navigation Bar */
+        nav ul {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li {
+            margin-left: 20px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+            padding: 10px;
+            transition: color 0.3s ease, background-color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            background-color: rgba(255, 255, 255, 0.3); /* Subtle white overlay */
+            color: #2ecc71; /* Green color for hover */
+            border-radius: 5px;
+        }
+
+        /* Add Sign In Icon (Optional) */
+        .sign-in-icon {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #fff;
+            transition: color 0.3s ease;
+        }
+
+        .sign-in-icon:hover {
+            color: #2ecc71;
+        }
+
+        /* Responsive Media Queries */
+        @media (max-width: 768px) {
+            header .container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            header h1 {
+                font-size: 28px;
+            }
+
+            nav ul {
+                flex-direction: column;
+                align-items: flex-start;
+                margin-top: 20px;
+            }
+
+            nav ul li {
+                margin-left: 0;
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Section with Forest Theme -->
+    <header>
+        <div class="container">
+            <h1>Smart Waste Management & Recycling</h1>
+            <nav>
+                <ul>
+                    <li><a href="javascript:void(0)" class="tab-link" data-tab="bin-status">Bin Status</a></li>
+                    <li><a href="javascript:void(0)" class="tab-link" data-tab="events">Upcoming Events</a></li>
+                    <li><a href="javascript:void(0)" class="tab-link" data-tab="community">Community Engagement</a></li>
+                    <li><a href="javascript:void(0)" class="tab-link" data-tab="impact">Impact & Achievements</a></li>
+                </ul>
+            </nav>
+        </div>
+        <!-- Sign In Icon (optional) -->
+        <div class="sign-in-icon" onclick="openModal()">🔒</div>
+    </header>
+
+    <!-- Your other page content goes here... -->
+
+    <script>
+        // Function to open the modal for sign-in (if required)
+        function openModal() {
+            alert("Sign-In Modal Opened");
+        }
+    </script>
+
+</body>
+</html>
