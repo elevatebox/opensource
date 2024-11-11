@@ -104,13 +104,21 @@ body {
     background-image: url('https://images.unsplash.com/photo-1504805572947-34fad45aed93?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8YmFjayUyMGdyb3VuZCUyMG9mJTIwYSUyMHdhc3RlJTIwbWFuYWdlbWVudCUyMHdlYnNpdGV8ZW58MHx8MHx8fDA%3D'); /* Replace with your own image URL */
     background-size: cover;
     background-position: center;
-    height: 400px; /* Adjust as needed */
+    height: 70vh; 
     color: #fff;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-
+ /* Musky black overlay */
+ .background-banner .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7); /* Musky black overlay with higher opacity */
+}
 .background-banner .overlay {
     background: rgba(0, 0, 0, 0.5); /* Optional: Dark overlay for better text visibility */
     padding: 20px;
