@@ -1,0 +1,30 @@
+{
+    "appName": {
+      "message": "Multilingual Content Translator"
+    },
+    "appDescription": {
+      "message": "Real-time translation of web pages with customizable settings"
+    },
+    "translateButton": {
+      "message": "Translate"
+    },
+    "languageSelectLabel": {
+      "message": "Choose Language:"
+    },
+    "darkModeToggle": {
+      "message": "Dark Mode"
+    },
+    "settingsHeader": {
+      "message": "Settings"
+    },
+    "loadingMessage": {
+      "message": "Translating, please wait..."
+    },
+    "errorNotification": {
+      "message": "Translation failed. Please try again."
+    },
+    "translationComplete": {
+      "message": "Translation complete!"
+    }
+  }
+  

@@ -1,8 +1,0 @@
-body.light-theme { background-color: #f1f8ff; color: #333; }
-body.dark-theme { background-color: #1a1a1a; color: #f1f8ff; }
-
-.container {
-  width: 250px;
-  padding: 20px;
-  text-align: center;
-}
