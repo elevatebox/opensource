@@ -19,10 +19,20 @@ body {
     font-size: 14px;
 }
 
+.social-links {
+    display: flex;
+    gap: 15px;
+}
+
 .social-links a {
-    margin-right: 10px;
     color: #333;
+    font-size: 18px;
     text-decoration: none;
+    transition: color 0.3s;
+}
+
+.social-links a:hover {
+    color: #f4a261; /* or any color you prefer for hover */
 }
 
 .contact-info p {
@@ -61,7 +71,7 @@ nav a {
 
 /* Hero Section */
 .hero {
-    background-image: url('https://via.placeholder.com/1500x800');
+    background-image: url('urban-farming.jpeg'); /* Ensure this path is correct */
     background-size: cover;
     background-position: center;
     height: 80vh;
@@ -100,3 +110,4 @@ nav a {
 .hero-content button:hover {
     background-color: #e76f51;
 }
+
