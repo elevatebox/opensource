@@ -1,113 +1,113 @@
-/* Reset */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Body */
-body {
+body, html {
+    height: 100%;
     font-family: Arial, sans-serif;
 }
 
-/* Header Styles */
+/* Header styling */
 .header-top {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
     display: flex;
     justify-content: space-between;
-    padding: 10px 50px;
-    background-color: #f5f5f5;
-    font-size: 14px;
+    align-items: center;
+    text-align: center;
 }
-
-.social-links {
-    display: flex;
-    gap: 15px;
+.centres{
+    text-align: center;
 }
-
 .social-links a {
-    color: #333;
-    font-size: 18px;
+    color: #fff;
+    margin: 0 10px;
     text-decoration: none;
-    transition: color 0.3s;
 }
 
-.social-links a:hover {
-    color: #f4a261; /* or any color you prefer for hover */
-}
-
-.contact-info p {
-    margin-left: 20px;
-}
-
-/* Navbar */
 .navbar {
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    padding: 20px 50px;
-    background-color: #ffffff;
-    border-bottom: 1px solid #e0e0e0;
+    align-items: center;
+    padding: 20px;
+    background-color: #222;
+    color: #fff;
 }
 
-.logo {
+.navbar .logo {
     font-size: 24px;
-    color: #2d6a4f;
     font-weight: bold;
 }
 
-nav a {
+.navbar nav a {
+    color: #fff;
     margin: 0 15px;
-    color: #333;
     text-decoration: none;
 }
 
-.contact-button {
-    background-color: #f4a261;
+.login-button button {
     padding: 10px 20px;
-    color: #ffffff;
-    border-radius: 5px;
-    text-align: center;
+    background-color: #57A6A1;
+    color: #fff;
+    border: none;
+    cursor: pointer;
 }
-
+.sow{
+    font-size: large;
+}
 /* Hero Section */
 .hero {
-    background-image: url('urban-farming.jpeg'); /* Ensure this path is correct */
+    height: 100vh;
+    background-image: url('backgroundimage.jpg'); /* Replace with your actual image URL */
     background-size: cover;
     background-position: center;
-    height: 80vh;
     display: flex;
     align-items: center;
     justify-content: center;
+    color: #fff;
     text-align: center;
-    color: #ffffff;
+    position: relative;
+    overflow: hidden;
 }
 
-.hero-content h1 {
-    font-size: 48px;
-    margin-bottom: 10px;
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4); /* Add a dark overlay to improve text visibility */
 }
 
-.hero-content p {
-    font-size: 18px;
-    margin-bottom: 20px;
-    width: 70%;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
+.hero-content {
+    position: relative;
+    z-index: 1;
 }
 
-.hero-content button {
-    padding: 12px 25px;
-    background-color: #f4a261;
-    color: #ffffff;
+.hero h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.hero p {
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+}
+
+.hero button {
+    padding: 12px 24px;
+    background-color: #57A6A1;
+    color: #fff;
     border: none;
-    border-radius: 5px;
-    font-size: 16px;
     cursor: pointer;
+    font-size: 1rem;
     transition: background-color 0.3s;
 }
 
-.hero-content button:hover {
-    background-color: #e76f51;
+.hero button:hover {
+    background-color: #344C64;
 }
-

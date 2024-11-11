@@ -1,0 +1,34 @@
+.about-section {
+              /* Increased padding for more space */
+    background-image: url('about-usimg.jpeg'); 
+    background-size: cover; 
+    text-align: center;
+}
+
+.about-section h2 {
+    font-size: 2.8rem;            /* Larger heading */
+    color: #000000;               /* Darker color for better readability */
+    margin-bottom: 30px;          /* Extra space below the heading */
+}
+
+.about-section p {
+    max-width: 700px;             /* Constrained width for readability */
+    margin: 0 auto;
+    font-size: 1.2rem;            /* Larger font size */
+    color: #000000;                  /* Softer paragraph color */
+    line-height: 1.8;             /* Increased line spacing */
+    padding: 0 20px;              /* Side padding for smaller screens */
+}
+
+.about-section p::first-letter {
+    font-size: 1.4rem;            /* Style first letter */
+    font-weight: bold;
+}
+
+footer {
+    padding: 20px;
+    text-align: center;
+    background-color: #333;
+    color: #fff;
+    font-size: 0.9rem;
+}
