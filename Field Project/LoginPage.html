@@ -7,8 +7,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: 'Montserrat', sans-serif;
-            background-color: #ffcccc;
+            font-family: 'Montserrat', sans-serif; /* Change this to 'Nexa Regular' if you have it */
+            background-color: #ffcccc; /* Light red background */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -16,42 +16,33 @@
             margin: 0;
         }
         .login-container {
-            background-color: rgba(204, 255, 204, 0.9);
-            padding: 40px;
-            border-radius: 15px;
-            border: 2px solid #005600;
+            background-color: rgba(204, 255, 204, 0.9); /* Light green with some transparency */
+            padding: 40px; /* Increased padding */
+            border-radius: 15px; /* Rounded corners for the container */
+            border: 2px solid #005600; /* Dark green border */
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             width: 300px;
         }
         h2 {
-            text-align: left;
+            text-align: left; /* Align header text to the left */
             margin-bottom: 20px;
         }
         .input-group {
             margin-bottom: 15px;
-            position: relative; /* To position the eye icon */
         }
         .input-group label {
             display: block;
             margin-bottom: 5px;
-            text-align: left;
+            text-align: left; /* Align label to the left */
         }
         .input-group input {
             width: 100%;
             padding: 10px;
-            padding-right: 40px; /* Space for the eye icon */
             border: 1px solid #ccc;
-            border-radius: 15px;
-            background-color: #e6ffe6;
-            color: black;
-        }
-        .input-group .toggle-password {
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            cursor: pointer;
-            color: #007bff;
+            border-radius: 15px; /* Rounded corners for input fields */
+            background-color: #e6ffe6; /* Even lighter green background */
+            color: black; /* Black text for contrast */
+            text-align: left; /* Align input text to the left */
         }
         .btn {
             width: 100%;
@@ -59,64 +50,74 @@
             background-color: #007bff;
             color: white;
             border: none;
-            border-radius: 15px;
+            border-radius: 15px; /* Rounded corners for button */
             cursor: pointer;
         }
         .btn:hover {
             background-color: #0056b3;
         }
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+        }
     </style>
     <script>
         function validateEmail(email) {
-            const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            return regex.test(email);
+        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return regex.test(email);
+    }
+
+    function checkPassword(form) {
+        const email = form.email.value;
+        const password1 = form.password.value;
+        const password2 = form.reType.value;
+
+        if (!validateEmail(email)) {
+            alert("Invalid email");
+            return false;
         }
 
-        function checkPassword(form) {
-            const email = form.email.value;
-            const password1 = form.password.value;
-
-            if (!validateEmail(email)) {
-                alert("Invalid email format.");
-                return false;
-            }
-
-            if (password1 === '') {
-                alert("Please enter a password.");
-                return false;
-            }
-
-            alert("Successfully logged in.");
-            return true;
+        if (password1 === '') {
+            alert("Please enter Password");
+            return false;
         }
 
-        function togglePassword() {
-            const passwordInput = document.getElementById("password");
-            const toggleIcon = document.getElementById("togglePasswordIcon");
-
-            if (passwordInput.type === "password") {
-                passwordInput.type = "text";
-                toggleIcon.textContent = "🙈"; // Change icon to hide
-            } else {
-                passwordInput.type = "password";
-                toggleIcon.textContent = "👁️"; // Change icon to show
-            }
+        if (password2 === '') {
+            alert("Please enter confirm password");
+            return false;
         }
+
+        if (password1 !== password2) {
+            alert("Password mismatch, re-type it again");
+            return false;
+        }
+
+        alert("Account has been regustered");
+        return true;
+    }
+    
     </script>
 </head>
 <body>
+    <style>
+p {
+  background-image: url('img_girl.jpg');
+}
+</style>
     <div class="login-container">
         <h2>Login</h2>
-        <form onsubmit="return checkPassword(this);">
+        <form onsubmit="checkPassword(this); return false;">
+
+           
             <div class="input-group">
-                <label for="email">E-Mail</label>
-                <input id="email" type="email" name="email" required>
+                <label for="username">E-Mail</label>
+                <input id="email" type="email" name="email" >
             </div>
             <div class="input-group">
                 <label for="password">Password</label>
-                <input id="password" type="password" name="password" required>
-                <span id="togglePasswordIcon" class="toggle-password" onclick="togglePassword()">👁️</span>
+                <input type="password" name="password" required>
             </div>
+           
             <button type="submit" class="btn">Sign In</button>
         </form>
     </div>
