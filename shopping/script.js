@@ -1,42 +1,16 @@
-window.onload = async () => {
-    const groceryListElement = document.getElementById('grocery-list');
-  
-    try {
-      const response = await fetch('http://localhost:5000/api/grocery');
-      const groceryItems = await response.json();
-      
-      groceryItems.forEach(item => {
-        const listItem = document.createElement('li');
-        listItem.textContent = `${item.name} - Quantity: ${item.quantity}`;
-        groceryListElement.appendChild(listItem);
-      });
-    } catch (error) {
-      console.error('Error fetching grocery items:', error);
-    }
-  };
+// Sample data for grocery items
+const items = [
+  { id: 1, name: "Apple", category: "Fruits & Vegetables", price: 3.0, img: "apple.jpg" },
+  { id: 2, name: "Banana", category: "Fruits & Vegetables", price: 2.0, img: "banana.jpg" },
+  { id: 3, name: "Milk", category: "Dairy Products", price: 1.5, img: "milk.jpg" },
+  { id: 4, name: "Coke", category: "Beverages", price: 1.0, img: "coke.jpg" },
+  { id: 5, name: "Chips", category: "Snacks", price: 2.5, img: "chips.jpg" }
+];
 
-  
+let cart = [];
 
-  document.getElementById('add-item-form').addEventListener('submit', async (event) => {
-    event.preventDefault();
-  
-    const name = document.getElementById('name').value;
-    const quantity = document.getElementById('quantity').value;
-    const expiryDate = document.getElementById('expiryDate').value;
-    const category = document.getElementById('category').value;
-  
-    const newItem = { name, quantity, expiryDate, category };
-  
-    try {
-      await fetch('http://localhost:5000/api/grocery/add', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(newItem),
-      });
-      alert('Item added successfully!');
-      window.location.href = 'index.html';  // Redirect back to the main page
-    } catch (error) {
-      alert('Error adding item');
-    }
-  });
-  
+// Handle searching for items
+function searchItems() {
+  const query = document.getElementById("search").value.toLowerCase();
+  const filteredItems = items.filter(item =>
+      item.name.toLowerCase().includes(query

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Grocery</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <h1><strong>Smart Grocery</strong></h1>
+        <div class="profile-icon" onclick="showProfile()">
+            <img src="profile-icon.png" alt="Profile" class="profile-image">
+        </div>
+    </header>
+
+    <!-- Search Bar -->
+    <section class="search-section">
+        <input type="text" id="search" placeholder="Search grocery items...">
+    </section>
+
+    <!-- Categories Section -->
+    <section class="categories-section">
+        <div class="category">
+            <img src="https://media.istockphoto.com/id/1675960430/photo/colorful-raw-fruits-and-vegetables-varied-vegan-food-vivid-rainbow-arrangement.jpg?s=1024x1024&w=is&k=20&c=0W5WUvVWxrrnXtv77qllZaDE0sUQEImDXJ6IYCaW44A=" alt="Fruits and Vegetables">
+            <p>Fruits and Vegetables</p>
+        </div>
+        <div class="category">
+            <img src="https://media.istockphoto.com/id/849692854/photo/dairy-products-and-eggs.jpg?s=1024x1024&w=is&k=20&c=h_kAP6gclh_wVr9D94UxlItnaW_GpGgkOps2wNA_feg=" alt="Dairy Products">
+            <p>Dairy Products</p>
+        </div>
+        <div class="category">
+            <img src="https://nawon.com.vn/wp-content/uploads/2024/01/soft-drinks.jpg" alt="Beverages">
+            <p>Beverages</p>
+        </div>
+        <div class="category">
+            <img src="https://i.guim.co.uk/img/media/82616be3378303feb3e048727f753b10e4bb8497/0_0_3500_2333/master/3500.jpg?width=445&dpr=1&s=none&crop=none" alt="Snacks">
+            <p>Snacks</p>
+        </div>
+        <div class="category">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWMKjLnHoskVswoialcgGZsTV2MlouYJ8o7Q&s" alt="Spices">
+            <p>Spices</p>
+        </div>
+        <div class="category">
+            <img src="https://static.toiimg.com/thumb/imgsize-50228,msid-87304656/87304656.jpg?width=500&resizemode=4" alt="Sweets">
+            <p>Sweets</p>
+        </div>
+        <div class="category">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGU_ZBqmnUtLDOlgRN0DNRZ3gIowxGNbjV6g&s" alt="Hair and Care">
+            <p>Hair and Care</p>
+        </div>
+        <div class="category">
+            <img src="https://i.ytimg.com/vi/zkIvUfpRIrw/maxresdefault.jpg" alt="Bath and Body">
+            <p>Bath and Body</p>
+        </div>
+        <div class="category">
+            <img src="https://c8.alamy.com/comp/EEKJTX/body-creams-and-lotions-in-a-uk-supermarket-EEKJTX.jpg" alt="Skincare">
+            <p>Skincare</p>
+        </div>
+        <div class="category">
+            <img src="https://crigroup.com/wp-content/uploads/2021/04/Pharma-Healthcare-industry_1024x547.jpg" alt="Pharma and Wellness">
+            <p>Pharma and Wellness</p>
+        </div>
+    </section>
+
+    <!-- Cart Icon -->
+    <div id="cart-icon" class="cart-icon" onclick="viewCart()">
+        <img src="cart-icon.png" alt="Cart">
+        <span id="cart-count">0</span>
+    </div>
+
+    <!-- Profile Modal -->
+    <div id="profile-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Profile</h2>
+            <p>Name: <span id="profile-name">John Doe</span></p>
+            <p>Address: <span id="profile-address">123 Main St</span></p>
+            <p>Phone: <span id="profile-phone">123-456-7890</span></p>
+            <p>Email: <span id="profile-email">john.doe@email.com</span></p>
+            <button onclick="showHelp()">Help</button>
+        </div>
+    </div>
+
+    <!-- Help Modal -->
+    <div id="help-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Help</h2>
+            <p>Click here to chat with our helpline.</p>
+            <button onclick="startChat()">Start Chat</button>
+        </div>
+    </div>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
