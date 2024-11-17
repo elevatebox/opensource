@@ -1,15 +1,75 @@
 const products = [
   {
-    name: 'Product 1',
-    price: '$10.00',
-    image: 'product1.jpg'
+    name: 'Onions',
+    price: '32/-',
+    image: 'onion_store.webp'
   },
   {
-    name: 'Product 2',
-    price: '$20.00',
-    image: 'product2.jpg'
+    name: 'Carrots',
+    price: '50/-',
+    image: 'carrots_store.webp'
   },
-  // Add more products as needed
+  {
+    name: 'Potatoes',
+    price: '40/-',
+    image: 'potatoes_store.webp'
+  },
+  {
+    name: 'Beans',
+    price: '45/-',
+    image: 'beans_store.jpg'
+  },
+  {
+    name: 'Tomatoes',
+    price: '60/-',
+    image: 'tomatos_store.jpg'
+  },
+  {
+    name: 'Lady Fingers',
+    price: '42/-',
+    image: 'ladyfingers_store.webp'
+  },
+  {
+    name: 'Coriander leaves',
+    price: '15/-',
+    image: 'Kottimera.webp'
+  },
+  {
+    name: 'Capsicum(green)',
+    price: '40/-',
+    image: 'capsicum.webp'
+  },
+  {
+    name: 'Capsicum(red)',
+    price: '70/-',
+    image: 'redcapsicum.webp'
+  },
+  {
+    name: 'Capsicum(yellow)',
+    price: '70/-',
+    image: 'Capsicum-Yellow.webp'
+  },
+  {
+    name: 'Curry Leaves',
+    price: '10/-',
+    image: 'curryleaves.jpg'
+  },
+  {
+    name: 'Brinjal',
+    price: '30/-',
+    image: 'brinjal.jpg'
+  },
+  {
+    name: 'Cabbage',
+    price: '25/-',
+    image: 'cabbage.jpg'
+  },
+  {
+    name: 'Red Cabbage',
+    price: '50/-',
+    image: 'redcabbage.jpeg'
+  },
+
 ];
 
 const productList = document.querySelector('.product-list');
