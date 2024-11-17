@@ -1,0 +1,96 @@
+/* General Reset */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Navigation Bar */
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #a67f32;
+    padding: 10px 20px;
+    color: #fff;
+}
+
+.navbar .logo img {
+    height: 50px;
+}
+
+.navbar input {
+    flex: 1;
+    margin: 0 10px;
+    padding: 5px;
+}
+
+.navbar .search-btn {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.navbar nav a,
+.navbar .user-options a {
+    margin: 0 10px;
+    text-decoration: none;
+    color: white;
+}
+
+.navbar nav a:hover {
+    text-decoration: underline;
+}
+
+/* Banner */
+.banner img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Products Section */
+.products {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.product-card {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    text-align: center;
+    padding: 10px;
+    background-color: #fff;
+}
+
+.product-card img {
+    width: 100px;
+    height: auto;
+}
+
+.product-card h3 {
+    margin: 10px 0;
+}
+
+.product-card p {
+    font-weight: bold;
+    color: #333;
+}
+
+.product-card button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.product-card button:hover {
+    background-color: #45a049;
+}
