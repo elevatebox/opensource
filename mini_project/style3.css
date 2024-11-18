@@ -17,6 +17,9 @@
   
   .logo img {
     width: 100px;
+   height: 100px;
+   float: left;
+   margin-right: 50px;
   }
   
   .search-bar {
@@ -82,7 +85,7 @@
   }
   
   .product-card img {
-    width: 100%;
+    width: 200px;
     height: auto;
   }
   

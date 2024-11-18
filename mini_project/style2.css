@@ -1,3 +1,66 @@
+/* General Reset */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #222; /* Background color to match header */
+    color: white;
+}
+
+/* Top Header Section */
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #333;
+}
+
+.header-top .social-icons a {
+    margin: 0 8px;
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.header-top .social-icons a:hover {
+    color: #57A6A1; /* Highlight color for icons */
+}
+
+.header-top .welcome-message {
+    font-size: 14px;
+}
+
+/* Main Header Section */
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #222;
+    padding: 15px 20px;
+}
+
+.main-header img {
+    height: 50px;
+}
+
+.main-header nav {
+    display: flex;
+    gap: 20px;
+}
+
+.main-header nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    transition: color 0.3s;
+}
+
+.main-header nav a:hover {
+    color: #57A6A1; /* Highlight color for links */
+}
+
+
+
 .about-section {
               /* Increased padding for more space */
     background-image: url('about-usimg.jpeg'); 

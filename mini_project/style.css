@@ -55,6 +55,10 @@ body, html {
     border: none;
     cursor: pointer;
 }
+.logo{
+    width: 50px;
+}
+
 .sow{
     font-size: large;
 }

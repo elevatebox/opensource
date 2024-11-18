@@ -20,31 +20,19 @@
 
     <script>
         const form = document.getElementById('loginForm');
-        
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault(); // Prevent form submission
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault(); // Prevent default form submission
 
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
 
-            // Send the login request to the backend
-            const response = await fetch('http://localhost:5000/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ username, password })
-            });
-
-            const data = await response.json();
-
-            if (response.ok) {
-                alert('Login successful');
-                // Store the token (for demonstration purposes)
-                localStorage.setItem('token', data.token);
-                window.location.href = 'index.html'; // Redirect to the homepage
+            // Simple validation (you can customize this)
+            if (username === 'admin' && password === 'password') {
+                alert('Login successful!');
+                window.location.href = 'index.html'; // Redirect to the main page
             } else {
-                alert(data.message || 'Invalid credentials');
+                alert('Invalid username or password!');
             }
         });
     </script>
