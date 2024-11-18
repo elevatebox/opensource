@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - Add Products</title>
+  <link rel="stylesheet" href="style3.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="logo">
+      <img src="farmscape_logo.webp" alt="Admin Logo">
+    </div>
+    <div class="admin-header">
+      <h1>Admin Dashboard</h1>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <section class="admin-form">
+      <h2>Add a New Product</h2>
+      <form id="productForm">
+        <label for="productName">Product Name:</label>
+        <input type="text" id="productName" name="productName" required><br>
+
+        <label for="productPrice">Price:</label>
+        <input type="number" id="productPrice" name="productPrice" required><br>
+
+        <label for="productImage">Image URL:</label>
+        <input type="url" id="productImage" name="productImage" required><br>
+
+        <label for="productCategory">Category:</label>
+        <select id="productCategory" name="productCategory" required>
+          <option value="vegetables">Vegetables</option>
+          <option value="fruits">Fruits</option>
+          <option value="organic">Organic Seeds</option>
+          <option value="equipment">Farming Equipment</option>
+        </select><br>
+
+        <button type="submit">Add Product</button>
+      </form>
+    </section>
+  </main>
+
+  <script src="admin.js"></script>
+</body>
+</html>
