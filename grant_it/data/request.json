@@ -1,0 +1,11 @@
+// requests.json
+{
+    "requests": [
+        {
+            "student": "student1",
+            "subject": "Need Gatepass",
+            "details": "I need to leave early for a medical appointment.",
+            "status": "Pending"
+        }
+    ]
+}
