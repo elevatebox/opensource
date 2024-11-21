@@ -1,0 +1,50 @@
+import requests
+from bs4 import BeautifulSoup
+import json
+import csv
+
+# URL of the job listing
+url = 'https://www.ycombinator.com/companies/peakflo/jobs/AVGM7Hy-frontend-engineer-intern-india-remote'
+
+# Send an HTTP request to the webpage
+response = requests.get(url)
+
+# Check if the request was successful
+if response.status_code == 200:
+    # Parse the HTML content of the page
+    soup = BeautifulSoup(response.text, 'html.parser')
+    
+    # Find the div containing the 'data-page' attribute
+    data_div = soup.find('div', {'data-page': True})
+    
+    # Extract the JSON data from the 'data-page' attribute
+    data_json = json.loads(data_div['data-page'])
+    
+    # Extract relevant fields
+    company_name = data_json['props']['company'].get('name', 'N/A')
+    job_title = data_json['props']['job'].get('title', 'N/A')
+    
+    # Try to access the 'requirements' or similar field
+    what_we_are_looking_for = data_json['props']['job'].get('requirements', 'No requirements listed')
+
+    # Data to save
+    job_data = {
+        "company_name": company_name,
+        "job_title": job_title,
+        "requirements": what_we_are_looking_for
+    }
+    
+    # Save data to JSON
+    with open('job_details.json', 'w') as json_file:
+        json.dump(job_data, json_file, indent=4)
+    
+    # Save data to CSV
+    with open('job_details.csv', 'w', newline='') as csv_file:
+        writer = csv.DictWriter(csv_file, fieldnames=job_data.keys())
+        writer.writeheader()
+        writer.writerow(job_data)
+    
+    print("Data successfully saved to 'job_details.json' and 'job_details.csv'.")
+
+else:
+    print(f"Failed to retrieve the webpage. Status code: {response.status_code}")
