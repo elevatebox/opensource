@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Event Ticketing & Registration</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="logo">EVENTIFY</div>
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#events">Events</a>
+            <a href="#about">About</a>
+        </nav>
+    </header>
+
+    <main>
+        <section id="hero">
+            <div class="hero-content">
+                <h1>Welcome to EVENTIFY</h1>
+                <p>Your one-stop solution for event ticketing and registration.</p>
+                <a href="#event-registration" class="cta-button">Get Started</a>
+            </div>
+        </section>
+
+        <section id="event-registration">
+            <div class="container">
+                <h2>Register for Event</h2>
+                <form id="ticket-form">
+                    <label for="event">Select Event:</label>
+                    <select id="event" required>
+                        <option value="1">Tech Conference 2024</option>
+                        <option value="2">Music Festival 2024</option>
+                        <option value="3">Art Expo 2024</option>
+                    </select>
+
+                    <label for="attendee-name">Your Name:</label>
+                    <input type="text" id="attendee-name" placeholder="Enter your name" required>
+
+                    <label for="ticket-quantity">Ticket Quantity:</label>
+                    <input type="number" id="ticket-quantity" value="1" min="1" required>
+
+                    <button type="submit" class="btn-primary">Register</button>
+                </form>
+
+                <div id="venue-details">
+                    <h3>Venue Details</h3>
+                    <p id="venue-name">Venue Name: Convention Center</p>
+                    <p id="venue-location">Location: Downtown City</p>
+                    <p id="venue-capacity">Capacity: 500 People</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="event-list">
+            <div class="container">
+                <h2>Available Events</h2>
+                <div id="events">
+                    <div class="event-card">
+                        <h3>Tech Conference 2024</h3>
+                        <p>Date: June 20, 2024</p>
+                        <p>Location: Convention Center</p>
+                        <button class="btn-secondary">View Details</button>
+                    </div>
+                    <div class="event-card">
+                        <h3>Music Festival 2024</h3>
+                        <p>Date: July 10, 2024</p>
+                        <p>Location: City Park</p>
+                        <button class="btn-secondary">View Details</button>
+                    </div>
+                    <div class="event-card">
+                        <h3>Art Expo 2024</h3>
+                        <p>Date: August 15, 2024</p>
+                        <p>Location: Art Gallery</p>
+                        <button class="btn-secondary">View Details</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Eventify. All rights reserved.</p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>

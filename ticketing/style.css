@@ -1,0 +1,214 @@
+ /* General styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+/* Header styles */
+header {
+    background-color: #333;
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+header nav a {
+    margin: 0 15px;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+header nav a:hover {
+    color: #f9a825;
+}
+
+/* Hero section styles */
+#hero {
+    background-color: #f9a825;
+    color: white;
+    padding: 100px 0;
+    text-align: center;
+}
+
+#hero h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+#hero p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+}
+
+.cta-button {
+    background-color: #fff;
+    color: #333;
+    padding: 15px 30px;
+    text-decoration: none;
+    font-size: 1.1rem;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.cta-button:hover {
+    background-color: #f1f1f1;
+    transform: scale(1.05);
+}
+
+/* Event registration section */
+#event-registration {
+    background-color: white;
+    padding: 50px 20px;
+}
+
+#event-registration .container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+#event-registration h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+#event-registration form {
+    display: flex;
+    flex-direction: column;
+}
+
+#event-registration form label {
+    margin: 10px 0;
+    font-size: 1.1rem;
+}
+
+#event-registration form input, #event-registration form select {
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+#event-registration form .btn-primary {
+    background-color: #f9a825;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#event-registration form .btn-primary:hover {
+    background-color: #f57f17;
+}
+
+#venue-details {
+    margin-top: 30px;
+}
+
+#venue-details h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+/* Event list section */
+#event-list {
+    padding: 50px 20px;
+    background-color: #f4f4f4;
+}
+
+#event-list .container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+#event-list h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #333;
+}
+
+#events {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.event-card {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: calc(33.333% - 20px);
+    text-align: center;
+    transition: transform 0.3s;
+}
+
+.event-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.event-card p {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+}
+
+.event-card button {
+    background-color: #f9a825;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.event-card button:hover {
+    background-color: #f57f17;
+}
+
+/* Footer styles */
+footer {
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+footer p {
+    font-size: 1rem;
+}
+
+/* Responsive design */
+@media screen and (max-width: 768px) {
+    #events {
+        flex-direction: column;
+    }
+
+    .event-card {
+        width: 100%;
+    }
+}
