@@ -1,0 +1,20 @@
+def is_prime(num):
+    if num < 2:
+        return False
+    for i in range(2, int(num**0.5) + 1):
+        if num % i == 0:
+            return False
+    return True
+
+def sum_of_prime_factors(n):
+    prime_factors_sum = 0
+    for i in range(2, n + 1):
+        if n % i == 0 and is_prime(i):
+            prime_factors_sum += i
+    return prime_factors_sum
+
+# Input
+n = int(input())
+
+# Output
+print(sum_of_prime_factors(n))
