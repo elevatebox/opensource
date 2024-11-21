@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>grant.it - Login</title>
+    <style>
+        /* Custom styles */
+        .header {
+            text-align: center;
+            margin-top: 50px; /* Space from the top */
+            margin-bottom: 30px; /* Space from the login box */
+        }
+        .header h1 {
+            text-decoration: underline; /* Underline text */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="text-primary font-weight-bold">grant.it</h1>
+        </div>
+        <div class="login-box">
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="roleSelect">Login as:</label>
+                    <select class="form-control" id="roleSelect" required>
+                        <option value="admin">Admin</option>
+                        <option value="co-admin">Co-admin</option>
+                        <option value="student">Student</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" class="form-control" id="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" class="form-control" id="password" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+            </form>
+        </div>
+    </div>
+    <script src="../js/script.js"></script>
+</body>
+</html>
