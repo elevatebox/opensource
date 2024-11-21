@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Attendance Tracker</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      width: 80%;
+      max-width: 900px;
+      margin: auto;
+      text-align: center;
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 30px;
+    }
+
+    table, th, td {
+      border: 1px solid #ddd;
+    }
+
+    th, td {
+      padding: 12px;
+      text-align: center;
+    }
+
+    .status-box {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background-color: #d3d3d3;
+      cursor: pointer;
+    }
+
+    .present {
+      background-color: green;
+    }
+
+    .absent {
+      background-color: red;
+    }
+
+    .calendar {
+      margin-top: 40px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .calendar .day {
+      width: 60px;
+      height: 60px;
+      margin: 5px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 14px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .calendar .day.present {
+      background-color: green;
+    }
+
+    .calendar .day.absent {
+      background-color: red;
+    }
+
+    .calendar .day {
+      background-color: #f3f3f3;
+    }
+
+    .form-group {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    input[type="text"], input[type="number"], input[type="date"] {
+      padding: 10px;
+      font-size: 14px;
+      margin: 10px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 14px;
+      cursor: pointer;
+      margin: 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Attendance Tracker</h1>
+
+    <h2>Student Attendance</h2>
+    <table id="attendance-table">
+      <thead>
+        <tr>
+          <th>Roll No</th>
+          <th>Student Name</th>
+          <th>2024-10-07</th>
+          <th>2024-10-14</th>
+          <th>2024-10-21</th>
+          <th>2024-10-28</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+
+    <div class="form-group">
+      <h3>Add New Student</h3>
+      <input type="number" id="new-rollno" placeholder="Enter Roll Number">
+      <input type="text" id="new-name" placeholder="Enter Student Name">
+      <button id="add-student">Add Student</button>
+    </div>
+  </div>
+
+  <script>
+    const attendanceTable = document.getElementById('attendance-table').getElementsByTagName('tbody')[0];
+    const addStudentBtn = document.getElementById('add-student');
+    const newRollNoInput = document.getElementById('new-rollno');
+    const newNameInput = document.getElementById('new-name');
+
+    // Fetch attendance data from API
+    function fetchAttendanceData() {
+      fetch('/api/attendance')
+        .then(response => response.json())
+        .then(data => {
+          // Clear current table rows
+          attendanceTable.innerHTML = '';
+
+          data.students.forEach(student => {
+            const row = attendanceTable.insertRow();
+            row.innerHTML = `
+              <td>${student.rollNo}</td>
+              <td>${student.studentName}</td>
+              ${generateAttendanceBoxes(student)}
+            `;
+          });
+        });
+    }
+
+    // Generate the attendance boxes for each student
+    function generateAttendanceBoxes(student) {
+      const mondays = ["2024-10-07", "2024-10-14", "2024-10-21", "2024-10-28"];
+      return mondays.map(date => {
+        const attendance = student.attendance.find(att => att.date === date);
+        const statusClass = attendance ? (attendance.status === 'present' ? 'present' : 'absent') : '';
+        return `<td><span class="status-box ${statusClass}" onclick="toggleAttendance(${student.rollNo}, '${date}')"></span></td>`;
+      }).join('');
+    }
+
+    // Toggle attendance status
+    function toggleAttendance(rollNo, date) {
+      const statusBox = event.target;
+
+      // Prevent changing already marked attendance
+      if (statusBox.classList.contains('present') || statusBox.classList.contains('absent')) {
+        return;
+      }
+
+      const newStatus = statusBox.classList.contains('present') ? 'absent' : 'present';
+
+      fetch('/api/attendance', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          rollNo,
+          date,
+          status: newStatus
+        })
+      }).then(() => {
+        fetchAttendanceData();
+      });
+    }
+
+    // Add a new student
+    addStudentBtn.addEventListener('click', () => {
+      const rollNo = newRollNoInput.value;
+      const name = newNameInput.value;
+
+      if (!rollNo || !name) {
+        alert('Please provide both roll number and student name.');
+        return;
+      }
+
+      fetch('/api/student', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ rollNo, studentName: name })
+      }).then(() => {
+        fetchAttendanceData();
+      });
+    });
+
+    // Initial fetch of attendance data
+    fetchAttendanceData();
+  </script>
+</body>
+</html>

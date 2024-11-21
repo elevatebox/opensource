@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Management</title>
+</head>
+<body>
+    <h1>VNR VJIET Student Management</h1>
+
+    <h2>About VNR VJIET</h2>
+    <button onclick="fetchAbout()">Get About Info</button>
+    <p id="about"></p>
+
+    <h2>Register Student</h2>
+    <form id="studentForm">
+        <label>Name:</label>
+        <input type="text" id="name" required><br><br>
+        
+        <label>Roll No:</label>
+        <input type="text" id="roll_no" required><br><br>
+        
+        <label>Section:</label>
+        <input type="text" id="section" required><br><br>
+        
+        <label>Branch:</label>
+        <input type="text" id="branch" required><br><br>
+        
+        <label>Email:</label>
+        <input type="email" id="email" required><br><br>
+        
+        <button type="submit">Submit</button>
+    </form>
+
+    <h2>Student List</h2>
+    <button onclick="fetchStudents()">Get Students</button>
+    <ul id="studentList"></ul>
+
+    <h2>Update Student</h2>
+    <form id="updateForm">
+        <label>Roll No:</label>
+        <input type="text" id="updateRollNo" required><br><br>
+        
+        <label>Name:</label>
+        <input type="text" id="updateName" required><br><br>
+        
+        <label>Section:</label>
+        <input type="text" id="updateSection" required><br><br>
+        
+        <label>Branch:</label>
+        <input type="text" id="updateBranch" required><br><br>
+        
+        <label>Email:</label>
+        <input type="email" id="updateEmail" required><br><br>
+        
+        <button type="submit">Update</button>
+    </form>
+
+    <h2>Delete Student</h2>
+    <form id="deleteForm">
+        <label>Roll No:</label>
+        <input type="text" id="deleteRollNo" required><br><br>
+        <button type="submit">Delete</button>
+    </form>
+
+    <script>
+        document.getElementById('studentForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const roll_no = document.getElementById('roll_no').value;
+            const section = document.getElementById('section').value;
+            const branch = document.getElementById('branch').value;
+            const email = document.getElementById('email').value;
+
+            fetch('http://localhost:5000/vnr_students', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, roll_no, section, branch, email }),
+            })
+            .then(response => response.json())
+            .then(data => alert(data.message))
+            .catch(error => console.error('Error:', error));
+        });
+
+        document.getElementById('updateForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const roll_no = document.getElementById('updateRollNo').value;
+            const updatedData = {
+                name: document.getElementById('updateName').value,
+                section: document.getElementById('updateSection').value,
+                branch: document.getElementById('updateBranch').value,
+                email: document.getElementById('updateEmail').value
+            };
+
+            fetch('http://localhost:5000/todo_update', {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ roll_no, updatedData }),
+            })
+            .then(response => response.json())
+            .then(data => alert(data.message))
+            .catch(error => console.error('Error:', error));
+        });
+
+        document.getElementById('deleteForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const roll_no = document.getElementById('deleteRollNo').value;
+
+            fetch('http://localhost:5000/todo_delete', {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ roll_no }),
+            })
+            .then(response => response.json())
+            .then(data => alert(data.message))
+            .catch(error => console.error('Error:', error));
+        });
+
+        function fetchAbout() {
+            fetch('http://localhost:5000/vnr_about')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('about').innerText = JSON.stringify(data);
+                });
+        }
+
+        function fetchStudents() {
+            fetch('http://localhost:5000/todo_list')
+                .then(response => response.json())
+                .then(data => {
+                    const studentList = document.getElementById('studentList');
+                    studentList.innerHTML = '';
+                    data.forEach(student => {
+                        const li = document.createElement('li');
+                        li.innerText = `${student.name}, ${student.roll_no}, ${student.section}, ${student.branch}, ${student.email}`;
+                        studentList.appendChild(li);
+                    });
+                });
+        }
+    </script>
+</body>
+</html>
