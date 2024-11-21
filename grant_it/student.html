@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student - Request Management</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #6a82fb, #fc5c7d);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: backgroundAnimation 10s ease infinite;
+        }
+
+        @keyframes backgroundAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 1s ease-out;
+            width: 90%;
+            max-width: 600px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            color: #4a90e2;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            color: #4a90e2;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .btn-login {
+            background-color: #4a90e2;
+            color: white;
+            transition: background-color 0.3s, transform 0.3s;
+            border: none;
+        }
+
+        .btn-login:hover {
+            background-color: #50c9c3;
+            transform: scale(1.05);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .request-history {
+            max-height: 300px;
+            overflow-y: auto;
+            margin-top: 15px;
+        }
+
+        .request-item {
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 1px solid #4a90e2;
+            border-radius: 10px;
+            padding: 10px;
+            margin-bottom: 10px;
+            transition: transform 0.2s;
+        }
+
+        .request-item:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container mt-5">
+    <h1 class="text-center">Student Request Management</h1>
+
+    <!-- Login Form -->
+    <div id="loginForm">
+        <form onsubmit="login(event)">
+            <div class="form-group">
+                <label for="studentName">Name</label>
+                <input type="text" class="form-control" id="studentName" required>
+            </div>
+            <div class="form-group">
+                <label for="rollNo">Roll No.</label>
+                <input type="text" class="form-control" id="rollNo" required>
+            </div>
+            <button type="submit" class="btn btn-login btn-block">Login</button>
+        </form>
+    </div>
+
+    <!-- Request Management Tabs -->
+    <div class="tab-content hidden" id="requestManagement">
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#requestTab">Request Permission</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#historyTab">Request History</a>
+            </li>
+        </ul>
+
+        <div class="tab-content">
+            <!-- Request Permission Tab -->
+            <div id="requestTab" class="tab-pane fade show active">
+                <form id="request-form" onsubmit="handleRequest(event)">
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" class="form-control" id="subject" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="details">Request Details</label>
+                        <textarea class="form-control" id="details" rows="4" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-login btn-block">Send Request</button>
+                </form>
+            </div>
+
+            <!-- Request History Tab -->
+            <div id="historyTab" class="tab-pane fade">
+                <h3>Request History</h3>
+                <div class="request-history" id="request-history">
+                    <!-- Requests will be displayed here -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const requests = []; // Store requests for co-admin access
+    let isLoggedIn = false;
+
+    function login(event) {
+        event.preventDefault();
+        const studentName = document.getElementById('studentName').value;
+        const rollNo = document.getElementById('rollNo').value;
+
+        // For demonstration purposes, assume login is always successful.
+        // You can implement actual authentication logic here.
+        isLoggedIn = true;
+
+        // Hide login form and show request management interface
+        document.getElementById('loginForm').classList.add('hidden');
+        document.getElementById('requestManagement').classList.remove('hidden');
+        alert(`Welcome, ${studentName}!`);
+    }
+
+    function handleRequest(event) {
+        event.preventDefault();
+
+        const subject = document.getElementById('subject').value;
+        const details = document.getElementById('details').value;
+
+        // Create a request object
+        const requestItem = {
+            subject: subject,
+            details: details
+        };
+        
+        // Push the request to the global requests array
+        requests.push(requestItem);
+
+        const requestDisplay = document.createElement('div');
+        requestDisplay.className = 'request-item mb-2';
+        requestDisplay.innerHTML = `<strong>${subject}</strong><p>${details}</p>`;
+
+        document.getElementById('request-history').appendChild(requestDisplay);
+        document.getElementById('request-form').reset();
+        alert('Request sent successfully');
+    }
+</script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
