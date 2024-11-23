@@ -1,29 +1,20 @@
-// Handle form submission
-document.getElementById("productForm").addEventListener("submit", function (e) {
-    e.preventDefault();
-  
-    // Get form data
-    const productName = document.getElementById("productName").value;
-    const productPrice = document.getElementById("productPrice").value;
-    const productImage = document.getElementById("productImage").value;
-    const productCategory = document.getElementById("productCategory").value;
-  
-    // Create a product object
-    const product = {
-      name: productName,
-      price: productPrice,
-      image: productImage,
-      category: productCategory,
-    };
-  
-    // Save to local storage
-    const products = JSON.parse(localStorage.getItem("products")) || [];
-    products.push(product);
-    localStorage.setItem("products", JSON.stringify(products));
-  
-    // Clear form
-    e.target.reset();
-  
-    alert("Product added successfully!");
+document.addEventListener("DOMContentLoaded", () => {
+  const productList = document.querySelector(".product-list");
+  const products = JSON.parse(localStorage.getItem("products")) || [];
+
+  console.log(products); // Check if image URLs are correct
+
+  products.forEach((product) => {
+      const productCard = document.createElement("div");
+      productCard.classList.add("product-card");
+
+      productCard.innerHTML = `
+          <img src="${product.image}" alt="${product.name}">
+          <h3>${product.name}</h3>
+          <p>Price: ${product.price}/-</p>
+          <p>Category: ${product.category}</p>
+      `;
+
+      productList.appendChild(productCard);
   });
-  
+});

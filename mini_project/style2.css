@@ -1,97 +1,141 @@
 /* General Reset */
-body {
+body, html {
     margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #222; /* Background color to match header */
-    color: white;
-}
-
-/* Top Header Section */
-.header-top {
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background: #f4f4f9;
+    height: 100%;
+    color: #333;
+  }
+  
+  /* Header */
+  .main-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 20px;
-    background-color: #333;
-}
-
-.header-top .social-icons a {
-    margin: 0 8px;
+    padding: 20px 40px;
+    background: rgba(0, 0, 0, 0.8);
     color: white;
-    text-decoration: none;
-    font-size: 16px;
-}
-
-.header-top .social-icons a:hover {
-    color: #57A6A1; /* Highlight color for icons */
-}
-
-.header-top .welcome-message {
-    font-size: 14px;
-}
-
-/* Main Header Section */
-.main-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #222;
-    padding: 15px 20px;
-}
-
-.main-header img {
-    height: 50px;
-}
-
-.main-header nav {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  
+  .logo-container img {
+    height: 60px;
+  }
+  
+  nav {
     display: flex;
     gap: 20px;
-}
-
-.main-header nav a {
+  }
+  
+  nav a {
     color: white;
     text-decoration: none;
     font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 1px;
     transition: color 0.3s;
-}
-
-.main-header nav a:hover {
-    color: #57A6A1; /* Highlight color for links */
-}
-
-
-
-.about-section {
-              /* Increased padding for more space */
-    background-image: url('about-usimg.jpeg'); 
-    background-size: cover; 
+  }
+  
+  nav a:hover {
+    color: #00ff1e;
+  }
+  
+  /* Hero Section */
+  .hero {
+    background: url('hero-bg.jpg') no-repeat center center/cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60vh;
+    color: white;
     text-align: center;
-}
-
-.about-section h2 {
-    font-size: 2.8rem;            /* Larger heading */
-    color: #000000;               /* Darker color for better readability */
-    margin-bottom: 30px;          /* Extra space below the heading */
-}
-
-.about-section p {
-    max-width: 700px;             /* Constrained width for readability */
-    margin: 0 auto;
-    font-size: 1.2rem;            /* Larger font size */
-    color: #000000;                  /* Softer paragraph color */
-    line-height: 1.8;             /* Increased line spacing */
-    padding: 0 20px;              /* Side padding for smaller screens */
-}
-
-.about-section p::first-letter {
-    font-size: 1.4rem;            /* Style first letter */
-    font-weight: bold;
-}
-
-footer {
     padding: 20px;
+  }
+  
+  .hero-content h1 {
+    font-size: 48px;
+    font-weight: bold;
+    margin: 0;
+    letter-spacing: 3px;
+    color: black;
+  }
+  
+  .hero-content p {
+    font-size: 20px;
+    margin-top: 10px;
+    color:black;
+  }
+  
+  /* Container */
+  .container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+    padding: 40px;
+    justify-items: center;
+  }
+  
+  /* Box */
+  .box {
+    background: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s;
+  }
+  
+  .box:hover {
+    transform: translateY(-10px);
+  }
+  
+  .box-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+  
+  .content-box {
+    padding: 20px;
+  }
+  
+  .content-box h2 {
+    font-size: 24px;
+    color: #57A6A1;
+  }
+  
+  .content-box p {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #555;
+    margin-bottom: 15px;
+  }
+  
+  .btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #57A6A1;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+  }
+  
+  .btn:hover {
+    background-color: #489c90;
+  }
+  
+  /* Footer */
+  footer {
+    background: #57A6A1;
+    color: white;
     text-align: center;
-    background-color: #333;
-    color: #fff;
-    font-size: 0.9rem;
-}
+    padding: 20px 0;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+  }
+  

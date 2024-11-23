@@ -5,29 +5,52 @@
     box-sizing: border-box;
   }
   
-  body {
-    font-family: 'Arial', sans-serif;
-    background-color: #ffffff;
-    color: #333; /* Text color */
+  body,html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #fff;
+    height: 100%; /* Full height */
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    min-height: 100vh;
-    padding-top: 30px;
+    justify-content: space-between;
   }
   
   /* Header Style */
-  header {
-    background-color: #57A6A1; /* Light teal for header */
-    color: white;
-    padding: 20px 0;
-    text-align: center;
-    width: 100%;
-    font-size: 2.5rem;
-    margin-bottom: 20px;
-  }
-  
+
+  .main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
+    background: rgba(0, 0, 0, 0.8);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.main-header img {
+    height: 60px;
+}
+
+.main-header nav {
+    display: flex;
+    gap: 25px;
+}
+
+.main-header nav a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    transition: color 0.3s;
+}
+
+.main-header nav a:hover {
+    color: #00ff11;
+}
+
   /* Container holding all the boxes */
   .container {
     display: flex;

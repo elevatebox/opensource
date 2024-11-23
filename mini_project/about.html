@@ -5,21 +5,130 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FarmScape Header</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="style2.css">
+    <style>
+       /* General Reset */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #fff;
+    height: 100%; /* Full height */
+    background: url("about-usimg.jpeg") no-repeat center center/cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Top Header */
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    background: rgba(0, 0, 0, 0.7); /* Dark semi-transparent background */
+    position: relative;
+}
+
+.header-top .social-icons a {
+    margin: 0 15px;
+    color: #57A6A1;
+    font-size: 20px;
+    transition: color 0.3s;
+}
+
+.header-top .social-icons a:hover {
+    color: #fff;
+}
+
+/* Welcome Message */
+.welcome-message {
+    font-size: 20px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+/* Main Header */
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
+    background: rgba(0, 0, 0, 0.8);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.main-header img {
+    height: 60px;
+}
+
+.main-header nav {
+    display: flex;
+    gap: 25px;
+}
+
+.main-header nav a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    transition: color 0.3s;
+}
+
+.main-header nav a:hover {
+    color: #00ff11;
+}
+
+/* About Section */
+.about-section {
+    text-align: center;
+    padding: 50px 20px;
+    background: rgba(255, 255, 255, 0.345);
+    font-weight: bolder;
+    margin: 20px;
+    border-radius: 15px;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.about-section h2 {
+    margin-bottom: 25px;
+    font-size: 32px;
+    font-weight: bold;
+    color: #000000;
+    text-transform: uppercase;
+}
+
+.about-section p {
+    font-size: 18px;
+    line-height: 1.8;
+    color: #000000;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Footer */
+footer {
+    background: rgba(0, 0, 0, 0.9);
+    text-align: center;
+    padding: 15px 0;
+    color: #fff;
+    font-size: 14px;
+    letter-spacing: 1px;
+    margin-top: auto; /* Push footer to bottom */
+    width: 100%;
+}
+</style>
 </head>
 <body>
     <!-- Top Header -->
-    <div class="header-top">
-        <div class="social-icons">
-            <a href="#"><i class="fab fa-facebook"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-instagram"></i></a>
-            <a href="#"><i class="fab fa-youtube"></i></a>
-        </div>
-        <div class="welcome-message">
-            Welcome to FarmScape
-        </div>
-    </div>
+    
 
     <!-- Main Header -->
     <header class="main-header">
@@ -32,6 +141,8 @@
             <a href="#">Contact Us</a>
         </nav>
     </header>
+
+    <!-- About Section -->
     <section class="about-section">
         <h2>About Us</h2>
         <p>
@@ -46,7 +157,5 @@
     <footer>
         <p>&copy; 2023 FarmScape. All rights reserved.</p>
     </footer>
-
-    <script src="script.js"></script>
 </body>
 </html>

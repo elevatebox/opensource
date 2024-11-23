@@ -5,49 +5,47 @@
 }
 
 body, html {
-    height: 100%;
-    font-family: Arial, sans-serif;
-}
-
-/* Header styling */
-.header-top {
-    background-color: #333;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: #fff;
-    padding: 10px;
+    height: 100%; /* Full height */
+    background: url("") no-repeat center center/cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.main-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    text-align: center;
-}
-.centres{
-    text-align: center;
-}
-.social-links a {
-    color: #fff;
-    margin: 0 10px;
-    text-decoration: none;
+    padding: 20px 50px;
+    background: rgba(0, 0, 0, 0.8);
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
-.navbar {
+.main-header img {
+    height: 60px;
+}
+
+.main-header nav {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px;
-    background-color: #222;
-    color: #fff;
+    gap: 25px;
 }
 
-.navbar .logo {
-    font-size: 24px;
-    font-weight: bold;
-}
-
-.navbar nav a {
+.main-header nav a {
     color: #fff;
-    margin: 0 15px;
     text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    transition: color 0.3s;
 }
 
+.main-header nav a:hover {
+    color: #00ff11;
+}
 .login-button button {
     padding: 10px 20px;
     background-color: #57A6A1;
