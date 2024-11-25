@@ -1,58 +1,46 @@
 const express = require('express');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const bodyParser = require('body-parser');
-
+const multer = require('multer');
+const path = require('path');
 
 const app = express();
-app.use(bodyParser.json());
+const PORT = 3000;
 
-// In-memory "database" for user credentials (not persistent)
-const users = {
-    admin: {
-        username: 'admin',
-        password: '$2a$10$VN6yNGPqgIYfgRP3gXQ72u6z8lD9NlP5UE9Xn0m7Zjpmtjb2Gd7Ku', // hashed 'password'
-    },
-};
+// Middleware to serve static files
+app.use(express.static('public'));
 
-// Register endpoint (for creating a user)
-app.post('/register', async (req, res) => {
-    const { username, password } = req.body;
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    // In-memory user storage (just for demonstration)
-    users[username] = {
-        username,
-        password: hashedPassword,
-    };
-
-    res.status(201).send('User created');
+// Configure multer for file storage
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'uploads/'); // Directory where files will be stored
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + path.extname(file.originalname)); // Unique filename
+  },
 });
 
-// Login endpoint
-app.post('/login', async (req, res) => {
-    const { username, password } = req.body;
+const upload = multer({ storage });
 
-    // Check if the user exists in memory
-    const user = users[username];
-    if (!user) {
-        return res.status(401).send('Invalid credentials');
-    }
+// Route to handle product submissions
+app.post('/add-product', upload.single('productImage'), (req, res) => {
+  const { productName, productPrice, productCategory } = req.body;
+  const productImage = req.file ? req.file.filename : null;
 
-    // Compare the entered password with the stored (hashed) password
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) {
-        return res.status(401).send('Invalid credentials');
-    }
+  if (!productName || !productPrice || !productCategory || !productImage) {
+    return res.status(400).send('All fields are required.');
+  }
 
-    // Generate a JWT token
-    const token = jwt.sign({ username: user.username }, 'yourSecretKey', { expiresIn: '1h' });
+  const newProduct = {
+    name: productName,
+    price: productPrice,
+    category: productCategory,
+    image: `/uploads/${productImage}`, // Path to the uploaded file
+  };
 
-    res.status(200).json({ message: 'Login successful', token });
+  console.log('New Product:', newProduct);
+  res.status(201).send(newProduct); // You can save this data to a database
 });
 
 // Start the server
-const PORT = 5000;
 app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+  console.log(`Server is running on http://localhost:${PORT}`);
 });

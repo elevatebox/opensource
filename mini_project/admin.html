@@ -128,9 +128,13 @@
         <label for="productPrice">Price:</label>
         <input type="number" id="productPrice" name="productPrice" required>
 
-        <label for="productImage">Image URL:</label>
-        <input type="url" id="productImage" name="productImage" required>
-
+        
+        <form id="productForm" action="/add-product" method="POST" enctype="multipart/form-data">
+          <label for="productImage">Upload Image:</label>
+          <input type="file" id="productImage" name="productImage" accept="image/*" required>
+          <!-- Other form fields remain the same -->
+        </form>
+        
         <label for="productCategory">Category:</label>
         <select id="productCategory" name="productCategory" required>
           <option value="vegetables">Vegetables</option>
