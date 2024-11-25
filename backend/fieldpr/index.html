@@ -4,417 +4,521 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Smart Waste Management & Recycling</title>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js"></script>
     <style>
-        /* Global Styles */
-        body, html {
+        * {
             margin: 0;
             padding: 0;
-            font-family: 'Roboto', sans-serif;
-            line-height: 1.6;
-            background-color: #f4f4f4;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
         }
 
-        h1, h2, h3, h4 {
-            margin: 0;
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, #1a8d1a 0%, #115511 100%);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
         .container {
-            width: 85%;
+            width: 90%;
             max-width: 1200px;
             margin: 0 auto;
         }
 
-        /* Full Background Header Section */
-        header {
-            background: url('https://images.unsplash.com/photo-1516741178400-85b928586baf?w=1600&auto=format&fit=crop&q=60') no-repeat center center;
-            background-size: cover;
-            color: #fff;
-            padding: 80px 0; /* Increased padding to extend the background */
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            position: relative;
-        }
-
-        /* Overlay on the Header Background */
-        header .overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.5); /* Dark overlay for better readability */
-            z-index: 0;
-        }
-
-        header .container {
+        .header-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            position: relative;
-            z-index: 1;
         }
 
-        header h1 {
-            font-size: 32px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+        .logo {
+            color: white;
+            font-size: 1.5rem;
             font-weight: 700;
-            color: #f1f1f1;
-            margin: 0;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
-        /* Navigation Bar */
         nav ul {
             display: flex;
+            gap: 2rem;
             list-style: none;
-            margin: 0;
-            padding: 0;
         }
 
-        nav ul li {
-            margin-left: 20px;
-        }
-
-        nav ul li a {
-            color: #fff;
+        nav a {
+            color: white;
             text-decoration: none;
-            font-size: 16px;
-            padding: 10px;
-            transition: color 0.3s ease, background-color 0.3s ease;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            transition: all 0.3s ease;
         }
 
-        nav ul li a:hover {
-            background-color: rgba(23, 38, 24, 0.3);
-            color: #2ecc71;
-            border-radius: 5px;
+        nav a:hover {
+            background: rgba(255, 255, 255, 0.2);
         }
 
-        /* Optional Sign In Icon */
-        .sign-in-icon {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 24px;
-            cursor: pointer;
-            color: #fff;
-            transition: color 0.3s ease;
-        }
-
-        .sign-in-icon:hover {
-            color: #2ecc71;
-        }
-
-        /* Background Section */
-        .background-banner {
-            position: relative;
-            background-image: url('https://media.cntraveler.com/photos/5eb18e42fc043ed5d9779733/16:9/w_4288,h_2412,c_limit/BlackForest-Germany-GettyImages-147180370.jpg');
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+                url('https://media.cntraveler.com/photos/5eb18e42fc043ed5d9779733/16:9/w_4288,h_2412,c_limit/BlackForest-Germany-GettyImages-147180370.jpg');
             background-size: cover;
             background-position: center;
-            height: 450px;
-            color: #fff;
             display: flex;
-            justify-content: center;
             align-items: center;
+            text-align: center;
+            color: white;
         }
 
-        .background-banner .overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.6);
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
         }
 
-        .banner-message {
-            font-size: 48px;
-            font-weight: 700;
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
             text-transform: uppercase;
             letter-spacing: 2px;
-            text-align: center;
-            margin: 0;
-            max-width: 800px;
-            line-height: 1.2;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.5);
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background-color: #2ecc71;
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            background-color: #27ae60;
+            transform: translateY(-2px);
         }
 
         /* Modal Styles */
         .modal {
             display: none;
             position: fixed;
-            z-index: 1;
-            left: 0;
             top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
         }
 
         .modal-content {
-            background-color: #fefefe;
-            margin: 10% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
-            max-width: 1200px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            width: 400px;
         }
 
-        .modal-content img {
+        .modal-content h2 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-content input,
+        .modal-content select {
             width: 100%;
-            max-width: 600px;
-            margin: 10px auto;
-            display: block;
+            padding: 0.8rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
         }
 
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
-
-        .close:hover,
-        .close:focus {
-            color: black;
-            text-decoration: none;
+        .modal-content button {
+            width: 100%;
+            padding: 0.8rem;
+            background-color: #2ecc71;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-weight: 600;
             cursor: pointer;
         }
 
-        /* Tab Content Sections */
-        .tab-content {
-            padding: 50px 0;
-            background-color: #1e1e1e;
+        .modal-content button:hover {
+            background-color: #27ae60;
         }
 
-        .tab-section {
-            display: none;
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        .stats {
+            padding: 4rem 0;
+            background: white;
         }
 
-        .tab-section.active {
-            display: block;
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            text-align: center;
         }
 
-        /* Event Card Styles */
-        .event-card {
-            background: #ecf0f1;
+        .stat-card {
+            padding: 2rem;
+            background: #f8f9fa;
             border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-card i {
+            font-size: 2.5rem;
+            color: #2ecc71;
+            margin-bottom: 1rem;
+        }
+
+        .stat-card h3 {
+            font-size: 2rem;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+            /* Events Section */
+            .events {
+            padding: 4rem 0;
+            background: #f8f9fa;
+        }
+
+        .events h2 {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
+            color: #2c3e50;
+        }
+
+        .event-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .event-card {
+            background: white;
+            border-radius: 15px;
             overflow: hidden;
-            margin-bottom: 30px;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease;
         }
 
         .event-card:hover {
-            transform: scale(1.05);
+            transform: translateY(-10px);
         }
 
-        .event-card img {
+        .event-image {
             width: 100%;
-            height: auto;
+            height: 200px;
             object-fit: cover;
         }
 
-        .event-card h1, .event-card h3 {
-            font-size: 24px;
-            margin: 15px 0;
+        .event-content {
+            padding: 1.5rem;
+        }
+
+        .event-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
             color: #2c3e50;
         }
 
-        .event-card p {
-            color: #277379;
-            font-size: 16px;
+        .event-date {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #666;
+            margin-bottom: 1rem;
         }
-
-        /* Footer Styles */
+        /* Footer */
         footer {
-            background-color: #2c3e50;
-            color: #fff;
-            padding: 20px 0;
-            text-align: center;
-            position: relative;
-            margin-top: 50px;
+            background: #2c3e50;
+            color: white;
+            padding: 3rem 0;
+            margin-top: 4rem;
         }
 
-        /* Responsive Media Queries */
-        @media (max-width: 768px) {
-            header .container {
-                flex-direction: column;
-                align-items: flex-start;
-            }
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
 
-            header h1 {
-                font-size: 28px;
-            }
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
 
-            nav ul {
-                flex-direction: column;
-                align-items: flex-start;
-                margin-top: 20px;
-            }
+        .footer-section p {
+            margin-bottom: 0.5rem;
+        }
 
-            nav ul li {
-                margin-left: 0;
-                margin-top: 10px;
-            }
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: #2ecc71;
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
     </style>
 </head>
 <body>
-
-    <!-- Full Background Header Section -->
     <header>
-        <div class="overlay"></div> <!-- Dark overlay for better readability -->
         <div class="container">
-            <h1>Smart Waste Management & Recycling</h1>
-            <nav>
-                <ul>
-                    <li><a href="javascript:void(0)" class="tab-link" data-tab="events">Upcoming Events</a></li>
-                    <li><a href="javascript:void(0)" class="tab-link" data-tab="community">Community Engagement</a></li>
-                    <li><a href="javascript:void(0)" class="tab-link" data-tab="impact">Impact & Achievements</a></li>
-                </ul>
-            </nav>
+            <div class="header-content">
+                <a href="#" class="logo">
+                    <i class="fas fa-recycle"></i>
+                    EcoWaste
+                </a>
+                <nav>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#stats">Statistics</a></li>
+                        <li><a href="#events">Events</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
         </div>
-        <!-- Optional Sign In Icon -->
-        <div class="sign-in-icon" onclick="openModal()">Sign-in 🔒</div>
     </header>
 
-    <!-- Background Section with "REDUCE PLASTIC" Message -->
-    <section class="background-banner">
-        <div class="overlay">
-            <h2 class="banner-message">REDUCE PLASTIC</h2>
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Smart Waste Management & Recycling</h1>
+            <p>Join us in creating a sustainable future through responsible waste management and recycling practices.</p>
+            <button class="cta-button" id="getStartedBtn">Get Started</button>
         </div>
     </section>
 
-    <!-- Modal for displaying tab content -->
-    <div id="myModal" class="modal">
+    <!-- Modal for User Details -->
+    <div class="modal" id="getStartedModal">
         <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <div id="modalContent"></div>
-        </div>
-    </div>
-
-    <!-- Content Sections (Tabs) -->
-    <div class="tab-content">
-        <div class="tab-section" id="events">
-            <h2>Upcoming Events</h2>
-            <img src="data:image/png;base64,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" alt="Upcoming Events">
-            <p>Some of the key upcoming events in waste management include the Global Waste Summit 2024, taking place from March 15-17 in New York, USA, where global leaders will discuss sustainable waste practices; National Recycling Week 2024, running from April 22-28 with nationwide workshops and challenges promoting recycling; the Zero Waste Expo 2024 in Berlin from June 10-12, focusing on zero waste initiatives and technologies; the Community Cleanup Challenge in early July, bringing communities together for local environmental cleanups; and the Waste to Energy Conference 2024 in London from September 18-20, exploring innovations in converting waste into energy. These events are pivotal in advancing recycling, sustainability, and environmental responsibility across the globe.</p>
-        </div>
-           
-        <div class="tab-section" id="community">
-            <h2>Community Engagement</h2>
-            <img src="https://media.istockphoto.com/id/1145183186/photo/group-of-volunteer-with-trees-for-growing.webp?a=1&b=1&s=612x612&w=0&k=20&c=yWLkQREK_GKVLh66KQdcxOdR0U2un9hUT7y-LPbLg10=" alt="Community Engagement">
-            <p>Community engagement in waste management involves actively involving local residents, organizations, and businesses in initiatives aimed at reducing waste, promoting recycling, and fostering sustainable practices. This can include organizing awareness campaigns, clean-up drives, educational workshops, and providing resources like recycling bins to encourage proper waste disposal. By empowering communities to take responsibility for their environment, it fosters a sense of ownership and collective action, leading to long-term improvements in waste management, reduced landfill waste, and a cleaner, healthier environment. Effective community engagement also encourages collaboration between local governments, citizens, and waste management authorities to create sustainable waste management systems.</p>
-        </div>
-        <div class="tab-section" id="impact">
-            <h2>Impact & Achievements</h2>
-            <img src="https://plus.unsplash.com/premium_photo-1681880778963-e03328335bc3?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Z3JvdXAlMjBvZiUyMHBlb3BsZSUyMHdpdGglMjBnbyUyMGdyZWVuJTIwc2xvZ2FuJTIwb24lMjBzdHJlZXRzfGVufDB8fDB8fHww" alt= "Recycling Awareness Drive" class="event-img">
-            <!DOCTYPE html>
-            <html lang="en">
-            <head>
-                <meta charset="UTF-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>Waste Management & Recycling Achievements</title>
-            </head>
-            <body>
-                <section>
-                    <h2>Impacts in Waste Management and Recycling</h2>
-                    <p>Our platform has revolutionized waste management by reducing landfill waste by over 40%, promoting recycling efforts across communities. Through innovative waste sorting technologies, we have increased recycling rates by 30%, ensuring that valuable resources like plastic, glass, and paper are diverted from landfills and returned to the production cycle. Furthermore, our strategic partnerships with local governments and businesses have led to the establishment of over 500 recycling centers nationwide, making it easier for residents and companies to participate in sustainable practices.</p>
-                    <p>We are also committed to educating the public on proper waste segregation and environmental responsibility. By conducting over 1,000 community workshops and awareness campaigns, we've reached more than 2 million people, encouraging them to adopt eco-friendly behaviors. Our platform has also introduced a rewards-based incentive program that encourages consumers to recycle more, leading to a 25% increase in recycling participation rates in the first year alone. These efforts have significantly reduced carbon footprints and contributed to a greener, more sustainable future for all.</p>
-                </section>
-            </body>
-            </html>
-                    </div>
-    </div>
-
-    <!-- Footer Section -->
-    <footer>
-        <p>&copy; 2024 Smart Waste Management. All rights reserved.</p>
-    </footer>
-
-    <script>
-        // Function to open the modal and show content dynamically
-        
-    // Function to open the modal and show content dynamically
-    function openModal() {
-        let modal = document.getElementById("myModal");
-        let content = document.getElementById("modalContent");
-
-        // Setting the modal content to ask for email and password
-        content.innerHTML = `
-            <h2>Sign In</h2>
-            <form id="signInForm" onsubmit="submitForm(event)">
-                <div>
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" placeholder="Enter your email" required>
-                </div>
-                <div>
-                    <label for="password">Password:</label>
-                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
-                </div>
-                <button type="submit">Sign In</button>
+            <span class="close" id="closeModal">&times;</span>
+            <h2>Get Started</h2>
+            <form id="userForm">
+                <input type="text" id="name" placeholder="Full Name" required>
+                <select id="state" required>
+                    <option value="">Select State</option>
+                    <option value="Andhra Pradesh">Andhra Pradesh</option>
+                    <option value="Tamil Nadu">Tamil Nadu</option>
+                    <option value="Kerala">Kerala</option>
+                    <option value="Karnataka">Karnataka</option>
+                    <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                    <option value="Bihar">Bihar</option>
+                    <option value="Manipur">Manipur</option>
+                    <option value="Delhi">Delhi</option>
+                    <!-- Add more states here -->
+                </select>
+                <input type="tel" id="phone" placeholder="Phone Number" required>
+                <input type="email" id="email" placeholder="Email Address" required>
+                <button type="submit">Submit</button>
             </form>
-        `;
-
-        modal.style.display = "block";
-    }
-
-    function submitForm(event) {
-        event.preventDefault(); // Prevents the form from submitting normally
-
-        const email = document.getElementById("email").value;
-        const password = document.getElementById("password").value;
-
-        // Add your login validation logic here
-        console.log("Email:", email);
-        console.log("Password:", password);
-
-        // For now, we'll just close the modal after submitting
-        alert("Sign-in details submitted");
-        closeModal();
-    }
-
-    // Function to close the modal
-    function closeModal() {
-        let modal = document.getElementById("myModal");
-        modal.style.display = "none";
-    }
-
-
-
-        // Function to close the modal
-        function closeModal() {
-            let modal = document.getElementById("myModal");
-            modal.style.display = "none";
-        }
-
-        // Function to handle tab clicks and display content in modal
-        const tabs = document.querySelectorAll(".tab-link");
-
-        tabs.forEach(tab => {
-            tab.addEventListener("click", function(event) {
-                event.preventDefault();
-                let tabId = event.target.getAttribute("data-tab");
-
-                let content = document.getElementById(tabId).innerHTML;
-                document.getElementById("modalContent").innerHTML = content;
-
-                let modal = document.getElementById("myModal");
-                modal.style.display = "block";
-            });
+        </div>
+    </div>
+    <section class="stats" id="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <i class="fas fa-trash-restore"></i>
+                    <h3>2,679+</h3>
+                    <p>Tons Recycled</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-users"></i>
+                    <h3>15,864+</h3>
+                    <p>Community Members</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-tree"></i>
+                    <h3>26,894+</h3>
+                    <p>Trees Saved</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="events" id="events">
+        <div class="container">
+            <h2>Upcoming Events</h2>
+            <div class="event-grid">
+                <div class="event-card">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMgtUtk_p13QrFIZyGL986x4o39xJMUwY3bA&s" alt="Recycling Drive" class="event-image">
+                    <div class="event-content">
+                        <h3>Community Recycling Drive</h3>
+                        <div class="event-date">
+                            <i class="far fa-calendar"></i>
+                            <span>20th November 2024</span>
+                        </div>
+                        <p>Join us for a community-wide recycling drive and learn about proper waste segregation.</p>
+                        <a href="#" class="cta-button">Learn More</a>
+                    </div>
+                </div>
+                <div class="event-card">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUKfMqKnvWUPqJzCQLreQvJKndkIOMtLGSxw&s" alt="Workshop" class="event-image">
+                    <div class="event-content">
+                        <h3>Zero Waste Workshop</h3>
+                        <div class="event-date">
+                            <i class="far fa-calendar"></i>
+                            <span>25th November 2024</span>
+                        </div>
+                        <p>Learn practical tips and tricks for adopting a zero-waste lifestyle.</p>
+                        <a href="#" class="cta-button">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About Us</h3>
+                    <p>We are dedicated to promoting sustainable waste management practices and environmental conservation.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <p>Email: info@ecowaste.com</p>
+                    <p>Phone:+91 9502576593</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Follow Us</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2024 EcoWaste Management. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+  
+    <script>
+        // Get modal and buttons
+        const getStartedBtn = document.getElementById('getStartedBtn');
+        const modal = document.getElementById('getStartedModal');
+        const closeModal = document.getElementById('closeModal');
+    
+        // Open the modal when the "Get Started" button is clicked
+        getStartedBtn.onclick = () => {
+            modal.style.display = 'flex';
+        };
+    
+        // Close the modal when clicking on the close button
+        closeModal.onclick = () => {
+            modal.style.display = 'none';
+        };
+    
+        // Close the modal when clicking outside the modal content
+        window.onclick = (event) => {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        };
+    
+        // Handle form submission
+        document.getElementById('userForm').addEventListener('submit', async (event) => {
+            event.preventDefault();
+    
+            const name = document.getElementById('name').value;
+            const state = document.getElementById('state').value;
+            const phone = document.getElementById('phone').value;
+            const email = document.getElementById('email').value;
+    
+            // Check if all fields are filled out
+            if (!name || !state || !phone || !email) {
+                alert("All fields are required.");
+                return;
+            }
+    
+            // Prepare the data to send to the backend
+            const formData = {
+                name,
+                state,
+                phone,
+                email
+            };
+    
+            try {
+                // Send POST request to the backend to save form data
+                const response = await fetch('http://localhost:3000/api/save-form', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+    
+                const data = await response.json();
+    
+                // Check for success
+                if (response.ok) {
+                    alert("Form submitted successfully!");
+                } else {
+                    alert(`Error: ${data.message}`);
+                }
+    
+                // Close the modal
+                modal.style.display = 'none';
+    
+            } catch (error) {
+                console.error('Error:', error);
+                alert('There was an error submitting the form.');
+            }
         });
     </script>
-
+    
 </body>
 </html>

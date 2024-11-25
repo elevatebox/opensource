@@ -2,7 +2,7 @@
 body {
     font-family: 'Roboto', sans-serif; /* Changed to Roboto */
     background-color: #efe7e7;
-    color: #333;
+    color: #961010;
     line-height: 2;
 }
 
@@ -78,11 +78,11 @@ body {
 
 /* General Card Styling */
 .event-card, .card {
-    background-color: #4db6ad;
+    background-color: #040404;
     padding: 1px;
     margin-bottom: 20px;
     border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px rgba(15, 14, 14, 0.1);
 }
 
 .card-container, .impact-cards, .event-card {

@@ -1,73 +1,62 @@
-// server.js
 const express = require('express');
-const bodyParser = require('body-parser');
+const cors = require('cors');
 const fs = require('fs');
 const path = require('path');
-const cors = require('cors');
 
+// Initialize Express app
 const app = express();
 const port = 3000;
 
-// Middleware
-app.use(cors()); // Enable CORS (Cross-Origin Resource Sharing)
-app.use(bodyParser.json()); // Parse incoming JSON requests
+// Enable CORS to allow the frontend to make requests to this server
+app.use(cors());
 
-const usersFilePath = path.join(__dirname, 'users.json');
+// Middleware to parse JSON request body
+app.use(express.json());
 
-// Function to read the users file
-const readUsersFromFile = () => {
-  try {
-    const data = fs.readFileSync(usersFilePath, 'utf-8');
-    return JSON.parse(data);
-  } catch (error) {
-    console.error("Error reading users file:", error);
-    return [];
-  }
-};
+// File path to store the data
+const dataFilePath = path.join(__dirname, 'data.json');
 
-// Function to write to the users file
-const writeUsersToFile = (users) => {
-  try {
-    fs.writeFileSync(usersFilePath, JSON.stringify(users, null, 2));
-  } catch (error) {
-    console.error("Error writing to users file:", error);
-  }
-};
+// API Endpoint to save form data
+app.post('/api/save-form', (req, res) => {
+    const { name, state, phone, email } = req.body;
 
-// Endpoint for user sign-in (basic authentication)
-app.post('/signin', (req, res) => {
-  const { email, password } = req.body;
+    // Validate the incoming data
+    if (!name || !state || !phone || !email) {
+        return res.status(400).json({ message: "All fields are required." });
+    }
 
-  // Read users from the JSON file
-  const users = readUsersFromFile();
+    // Create a new entry
+    const newEntry = {
+        name,
+        state,
+        phone,
+        email,
+        dateSubmitted: new Date().toISOString()
+    };
 
-  // Find the user with the matching email and password
-  const user = users.find(u => u.email === email && u.password === password);
+    // Read the existing data from the JSON file
+    fs.readFile(dataFilePath, 'utf-8', (err, data) => {
+        let jsonData = [];
 
-  if (user) {
-    res.status(200).json({ message: 'Sign-in successful', user: user });
-  } else {
-    res.status(401).json({ message: 'Invalid email or password' });
-  }
-});
+        // If the file exists and has content, parse it into a JavaScript object
+        if (!err && data) {
+            jsonData = JSON.parse(data);
+        }
 
-// Endpoint to serve tab content
-const content = {
-  events: "These are the upcoming events related to waste management and recycling.",
-  community: "Community engagement activities include clean-ups, workshops, and more!",
-  impact: "We have made significant achievements in recycling efforts and waste reduction.",
-};
+        // Add the new entry to the data array
+        jsonData.push(newEntry);
 
-app.get('/content/:tab', (req, res) => {
-  const tab = req.params.tab;
-  if (content[tab]) {
-    res.json({ content: content[tab] });
-  } else {
-    res.status(404).json({ message: 'Content not found' });
-  }
+        // Write the updated data back to the JSON file
+        fs.writeFile(dataFilePath, JSON.stringify(jsonData, null, 2), (err) => {
+            if (err) {
+                return res.status(500).json({ message: "Error saving data." });
+            }
+            res.status(200).json({ message: "Data saved successfully." });
+        });
+    });
 });
 
 // Start the server
 app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
+    console.log(`Server is running on http://localhost:${port}`);
 });
