@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Notes & Bookmarks</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Notes & Bookmarks</h1>
+      <div class="tabs">
+        <button id="notes-tab" class="tab active">Notes</button>
+        <button id="bookmarks-tab" class="tab">Bookmarks</button>
+      </div>
+    </header>
+
+    <section id="notes-section" class="section">
+      <h2>Add a Note</h2>
+      <textarea id="new-note" placeholder="Write your note here..."></textarea>
+      <button id="save-note" class="btn">Save Note</button>
+      <h2>Your Notes</h2>
+      <ul id="notes-list"></ul>
+    </section>
+
+    <section id="bookmarks-section" class="section hidden">
+      <h2>Add a Bookmark</h2>
+      <input type="text" id="bookmark-title" placeholder="Bookmark Title" />
+      <input type="url" id="bookmark-url" placeholder="Bookmark URL" />
+      <button id="save-bookmark" class="btn">Save Bookmark</button>
+      <h2>Your Bookmarks</h2>
+      <ul id="bookmarks-list"></ul>
+    </section>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>
