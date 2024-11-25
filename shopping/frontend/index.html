@@ -8,13 +8,69 @@
 </head>
 <body>
 
-    <!-- Header Section -->
-    <header>
-        <h1><strong>Smart Grocery</strong></h1>
-        <div class="profile-icon" onclick="showProfile()">
-            <img src="profile-icon.png" alt="Profile" class="profile-image">
-        </div>
-    </header>
+   <!-- Header Section -->
+<header>
+    <h1><strong>Smart Grocery</strong></h1>
+    
+    <!-- Profile Icon (Clickable) -->
+    <div class="profile-icon" onclick="toggleProfile()">
+        <img src="data:image/jpeg;base64,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" alt="Profile" class="profile-image">
+    </div>
+
+    <!-- Profile Dropdown Menu (Hidden by default) -->
+    <div id="profile-dropdown" class="profile-dropdown">
+        <p><strong>Name:</strong> John Doe</p>
+        <p><strong>Phone:</strong> 123-456-7890</p>
+        <p><strong>Location:</strong> 123 Main St, City, Country</p>
+        <p><strong>Email:</strong> john.doe@email.com</p>
+    </div>
+</header>
+
+<!-- JavaScript to toggle dropdown visibility -->
+<script>
+    // Function to toggle the profile dropdown visibility
+    function toggleProfile() {
+        const dropdown = document.getElementById('profile-dropdown');
+        // Toggle the display of the profile dropdown
+        dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+    }
+</script>
+
+<!-- Optional CSS for Profile Dropdown -->
+<style>
+    /* Profile Dropdown Styles */
+    .profile-dropdown {
+        display: none; /* Hidden by default */
+        position: absolute;
+        top: 50px; /* Adjust position to fit below the profile icon */
+        right: 20px;
+        background-color: rgb(19, 2, 2);
+        border: 1px solid #020000;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        width: 200px;
+        padding: 10px;
+        z-index: 1000;
+    }
+
+    .profile-dropdown p {
+        margin: 5px 0;
+        font-size: 14px;
+    }
+
+    /* Profile Icon */
+    .profile-icon {
+        position: relative;
+        cursor: pointer;
+    }
+
+    /* Profile Icon Image Styling */
+    .profile-icon img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+    }
+</style>
+
 
     <!-- Search Bar -->
     <section class="search-section">
@@ -23,46 +79,46 @@
 
     <!-- Categories Section -->
     <section class="categories-section">
-        <div class="category">
+        <a href="category.html?category=Fruits-and-Vegetables" class="category">
             <img src="https://media.istockphoto.com/id/1675960430/photo/colorful-raw-fruits-and-vegetables-varied-vegan-food-vivid-rainbow-arrangement.jpg?s=1024x1024&w=is&k=20&c=0W5WUvVWxrrnXtv77qllZaDE0sUQEImDXJ6IYCaW44A=" alt="Fruits and Vegetables">
             <p>Fruits and Vegetables</p>
-        </div>
-        <div class="category">
+        </a>
+        <a href="category.html?category=Dairy-Products" class="category">
             <img src="https://media.istockphoto.com/id/849692854/photo/dairy-products-and-eggs.jpg?s=1024x1024&w=is&k=20&c=h_kAP6gclh_wVr9D94UxlItnaW_GpGgkOps2wNA_feg=" alt="Dairy Products">
             <p>Dairy Products</p>
-        </div>
-        <div class="category">
+        </a>
+        <a href="category.html?category=Beverages" class="category">
             <img src="https://nawon.com.vn/wp-content/uploads/2024/01/soft-drinks.jpg" alt="Beverages">
             <p>Beverages</p>
-        </div>
-        <div class="category">
+        </a>
+        <a href="category.html?category=Snacks" class="category">
             <img src="https://i.guim.co.uk/img/media/82616be3378303feb3e048727f753b10e4bb8497/0_0_3500_2333/master/3500.jpg?width=445&dpr=1&s=none&crop=none" alt="Snacks">
             <p>Snacks</p>
-        </div>
-        <div class="category">
+        </a>
+        <a href="category.html?category=Spices" class="category">
             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWMKjLnHoskVswoialcgGZsTV2MlouYJ8o7Q&s" alt="Spices">
             <p>Spices</p>
-        </div>
-        <div class="category">
+        </a>
+        <a href="category.html?category=Sweets" class="category">
             <img src="https://static.toiimg.com/thumb/imgsize-50228,msid-87304656/87304656.jpg?width=500&resizemode=4" alt="Sweets">
             <p>Sweets</p>
-        </div>
-        <div class="category">
+        </a>
+        <a href="category.html?category=Hair-and-Care" class="category">
             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGU_ZBqmnUtLDOlgRN0DNRZ3gIowxGNbjV6g&s" alt="Hair and Care">
             <p>Hair and Care</p>
-        </div>
-        <div class="category">
+        </a>
+        <a href="category.html?category=Bath-and-Body" class="category">
             <img src="https://i.ytimg.com/vi/zkIvUfpRIrw/maxresdefault.jpg" alt="Bath and Body">
             <p>Bath and Body</p>
-        </div>
-        <div class="category">
+        </a>
+        <a href="category.html?category=Skincare" class="category">
             <img src="https://c8.alamy.com/comp/EEKJTX/body-creams-and-lotions-in-a-uk-supermarket-EEKJTX.jpg" alt="Skincare">
             <p>Skincare</p>
-        </div>
-        <div class="category">
+        </a>
+        <a href="category.html?category=Pharma-and-Wellness" class="category">
             <img src="https://crigroup.com/wp-content/uploads/2021/04/Pharma-Healthcare-industry_1024x547.jpg" alt="Pharma and Wellness">
             <p>Pharma and Wellness</p>
-        </div>
+        </a>
     </section>
 
     <!-- Cart Icon -->
@@ -95,5 +151,42 @@
     </div>
 
     <script src="scripts.js"></script>
+</body>
+</html>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Category Page</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <h1><strong>Smart Grocery</strong></h1>
+    </header>
+
+    <!-- Category Page Section -->
+    <section class="category-page">
+        <h2 id="category-heading"></h2>
+        <!-- You can add more category-specific content here -->
+    </section>
+
+    <script>
+        // Extract category name from the URL query string
+        const urlParams = new URLSearchParams(window.location.search);
+        const category = urlParams.get('category');
+
+        // Set the category name as the heading of the page
+        if (category) {
+            document.getElementById('category-heading').innerText = category.replace(/-/g, ' ');
+        } else {
+            document.getElementById('category-heading').innerText = 'Category Not Found';
+        }
+    </script>
 </body>
 </html>

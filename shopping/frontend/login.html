@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Smart Grocery App</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Reset margin and padding */
+    body, h1, input, button, a {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    /* Full height of the page */
+    html, body {
+      height: 100%;
+      background-color: #f4f4f4;
+    }
+
+    /* Container for the login form */
+    .login-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      padding: 20px;
+    }
+
+    /* Form styling */
+    .login-form {
+      background-color: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    /* Form title */
+    h1 {
+      color: #2c3e50;
+      margin-bottom: 20px;
+    }
+
+    /* Input field styles */
+    .login-form input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      box-sizing: border-box;
+      font-size: 16px;
+    }
+
+    .login-form input[type="submit"], .login-form button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    .login-form input[type="submit"]:hover, .login-form button:hover {
+      background-color: #45a049;
+    }
+
+    .forgot-password {
+      font-size: 14px;
+      text-decoration: none;
+      color: #3498db;
+      display: inline-block;
+      margin-top: 5px;
+    }
+
+    .forgot-password:hover {
+      text-decoration: underline;
+    }
+
+    /* Sign in and Skip buttons at the bottom */
+    .alternative-actions {
+      margin-top: 20px;
+    }
+
+    .alternative-actions a {
+      color: #3498db;
+      text-decoration: none;
+      margin-top: 10px;
+      display: block;
+    }
+
+    .alternative-actions a:hover {
+      text-decoration: underline;
+    }
+
+    .skip-btn {
+      background-color: #e74c3c;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 5px;
+      font-size: 16px;
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    .skip-btn:hover {
+      background-color: #c0392b;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-container">
+    <div class="login-form">
+      <h1>Smart Grocery App</h1>
+      
+      <!-- Login form -->
+      <form action="home.html" method="POST">
+        <!-- Username field -->
+        <input type="text" name="username" placeholder="Username" required>
+
+        <!-- Password field -->
+        <input type="password" name="password" placeholder="Password" required>
+
+        <!-- Gmail/Phone number field -->
+        <input type="text" name="email_or_phone" placeholder="Gmail/Phone number" required>
+
+        <!-- Submit button -->
+        <input type="submit" value="Login" onclick="window.location.href='home.html'">
+
+        <!-- Forgot Password link -->
+        <a href="#" class="forgot-password">Forgot Password?</a>
+
+        <!-- Alternative actions -->
+        <div class="alternative-actions">
+          <a href="signup.html">New to Smart Grocery? Sign up</a>
+        </div>
+
+        <!-- Skip button to go to home page directly -->
+        <button type="button" class="skip-btn" onclick="window.location.href='home.html'">Skip and Go to Home</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // JavaScript to handle redirect logic for submit or skip button
+    document.querySelector("form").addEventListener("submit", function(e) {
+      e.preventDefault();
+      window.location.href = 'home.html'; // Redirect to home page on submit
+    });
+  </script>
+</body>
+</html>

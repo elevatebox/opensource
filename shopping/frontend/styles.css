@@ -117,3 +117,80 @@ h1 {
     text-decoration: none;
     cursor: pointer;
 }
+/* General styling */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+  }
+  
+  .product-page {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  h1 {
+    font-size: 32px;
+    margin-bottom: 20px;
+  }
+  
+  .product {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    margin: 0 auto;
+  }
+  
+  .product img {
+    width: 100%;
+    max-width: 250px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+  
+  .product h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .product p {
+    font-size: 16px;
+    margin: 5px 0;
+  }
+  
+  button {
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+  
+  /* Cart icon at the bottom */
+  footer {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+  }
+  
+  .cart-icon {
+    font-size: 30px;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  
+  .cart-icon:hover {
+    background-color: #45a049;
+  }
+  
