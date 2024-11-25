@@ -1,11 +1,11 @@
 const products = [
-    { name: "Apple", price: "32/-", image: "apple.jpeg" },
-    { name: "Banana", price: "50/-", image: "bananas.jpg" },
-    { name: "Dragon Fruit", price: "40/-", image: "dragonfruit.avif" },
-    { name: "Kiwi", price: "45/-", image: "kiwi.jpeg" },
-    { name: "Grapes", price: "60/-", image: "grapes.jpeg" },
-    { name: "Black Grapes", price: "42/-", image: "blackgrapes.jpg" },
-    { name: "Guava", price: "15/-", image: "guava.jpg" },
+    { name: "Garden Rake", price: "299/-", image: "gardenrake.webp" },
+    { name: "Garden Gloves", price: "150/-", image: "gloves.webp" },
+    { name: "Hand Pruner Cutter", price: "345/-", image: "handprunercutter.webp" },
+    { name: "Metal Stand for Plants", price: "1400/-", image: "metalstand.webp" },
+    { name: "Pressure Pump", price: "199/-", image: "pump.webp" },
+    { name: "Trowel", price: "299/-", image: "trowel.webp" },
+    { name: "Garden Hose", price: "399/-", image: "hose.webp" },
   ];
   
   const productList = document.querySelector(".product-list");

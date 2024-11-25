@@ -3,50 +3,62 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Amazon Clone</title>
+  <title>Farmscape Store</title>
   <link rel="stylesheet" href="style3.css">
 </head>
 <body>
-
   <!-- Header -->
   <header>
-    <div class="logo">
-      <img src="farmscape_logo.webp" alt="Amazon Logo">
+    <div class="header-container">
+      <img src="farmscape_logo.webp" alt="FarmScape Logo">
+      <div class="search-bar">
+        <input type="text" placeholder="Search for products">
+        <button>Search</button>
+      </div>
+      <div class="nav-links">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="resources.html">Resources</a></li>
+          <li><a href="store.html">Store</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="cart">
+        <span>Cart (0)</span>
+      </div>
     </div>
-    <div class="search-bar">
-      <input type="text" placeholder="Search for products">
-      <button>Search</button>
-    </div>
-    <div class="account-cart">
-      <div class="account">Hello, Sign in</div>
-      <div class="cart">Cart</div>
-    </div>
+    <!-- Category Navigation -->
+    <nav class="category-nav">
+      <ul>
+        <li><a href="vegetables.html">Vegetables</a></li>
+        <li><a href="fruits.html">Fruits</a></li>
+        <li><a href="organic.html">Organic Seeds</a></li>
+        <li><a href="equipment.html">Farming Equipment</a></li>
+      </ul>
+    </nav>
   </header>
 
-  <!-- Navigation Bar -->
-  <nav>
-    <ul>
-      <li><a href="store.html">Vegetables</li></a>
-      <li><a href="fruits.html">Fruits</li></a>
-      <li><a href="Organic.html">Organic Seeds</li>
-      <li><a href="farming.html">Farming Equipments</li></a>
+  <!-- Banner -->
+  <section class="banner">
+    <img src="banner.avif" alt="Farm Banner">
+    <div class="banner-text">
+      <h1>Welcome to Farmscape Store</h1>
+      <p>Discover fresh, organic, and sustainable products for your farm and kitchen.</p>
+    </div>
+  </section>
 
-    </ul>
-  </nav>
-
-  <!-- Main Content -->
+  <!-- Product Section -->
   <main>
-    <section class="banner">
-      <img class="banner1" src="banner.avif" alt="Banner">
-    </section>
-
     <section class="product-list">
-      <!-- Add product items dynamically using JavaScript -->
+      <!-- Products dynamically added by JavaScript -->
     </section>
   </main>
 
   <!-- Footer -->
-
+  <footer>
+    <p>&copy; 2024 Farmscape. All rights reserved.</p>
+  </footer>
 
   <script src="script2.js"></script>
 </body>

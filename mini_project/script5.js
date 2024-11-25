@@ -1,11 +1,11 @@
 const products = [
-    { name: "Apple", price: "32/-", image: "apple.jpeg" },
-    { name: "Banana", price: "50/-", image: "bananas.jpg" },
-    { name: "Dragon Fruit", price: "40/-", image: "dragonfruit.avif" },
-    { name: "Kiwi", price: "45/-", image: "kiwi.jpeg" },
-    { name: "Grapes", price: "60/-", image: "grapes.jpeg" },
-    { name: "Black Grapes", price: "42/-", image: "blackgrapes.jpg" },
-    { name: "Guava", price: "15/-", image: "guava.jpg" },
+    { name: "Organic Whole Wheat Atta", price: "110/-", image: "atta.webp" },
+    { name: "Organic Mustard Oil", price: "299/-", image: "coldpressed.webp" },
+    { name: "Organic Chana Dal ", price: "345/-", image: "chanadal.webp" },
+    { name: "Basmati Rice", price: "300 per kg/-", image: "basmatirice.webp" },
+    { name: "Organic Jaggery Powder", price: "199/-", image: "jaggery.webp" },
+    { name: "Organic Moong Dal", price: "300/-", image: "moongdal.webp" },
+    { name: "Organic Peanuts", price: "159/-", image: "peanuts.webp" },
   ];
   
   const productList = document.querySelector(".product-list");
