@@ -1,0 +1,55 @@
+{
+    "stores": {
+      "Store A": {
+        "yearlyProfit": 100000,
+        "monthlyProfit": 8000,
+        "todaysProfit": 300,
+        "dates": {
+          "2024-11-11": {
+            "sales": [500, 600, 700, 400],
+            "expenditure": [300, 250, 350, 200]
+          },
+          "2024-11-12": {
+            "sales": [520, 650, 710, 430],
+            "expenditure": [310, 260, 370, 220]
+          }
+        },
+        "monthlyProfits": {
+          "November": {
+            "grossProfit": 15000,
+            "totalProfit": 12000
+          },
+          "December": {
+            "grossProfit": 18000,
+            "totalProfit": 15000
+          }
+        }
+      },
+      "Store B": {
+        "yearlyProfit": 120000,
+        "monthlyProfit": 9500,
+        "todaysProfit": 500,
+        "dates": {
+          "2024-11-11": {
+            "sales": [450, 550, 680, 420],
+            "expenditure": [270, 230, 330, 190]
+          },
+          "2024-11-12": {
+            "sales": [530, 670, 750, 470],
+            "expenditure": [310, 260, 360, 210]
+          }
+        },
+        "monthlyProfits": {
+          "November": {
+            "grossProfit": 16000,
+            "totalProfit": 13000
+          },
+          "December": {
+            "grossProfit": 19000,
+            "totalProfit": 16000
+          }
+        }
+      }
+    }
+  }
+  
