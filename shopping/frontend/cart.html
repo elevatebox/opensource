@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cart - Smart Grocery</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 20px;
+      background-color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      margin-top: 50px;
+      border-radius: 8px;
+    }
+    h1 {
+      text-align: center;
+      color: #4CAF50;
+    }
+    .cart-items {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 20px;
+    }
+    .cart-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #ddd;
+      padding: 10px 0;
+    }
+    .cart-item img {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      margin-right: 15px;
+    }
+    .cart-item-details {
+      display: flex;
+      flex-direction: column;
+    }
+    .cart-item p {
+      margin: 0;
+      font-size: 16px;
+    }
+    .quantity-controls {
+      display: flex;
+      align-items: center;
+    }
+    .quantity-controls button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .quantity-controls input {
+      width: 40px;
+      text-align: center;
+      border: 1px solid #ddd;
+      margin: 0 10px;
+    }
+    .total-price {
+      font-size: 18px;
+      font-weight: bold;
+      margin-top: 20px;
+      text-align: right;
+    }
+    .proceed-button {
+      display: block;
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      text-align: center;
+      width: 100%;
+      margin-top: 30px;
+      font-size: 18px;
+      cursor: pointer;
+    }
+    .proceed-button:hover {
+      background-color: #45a049;
+    }
+    .back-button {
+      display: block;
+      background-color: #f44336;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      text-align: center;
+      width: 100%;
+      margin-top: 10px;
+      font-size: 18px;
+      cursor: pointer;
+    }
+    .back-button:hover {
+      background-color: #e53935;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Cart Heading -->
+    <h1>Cart</h1>
+
+    <!-- Cart Items -->
+    <div class="cart-items">
+      <!-- Example cart items (these would be dynamically generated in a real app) -->
+      <div class="cart-item">
+        <img src="milk.png" alt="Heritage Toned Milk">
+        <div class="cart-item-details">
+          <p>Heritage Toned Milk</p>
+          <p><strong>₹30</strong></p>
+        </div>
+        <div class="quantity-controls">
+          <button onclick="updateQuantity('milk', -1)">-</button>
+          <input type="number" id="milkQuantity" value="1" min="1" readonly>
+          <button onclick="updateQuantity('milk', 1)">+</button>
+        </div>
+      </div>
+      
+      <div class="cart-item">
+        <img src="panner.png" alt="Panner">
+        <div class="cart-item-details">
+          <p>Panner</p>
+          <p><strong>₹100</strong></p>
+        </div>
+        <div class="quantity-controls">
+          <button onclick="updateQuantity('panner', -1)">-</button>
+          <input type="number" id="pannerQuantity" value="1" min="1" readonly>
+          <button onclick="updateQuantity('panner', 1)">+</button>
+        </div>
+      </div>
+      
+      <!-- Add more cart items as needed -->
+    </div>
+
+    <!-- Total Price -->
+    <div class="total-price">
+      <p>Total Price: ₹330</p>
+    </div>
+
+    <!-- Proceed Button -->
+    <button class="proceed-button" onclick="confirmOrder()">Proceed</button>
+    
+    <!-- Go Back to Home Button -->
+    <button class="back-button" onclick="window.location.href='home.html'">Go to Home</button>
+  </div>
+
+  <script>
+    // Function to handle quantity update
+    function updateQuantity(item, change) {
+      const quantityInput = document.getElementById(item + 'Quantity');
+      let currentQuantity = parseInt(quantityInput.value);
+      currentQuantity += change;
+
+      // Ensure quantity doesn't go below 1
+      if (currentQuantity < 1) {
+        currentQuantity = 1;
+      }
+
+      quantityInput.value = currentQuantity;
+
+      // Update price dynamically if needed (for simplicity, assuming constant prices here)
+      const price = item === 'milk' ? 30 : (item === 'panner' ? 100 : 0);
+      const newTotal = calculateTotal();
+      document.querySelector('.total-price p').innerText = `Total Price: ₹${newTotal}`;
+    }
+
+    // Function to calculate the total price dynamically
+    function calculateTotal() {
+      const milkPrice = 30;
+      const pannerPrice = 100;
+      const milkQuantity = parseInt(document.getElementById('milkQuantity').value);
+      const pannerQuantity = parseInt(document.getElementById('pannerQuantity').value);
+      
+      const total = (milkPrice * milkQuantity) + (pannerPrice * pannerQuantity);
+      return total;
+    }
+
+    // Function to handle the "Proceed" button click
+    function confirmOrder() {
+      // Show a popup notification
+      alert("Order Confirmed");
+
+      // Redirect to the home page after the confirmation
+      window.location.href = "home.html";
+    }
+  </script>
+
+</body>
+</html>

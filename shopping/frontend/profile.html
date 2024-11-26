@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Profile - Smart Grocery</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+      padding: 20px;
+      background-color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      margin-top: 50px;
+      border-radius: 8px;
+    }
+    .profile-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .profile-header h1 {
+      font-size: 30px;
+      color: #4CAF50;
+    }
+    .profile-details {
+      margin-bottom: 20px;
+    }
+    .profile-details label {
+      font-weight: bold;
+      display: block;
+      margin-top: 10px;
+    }
+    .profile-details p {
+      font-size: 16px;
+      margin: 5px 0;
+    }
+    .profile-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 30px;
+    }
+    .profile-buttons a, .help-button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      text-decoration: none;
+      font-size: 16px;
+      text-align: center;
+    }
+    .help-button {
+      background-color: #3498db;
+    }
+    .orders-button {
+      background-color: #ff9800;
+    }
+    .footer {
+      margin-top: 50px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- Profile Header -->
+    <div class="profile-header">
+      <h1>Smart Grocery - User Profile</h1>
+    </div>
+
+    <!-- Profile Details (If user is signed in) -->
+    <div class="profile-details">
+      <label for="name">Name:</label>
+      <p id="name">Luna</p>
+
+      <label for="phone">Phone Number:</label>
+      <p id="phone">987456431</p>
+
+      <label for="location">Location:</label>
+      <p id="location">VNR Hostel, Bachupally, Hyderabad</p>
+
+      <label for="email">Email Address:</label>
+      <p id="email">luna@gmail.com</p>
+    </div>
+
+    <!-- Help Button -->
+    <div class="help-button">
+      <a href="tel:180093456">For Help, Contact our Toll-Free Number: 180093456</a>
+    </div>
+
+    <!-- Orders Button (Redirect to Orders page if clicked) -->
+    <div class="profile-buttons">
+      <a href="orders.html" class="orders-button">View Orders</a>
+    </div>
+
+    <!-- Sign In Option if user is not signed in -->
+    <!-- If user is not signed in, show this block instead of profile details -->
+    <!-- Uncomment below section when user is not signed in -->
+    <!-- 
+    <div class="profile-details">
+      <p>Please <a href="login.html">Sign In</a> to view your profile details.</p>
+    </div>
+    -->
+  </div>
+
+  <div class="footer">
+    <a href="home.html">Go Back to Home</a>
+  </div>
+
+</body>
+</html>
