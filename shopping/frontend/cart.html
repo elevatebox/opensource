@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cart - Smart Grocery</title>
+  <title>Shopping Cart - Smart Grocery</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -24,57 +24,32 @@
       text-align: center;
       color: #4CAF50;
     }
-    .cart-items {
-      display: flex;
-      flex-direction: column;
+    .cart-details {
       margin-bottom: 20px;
     }
     .cart-item {
       display: flex;
-      align-items: center;
       justify-content: space-between;
       border-bottom: 1px solid #ddd;
       padding: 10px 0;
-    }
-    .cart-item img {
-      width: 60px;
-      height: 60px;
-      object-fit: cover;
-      margin-right: 15px;
-    }
-    .cart-item-details {
-      display: flex;
-      flex-direction: column;
+      align-items: center;
     }
     .cart-item p {
       margin: 0;
       font-size: 16px;
     }
-    .quantity-controls {
+    .cart-item .item-details {
       display: flex;
-      align-items: center;
+      flex-direction: column;
+      justify-content: center;
     }
-    .quantity-controls button {
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      padding: 5px 10px;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    .quantity-controls input {
-      width: 40px;
-      text-align: center;
-      border: 1px solid #ddd;
-      margin: 0 10px;
-    }
-    .total-price {
+    .cart-summary {
       font-size: 18px;
       font-weight: bold;
       margin-top: 20px;
       text-align: right;
     }
-    .proceed-button {
+    .checkout-button, .back-to-home-button {
       display: block;
       background-color: #4CAF50;
       color: white;
@@ -85,23 +60,31 @@
       margin-top: 30px;
       font-size: 18px;
       cursor: pointer;
+      margin-bottom: 20px;
     }
-    .proceed-button:hover {
+    .checkout-button:hover, .back-to-home-button:hover {
       background-color: #45a049;
     }
-    .back-button {
-      display: block;
-      background-color: #f44336;
-      color: white;
-      padding: 10px 20px;
-      border-radius: 5px;
-      text-align: center;
-      width: 100%;
-      margin-top: 10px;
-      font-size: 18px;
+    .quantity-controls button {
+      font-size: 16px;
+      padding: 5px;
+      background-color: #f4f4f4;
+      border: 1px solid #ddd;
+      border-radius: 4px;
       cursor: pointer;
     }
-    .back-button:hover {
+    .quantity-controls button:hover {
+      background-color: #ddd;
+    }
+    .remove-button {
+      background-color: #f44336;
+      color: rgb(37, 233, 112);
+      border: none;
+      padding: 5px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .remove-button:hover {
       background-color: #e53935;
     }
   </style>
@@ -109,92 +92,129 @@
 <body>
 
   <div class="container">
-    <!-- Cart Heading -->
-    <h1>Cart</h1>
+    <h1>Shopping Cart</h1>
 
-    <!-- Cart Items -->
-    <div class="cart-items">
-      <!-- Example cart items (these would be dynamically generated in a real app) -->
-      <div class="cart-item">
-        <img src="milk.png" alt="Heritage Toned Milk">
-        <div class="cart-item-details">
-          <p>Heritage Toned Milk</p>
-          <p><strong>₹30</strong></p>
-        </div>
-        <div class="quantity-controls">
-          <button onclick="updateQuantity('milk', -1)">-</button>
-          <input type="number" id="milkQuantity" value="1" min="1" readonly>
-          <button onclick="updateQuantity('milk', 1)">+</button>
-        </div>
-      </div>
-      
-      <div class="cart-item">
-        <img src="panner.png" alt="Panner">
-        <div class="cart-item-details">
-          <p>Panner</p>
-          <p><strong>₹100</strong></p>
-        </div>
-        <div class="quantity-controls">
-          <button onclick="updateQuantity('panner', -1)">-</button>
-          <input type="number" id="pannerQuantity" value="1" min="1" readonly>
-          <button onclick="updateQuantity('panner', 1)">+</button>
-        </div>
-      </div>
-      
-      <!-- Add more cart items as needed -->
+    <div class="cart-details" id="cart-details">
+      <!-- Cart items will be dynamically added here -->
     </div>
 
-    <!-- Total Price -->
-    <div class="total-price">
-      <p>Total Price: ₹330</p>
+    <div class="cart-summary" id="cart-summary">
+      <p>Total Price: ₹0</p>
     </div>
 
-    <!-- Proceed Button -->
-    <button class="proceed-button" onclick="confirmOrder()">Proceed</button>
-    
-    <!-- Go Back to Home Button -->
-    <button class="back-button" onclick="window.location.href='home.html'">Go to Home</button>
+    <div class="address-info">
+      <p><strong>Delivery Address:</strong>VNR Hostel, Bachupally, Hyderabad</p>
+      <p><em>You can change the address in the profile.</em></p>
+    </div>
+
+    <div class="payment-options">
+      <h2>Payment Options</h2>
+      <div>
+        <input type="radio" id="credit-debit" name="payment-method" value="Credit/Debit Card" onclick="toggleCheckoutButton(false)">
+        <label for="credit-debit">Credit/Debit Card</label>
+      </div>
+      <div>
+        <input type="radio" id="upi" name="payment-method" value="UPI" onclick="toggleCheckoutButton(false)">
+        <label for="upi">UPI</label>
+      </div>
+      <div>
+        <input type="radio" id="net-banking" name="payment-method" value="Net Banking" onclick="toggleCheckoutButton(false)">
+        <label for="net-banking">Net Banking</label>
+      </div>
+      <div>
+        <input type="radio" id="cash-on-delivery" name="payment-method" value="Cash on Delivery" onclick="toggleCheckoutButton(true)">
+        <label for="cash-on-delivery">Cash on Delivery</label>
+      </div>
+    </div>
+
+    <button class="back-to-home-button" onclick="goBackHome()">Go Back to Home</button>
+    <button class="checkout-button" id="checkout-button" disabled>Proceed to Checkout</button>
   </div>
 
   <script>
-    // Function to handle quantity update
-    function updateQuantity(item, change) {
-      const quantityInput = document.getElementById(item + 'Quantity');
-      let currentQuantity = parseInt(quantityInput.value);
-      currentQuantity += change;
+    // Sample data for initial setup (remove if not needed)
+    if (!localStorage.getItem('cart')) {
+      localStorage.setItem('cart', JSON.stringify([
+        { name: 'Apple', quantity: 2, price: 30 },
+        { name: 'Milk', quantity: 1, price: 50 }
+      ]));
+    }
 
-      // Ensure quantity doesn't go below 1
-      if (currentQuantity < 1) {
-        currentQuantity = 1;
+    function updateCart() {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      let cartDetailsContainer = document.getElementById('cart-details');
+      let cartSummaryContainer = document.getElementById('cart-summary');
+      let totalPrice = 0;
+
+      // Clear the current cart details
+      cartDetailsContainer.innerHTML = '';
+
+      // Loop through the cart and add each item to the cart
+      cart.forEach((item, index) => {
+        totalPrice += item.price * item.quantity;
+
+        let cartItem = document.createElement('div');
+        cartItem.className = 'cart-item';
+        cartItem.innerHTML = `
+          <div class="item-details">
+            <p><strong>${item.name}</strong></p>
+            <p>Price: ₹${item.price} each</p>
+            <p>Quantity: ${item.quantity}</p>
+          </div>
+          <div class="quantity-controls">
+            <button onclick="updateQuantity(${index}, 'decrease')">-</button>
+            <button onclick="updateQuantity(${index}, 'increase')">+</button>
+            <button class="remove-button" onclick="removeItem(${index})">Remove</button>
+          </div>
+        `;
+        cartDetailsContainer.appendChild(cartItem);
+      });
+
+      // Update the total price
+      cartSummaryContainer.innerHTML = `
+        <p>Total Price: ₹${totalPrice}</p>
+      `;
+    }
+
+    function updateQuantity(index, action) {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      if (action === 'increase') {
+        cart[index].quantity += 1;
+      } else if (action === 'decrease' && cart[index].quantity > 1) {
+        cart[index].quantity -= 1;
       }
-
-      quantityInput.value = currentQuantity;
-
-      // Update price dynamically if needed (for simplicity, assuming constant prices here)
-      const price = item === 'milk' ? 30 : (item === 'panner' ? 100 : 0);
-      const newTotal = calculateTotal();
-      document.querySelector('.total-price p').innerText = `Total Price: ₹${newTotal}`;
+      localStorage.setItem('cart', JSON.stringify(cart));
+      updateCart();
     }
 
-    // Function to calculate the total price dynamically
-    function calculateTotal() {
-      const milkPrice = 30;
-      const pannerPrice = 100;
-      const milkQuantity = parseInt(document.getElementById('milkQuantity').value);
-      const pannerQuantity = parseInt(document.getElementById('pannerQuantity').value);
-      
-      const total = (milkPrice * milkQuantity) + (pannerPrice * pannerQuantity);
-      return total;
+    function removeItem(index) {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      cart.splice(index, 1); // Remove item from cart
+      localStorage.setItem('cart', JSON.stringify(cart));
+      updateCart();
     }
 
-    // Function to handle the "Proceed" button click
-    function confirmOrder() {
-      // Show a popup notification
-      alert("Order Confirmed");
-
-      // Redirect to the home page after the confirmation
-      window.location.href = "home.html";
+    function goBackHome() {
+      window.location.href = "index.html"; // Assuming your home page is "index.html"
     }
+
+    function toggleCheckoutButton(enable) {
+      const checkoutButton = document.getElementById('checkout-button');
+      checkoutButton.disabled = !enable;
+    }
+
+    // Add event listener to the checkout button
+    document.getElementById('checkout-button').addEventListener('click', function() {
+      const isCashOnDeliverySelected = document.getElementById('cash-on-delivery').checked;
+      if (isCashOnDeliverySelected) {
+        window.location.href = "proceed.html"; // Redirects to the order summary page
+      } else {
+        alert("Please select Cash on Delivery to proceed.");
+      }
+    });
+
+    // Initialize the cart on page load
+    window.onload = updateCart;
   </script>
 
 </body>

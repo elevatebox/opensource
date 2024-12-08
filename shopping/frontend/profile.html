@@ -23,10 +23,24 @@
     .profile-header {
       text-align: center;
       margin-bottom: 30px;
+      position: relative;
     }
     .profile-header h1 {
       font-size: 30px;
       color: #4CAF50;
+    }
+    .back-button {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background-color: #f39c12;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      text-decoration: none;
+      font-size: 14px;
     }
     .profile-details {
       margin-bottom: 20px;
@@ -36,9 +50,16 @@
       display: block;
       margin-top: 10px;
     }
-    .profile-details p {
+    .profile-details p, .profile-details input {
       font-size: 16px;
       margin: 5px 0;
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+    .profile-details input {
+      margin-top: 10px;
     }
     .profile-buttons {
       display: flex;
@@ -58,24 +79,32 @@
       background-color: #3498db;
     }
     .orders-button {
-      background-color: #ff9800;
+      background-color: #87ec4c;
     }
     .footer {
       margin-top: 50px;
       text-align: center;
+    }
+    .edit-button {
+      background-color: #3498db;
+    }
+    .go-home-button {
+      background-color: #2cf3127c;
     }
   </style>
 </head>
 <body>
 
   <div class="container">
+    <!-- Back Button -->
+    <a href="index.html" class="back-button">Go Back to Home</a>
 
     <!-- Profile Header -->
     <div class="profile-header">
       <h1>Smart Grocery - User Profile</h1>
     </div>
 
-    <!-- Profile Details (If user is signed in) -->
+    <!-- Profile Details -->
     <div class="profile-details">
       <label for="name">Name:</label>
       <p id="name">Luna</p>
@@ -90,29 +119,77 @@
       <p id="email">luna@gmail.com</p>
     </div>
 
+    <!-- Edit Profile Button -->
+    <div class="profile-buttons">
+      <button class="edit-button" onclick="editProfile()">Edit Profile</button>
+    </div>
+
     <!-- Help Button -->
     <div class="help-button">
       <a href="tel:180093456">For Help, Contact our Toll-Free Number: 180093456</a>
     </div>
 
-    <!-- Orders Button (Redirect to Orders page if clicked) -->
+    <!-- Orders Button -->
     <div class="profile-buttons">
-      <a href="orders.html" class="orders-button">View Orders</a>
+      <a href="orderhistory.html" class="orders-button">View Orders</a>
     </div>
-
-    <!-- Sign In Option if user is not signed in -->
-    <!-- If user is not signed in, show this block instead of profile details -->
-    <!-- Uncomment below section when user is not signed in -->
-    <!-- 
-    <div class="profile-details">
-      <p>Please <a href="login.html">Sign In</a> to view your profile details.</p>
-    </div>
-    -->
   </div>
 
-  <div class="footer">
-    <a href="home.html">Go Back to Home</a>
+  <!-- Edit Profile Form -->
+  <div class="container" id="edit-form" style="display: none;">
+    <h2>Edit Profile</h2>
+    <form id="profile-form">
+      <label for="edit-name">Name:</label>
+      <input type="text" id="edit-name" value="Luna">
+
+      <label for="edit-phone">Phone Number:</label>
+      <input type="text" id="edit-phone" value="987456431">
+
+      <label for="edit-location">Location:</label>
+      <input type="text" id="edit-location" value="VNR Hostel, Bachupally, Hyderabad">
+
+      <label for="edit-email">Email Address:</label>
+      <input type="email" id="edit-email" value="luna@gmail.com">
+
+      <div class="profile-buttons">
+        <button type="button" onclick="saveProfile()">Save Changes</button>
+        <button type="button" onclick="cancelEdit()">Cancel</button>
+      </div>
+    </form>
   </div>
+
+
+  <script>
+    function editProfile() {
+      document.querySelector('.profile-details').style.display = 'none';
+      document.querySelector('.profile-buttons').style.display = 'none';
+      document.getElementById('edit-form').style.display = 'block';
+    }
+
+    function saveProfile() {
+      const updatedName = document.getElementById('edit-name').value;
+      const updatedPhone = document.getElementById('edit-phone').value;
+      const updatedLocation = document.getElementById('edit-location').value;
+      const updatedEmail = document.getElementById('edit-email').value;
+
+      document.getElementById('name').innerText = updatedName;
+      document.getElementById('phone').innerText = updatedPhone;
+      document.getElementById('location').innerText = updatedLocation;
+      document.getElementById('email').innerText = updatedEmail;
+
+      document.getElementById('edit-form').style.display = 'none';
+      document.querySelector('.profile-details').style.display = 'block';
+      document.querySelector('.profile-buttons').style.display = 'block';
+
+      alert('Profile updated successfully!');
+    }
+
+    function cancelEdit() {
+      document.getElementById('edit-form').style.display = 'none';
+      document.querySelector('.profile-details').style.display = 'block';
+      document.querySelector('.profile-buttons').style.display = 'block';
+    }
+  </script>
 
 </body>
 </html>

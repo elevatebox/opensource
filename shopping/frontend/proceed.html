@@ -37,12 +37,6 @@
       margin: 0;
       font-size: 16px;
     }
-    .order-item img {
-      width: 60px;
-      height: 60px;
-      object-fit: cover;
-      margin-right: 15px;
-    }
     .order-summary {
       font-size: 18px;
       font-weight: bold;
@@ -67,21 +61,6 @@
     .proceed-button:hover {
       background-color: #45a049;
     }
-    .back-button {
-      display: block;
-      background-color: #f44336;
-      color: white;
-      padding: 10px 20px;
-      border-radius: 5px;
-      text-align: center;
-      width: 100%;
-      margin-top: 10px;
-      font-size: 18px;
-      cursor: pointer;
-    }
-    .back-button:hover {
-      background-color: #e53935;
-    }
   </style>
 </head>
 <body>
@@ -89,25 +68,12 @@
   <div class="container">
     <h1>Order Summary</h1>
 
-    <div class="order-details">
-      <div class="order-item">
-        <img src="milk.png" alt="Heritage Toned Milk">
-        <div>
-          <p>Heritage Toned Milk</p>
-          <p><strong>₹30</strong></p>
-        </div>
-      </div>
-      <div class="order-item">
-        <img src="panner.png" alt="Panner">
-        <div>
-          <p>Panner</p>
-          <p><strong>₹100</strong></p>
-        </div>
-      </div>
+    <div class="order-details" id="order-details">
+      <!-- Order items will be dynamically added here -->
     </div>
 
-    <div class="order-summary">
-      <p>Total Price: ₹330</p>
+    <div class="order-summary" id="order-summary">
+      <p>Total Price: ₹0</p>
       <p>Estimated Arrival Time: 30 minutes</p>
     </div>
 
@@ -116,9 +82,46 @@
       <p><strong>Phone:</strong> 180093456</p>
     </div>
 
-    <button class="proceed-button" onclick="window.location.href='home.html'">Go to Home</button>
-    <button class="back-button" onclick="window.location.href='cart.html'">Go Back to Cart</button>
+    <button class="proceed-button" onclick="window.location.href='index.html'">Proceed to Home</button>
   </div>
+
+  <script>
+    // Function to update the order summary page with cart items
+    function updateOrderSummary() {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      let orderDetailsContainer = document.getElementById('order-details');
+      let orderSummaryContainer = document.getElementById('order-summary');
+      let totalPrice = 0;
+
+      // Clear the current order details
+      orderDetailsContainer.innerHTML = '';
+
+      // Loop through the cart and add each item to the order summary
+      cart.forEach(item => {
+        totalPrice += item.price * item.quantity;
+
+        // Create and append order item details
+        let orderItem = document.createElement('div');
+        orderItem.className = 'order-item';
+        orderItem.innerHTML = `
+          <div>
+            <p>${item.name}</p>
+            <p><strong>₹${item.price}</strong> x ${item.quantity}</p>
+          </div>
+        `;
+        orderDetailsContainer.appendChild(orderItem);
+      });
+
+      // Update the total price
+      orderSummaryContainer.innerHTML = `
+        <p>Total Price: ₹${totalPrice}</p>
+        <p>Estimated Arrival Time: 30 minutes</p>
+      `;
+    }
+
+    // Call the function to update the order summary when the page loads
+    window.onload = updateOrderSummary;
+  </script>
 
 </body>
 </html>

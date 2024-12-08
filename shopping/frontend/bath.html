@@ -4,29 +4,22 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bath and Body - Smart Grocery</title>
-  <link rel="stylesheet" href="styles.css">           
   <style>
-    /* Basic reset */
-    body, h1, h2, p, button {
+    body {
+      font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
     }
-
-    /* Center content */
     .product-page {
       padding: 20px;
       text-align: center;
     }
-
-    /* Grid Layout for product display */
     .product-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
       gap: 20px;
       margin-top: 20px;
     }
-
-    /* Product Item Styling */
     .product {
       border: 1px solid #ddd;
       border-radius: 8px;
@@ -34,102 +27,120 @@
       text-align: center;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
-
     .product img {
       width: 100%;
       height: 200px;
       object-fit: cover;
       border-radius: 8px;
     }
-
     .product h2 {
       font-size: 18px;
       margin-top: 10px;
     }
-
     .product p {
       font-size: 14px;
       margin: 5px 0;
     }
-
     .product button {
       background-color: #4CAF50;
-      color: rgb(236, 229, 229);
+      color: white;
       border: none;
       padding: 10px;
       border-radius: 5px;
       cursor: pointer;
       margin-top: 10px;
     }
-
     .product button:hover {
       background-color: #45a049;
     }
-
-    /* Cart Icon */
-    footer {
+    .cart-icon {
       position: fixed;
       bottom: 20px;
       right: 20px;
-    }
-
-    .cart-icon {
       font-size: 30px;
       cursor: pointer;
     }
-
-    /* Back to Home button - positioned at the bottom left */
     .back-to-home {
-      text-decoration: none;
-      background-color: #2196F3;
-      color: white;
+      position: absolute;
+      top: 20px;
+      left: 20px;
       padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
       border-radius: 5px;
       font-size: 16px;
-      position: fixed;
-      bottom: 20px;
-      left: 20px;
       cursor: pointer;
-      z-index: 1000; /* Ensure it's always on top */
     }
-
     .back-to-home:hover {
-      background-color: #0b7dda;
+      background-color: #45a049;
     }
   </style>
 </head>
 <body>
-
   <div class="product-page">
     <h1>Bath and Body</h1>
-    
-    <!-- Product Grid -->
+
+    <!-- Go Back to Home Button -->
+    <button class="back-to-home" onclick="goBackHome()">Go Back to Home</button>
+
     <div class="product-grid">
-      <!-- Product 1: Body Wash -->
       <div class="product">
-        <img src="bodywash.png" alt="Body Wash">
-        <h2>Body Wash</h2>
-        <p><strong>₹180</strong></p>
+        <img src="https://m.media-amazon.com/images/I/61ECgsHsFtL.jpg" alt="Body Wash">
+        <h2>Body Wash - 250ml</h2>
+        <p><strong>₹200</strong></p>
         <p>Quantity: 250ml</p>
-        <button onclick="addToCart('Body Wash', '₹180')">Add to Cart</button>
+        <button onclick="addToCart('Body Wash - 250ml', 200)">Add to Cart</button>
       </div>
-
-      <!-- Product 2: Bath Scrub -->
       <div class="product">
-        <img src="bathscrub.png" alt="Bath Scrub">
-        <h2>Bath Scrub</h2>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxp__bS-WecSRO1UVWEp0ahNfsJCI7qAwNOQ&s" alt="Body Lotion">
+        <h2>Body Lotion - 300ml</h2>
+        <p><strong>₹150</strong></p>
+        <p>Quantity: 300ml</p>
+        <button onclick="addToCart('Body Lotion - 300ml', 150)">Add to Cart</button>
+      </div>
+      <div class="product">
+        <img src="https://www.mcaffeine.com/cdn/shop/files/Card-1_option1_1.jpg?v=1713269480" alt="Body Scrub">
+        <h2>Body Scrub - 200g</h2>
+        <p><strong>₹350</strong></p>
+        <p>Quantity: 200g</p>
+        <button onclick="addToCart('Body Scrub - 200g', 350)">Add to Cart</button>
+      </div>
+      <div class="product">
+        <img src="https://healthyhome.co.in/cdn/shop/products/1_3bde2d50-17de-42c4-95b8-82059a70a9bd_1024x1024.jpg?v=1627446914" alt="Hand Wash">
+        <h2>Hand Wash - 300ml</h2>
         <p><strong>₹120</strong></p>
-        <p>Quantity: 150g</p>
-        <button onclick="addToCart('Bath Scrub', '₹120')">Add to Cart</button>
-      </div>
-
-      <!-- Product 3: santoor soap -->
-      <div class="product">
-        <img src="Santoor.png" alt="Santoor Soap">
-        <h2>Santoor Soap</h2>
-        <p><strong>₹53</strong></p>
-        <p>Quantity: 150ml</p>
-        <button onclick="addToCart('Santoor', '₹53')">Add to Cart</button>
+        <p>Quantity: 300ml</p>
+        <button onclick="addToCart('Hand Wash - 300ml', 120)">Add to Cart</button>
       </div>
     </div>
-  </
+
+    <div class="cart-icon" onclick="goToCart()">🛒</div>
+  </div>
+
+  <script>
+    function addToCart(name, price) {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const index = cart.findIndex(item => item.name === name);
+
+      if (index !== -1) {
+        cart[index].quantity += 1;
+      } else {
+        cart.push({ name, price, quantity: 1 });
+      }
+
+      localStorage.setItem('cart', JSON.stringify(cart));
+      alert(`${name} has been added to the cart!`);
+    }
+
+    function goToCart() {
+      window.location.href = "cart.html";
+    }
+
+    // Function for going back to home page
+    function goBackHome() {
+      window.location.href = "index.html"; // Assuming your home page is "index.html"
+    }
+  </script>
+</body>
+</html>
