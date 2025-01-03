@@ -23,13 +23,23 @@ app.get("/students", (req, res) => {
   res.json(readData());
 });
 
+// app.post("/students", (req, res) => {
+//   const students = readData();
+//   const newStudent = { id: Date.now(), ...req.body };
+//   students.push(newStudent);
+//   writeData(students);
+//   res.status(201).json(newStudent);
+// });
+
+//Update the POST /students route to always include the attendance field with a default value of 1 (Present).
 app.post("/students", (req, res) => {
   const students = readData();
-  const newStudent = { id: Date.now(), ...req.body };
+  const newStudent = { id: Date.now(), ...req.body, attendance: req.body.attendance ?? 1 };
   students.push(newStudent);
   writeData(students);
   res.status(201).json(newStudent);
 });
+
 
 app.put("/students/:id", (req, res) => {
   const students = readData();
