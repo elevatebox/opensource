@@ -66,27 +66,34 @@
       renderStudents(students);
     }
 
-    function renderStudents(students) {
-      const tableBody = document.querySelector("#studentTable tbody");
-      tableBody.innerHTML = "";
-      students.forEach(student => {
-        const row = document.createElement("tr");
-        row.innerHTML = `
-          <td>${student.rollNumber}</td>
-          <td>${student.name}</td>
-          <td>
-            <select onchange="updateAttendance(${student.id}, this.value)">
-              <option value="1" ${student.attendance === 1 ? "selected" : ""}>Present</option>
-              <option value="0" ${student.attendance === 0 ? "selected" : ""}>Absent</option>
-            </select>
-          </td>
-          <td>
-            <button onclick="deleteStudent(${student.id})">Delete</button>
-          </td>
-        `;
-        tableBody.appendChild(row);
-      });
-    }
+  function renderStudents(students) {
+  const tableBody = document.querySelector("#studentTable tbody");
+  tableBody.innerHTML = "";
+
+  if (students.length === 0) {
+    tableBody.innerHTML = `<tr><td colspan="4">No students found</td></tr>`;
+    return;
+  }
+
+  students.forEach(student => {
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td>${student.rollNumber}</td>
+      <td>${student.name}</td>
+      <td>
+        <select onchange="updateAttendance(${student.id}, this.value)">
+          <option value="1" ${student.attendance === 1 ? "selected" : ""}>Present</option>
+          <option value="0" ${student.attendance === 0 ? "selected" : ""}>Absent</option>
+        </select>
+      </td>
+      <td>
+        <button onclick="deleteStudent(${student.id})">Delete</button>
+      </td>
+    `;
+    tableBody.appendChild(row);
+  });
+}
+
 
     async function addStudent(event) {
       event.preventDefault();
