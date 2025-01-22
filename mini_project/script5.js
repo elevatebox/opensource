@@ -22,7 +22,28 @@ const products = [
     `;
     productList.appendChild(productCard);
   });
-  
+  async function fetchProducts(category) {
+    const response = await fetch(`/products?category=${category}`);
+    const products = await response.json();
+    
+    const productList = document.getElementById('productList');
+    productList.innerHTML = ''; // Clear existing products
+
+    products.forEach(product => {
+        const productCard = document.createElement('div');
+        productCard.classList.add('product-card');
+        productCard.innerHTML = `
+            <img src="${product.image}" alt="${product.name}">
+            <h3>${product.name}</h3>
+            <p>${product.price}</p>
+            <button>Add to Cart</button>
+        `;
+        productList.appendChild(productCard);
+    });
+}
+
+// Fetch and display products for vegetables category
+fetchProducts('organic');
   // Cart functionality
   let cartCount = 0;
   document.addEventListener("click", (e) => {

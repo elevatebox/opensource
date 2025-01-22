@@ -43,6 +43,13 @@ body, html {
   nav a:hover {
     color: #00ff1e;
   }
+  .login-btn {
+    padding: 10px 20px;
+    background-color: #57A6A1;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
   
   /* Hero Section */
   .hero {

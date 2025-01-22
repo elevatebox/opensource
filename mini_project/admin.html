@@ -124,17 +124,13 @@
       <form id="productForm">
         <label for="productName">Product Name:</label>
         <input type="text" id="productName" name="productName" required>
-
+      
         <label for="productPrice">Price:</label>
         <input type="number" id="productPrice" name="productPrice" required>
-
-        
-        <form id="productForm" action="/add-product" method="POST" enctype="multipart/form-data">
-          <label for="productImage">Upload Image:</label>
-          <input type="file" id="productImage" name="productImage" accept="image/*" required>
-          <!-- Other form fields remain the same -->
-        </form>
-        
+      
+        <label for="productImage">Image URL:</label>
+        <input type="url" id="productImage" name="productImage" required>
+      
         <label for="productCategory">Category:</label>
         <select id="productCategory" name="productCategory" required>
           <option value="vegetables">Vegetables</option>
@@ -142,7 +138,7 @@
           <option value="organic">Organic Seeds</option>
           <option value="equipment">Farming Equipment</option>
         </select>
-
+      
         <button type="submit">Add Product</button>
       </form>
     </section>
