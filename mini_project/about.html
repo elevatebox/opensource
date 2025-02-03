@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FarmScape Header</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+       /* General Reset */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #fff;
+    height: 100%; /* Full height */
+    background: url("about-usimg.jpeg") no-repeat center center/cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Top Header */
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    background: rgb(25, 78, 2); /* Dark semi-transparent background */
+    position: relative;
+}
+
+.header-top .social-icons a {
+    margin: 0 15px;
+    color: #57A6A1;
+    font-size: 20px;
+    transition: color 0.3s;
+}
+
+.header-top .social-icons a:hover {
+    color: #fff;
+}
+
+/* Welcome Message */
+.welcome-message {
+    font-size: 20px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+/* Main Header */
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
+    background: rgb(0, 0, 0);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.main-header img {
+    height: 60px;
+}
+
+.main-header nav {
+    display: flex;
+    gap: 25px;
+}
+
+.main-header nav a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    transition: color 0.3s;
+}
+
+.main-header nav a:hover {
+    color: #00ff11;
+}
+.login-btn {
+    padding: 10px 20px;
+    background-color: #57A6A1;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+/* About Section */
+.about-section {
+    text-align: center;
+    padding: 50px 20px;
+    background: rgba(255, 255, 255, 0.345);
+    font-weight: bolder;
+    margin: 20px;
+    border-radius: 15px;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.about-section h2 {
+    margin-bottom: 25px;
+    font-size: 32px;
+    font-weight: bold;
+    color: #000000;
+    text-transform: uppercase;
+}
+
+.about-section p {
+    font-size: 18px;
+    line-height: 1.8;
+    color: #000000;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Footer */
+footer {
+    background: rgba(0, 0, 0, 0.9);
+    text-align: center;
+    padding: 15px 0;
+    color: #fff;
+    font-size: 14px;
+    letter-spacing: 1px;
+    margin-top: auto; /* Push footer to bottom */
+    width: 100%;
+}
+</style>
+</head>
+<body>
+    <!-- Top Header -->
+    
+
+    <!-- Main Header -->
+    <header class="main-header">
+        <img src="farmscape_logo.webp" alt="FarmScape Logo">
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="resources.html">Resources</a>
+            <a href="store.html">Store</a>
+            <a href="#">Contact Us</a>
+            <a href="login.html" class="login-btn">Login</a>
+        </nav>
+    </header>
+
+    <!-- About Section -->
+    <section class="about-section">
+        <h2>About Us</h2>
+        <p>
+            In cities around the world, concrete jungles are sprouting unexpected patches of greenery. Rooftops are being adorned with vegetable beds, balconies transformed into tomato trellises, and community gardens are popping up in the unlikeliest of spaces. It’s all part of an inspiring global trend known as urban farming, where city dwellers grow their own food, often within just a few steps of their front doors.
+        </p>
+        <p>
+            But what exactly is urban farming, and what are its advantages? Let’s dive into the exciting world of urban agriculture and explore how it’s redefining the way we think about food production, community, and sustainability.
+        </p>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2023 FarmScape. All rights reserved.</p>
+    </footer>
+</body>
+</html>
