@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Attendance App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: center;
+    }
+    button {
+      padding: 10px;
+      margin: 5px;
+      cursor: pointer;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Attendance App</h1>
+
+  <h2>Manage Students</h2>
+  <form id="addStudentForm">
+    <div class="form-group">
+      <input type="text" id="studentName" placeholder="Student Name" required />
+      <input type="text" id="rollNumber" placeholder="Roll Number" required />
+      <button type="submit">Add Student</button>
+    </div>
+  </form>
+
+  <table id="studentTable">
+    <thead>
+      <tr>
+        <th>Roll Number</th>
+        <th>Name</th>
+        <th>Attendance</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Rows will be dynamically populated -->
+    </tbody>
+  </table>
+
+  <button onclick="submitAttendance()">Submit Attendance</button>
+
+  <script>
+    const API_URL = "http://localhost:3000";
+
+    async function fetchStudents() {
+      const response = await fetch(`${API_URL}/students`);
+      const students = await response.json();
+      renderStudents(students);
+    }
+
+    function renderStudents(students) {
+      const tableBody = document.querySelector("#studentTable tbody");
+      tableBody.innerHTML = "";
+      students.forEach(student => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${student.rollNumber}</td>
+          <td>${student.name}</td>
+          <td>
+            <select onchange="updateAttendance(${student.id}, this.value)">
+              <option value="1" ${student.attendance === 1 ? "selected" : ""}>Present</option>
+              <option value="0" ${student.attendance === 0 ? "selected" : ""}>Absent</option>
+            </select>
+          </td>
+          <td>
+            <button onclick="deleteStudent(${student.id})">Delete</button>
+          </td>
+        `;
+        tableBody.appendChild(row);
+      });
+    }
+
+    async function addStudent(event) {
+      event.preventDefault();
+      const name = document.getElementById("studentName").value;
+      const rollNumber = document.getElementById("rollNumber").value;
+
+      await fetch(`${API_URL}/students`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, rollNumber, attendance: 1 })
+      });
+
+      document.getElementById("addStudentForm").reset();
+      fetchStudents();
+    }
+
+    async function deleteStudent(id) {
+      await fetch(`${API_URL}/students/${id}`, { method: "DELETE" });
+      fetchStudents();
+    }
+
+    async function updateAttendance(id, attendance) {
+      await fetch(`${API_URL}/students/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ attendance: parseInt(attendance) })
+      });
+    }
+
+    async function submitAttendance() {
+      const response = await fetch(`${API_URL}/download`);
+      const blob = await response.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `attendance_${new Date().toISOString().split("T")[0]}.csv`;
+      a.click();
+    }
+
+    document.getElementById("addStudentForm").addEventListener("submit", addStudent);
+
+    fetchStudents();
+  </script>
+</body>
+</html>
