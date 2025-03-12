@@ -1,0 +1,35 @@
+{
+    "manifest_version": 3,
+    "name": "Advanced Translator",
+    "version": "1.2",
+    "description": "Translate content on the page with advanced features.",
+    "permissions": [
+      "scripting", 
+      "activeTab", 
+      "storage", 
+      "contextMenus", 
+      "geolocation"
+    ],
+    "background": {
+      "service_worker": "background.js"
+    },
+    "host_permissions": [
+      "<all_urls>"
+    ],
+    "action": {
+      "default_popup": "popup.html"
+    },
+    "content_scripts": [
+      {
+        "matches": ["<all_urls>"],
+        "js": ["content.js"]
+      }
+    ],
+    "web_accessible_resources": [
+      {
+        "resources": ["utils/*.js"],
+        "matches": ["<all_urls>"]
+      }
+    ]
+  }
+  
