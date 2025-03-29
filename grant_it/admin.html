@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <!-- Use Google Fonts for a modern look -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f5f0ff; /* Light purple background */
+            font-family: 'Poppins', sans-serif; /* Use Google Font */
+            animation: fadeIn 2s ease-out;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+        }
+
+        h2, h4, h5 {
+            color: #5a3ec8; /* Dark purple for headings */
+        }
+
+        /* Tab and Card Styles */
+        .nav-tabs .nav-link {
+            color: #5a3ec8;
+            background-color: #ede7ff;
+            border-radius: 8px;
+            margin-right: 5px;
+            font-weight: 500;
+            padding: 10px 15px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-tabs .nav-link.active {
+            background-color: #7e5ff2;
+            color: #ffffff;
+            font-weight: bold;
+        }
+
+        .tab-pane {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(90, 62, 200, 0.15);
+        }
+
+        /* Card styles for coadmin and student lists */
+        .coadmin-card, .student-card {
+            cursor: pointer;
+            margin-bottom: 15px;
+            padding: 20px;
+            border-radius: 12px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        .coadmin-card:hover, .student-card:hover {
+            background-color: #f3e9ff;
+            transform: scale(1.03);
+        }
+
+        /* Button styles */
+        .btn-primary {
+            background-color: #7e5ff2;
+            border: none;
+            border-radius: 50px;
+            color: white;
+            padding: 12px 25px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 4px 12px rgba(126, 95, 242, 0.4);
+        }
+
+        .btn-primary:hover {
+            background-color: #a77dfd;
+            transform: translateY(-3px);
+        }
+
+        .btn-primary:focus {
+            box-shadow: 0 0 10px rgba(126, 95, 242, 0.7);
+        }
+
+        /* Form styles */
+        .form-label {
+            color: #5a3ec8;
+            font-weight: 600;
+        }
+
+        .form-control {
+            border: 1px solid #d1c4ff;
+            padding: 12px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: #a77dfd;
+            box-shadow: 0 0 8px rgba(126, 95, 242, 0.3);
+        }
+
+        /* Table styles */
+        .table {
+            margin-top: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .table thead th {
+            background-color: #7e5ff2;
+            color: #ffffff;
+        }
+
+        .table td, .table th {
+            padding: 15px;
+            text-align: left;
+            vertical-align: middle;
+        }
+
+        .table-bordered td, .table-bordered th {
+            border: 1px solid #d1c4ff;
+        }
+
+        /* Hover effects for table rows */
+        .table tbody tr:hover {
+            background-color: #f3e9ff;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 15px;
+            }
+
+            .nav-tabs .nav-link {
+                padding: 8px 12px;
+                font-size: 0.9rem;
+            }
+
+            .btn-primary {
+                font-size: 1rem;
+                padding: 10px 15px;
+            }
+
+            .table {
+                font-size: 0.875rem;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Admin Dashboard</h2>
+
+    <div class="row">
+        <div class="col-md-12">
+            <!-- Navigation Tabs -->
+            <ul class="nav nav-tabs" id="adminTabs">
+                <li class="nav-item">
+                    <a class="nav-link active" id="coadmin-tab" data-bs-toggle="tab" href="#coadmin">Co-admin Management</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="student-tab" data-bs-toggle="tab" href="#student">Student Management</a>
+                </li>
+            </ul>
+
+            <div class="tab-content mt-4">
+                <!-- Co-admin Management Tab -->
+                <div class="tab-pane active" id="coadmin">
+                    <h4 class="mb-3">Manage Co-admins</h4>
+                    <ul class="nav nav-tabs" id="coadminSubTabs">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="add-coadmin-tab" data-bs-toggle="tab" href="#add-coadmin">Add Co-admin</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="view-coadmin-tab" data-bs-toggle="tab" href="#view-coadmin">View Co-admins</a>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content mt-3">
+                        <!-- Add Co-admin Tab -->
+                        <div class="tab-pane active" id="add-coadmin">
+                            <h5 class="text-secondary">Add New Co-admin</h5>
+                            <form id="addCoadminForm">
+                                <div class="mb-3">
+                                    <label for="coadminName" class="form-label">Name</label>
+                                    <input type="text" class="form-control" id="coadminName" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="coadminEmail" class="form-label">Email</label>
+                                    <input type="email" class="form-control" id="coadminEmail" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="coadminPhone" class="form-label">Phone</label>
+                                    <input type="text" class="form-control" id="coadminPhone" required>
+                                </div>
+                                <!-- Branch Assignment Field -->
+                                <div class="mb-3">
+                                    <label for="coadminBranch" class="form-label">Assign Branch</label>
+                                    <select class="form-control" id="coadminBranch" required>
+                                        <option value="">Select Branch</option>
+                                        <option value="Computer Science">Computer Science</option>
+                                        <option value="Mechanical">Mechanical</option>
+                                        <option value="Electronics">Electronics</option>
+                                        <option value="Electrical">Electrical</option>
+                                        <option value="Civil">Civil</option>
+                                        <option value="Information Technology">Information Technology</option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Add Co-admin</button>
+                            </form>
+                        </div>
+
+                        <!-- View Co-admins Tab -->
+                        <div class="tab-pane" id="view-coadmin">
+                            <h5 class="text-secondary">View All Co-admins</h5>
+                            <table class="table table-bordered coadmin-table">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Phone</th>
+                                        <th>Branch</th> <!-- Added Branch Column -->
+                                        <th>Students Managed</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="coadminList">
+                                    <!-- Co-admins will be listed here dynamically -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Student Management Tab -->
+                <div class="tab-pane" id="student">
+                    <h4 class="mb-3">Manage Students</h4>
+                    <table class="table table-bordered student-table">
+                        <thead>
+                            <tr>
+                                <th>Student Name</th>
+                                <th>Email</th>
+                                <th>Program</th>
+                                <th>Phone</th>
+                                <th>Enrollment Date</th>
+                                <th>Co-admin</th>
+                            </tr>
+                        </thead>
+                        <tbody id="studentList">
+                            <!-- Student details will be listed here dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="../js/main.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
