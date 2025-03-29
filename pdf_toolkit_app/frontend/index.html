@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intelligent PDF Toolkit</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Intelligent PDF Toolkit</h1>
+        <form id="pdfForm">
+            <label for="pdfInput">Select PDF:</label>
+            <input type="file" id="pdfInput" accept=".pdf" required>
+            <button type="button" id="extractTextBtn">Extract Text</button>
+            <button type="button" id="mergePdfBtn">Merge PDFs</button>
+            <button type="button" id="compressPdfBtn">Compress PDF</button>
+        </form>
+        <div id="output"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
