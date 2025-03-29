@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Grocery</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="app.js"></script>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <h1 id="logo">Smart Grocery</h1>
+        <div class="profile-help">
+            <div id="profile" class="profile-icon" onclick="toggleProfileMenu()">👤</div>
+            <div id="help" class="help-icon" onclick="openHelp()">❓</div>
+        </div>
+    </header>
+
+    <!-- Profile Menu -->
+    <div id="profileMenu" class="profile-menu hidden">
+        <form id="profileForm">
+            <input type="text" id="name" placeholder="Name" />
+            <input type="text" id="address" placeholder="Address" />
+            <input type="text" id="phone" placeholder="Phone Number" />
+            <input type="email" id="email" placeholder="Email Address" />
+            <button type="submit">Save</button>
+        </form>
+    </div>
+
+    <!-- Search Bar -->
+    <section class="search-section">
+        <input type="text" id="search" placeholder="Search for groceries..." oninput="searchItems()">
+    </section>
+
+    <!-- Categories Section -->
+    <section class="categories-section">
+        <h2>Categories</h2>
+        <div class="categories">
+            <div class="category-item">
+                <img src="fruits_vegetables.jpg" alt="Fruits & Vegetables">
+                <span>Fruits & Vegetables</span>
+            </div>
+            <div class="category-item">
+                <img src="dairy_products.jpg" alt="Dairy Products">
+                <span>Dairy Products</span>
+            </div>
+            <div class="category-item">
+                <img src="beverages.jpg" alt="Beverages">
+                <span>Beverages</span>
+            </div>
+            <div class="category-item">
+                <img src="snacks.jpg" alt="Snacks">
+                <span>Snacks</span>
+            </div>
+            <div class="category-item">
+                <img src="spices.jpg" alt="Spices">
+                <span>Spices</span>
+            </div>
+            <div class="category-item">
+                <img src="sweets.jpg" alt="Sweets">
+                <span>Sweets</span>
+            </div>
+            <div class="category-item">
+                <img src="hair_care.jpg" alt="Hair & Care">
+                <span>Hair & Care</span>
+            </div>
+            <div class="category-item">
+                <img src="bath_body.jpg" alt="Bath & Body">
+                <span>Bath & Body</span>
+            </div>
+            <div class="category-item">
+                <img src="skincare.jpg" alt="Skincare">
+                <span>Skincare</span>
+            </div>
+            <div class="category-item">
+                <img src="pharma_wellness.jpg" alt="Pharma & Wellness">
+                <span>Pharma & Wellness</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Suggested Grocery Items -->
+    <section class="items-section">
+        <h2>Suggested Items</h2>
+        <div id="itemsList" class="items-list">
+            <!-- Dynamic items will be displayed here -->
+        </div>
+    </section>
+
+    <!-- Cart Section (Visible when items are added) -->
+    <section id="cartSection" class="cart-section hidden">
+        <div id="cartIcon" class="cart-icon" onclick="viewCart()">
+            🛒 <span id="cartCount">0</span> Items
+        </div>
+    </section>
+
+    <!-- Help Section (Modal) -->
+    <div id="helpModal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close" onclick="closeHelp()">&times;</span>
+            <h2>Help & Support</h2>
+            <p>If you have any questions, feel free to reach out to us!</p>
+        </div>
+    </div>
+</body>
+</html>

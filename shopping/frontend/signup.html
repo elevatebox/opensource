@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up - Smart Grocery</title>
+</head>
+<body>
+
+  <!-- Sign Up Form -->
+  <div style="max-width: 500px; margin: auto; padding: 20px; text-align: center; background-color: #f4f4f4; border-radius: 8px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);">
+    <h1>Smart Grocery</h1>
+
+    <!-- Sign Up Form Fields -->
+    <form action="home.html" method="POST">
+      
+      <!-- Name Field -->
+      <label for="name" style="display: block; margin-bottom: 10px;">Full Name</label>
+      <input type="text" id="name" name="name" placeholder="Enter your name" required style="width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 5px;">
+
+      <!-- Phone Number Field -->
+      <label for="phone" style="display: block; margin-bottom: 10px;">Phone Number</label>
+      <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required style="width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 5px;">
+
+      <!-- Gmail Address Field -->
+      <label for="email" style="display: block; margin-bottom: 10px;">Gmail Address</label>
+      <input type="email" id="email" name="email" placeholder="Enter your Gmail address" required style="width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 5px;">
+
+      <!-- Password Field -->
+      <label for="password" style="display: block; margin-bottom: 10px;">Create Password</label>
+      <input type="password" id="password" name="password" placeholder="Create a password" required style="width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 5px;">
+
+      <!-- Delivery Address Field -->
+      <label for="address" style="display: block; margin-bottom: 10px;">Delivery Address</label>
+      <input type="text" id="address" name="address" placeholder="Enter your delivery address" required style="width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 5px;">
+
+      <!-- Proceed Button -->
+      <button type="submit" style="background-color: #4CAF50; color: white; padding: 12px 20px; border: none; border-radius: 5px; font-size: 16px; width: 100%; font-weight: bold;">
+        Proceed
+      </button>
+    </form>
+
+    <!-- Link to Sign-In page for existing users -->
+    <div style="margin-top: 15px;">
+      <a href="login.html" style="color: #3498db; text-decoration: none;">Already have an account? Sign In</a>
+    </div>
+  </div>
+
+</body>
+</html>
