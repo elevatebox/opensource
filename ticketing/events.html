@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upcoming Events - Eventify</title>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        header h1 {
+            font-size: 36px;
+        }
+
+        /* Events Section */
+        .events-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px;
+        }
+
+        .event-card {
+            background-color: white;
+            width: 80%;
+            margin: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .event-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .event-card h2 {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .event-card p {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .event-card .date {
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        /* Registration Options */
+        .registration-options {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .registration-option {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin: 10px;
+            border-radius: 5px;
+            width: 200px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s;
+        }
+
+        .registration-option:hover {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .registration-option h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .registration-option p {
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .registration-option button {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .registration-option button:hover {
+            background-color: #218838;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+
+        /* Media Queries */
+        @media (max-width: 768px) {
+            .event-card {
+                width: 95%;
+            }
+
+            .registration-options {
+                flex-direction: column;
+            }
+
+            .registration-option {
+                width: 80%;
+                margin: 10px auto;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header Section -->
+<header>
+    <h1>Upcoming Events - Eventify</h1>
+</header>
+
+<!-- Events Container -->
+<div class="events-container">
+    <!-- Sports Fest Event -->
+    <div class="event-card">
+        <h2>Sports Fest</h2>
+        <p class="date">Dates: 20th & 21st December 2024</p>
+        <p>Last Date for Registration: 10th December 2024</p>
+        <p>Select your sport and register below:</p>
+        <div class="registration-options">
+            <div class="registration-option">
+                <h3>Badminton - Singles</h3>
+                <p>Registration Fee: ₹800</p>
+                <button onclick="window.location.href='register.html';">Register Now</button>
+            </div>
+            <div class="registration-option">
+                <h3>Badminton - Doubles</h3>
+                <p>Registration Fee: ₹1000</p>
+                <button onclick="window.location.href='register.html';">Register Now</button>
+            </div>
+            <div class="registration-option">
+                <h3>Throw Ball</h3>
+                <p>Registration Fee: ₹400</p>
+                <button onclick="window.location.href='register.html';">Register Now</button>
+            </div>
+            <div class="registration-option">
+                <h3>Basketball</h3>
+                <p>Registration Fee: ₹600</p>
+                <button onclick="window.location.href='register.html';">Register Now</button>
+            </div>
+            <div class="registration-option">
+                <h3>Cricket</h3>
+                <p>Registration Fee: ₹850</p>
+                <button onclick="window.location.href='register.html';">Register Now</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Convergence Event -->
+    <div class="event-card">
+        <h2>Convergence</h2>
+        <p class="date">Dates: 3rd, 4th, & 5th March 2025</p>
+        <p>Last Date for Registration: 27th February 2025</p>
+        <p>Registration Fee: ₹1100</p>
+        <button onclick="window.location.href='register.html';">Register Now</button>
+    </div>
+
+    <!-- Sintilashunz Event -->
+    <div class="event-card">
+        <h2>Sintilashunz</h2>
+        <p class="date">Dates: 7th, 8th, & 9th April 2025</p>
+        <p>Last Date for Registration: 2nd April 2025</p>
+        <p>Registration Fee: ₹900</p>
+        <button onclick="window.location.href='register.html';">Register Now</button>
+
+    </div>
+</div>
+
+<!-- Footer Section -->
+<footer>
+    <p>&copy; 2024 Eventify. All Rights Reserved.</p>
+</footer>
+
+<!-- JavaScript -->
+<script>
+    // Function to handle registration
+    function registerEvent(eventName) {
+        alert("You have successfully registered for " + eventName + "!");
+    }
+</script>
+
+</body>
+</html>
