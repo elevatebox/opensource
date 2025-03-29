@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <title>grant.it - Admin Dashboard</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #f1c40f, #e67e22);
+            color: #2c3e50;
+        }
+        .card {
+            margin: 20px;
+            border-radius: 15px;
+            transition: transform 0.3s;
+        }
+        .card:hover {
+            transform: scale(1.05);
+        }
+        .tab-content {
+            padding: 20px;
+            border-radius: 15px;
+            background: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Admin Dashboard</h1>
+        <ul class="nav nav-tabs justify-content-center">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#coadmin-management">Co-admin Management</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#student-management">Student Management</a>
+            </li>
+        </ul>
+
+        <div class="tab-content">
+            <!-- Co-admin Management Tab -->
+            <div class="tab-pane fade show active" id="coadmin-management">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Manage Co-admins</h5>
+                        <button class="btn btn-primary" data-toggle="modal" data-target="#addCoAdminModal">Add Co-admin</button>
+                        <ul class="list-group mt-3" id="coadminList"></ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Student Management Tab -->
+            <div class="tab-pane fade" id="student-management">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Manage Students</h5>
+                        <button class="btn btn-primary" data-toggle="modal" data-target="#addStudentModal">Add Student</button>
+                        <ul class="list-group mt-3" id="studentList"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Co-admin Modal -->
+    <div class="modal fade" id="addCoAdminModal" tabindex="-1" aria-labelledby="addCoAdminModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addCoAdminModalLabel">Add Co-admin</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="addCoAdminForm">
+                        <div class="form-group">
+                            <label for="coAdminName">Name</label>
+                            <input type="text" class="form-control" id="coAdminName" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="saveCoAdminBtn">Save Co-admin</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Student Modal -->
+    <div class="modal fade" id="addStudentModal" tabindex="-1" aria-labelledby="addStudentModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addStudentModalLabel">Add Student</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="addStudentForm">
+                        <div class="form-group">
+                            <label for="studentName">Name</label>
+                            <input type="text" class="form-control" id="studentName" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="saveStudentBtn">Save Student</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        // JavaScript to handle adding co-admins and students
+        document.getElementById('saveCoAdminBtn').addEventListener('click', function() {
+            const coAdminName = document.getElementById('coAdminName').value;
+            const coAdminList = document.getElementById('coadminList');
+            const listItem = document.createElement('li');
+            listItem.className = 'list-group-item d-flex justify-content-between align-items-center';
+            listItem.innerHTML = coAdminName + 
+                '<button class="btn btn-danger btn-sm ml-2">Delete</button>';
+            coAdminList.appendChild(listItem);
+            $('#addCoAdminModal').modal('hide');
+            document.getElementById('addCoAdminForm').reset();
+        });
+
+        document.getElementById('saveStudentBtn').addEventListener('click', function() {
+            const studentName = document.getElementById('studentName').value;
+            const studentList = document.getElementById('studentList');
+            const listItem = document.createElement('li');
+            listItem.className = 'list-group-item d-flex justify-content-between align-items-center';
+            listItem.innerHTML = studentName + 
+                '<button class="btn btn-danger btn-sm ml-2">Delete</button>';
+            studentList.appendChild(listItem);
+            $('#addStudentModal').modal('hide');
+            document.getElementById('addStudentForm').reset();
+        });
+    </script>
+</body>
+</html>
