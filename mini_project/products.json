@@ -1,0 +1,56 @@
+[
+  {
+    "productName": "chilly",
+    "productPrice": "20",
+    "productImage": "https://www.google.com/search?sca_esv=280a44b9c274f648&sxsrf=ADLYWILyQ9v6rtE6dRp4Cu0fmsHHAMPbzQ:1731913456724&q=chilli+1000x1000+pictures&udm=2&fbs=AEQNm0Aa4sjWe7Rqy32pFwRj0UkWd8nbOJfsBGGB5IQQO6L3JzEq8sk6FPCPzvp42tv1tXpsidsqiXpQf6iR7slCEZnU6kGqaCkhxgKBocwgkDFqqA6kLYXX5kM45sITRWXGyoislciG6KaaiJNbTmhaOzLwylkzvVPnjf5i65kiDRmjSPXq8y358dY-WymqU_jx2c-CnjHVbldaRDQzRtFVv---e-F7SQ&sa=X&ved=2ahUKEwiLq_qyqOWJAxULavUHHYiHMNoQtKgLegQIFBAB&biw=1536&bih=695&dpr=1.25#vhid=tIFBrczHFGssgM&vssid=mosaic",
+    "productCategory": "fruits"
+  },
+  {
+    "productName": "chilly",
+    "productPrice": "20",
+    "productImage": "https://www.istockphoto.com/photo/custard-apple-gm450118169-24354647?searchscope=image%2Cfilm",
+    "productCategory": "vegetables"
+  },
+  {
+    "productName": "Custard Apple",
+    "productPrice": "80",
+    "productImage": "https://www.onezeros.in/cdn/shop/products/morris-bananas-onezeros-in-35299363389638.jpg?v=1722210677",
+    "productCategory": "fruits"
+  },
+  {
+    "productName": "Oranges",
+    "productPrice": "60",
+    "productImage": "https://www.google.com/search?sca_esv=280a44b9c274f648&sxsrf=ADLYWILyQ9v6rtE6dRp4Cu0fmsHHAMPbzQ:1731913456724&q=chilli+1000x1000+pictures&udm=2&fbs=AEQNm0Aa4sjWe7Rqy32pFwRj0UkWd8nbOJfsBGGB5IQQO6L3JzEq8sk6FPCPzvp42tv1tXpsidsqiXpQf6iR7slCEZnU6kGqaCkhxgKBocwgkDFqqA6kLYXX5kM45sITRWXGyoislciG6KaaiJNbTmhaOzLwylkzvVPnjf5i65kiDRmjSPXq8y358dY-WymqU_jx2c-CnjHVbldaRDQzRtFVv---e-F7SQ&sa=X&ved=2ahUKEwiLq_qyqOWJAxULavUHHYiHMNoQtKgLegQIFBAB&biw=1536&bih=695&dpr=1.25#vhid=tIFBrczHFGssgM&vssid=mosaic",
+    "productCategory": "fruits"
+  },
+  {
+    "productName": "uygeru",
+    "productPrice": "5233",
+    "productImage": "https://www.istockphoto.com/photo/orange-clementine-or-minneola-tangelo-with-slices-and-green-leaves-isolated-on-white-gm1203693878-346046588?searchscope=image%2Cfilm",
+    "productCategory": "fruits"
+  },
+  {
+    "productName": "cucumber",
+    "productPrice": "52",
+    "productImage": "https://www.google.com/search?sca_esv=280a44b9c274f648&sxsrf=ADLYWILyQ9v6rtE6dRp4Cu0fmsHHAMPbzQ:1731913456724&q=chilli+1000x1000+pictures&udm=2&fbs=AEQNm0Aa4sjWe7Rqy32pFwRj0UkWd8nbOJfsBGGB5IQQO6L3JzEq8sk6FPCPzvp42tv1tXpsidsqiXpQf6iR7slCEZnU6kGqaCkhxgKBocwgkDFqqA6kLYXX5kM45sITRWXGyoislciG6KaaiJNbTmhaOzLwylkzvVPnjf5i65kiDRmjSPXq8y358dY-WymqU_jx2c-CnjHVbldaRDQzRtFVv---e-F7SQ&sa=X&ved=2ahUKEwiLq_qyqOWJAxULavUHHYiHMNoQtKgLegQIFBAB&biw=1536&bih=695&dpr=1.25#vhid=tIFBrczHFGssgM&vssid=mosaic",
+    "productCategory": "fruits"
+  },
+  {
+    "productName": "Bananas",
+    "productPrice": "56",
+    "productImage": "https://www.google.com/search?sca_esv=280a44b9c274f648&sxsrf=ADLYWILyQ9v6rtE6dRp4Cu0fmsHHAMPbzQ:1731913456724&q=chilli+1000x1000+pictures&udm=2&fbs=AEQNm0Aa4sjWe7Rqy32pFwRj0UkWd8nbOJfsBGGB5IQQO6L3JzEq8sk6FPCPzvp42tv1tXpsidsqiXpQf6iR7slCEZnU6kGqaCkhxgKBocwgkDFqqA6kLYXX5kM45sITRWXGyoislciG6KaaiJNbTmhaOzLwylkzvVPnjf5i65kiDRmjSPXq8y358dY-WymqU_jx2c-CnjHVbldaRDQzRtFVv---e-F7SQ&sa=X&ved=2ahUKEwiLq_qyqOWJAxULavUHHYiHMNoQtKgLegQIFBAB&biw=1536&bih=695&dpr=1.25#vhid=tIFBrczHFGssgM&vssid=mosaic",
+    "productCategory": "vegetables"
+  },
+  {
+    "productName": "cucumber",
+    "productPrice": "60",
+    "productImage": "https://www.google.com/search?sca_esv=280a44b9c274f648&sxsrf=ADLYWILyQ9v6rtE6dRp4Cu0fmsHHAMPbzQ:1731913456724&q=chilli+1000x1000+pictures&udm=2&fbs=AEQNm0Aa4sjWe7Rqy32pFwRj0UkWd8nbOJfsBGGB5IQQO6L3JzEq8sk6FPCPzvp42tv1tXpsidsqiXpQf6iR7slCEZnU6kGqaCkhxgKBocwgkDFqqA6kLYXX5kM45sITRWXGyoislciG6KaaiJNbTmhaOzLwylkzvVPnjf5i65kiDRmjSPXq8y358dY-WymqU_jx2c-CnjHVbldaRDQzRtFVv---e-F7SQ&sa=X&ved=2ahUKEwiLq_qyqOWJAxULavUHHYiHMNoQtKgLegQIFBAB&biw=1536&bih=695&dpr=1.25#vhid=tIFBrczHFGssgM&vssid=mosaic",
+    "productCategory": "vegetables"
+  },
+  {
+    "productName": "Custard Apple",
+    "productPrice": "60",
+    "productImage": "https://www.google.com/search?sca_esv=280a44b9c274f648&sxsrf=ADLYWILyQ9v6rtE6dRp4Cu0fmsHHAMPbzQ:1731913456724&q=chilli+1000x1000+pictures&udm=2&fbs=AEQNm0Aa4sjWe7Rqy32pFwRj0UkWd8nbOJfsBGGB5IQQO6L3JzEq8sk6FPCPzvp42tv1tXpsidsqiXpQf6iR7slCEZnU6kGqaCkhxgKBocwgkDFqqA6kLYXX5kM45sITRWXGyoislciG6KaaiJNbTmhaOzLwylkzvVPnjf5i65kiDRmjSPXq8y358dY-WymqU_jx2c-CnjHVbldaRDQzRtFVv---e-F7SQ&sa=X&ved=2ahUKEwiLq_qyqOWJAxULavUHHYiHMNoQtKgLegQIFBAB&biw=1536&bih=695&dpr=1.25#vhid=tIFBrczHFGssgM&vssid=mosaic",
+    "productCategory": "fruits"
+  }
+]
