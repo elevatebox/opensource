@@ -1,0 +1,94 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #fafafa;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+  }
+  
+  header {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  header h1 {
+    font-size: 3em;
+    color: #333;
+  }
+  
+  #sudoku-board {
+    display: grid;
+    grid-template-columns: repeat(9, 50px);
+    grid-template-rows: repeat(9, 50px);
+    gap: 2px;
+    margin-bottom: 20px;
+    border: 2px solid #333;
+    padding: 10px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  #sudoku-board div {
+    width: 50px;
+    height: 50px;
+    border: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #e0f7fa;
+  }
+  
+  #sudoku-board div:nth-child(odd) {
+    background-color: #b2ebf2;
+  }
+  
+  #sudoku-board div input {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    border: none;
+    font-size: 20px;
+    background-color: transparent;
+    outline: none;
+  }
+  
+  .controls {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  
+  button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: #00796b;
+    color: #fff;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  button:hover {
+    background-color: #004d40;
+    transform: scale(1.05);
+  }
+  
+  .timer {
+    margin-top: 10px;
+    font-size: 1.2em;
+    color: #333;
+  }
+  
+  select {
+    padding: 5px 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #333;
+  }
+  
