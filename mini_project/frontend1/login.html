@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Login Form Section -->
+  <div class="login-container">
+    <h2>Select Role</h2>
+    <!-- Dropdown to select Admin or Customer -->
+    <select id="role-select" class="role-select" onchange="showLoginFields()">
+      <option value="" disabled selected>Select Role</option>
+      <option value="admin">Admin</option>
+      <option value="customer">Customer</option>
+    </select>
+
+    <!-- Login Fields -->
+    <div id="login-fields" class="login-fields" style="display:none;">
+      <div id="admin-fields" class="role-fields" style="display:none;">
+        <label for="admin-username">Admin Username</label>
+        <input type="text" id="admin-username" placeholder="Enter Admin Username">
+
+        <label for="admin-password">Admin Password</label>
+        <input type="password" id="admin-password" placeholder="Enter Admin Password">
+      </div>
+
+      <div id="customer-fields" class="role-fields" style="display:none;">
+        <label for="customer-username">Customer Username</label>
+        <input type="text" id="customer-username" placeholder="Enter Customer Username">
+
+        <label for="customer-password">Customer Password</label>
+        <input type="password" id="customer-password" placeholder="Enter Customer Password">
+      </div>
+
+      <!-- Login Button -->
+      <button class="login-btn" onclick="login()">Login</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
