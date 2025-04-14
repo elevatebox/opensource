@@ -1,0 +1,60 @@
+import requests
+from bs4 import BeautifulSoup
+import pandas as pd
+import json
+
+# URL to scrape
+url = 'https://www.google.com/about/careers/applications/jobs/results/?location=India'
+
+# Define headers to mimic a browser visit
+headers = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'
+}
+
+# Send a GET request to the URL with headers
+response = requests.get(url, headers=headers)
+
+# Check if the request was successful
+if response.status_code == 200:
+    # Parse the content with Beautiful Soup
+    soup = BeautifulSoup(response.content, 'html.parser')
+
+    # Extract job title
+    job_title_tag = soup.find('h3', class_='QJPWVe')
+    job_title = job_title_tag.text.strip() if job_title_tag else "Not found"
+
+    # Extract location
+    location_tag = soup.find('span', class_='r0wTof')
+    location = location_tag.text.strip() if location_tag else "Not found"
+
+    # Find the minimum qualifications section
+    min_qualifications_section = soup.find('div', class_='Xsxa1e')
+    if min_qualifications_section:
+        min_qualifications = min_qualifications_section.find('ul').get_text(separator='\n').strip()
+    else:
+        min_qualifications = "Not specified"
+
+    # Print the extracted information
+    print("Job Title:", job_title)
+    print("Location:", location)
+    print("Minimum Qualifications:\n", min_qualifications)
+
+    # Create a dictionary to hold the data
+    job_data = {
+        'job_title': job_title,
+        'location': location,
+        'minimum_qualifications': min_qualifications
+    }
+
+    # Save data to CSV
+    df = pd.DataFrame([job_data])
+    df.to_csv('google_job_data.csv', index=False)
+
+    # Save data to JSON
+    with open('google_job_data.json', 'w') as json_file:
+        json.dump(job_data, json_file, indent=4)
+
+    print("Data saved to google_job_data.csv and google_job_data.json.")
+else:
+    print(f"Failed to retrieve the page, status code: {response.status_code}")
+#single o/p
