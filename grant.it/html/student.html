@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard - Grant.it</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #e0f7fa; /* Cyan background */
+        }
+
+        h1 {
+            color: #006064; /* Dark cyan */
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .request-history {
+            margin: 20px auto;
+            max-width: 600px;
+        }
+
+        .request-history th,
+        .request-history td {
+            text-align: center;
+        }
+
+        .progress {
+            height: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Student Dashboard</h1>
+    <div class="container">
+        <h2>Request Permission</h2>
+        <form id="request-form" onsubmit="sendRequest(event)">
+            <div class="mb-3">
+                <label for="subject" class="form-label">Subject </label>
+                <input type="text" class="form-control" id="subject" required>
+            </div>
+            <div class="mb-3">
+                <label for="request-details" class="form-label">Request Details</label>
+                <textarea class="form-control" id="request-details" rows="4" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Send</button>
+            <button type="button" class="btn btn-secondary" onclick="cancelRequest()">Cancel</button>
+        </form>
+
+        <div class="request-history mt-4">
+            <h2>Request History</h2>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Subject</th>
+                        <th>Details</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="request-list">
+                    <!-- Requests will be populated here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        function sendRequest(event) {
+            event.preventDefault();
+
+            const subject = document.getElementById('subject').value;
+            const details = document.getElementById('request-details').value;
+
+            const requests = JSON.parse(localStorage.getItem('studentRequests')) || [];
+            requests.push({ subject, details, status: 'Pending' });
+            localStorage.setItem('studentRequests', JSON.stringify(requests));
+
+            alert("Request sent successfully");
+            document.getElementById('request-form').reset();
+            displayRequests();
+        }
+
+        function cancelRequest() {
+            alert("Cancelled");
+            document.getElementById('request-form').reset();
+        }
+
+        function displayRequests() {
+            const requests = JSON.parse(localStorage.getItem('studentRequests')) || [];
+            const requestList = document.getElementById('request-list');
+            requestList.innerHTML = '';
+
+            requests.forEach(request => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${request.subject}</td>
+                    <td>${request.details}</td>
+                    <td>${request.status}</td>
+                `;
+                requestList.appendChild(row);
+            });
+        }
+
+        window.onload = displayRequests; // Display requests on page load
+    </script>
+</body>
+
+</html>
