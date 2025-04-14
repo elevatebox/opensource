@@ -1,0 +1,66 @@
+body {
+    background-color: #f0f8ff; /* Light mode background */
+    font-family: 'Roboto', sans-serif;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+body.dark-mode {
+    background-color: #343a40; /* Dark mode background */
+    color: white;
+}
+
+h1 {
+    color: #007bff; /* Vibrant blue for the title */
+}
+
+.table {
+    background-color: #ffffff; /* White background for the table */
+}
+
+.thead-light th {
+    background-color: #007bff; /* Blue header */
+    color: white; /* White text for contrast */
+}
+
+.header {
+    margin-bottom: 20px;
+}
+
+.modal-header {
+    background-color: #28a745; /* Green header for modal */
+    color: white;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.btn {
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.btn:hover {
+    transform: scale(1.05);
+}
+
+.present-checkbox:checked {
+    background-color: #28a745; /* Green for checked state */
+}
+
+#loadingIndicator {
+    margin-top: 20px;
+}
+
+.dark-mode .table {
+    background-color: #495057; /* Dark mode table background */
+    color: white;
+}
+
+.dark-mode .thead-light th {
+    background-color: #007bff; /* Keep header blue in dark mode */
+}
+
+.dark-mode .modal-header {
+    background-color: #007bff; /* Blue header for modal in dark mode */
+}

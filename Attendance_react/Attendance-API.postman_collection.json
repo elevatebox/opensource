@@ -1,0 +1,87 @@
+{
+    "info": {
+      "name": "Attendance API",
+      "_postman_id": "d9d59c8a-0e4c-41bb-8f5d-456d2c2b5cb8",
+      "description": "Postman collection for Attendance Management System",
+      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+      {
+        "name": "Get All Attendance Records",
+        "request": {
+          "method": "GET",
+          "header": [],
+          "url": {
+            "raw": "http://localhost:5000/api/attendance",
+            "protocol": "http",
+            "host": ["localhost"],
+            "port": "5000",
+            "path": ["api", "attendance"]
+          }
+        }
+      },
+      {
+        "name": "Add New Attendance Record",
+        "request": {
+          "method": "POST",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json",
+              "type": "text"
+            }
+          ],
+          "body": {
+            "mode": "raw",
+            "raw": "{\n    \"studentId\": \"12345\",\n    \"attendanceDate\": \"2025-04-07\",\n    \"isPresent\": true\n}"
+          },
+          "url": {
+            "raw": "http://localhost:5000/api/attendance",
+            "protocol": "http",
+            "host": ["localhost"],
+            "port": "5000",
+            "path": ["api", "attendance"]
+          }
+        }
+      },
+      {
+        "name": "Update Attendance Record",
+        "request": {
+          "method": "PUT",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json",
+              "type": "text"
+            }
+          ],
+          "body": {
+            "mode": "raw",
+            "raw": "{\n    \"studentId\": \"12345\",\n    \"attendanceDate\": \"2025-04-07\",\n    \"isPresent\": false\n}"
+          },
+          "url": {
+            "raw": "http://localhost:5000/api/attendance/:id",
+            "protocol": "http",
+            "host": ["localhost"],
+            "port": "5000",
+            "path": ["api", "attendance", ":id"]
+          }
+        }
+      },
+      {
+        "name": "Delete Attendance Record",
+        "request": {
+          "method": "DELETE",
+          "header": [],
+          "url": {
+            "raw": "http://localhost:5000/api/attendance/:id",
+            "protocol": "http",
+            "host": ["localhost"],
+            "port": "5000",
+            "path": ["api", "attendance", ":id"]
+          }
+        }
+      }
+    ]
+  }
+  

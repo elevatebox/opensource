@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Advanced Sudoku Game</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <header>
+    <h1>Sudoku</h1>
+    <div class="controls">
+      <label for="difficulty">Difficulty:</label>
+      <select id="difficulty">
+        <option value="easy">Easy</option>
+        <option value="medium">Medium</option>
+        <option value="hard">Hard</option>
+      </select>
+      <button id="generate-btn">Generate Sudoku</button>
+    </div>
+    <div class="timer" id="timer">Time: 00:00</div>
+  </header>
+  <main id="sudoku-board"></main>
+  <div class="controls">
+    <button id="hint-btn">Hint</button>
+    <button id="check-btn">Check</button>
+    <button id="solve-btn">Solve</button>
+    <button id="reset-btn">Reset</button>
+  </div>
+  <script src="/js/script.js"></script>
+</body>
+</html>

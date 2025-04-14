@@ -1,0 +1,21 @@
+[
+  {
+    "id": 1730355119339
+  },
+  {
+    "id": 1730355690892,
+    "name": "bhavish",
+    "rollNumber": "23071A10A7",
+    "section": "B",
+    "branch": "ECE",
+    "email": "bhavishmelam07@gmail.com"
+  },
+  {
+    "id": 1730355789141,
+    "name": "adish",
+    "rollNumber": "23071A10B8",
+    "section": "B",
+    "branch": "CSE",
+    "email": "adishkumar@gmail.com"
+  }
+]
