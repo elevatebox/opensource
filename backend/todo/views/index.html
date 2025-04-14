@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/styles.css">
+    <title>To-Do App</title>
+</head>
+<body>
+    <div class="container">
+        <h1>To-Do List</h1>
+        <form id="taskForm">
+            <input type="text" id="taskName" placeholder="Task Name" required style="width: 7cm;">
+            <input type="date" id="deadline" required style="width: 7cm;">
+            <select id="priority" style="width: 7cm;">
+                <option value="Low">Low</option>
+                <option value="Medium">Medium</option>
+                <option value="High">High</option>
+            </select>
+            <button type="submit">Create</button>
+        </form>
+
+        <div id="notification" class="notification"></div>
+
+        <ul id="taskList"></ul>
+
+        <button id="clearAll">Clear All</button>
+    </div>
+
+    <script src="/js/script.js"></script>
+</body>
+</html>
