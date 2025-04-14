@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        /* Body and container styles */
+        body {
+            background-color: #f8f9fa; /* Light gray background */
+            font-family: 'Roboto', sans-serif; /* Updated font */
+        }
+
+        .container {
+            background-color: #ffffff; /* White background for container */
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-top: 30px;
+        }
+
+        /* Custom style for the student image */
+        .student-image {
+            width: 80px; /* Smaller size */
+            height: 80px; /* Smaller size */
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #6a0dad; /* Purple border */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        .student-info {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* Navbar styles */
+        .nav-tabs .nav-link {
+            border: none;
+            border-radius: 5px 5px 0 0;
+            margin-bottom: -1px;
+            font-weight: 700; /* Bold font for nav links */
+        }
+
+        .nav-tabs .nav-link.active {
+            background-color: #6a0dad; /* Purple active tab */
+            color: #ffffff;
+        }
+
+        /* Card styles */
+        .card {
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            border-radius: 5px;
+            font-weight: 600; /* Bold font for buttons */
+        }
+
+        /* Button colors */
+        .btn-success {
+            background-color: #28a745;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+        }
+
+        /* Profile section */
+        .profile-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        /* Media query for responsiveness */
+        @media (max-width: 768px) {
+            .student-image {
+                width: 60px; /* Smaller size on mobile */
+                height: 60px; /* Smaller size on mobile */
+            }
+
+            h2 {
+                font-size: 1.8rem;
+            }
+        }
+
+        /* Additional styles for text */
+        h3 {
+            font-weight: 700; /* Bold font for student name */
+            font-size: 1.5rem;
+        }
+
+        p {
+            font-weight: 400; /* Regular weight for paragraph text */
+            color: #555; /* Darker gray for better readability */
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Profile Section -->
+    <div class="profile-section">
+        <div class="student-info">
+            <img src="https://via.placeholder.com/120" alt="Student Image" class="student-image">
+            <h3 class="mt-2">Student Name</h3>
+            <p>Program: Computer Science</p>
+        </div>
+    </div>
+
+    <h2 class="text-center">Student Dashboard</h2>
+
+    <div class="row">
+        <div class="col-md-12">
+            <ul class="nav nav-tabs" id="studentTabs">
+                <li class="nav-item">
+                    <a class="nav-link active" id="request-tab" data-bs-toggle="tab" href="#request">Request Permission</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="history-tab" data-bs-toggle="tab" href="#history">History</a>
+                </li>
+            </ul>
+
+            <div class="tab-content mt-3" id="studentTabsContent">
+                <!-- Request Permission Tab -->
+                <div class="tab-pane fade show active" id="request" role="tabpanel" aria-labelledby="request-tab">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Send a Request</h5>
+                            <form id="requestForm">
+                                <!-- Subject Field -->
+                                <div class="mb-3">
+                                    <label for="requestSubject" class="form-label">Subject</label>
+                                    <input type="text" class="form-control" id="requestSubject" placeholder="Enter the subject" required>
+                                </div>
+                                <!-- Text Area for Writing the Request -->
+                                <div class="mb-3">
+                                    <label for="requestText" class="form-label">Your Request</label>
+                                    <textarea class="form-control" id="requestText" rows="4" placeholder="Write your request here..." required></textarea>
+                                </div>
+                                <!-- Buttons for Send and Draft -->
+                                <div class="d-flex justify-content-between">
+                                    <button type="button" class="btn btn-success" id="sendRequestBtn">Send</button>
+                                    <button type="button" class="btn btn-secondary" id="draftRequestBtn">Save as Draft</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- History Tab -->
+                <div class="tab-pane fade" id="history" role="tabpanel" aria-labelledby="history-tab">
+                    <h5 class="card-title">Request History</h5>
+                    <p>No requests made yet.</p>
+                    <div class="history-item">
+                        <p><strong>Request:</strong> Example request 1</p>
+                        <p><strong>Status:</strong> Approved</p>
+                    </div>
+                    <div class="history-item">
+                        <p><strong>Request:</strong> Example request 2</p>
+                        <p><strong>Status:</strong> Declined</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.getElementById('sendRequestBtn').addEventListener('click', function() {
+        const subject = document.getElementById('requestSubject').value;
+        const requestText = document.getElementById('requestText').value;
+        if(subject.trim() === "" || requestText.trim() === "") {
+            alert("Please enter both subject and request before sending.");
+        } else {
+            // Handle sending the request (e.g., via an API or backend)
+            alert("Request sent:\nSubject: " + subject + "\nMessage: " + requestText);
+            document.getElementById('requestSubject').value = ""; // Clear the subject input
+            document.getElementById('requestText').value = ""; // Clear the textarea
+        }
+    });
+
+    document.getElementById('draftRequestBtn').addEventListener('click', function() {
+        const subject = document.getElementById('requestSubject').value;
+        const requestText = document.getElementById('requestText').value;
+        if(subject.trim() === "" || requestText.trim() === "") {
+            alert("Please enter both subject and request before saving as a draft.");
+        } else {
+            // Handle saving the draft (e.g., localStorage or backend)
+            alert("Request saved as draft.");
+        }
+    });
+</script>
+</body>
+</html>
