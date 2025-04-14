@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Grocery - Previous Orders</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f3f4f6;
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    .container {
+      width: 90%;
+      max-width: 800px;
+      background: #ffffff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      position: relative;
+    }
+    h1 {
+      text-align: center;
+      color: #4caf50;
+    }
+    .order {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      margin-bottom: 15px;
+      background: #f9fafb;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+    .order:hover {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+    .order-details {
+      flex-grow: 1;
+      margin-right: 20px;
+    }
+    .order-details h3 {
+      margin: 0;
+      color: #4caf50;
+    }
+    .order-details p {
+      margin: 5px 0;
+      font-size: 0.95rem;
+      color: #555;
+    }
+    .order-actions button {
+      background: #4caf50;
+      color: #fff;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      margin-left: 10px;
+      transition: background 0.3s;
+    }
+    .order-actions button:hover {
+      background: #388e3c;
+    }
+    .order-actions button:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+    .back-arrow-btn {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: #4caf50;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+    .back-arrow-btn:hover {
+      color: #388e3c;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Back to Home Button -->
+    <button class="back-arrow-btn" onclick="window.location.href='index.html'">←</button>
+
+    <h1>Previous Grocery Orders</h1>
+    <!-- Orders Section -->
+    <div id="orders">
+      <!-- Each order will be dynamically inserted here -->
+    </div>
+  </div>
+
+  <script>
+    // Dummy data for previous grocery orders
+    const previousOrders = [
+      { id: 1, name: "Bananas", quantity: "1 bunch", date: "2024-11-01" },
+      { id: 2, name: "Apples", quantity: "500-550gm", date: "2024-10-25" },
+      { id: 3, name: "Chips", quantity: "200 gm", date: "2024-09-15" },
+      { id: 4, name: "Hand Wash", quantity: "300 ml", date: "2024-08-10" }
+    ];
+
+    // Generate orders dynamically
+    const ordersContainer = document.getElementById("orders");
+
+    previousOrders.forEach(order => {
+      const orderElement = document.createElement("div");
+      orderElement.className = "order";
+      orderElement.innerHTML = `
+        <div class="order-details">
+          <h3>${order.name}</h3>
+          <p>Quantity: ${order.quantity}</p>
+          <p>Ordered On: ${order.date}</p>
+        </div>
+        <div class="order-actions">
+          <button onclick="reorder(${order.id})" id="reorder-${order.id}">Reorder</button>
+          <button style="display:none;" id="add-to-cart-${order.id}" onclick="addToCart(${order.id})">Add to Cart</button>
+        </div>
+      `;
+      ordersContainer.appendChild(orderElement);
+    });
+
+    // Handle Reorder button click
+    function reorder(orderId) {
+      const addToCartButton = document.getElementById(`add-to-cart-${orderId}`);
+      addToCartButton.style.display = "inline-block"; // Show "Add to Cart" button
+      const reorderButton = document.getElementById(`reorder-${orderId}`);
+      reorderButton.disabled = true; // Disable "Reorder" button
+    }
+
+    // Handle Add to Cart button click
+    function addToCart(orderId) {
+      alert(`Item ${orderId} has been added to your cart!`);
+      const addToCartButton = document.getElementById(`add-to-cart-${orderId}`);
+      addToCartButton.disabled = true; // Disable "Add to Cart" button
+    }
+  </script>
+</body>
+</html>
