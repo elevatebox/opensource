@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>abimanyu - Permissin Management</title>
+    <link rel="icon" href="path/to/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lobster&display=swap">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Lucida', cursive;
+        }
+        .login-box {
+            background: rgb(85, 120, 117);
+            padding: 2rem;
+            border-radius: 20px; /* Changed to a more rounded shape */
+            box-shadow: 0 4px 20px rgba(199, 188, 188, 0.1);
+            margin-top: 3rem;
+        }
+        .loader {
+            border: 4px solid rgba(222, 67, 168, 0.792);
+            border-top: 4px solid #3498db;
+            border-radius: 10%;
+            width: 40px;
+            height: 40px;
+            margin: 2rem auto;
+            display: none;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center text-primary font-weight-bold">Abimanyu</h1>
+        <div id="alert" class="alert alert-danger" role="alert" style="display: none;"></div>
+        <div class="login-box">
+            <select id="role-dropdown" class="form-control mb-3" aria-label="Select Role" onchange="showDashboard()">
+                <option value="" disabled selected>Select login mode</option>
+                <option value="admin">Login as Admin</option>
+                <option value="co-admin">Login as Co-admin</option>
+                <option value="student">Login as Student</option>
+            </select>
+            <input type="text" class="form-control mb-2" placeholder="Username" id="username" aria-label="Username" required>
+            <input type="password" class="form-control mb-2" placeholder="Password" id="password" aria-label="Password" required>
+            <button class="btn btn-danger btn-block" onclick="login()">Login</button>
+        </div>
+        <div id="loader" class="loader"></div>
+
+        <!-- Co-admin Dashboard -->
+        <div id="coadmin-dashboard" style="display: none;">
+            <h2 class="text-center">Co-admin Dashboard</h2>
+            <div class="alert alert-success" id="coadmin-message" style="display: none;"></div>
+            <ul class="nav nav-tabs" id="dashboardTabs">
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#studentManagement">Student Management</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#requests">Requests</a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane fade show active" id="studentManagement">
+                    <h2 class="mt-3">Manage Students</h2>
+                    <input type="text" id="studentName" class="form-control mb-2" placeholder="Enter student name">
+                    <button class="btn btn-success" onclick="addStudent()">Add Student</button>
+                    <ul class="list-group mt-3" id="studentList"></ul>
+                </div>
+                <div class="tab-pane fade" id="requests">
+                    <h2 class="mt-3">View Requests</h2>
+                    <ul class="list-group" id="requestList"></ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Student Dashboard -->
+        <div id="student-dashboard" style="display: none;">
+            <h2 class="text-center">Student Dashboard</h2>
+            <div class="alert alert-success" id="student-message" style="display: none;"></div>
+            <ul class="nav nav-tabs" id="dashboardTabs">
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#requestPermission">Request Permission</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#requestHistory">Request History</a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane fade show active" id="requestPermission">
+                    <h2 class="mt-3">Submit Permission Request</h2>
+                    <div class="form-group">
+                        <label for="studentName">Enter Student Name</label>
+                        <input type="text" id="studentName" class="form-control" placeholder="Your Name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="branch">Select Branch</label>
+                        <select id="branch" class="form-control" required>
+                            <option value="" disabled selected>Select your branch</option>
+                            <option value="Computer Science">Computer Science</option>
+                            <option value="Mechanical Engineering">Mechanical Engineering</option>
+                            <option value="Electrical Engineering">Electrical Engineering</option>
+                        </select>
+                    </div>
+                    <input type="text" id="subjectLine" class="form-control mb-2" placeholder="Subject Line" required>
+                    <textarea id="requestDetails" class="form-control mb-2" rows="4" placeholder="Permission Details" required></textarea>
+                    <button class="btn btn-success" onclick="submitRequest()">Send Request</button>
+                </div>
+                <div class="tab-pane fade" id="requestHistory">
+                    <h2 class="mt-3">Your Request History</h2>
+                    <ul class="list-group" id="requestList"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/scripts.js"></script>
+    <script>
+        const students = [];
+        const requests = [
+            { id: 1, name: 'John Doe', status: 'Pending' },
+            { id: 2, name: 'Jane Smith', status: 'Approved' }
+        ];
+
+        function showDashboard() {
+            const role = document.getElementById('role-dropdown').value;
+            document.getElementById('coadmin-dashboard').style.display = 'none';
+            document.getElementById('student-dashboard').style.display = 'none';
+            if (role === 'co-admin') {
+                document.getElementById('coadmin-dashboard').style.display = 'block';
+                renderRequestList();
+            } else if (role === 'student') {
+                document.getElementById('student-dashboard').style.display = 'block';
+                renderRequestHistory();
+            }
+        }
+
+        function addStudent() {
+            const studentName = document.getElementById('studentName').value;
+            if (studentName) {
+                students.push(studentName);
+                document.getElementById('studentName').value = '';
+                renderStudentList();
+                showMessage(`Student "${studentName}" added successfully!`, 'success', 'coadmin-message');
+            } else {
+                showMessage('Please enter a student name.', 'danger', 'coadmin-message');
+            }
+        }
+
+        function renderStudentList() {
+            const studentList = document.getElementById('studentList');
+            studentList.innerHTML = '';
+            students.forEach((student, index) => {
+                const li = document.createElement('li');
+                li.className = 'list-group-item d-flex justify-content-between align-items-center';
+                li.textContent = student;
+                const removeBtn = document.createElement('button');
+                removeBtn.className = 'btn btn-danger btn-sm';
+                removeBtn.textContent = 'Remove';
+                removeBtn.onclick = () => removeStudent(index);
+                li.appendChild(removeBtn);
+                studentList.appendChild(li);
+            });
+        }
+
+        function removeStudent(index) {
+            const removedStudent = students.splice(index, 1);
+            renderStudentList();
+            showMessage(`Student "${removedStudent}" removed successfully!`, 'success', 'coadmin-message');
+        }
+
+        function renderRequestList() {
+            const requestList = document.getElementById('requestList');
+            requestList.innerHTML = '';
+            requests.forEach(request => {
+                const li = document.createElement('li');
+                li.className = 'list-group-item d-flex justify-content-between align-items-center';
+                li.textContent = `${request.name} - ${request.status}`;
+                requestList.appendChild(li);
+            });
+        }
+
+        function submitRequest() {
+            const studentName = document.getElementById('studentName').value;
+            const branch = document.getElementById('branch').value;
+            const subjectLine = document.getElementById('subjectLine').value;
+            const requestDetails = document.getElementById('requestDetails').value;
+
+            if (studentName && branch && subjectLine && requestDetails) {
+                const newRequest = {
+                    id: requests.length + 1,
+                    name: studentName,
+                    branch: branch,
+                    subject: subjectLine,
+                    details: requestDetails,
+                    status: 'Pending'
+                };
+                requests.push(newRequest);
+                document.getElementById('subjectLine').value = '';
+                document.getElementById('requestDetails').value = '';
+                document.getElementById('studentName').value = '';
+                document.getElementById('branch').value = '';
+                renderRequestHistory();
+                showMessage(`Request "${subjectLine}" submitted successfully!`, 'success', 'student-message');
+            } else {
+                showMessage('Please fill in all fields.', 'danger', 'student-message');
+            }
+        }
+
+        function renderRequestHistory() {
+            const requestList = document.getElementById('requestList');
+            requestList.innerHTML = '';
+            requests.forEach(request => {
+                const li = document.createElement('li');
+                li.className = 'list-group-item d-flex justify-content-between align-items-center';
+                li.textContent = `${request.name} (${request.branch}) - ${request.subject} - ${request.status}`;
+                requestList.appendChild(li);
+            });
+        }
+
+        function showMessage(message, type, elementId) {
+            const messageBox = document.getElementById(elementId);
+            messageBox.textContent = message;
+            messageBox.className = `alert alert-${type}`;
+            messageBox.style.display = 'block';
+            setTimeout(() => {
+                messageBox.style.display = 'none';
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
