@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Deal Finder</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+        }
+        header {
+            background-color: #007bff;
+            padding: 20px;
+            text-align: center;
+            color: white;
+        }
+        .container {
+            width: 80%;
+            margin: 20px auto;
+        }
+        .search-section {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+        .search-section input, .search-section select {
+            padding: 10px;
+            font-size: 16px;
+            width: 30%;
+        }
+        .search-section button {
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .search-section button:hover {
+            background-color: #218838;
+        }
+        .results-section {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        .result-card {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .result-card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+        .result-card h3 {
+            margin-top: 10px;
+        }
+        .result-card p {
+            margin: 10px 0;
+        }
+        .result-card .price {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #28a745;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Best Travel Deals Finder</h1>
+        <p>Find the best prices on flights, hotels, and more</p>
+    </header>
+
+    <div class="container">
+        <div class="search-section">
+            <input type="text" id="destination" placeholder="Enter destination">
+            <input type="date" id="departure-date">
+            <input type="date" id="return-date">
+            <button onclick="findDeals()">Find Deals</button>
+        </div>
+
+        <div class="results-section" id="results"></div>
+    </div>
+
+    <script>
+        // Mock data for flight and hotel results
+        const mockFlights = [
+            { airline: "Airline A", price: 250, departure: "10:00 AM", arrival: "2:00 PM", url: "https://example.com" },
+            { airline: "Airline B", price: 300, departure: "12:00 PM", arrival: "4:00 PM", url: "https://example.com" },
+            { airline: "Airline C", price: 200, departure: "6:00 AM", arrival: "10:00 AM", url: "https://example.com" },
+            { airline: "Airline D", price: 280, departure: "9:00 AM", arrival: "1:00 PM", url: "https://example.com" },
+            { airline: "Airline E", price: 220, departure: "11:00 AM", arrival: "3:00 PM", url: "https://example.com" },
+            { airline: "Airline F", price: 310, departure: "8:00 AM", arrival: "12:00 PM", url: "https://example.com" },
+            { airline: "Airline G", price: 270, departure: "2:00 PM", arrival: "6:00 PM", url: "https://example.com" },
+            { airline: "Airline H", price: 240, departure: "5:00 PM", arrival: "9:00 PM", url: "https://example.com" },
+            { airline: "Airline I", price: 260, departure: "7:00 AM", arrival: "11:00 AM", url: "https://example.com" },
+            { airline: "Airline J", price: 230, departure: "3:00 PM", arrival: "7:00 PM", url: "https://example.com" }
+        ];
+
+        const mockHotels = [
+            { name: "Hotel Paradise", price: 150, rating: 4.5, location: "Downtown", image: "https://via.placeholder.com/200" },
+            { name: "Luxury Inn", price: 200, rating: 4.0, location: "Beachfront", image: "https://via.placeholder.com/200" },
+            { name: "Budget Stay", price: 80, rating: 3.5, location: "City Center", image: "https://via.placeholder.com/200" },
+            { name: "Ocean View Hotel", price: 180, rating: 4.2, location: "Seaside", image: "https://via.placeholder.com/200" },
+            { name: "Mountain Retreat", price: 130, rating: 4.1, location: "Hillside", image: "https://via.placeholder.com/200" },
+            { name: "Urban Comfort", price: 170, rating: 4.3, location: "Metropolitan Area", image: "https://via.placeholder.com/200" },
+            { name: "Countryside Inn", price: 90, rating: 4.0, location: "Outskirts", image: "https://via.placeholder.com/200" },
+            { name: "City Lights Hotel", price: 140, rating: 4.4, location: "City Center", image: "https://via.placeholder.com/200" },
+            { name: "Cozy Nest", price: 100, rating: 3.9, location: "Suburbs", image: "https://via.placeholder.com/200" },
+            { name: "Vista Lodge", price: 160, rating: 4.2, location: "Hilltop", image: "https://via.placeholder.com/200" }
+        ];
+
+        function findDeals() {
+            // Get user inputs
+            const destination = document.getElementById("destination").value;
+            const departureDate = document.getElementById("departure-date").value;
+            const returnDate = document.getElementById("return-date").value;
+
+            // Simple validation
+            if (!destination || !departureDate || !returnDate) {
+                alert("Please fill in all fields");
+                return;
+            }
+
+            // Clear any previous results
+            document.getElementById("results").innerHTML = "";
+
+            // Display flight results
+            let flightResults = "<h2>Flights to " + destination + ":</h2>";
+            mockFlights.forEach(flight => {
+                flightResults += `
+                    <div class="result-card">
+                        <h3>${flight.airline}</h3>
+                        <p>Departure: ${flight.departure} | Arrival: ${flight.arrival}</p>
+                        <p class="price">$${flight.price}</p>
+                        <a href="${flight.url}" target="_blank">Book Now</a>
+                    </div>
+                `;
+            });
+
+            // Display hotel results
+            let hotelResults = "<h2>Hotels in " + destination + ":</h2>";
+            mockHotels.forEach(hotel => {
+                hotelResults += `
+                    <div class="result-card">
+                        <img src="${hotel.image}" alt="${hotel.name}">
+                        <h3>${hotel.name}</h3>
+                        <p>Location: ${hotel.location} | Rating: ${hotel.rating}</p>
+                        <p class="price">$${hotel.price} per night</p>
+                        <a href="https://example.com" target="_blank">Book Now</a>
+                    </div>
+                `;
+            });
+
+            // Append results to the DOM
+            document.getElementById("results").innerHTML = flightResults + hotelResults;
+        }
+    </script>
+</body>
+</html>
