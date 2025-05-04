@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>grant.it - Permission Management System</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        html, body {
+            height: 100%; /* Ensure full height */
+            margin: 0; /* Remove default margin */
+        }
+        body {
+            background-image: url('https://www.wallpaperflare.com/static/513/292/11/sketches-gradient-doodle-logo-wallpaper.jpg');
+            background-size: cover; /* Cover the entire page */
+            background-repeat: no-repeat; /* Do not repeat the image */
+            background-position: center; /* Center the image */
+        }
+        .login-box {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 15px; /* Reduced padding */
+            background-color: rgba(255, 255, 255, 0.8); /* Slightly transparent white background */
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            max-width: 320px; /* Adjust max width */
+            margin: auto; /* Center the box */
+            margin-top: 100px; /* Space from the top */
+        }
+        .form-control {
+            max-width: 100%; /* Ensure it takes full width of the box */
+        }
+        h1 {
+            color: lightpink; /* Change text color to light pink */
+            margin-top: 50px; /* Increased top margin to move it down further */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center font-weight-bold" style="text-transform: uppercase;">grant.it</h1>
+        <div class="login-box">
+            <div class="form-group">
+                <label for="role">Login as:</label>
+                <select class="form-control" id="role">
+                    <option>Admin</option>
+                    <option>Co-admin</option>
+                    <option>Student</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" class="form-control" id="username" placeholder="Enter username">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" placeholder="Password">
+            </div>
+            <button class="btn btn-primary btn-block" onclick="login()">Login</button>
+        </div>
+    </div>
+    
+    <script src="../js/script.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        function login() {
+            const role = document.getElementById('role').value;
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // Placeholder login logic
+            if (username && password) {
+                alert(`Logged in as ${role}`);
+                // Here you would typically redirect to a different page based on the role
+            } else {
+                alert('Please enter username and password');
+            }
+        }
+    </script>
+</body>
+</html>
