@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VNR EIE Attendance</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .date-button {
+            min-width: 100px;
+            padding: 10px;
+            margin: 5px;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .date-button.selected {
+            background: #0d6efd;
+            color: white;
+            border-color: #0d6efd;
+        }
+
+        .attendance-checkbox {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            accent-color: #198754;
+        }
+
+        .attendance-stats {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+
+        .stats-card {
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stats-card.total {
+            background-color: #e9ecef;
+        }
+
+        .stats-card.present {
+            background-color: #d1e7dd;
+        }
+
+        .stats-card.absent {
+            background-color: #f8d7da;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 15% auto;
+            padding: 20px;
+            border-radius: 8px;
+            width: 80%;
+            max-width: 500px;
+        }
+
+        .close {
+            float: right;
+            cursor: pointer;
+            font-size: 24px;
+        }
+
+        .name-cell {
+            text-transform: capitalize;
+        }
+
+        .roll-number-cell {
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+    <div class="container py-4">
+        <!-- Header -->
+        <header class="mb-4">
+            <h1 class="display-5">VNR EIE Full Stack Attendance</h1>
+            <div id="currentDate" class="text-muted"></div>
+        </header>
+
+        <!-- Date Selection -->
+        <div id="dateSelector" class="d-flex overflow-auto mb-4"></div>
+
+        <!-- Main Content -->
+        <div class="card mb-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Student Attendance</h5>
+                <button class="btn btn-primary" onclick="showAddStudentModal()">Add Student</button>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Roll Number</th>
+                                <th>Name</th>
+                                <th class="text-center">Attendance</th>
+                            </tr>
+                        </thead>
+                        <tbody id="studentTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Attendance Report -->
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">Attendance Report</h5>
+            </div>
+            <div class="card-body">
+                <div class="row mb-4">
+                    <div class="col-md-4">
+                        <div class="stats-card total">
+                            <div class="text-muted">Total Students</div>
+                            <div id="totalCount" class="h3">0</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="stats-card present">
+                            <div class="text-muted">Present</div>
+                            <div id="presentCount" class="h3">0</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="stats-card absent">
+                            <div class="text-muted">Absent</div>
+                            <div id="absentCount" class="h3">0</div>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-success" onclick="downloadCSV()">Download CSV</button>
+            </div>
+        </div>
+
+        <!-- Add Student Modal -->
+        <div id="addStudentModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="hideAddStudentModal()">&times;</span>
+                <h4>Add New Student</h4>
+                <form id="addStudentForm" onsubmit="handleAddStudent(event)">
+                    <div class="mb-3">
+                        <label class="form-label">Roll Number</label>
+                        <input type="text" class="form-control" id="rollNumber" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">First Name</label>
+                        <input type="text" class="form-control" id="firstName" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Last Name</label>
+                        <input type="text" class="form-control" id="lastName" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // State management
+        let students = [];
+        let attendance = {};
+        let selectedDate = new Date();
+
+        // Initialize page
+        function initializePage() {
+            updateCurrentDate();
+            generateDateSelector();
+            loadStudents();
+            updateAttendanceStats();
+        }
+
+        // Update current date display
+        function updateCurrentDate() {
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('currentDate').textContent = selectedDate.toLocaleDateString('en-US', options);
+        }
+
+        // Generate date selector
+        function generateDateSelector() {
+            const dateSelector = document.getElementById('dateSelector');
+            dateSelector.innerHTML = '';
+
+            const mondays = getMondays();
+            mondays.forEach(date => {
+                const button = document.createElement('button');
+                button.className = `date-button ${date.toDateString() === selectedDate.toDateString() ? 'selected' : ''}`;
+                button.textContent = formatDate(date);
+                button.onclick = () => selectDate(date);
+                dateSelector.appendChild(button);
+            });
+        }
+
+        // Get previous Mondays
+        function getMondays() {
+            const dates = [];
+            const today = new Date();
+            let currentDate = new Date(today);
+
+            while (currentDate.getDay() !== 1) {
+                currentDate.setDate(currentDate.getDate() - 1);
+            }
+
+            for (let i = 0; i < 6; i++) {
+                dates.unshift(new Date(currentDate));
+                currentDate.setDate(currentDate.getDate() - 7);
+            }
+            return dates;
+        }
+
+        // Format date for display
+        function formatDate(date) {
+            const day = date.getDate();
+            const month = date.toLocaleString('default', { month: 'short' }).toLowerCase();
+            return `${day} ${month}`;
+        }
+
+        // Select date
+        function selectDate(date) {
+            selectedDate = date;
+            updateCurrentDate();
+            generateDateSelector();
+        }
+
+        // Load students
+        function loadStudents() {
+            const tableBody = document.getElementById('studentTableBody');
+            tableBody.innerHTML = '';
+
+            students.forEach(student => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td class="roll-number-cell">${student.rollNumber}</td>
+                    <td class="name-cell">${student.firstName} ${student.lastName}</td>
+                    <td class="text-center">
+                        <input type="checkbox" 
+                               class="attendance-checkbox" 
+                               ${attendance[student.rollNumber] ? 'checked' : ''}
+                               onchange="handleAttendance('${student.rollNumber}')">
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        // Handle attendance toggle
+        function handleAttendance(rollNumber) {
+            attendance[rollNumber] = !attendance[rollNumber];
+            updateAttendanceStats();
+        }
+
+        // Update attendance statistics
+        function updateAttendanceStats() {
+            const totalCount = students.length;
+            const presentCount = Object.values(attendance).filter(Boolean).length;
+            const absentCount = totalCount - presentCount;
+
+            document.getElementById('totalCount').textContent = totalCount;
+            document.getElementById('presentCount').textContent = presentCount;
+            document.getElementById('absentCount').textContent = absentCount;
+        }
+
+        // Show add student modal
+        function showAddStudentModal() {
+            document.getElementById('addStudentModal').style.display = 'block';
+        }
+
+        // Hide add student modal
+        function hideAddStudentModal() {
+            document.getElementById('addStudentModal').style.display = 'none';
+            document.getElementById('addStudentForm').reset();
+        }
+
+        // Handle add student form submission
+        function handleAddStudent(event) {
+            event.preventDefault();
+
+            const rollNumber = document.getElementById('rollNumber').value;
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+
+            students.push({ rollNumber, firstName, lastName });
+            hideAddStudentModal();
+            loadStudents();
+            updateAttendanceStats();
+        }
+
+        // Download CSV
+        function downloadCSV() {
+            const rows = [['Roll Number', 'Name', 'Attendance']];
+            students.forEach(student => {
+                rows.push([
+                    student.rollNumber,
+                    `${student.firstName} ${student.lastName}`,
+                    attendance[student.rollNumber] ? '1' : '0'
+                ]);
+            });
+
+            const csvContent = rows.map(row => row.join(',')).join('\n');
+            const blob = new Blob([csvContent], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `attendance_${selectedDate.toISOString().split('T')[0]}.csv`;
+            a.click();
+        }
+
+        // Initialize the page when loaded
+        window.onload = initializePage;
+    </script>
+</body>
+</html>
