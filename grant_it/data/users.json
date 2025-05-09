@@ -1,0 +1,23 @@
+// users.json
+{
+    "admin": [
+        {
+            "username": "principal",
+            "password": "adminpass"
+        }
+    ],
+    "co-admin": [
+        {
+            "username": "hod1",
+            "password": "hodpass",
+            "branch": "Computer Science"
+        }
+    ],
+    "students": [
+        {
+            "username": "student1",
+            "password": "studpass",
+            "branch": "Computer Science"
+        }
+    ]
+}
