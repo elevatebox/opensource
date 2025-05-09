@@ -1,0 +1,77 @@
+/* Apply a full height and width to the body */
+html, body {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* Create a colorful gradient background */
+body {
+    background: linear-gradient(135deg, #9c4387, #e706e0);
+    background-size: 200% 200%;
+    animation: gradientAnimation 10s ease infinite;
+}
+
+/* Keyframes for background animation */
+@keyframes gradientAnimation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Style the container */
+.container {
+    background-color: rgb(223, 243, 7); /* Semi-transparent white */
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 20px rgba(12, 182, 194, 0.2);
+}
+
+/* Center text in h1 */
+h1 {
+    color: #131ebb;
+}
+
+/* Style table elements */
+table {
+    background-color: #f1f3f0;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-top: 20px;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table th {
+    background-color: #ff7e5f;
+    color: rgb(8, 8, 8);
+}
+
+table td {
+    transition: background-color 0.3s;
+    padding: 10px;
+    text-align: center;
+}
+
+/* Style checkboxes */
+.checkbox {
+    cursor: pointer;
+}
+
+/* Highlight checked checkboxes */
+.table-success {
+    background-color: #28a745 !important; /* Green for present */
+    color: rgb(238, 242, 244);
+}
+
+/* Style buttons */
+.btn {
+    border-radius: 5px;
+}
+
+/* Style the modal */
+.modal-content {
+    border-radius: 8px;
+}
+
+
