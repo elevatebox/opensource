@@ -1,0 +1,129 @@
+/* Global Font Change */
+body {
+    font-family: 'Roboto', sans-serif; /* Changed to Roboto */
+    background-color: #efe7e7;
+    color: #333;
+    line-height: 2;
+}
+
+/* Bin Size Reduction */
+.card-container {
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.card {
+    background-color: #369d70;
+    padding: 30px;
+    text-align: center;
+    width: 30%;  /* Reduced bin size */
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+}
+
+.card-img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+/* Status Text */
+.status-text {
+    font-weight: bold;
+    display: block;
+}
+
+.status-text.full {
+    color: #e74c3c;
+}
+
+.status-text.half-full {
+    color: #16ec8f;
+}
+.card-img {
+    width: 70%; /* Ensure the image fills the card container */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 6px; /* Keep rounded corners for a clean look */
+}
+/* Event Card Images */
+.event-img, .community-img, .impact-img {
+    width: 50%;
+    height: auto;
+    border-radius: 15px;
+    margin-bottom: 50px;
+}
+
+/* Community Section Image */
+.community-img {
+    width: 50%;
+    max-height: 250px; /* Adjust height if necessary */
+    object-fit: cover; /* Ensures image fills container properly */
+    margin-bottom: 15px;
+}
+
+/* Impact Cards Image */
+.impact-img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+/* General Card Styling */
+.event-card, .card {
+    background-color: #4db6ad;
+    padding: 2px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card-container, .impact-cards, .event-card {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+/* For smaller screens, ensure images and cards are responsive */
+@media (max-width: 768px) {
+    .event-card, .card {
+        width: 100%; /* Stack cards on smaller screens */
+    }
+}
+/* Background Banner Style */
+.background-banner {
+    position: relative;
+    background-image: url('https://images.unsplash.com/photo-1504805572947-34fad45aed93?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8YmFjayUyMGdyb3VuZCUyMG9mJTIwYSUyMHdhc3RlJTIwbWFuYWdlbWVudCUyMHdlYnNpdGV8ZW58MHx8MHx8fDA%3D'); /* Replace with your own image URL */
+    background-size: cover;
+    background-position: center;
+    height: 400px; /* Adjust as needed */
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.background-banner .overlay {
+    background: rgba(0, 0, 0, 0.5); /* Optional: Dark overlay for better text visibility */
+    padding: 20px;
+    text-align: center;
+}
+
+.banner-message {
+    font-size: 36px;
+    font-weight: 700;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Other existing styles for header, footer, etc. */
