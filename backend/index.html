@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VNR Project</title>
+    <script>
+        async function fetchAbout() {
+            const response = await fetch('/vnr_about');
+            const data = await response.json();
+            document.getElementById('about').innerText = data.message;
+        }
+
+        async function addStudent() {
+            const name = document.getElementById('name').value;
+            const rollNo = document.getElementById('rollNo').value;
+            const section = document.getElementById('section').value;
+            const branch = document.querySelector('input[name="branch"]:checked').value;
+            const email = document.getElementById('email').value;
+
+            const response = await fetch('/vnr_students', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, rollNo, section, branch, email }),
+            });
+
+            const data = await response.json();
+            alert(data.message);
+        }
+
+        async function createTask() {
+            const taskName = document.getElementById('taskName').value;
+            const deadline = document.getElementById('deadline').value;
+            const priority = document.getElementById('priority').value;
+
+            const response = await fetch('/todo_create', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ taskName, deadline, priority }),
+            });
+
+            const data = await response.json();
+            alert(data.message);
+            fetchTasks();
+        }
+
+        async function fetchTasks() {
+            const response = await fetch('/tasks');
+            const tasks = await response.json();
+            const taskList = document.getElementById('taskList');
+            taskList.innerHTML = '';
+
+            tasks.forEach(task => {
+                const li = document.createElement('li');
+                li.innerText = `${task.taskName} - ${task.deadline} - ${task.priority}`;
+                const deleteButton = document.createElement('button');
+                deleteButton.innerText = 'Delete';
+                deleteButton.onclick = () => deleteTask(task.taskName);
+                li.appendChild(deleteButton);
+                taskList.appendChild(li);
+            });
+        }
+
+        async function deleteTask(taskName) {
+            const response = await fetch('/todo_delete', {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ taskName }),
+            });
+
+            const data = await response.json();
+            alert(data.message);
+            fetchTasks();
+        }
+
+        async function deleteAllTasks() {
+            const response = await fetch('/
