@@ -1,0 +1,17 @@
+{
+    "manifest_version": 3,
+    "name": "Trustworthy Content Advisor",
+    "version": "1.0",
+    "description": "Assess the credibility of online content in real time.",
+    "permissions": ["activeTab", "scripting", "storage"],
+    "background": {
+      "service_worker": "background.js"
+    },
+    "action": {
+      "default_popup": "popup.html"
+    },
+    "host_permissions": [
+      "*://*/*"
+    ]
+  }
+  
