@@ -1,0 +1,49 @@
+.board {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    gap: 0;
+    background: white;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.cell {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 600;
+    border: 1px solid var(--cell-border);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.cell:not(.initial):hover {
+    background-color: #f8fafc;
+}
+
+.cell.selected {
+    background-color: var(--cell-selected);
+}
+
+.cell.initial {
+    color: var(--text-secondary);
+    cursor: not-allowed;
+}
+
+.cell:not(.initial) {
+    color: var(--primary-color);
+}
+
+/* Border styling for 3x3 boxes */
+.cell[data-col="2"],
+.cell[data-col="5"] {
+    border-right: 2px solid var(--board-border);
+}
+
+.cell[data-row="2"],
+.cell[data-row="5"] {
+    border-bottom: 2px solid var(--board-border);
+}
