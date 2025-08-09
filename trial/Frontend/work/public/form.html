@@ -1,0 +1,54 @@
+<h1>Assasin Form</h1>
+<form action="#" method="post" target="_blank">
+	<label for="fname">Killer Name:</label>
+	<input type="text" name="fname" id="fname" placeholder="First Name" required>
+	<label for="lname">Last Name</label>
+	<input type="text" name="lname" id="lname" placeholder="Last Name" required>
+	<label for="age">Age</label>
+	<input type="number" name="age" id="age" min="16" max="120" placeholder="Age" required><br>
+	
+	<label for="email">Email</label>
+	<input type="email" name="email" id="email" placeholder="Email" required>
+	
+	<label for="password">Password</label>
+	<input type="password" name="password" id="password" placeholder="Password" required><br>
+	
+	<div>
+		<h3>Gender:</h3>
+		<input type="radio" name="gender" value="male" id="male" required>
+		<label for="male">Male</label>
+
+		<input type="radio" name="gender" value="female" id="female" required>
+		<label for="female">Female</label>
+
+		<input type="radio" name="gender" value="other" id="other" required>
+		<label for="other">Other</label>
+	</div>
+	
+	<div>
+		<h3>Select your device:</h3>
+		<input type="checkbox" name="device" value="mackbook" id="mac">
+		<label for="mac">Macbook</label>
+		<input type="checkbox" name="device" value="iphone" id="iphone">
+		<label for="iphone">iPhone</label>
+		<input type="checkbox" name="device" value="ipad" id="ipad">
+		<label for="ipad">iPad</label>
+	</div>
+	
+	<div>
+		<label for="finde">How did you hear about us?</label>
+		<select name="finde" id="finde" required>
+			<option value="facebook">Social Media</option>
+			<option value="search engine" selected>Search Engine</option>
+			<option value="friend">Friend</option>
+			<option value="other">Other</option>
+		</select><br>
+	</div>
+	
+	<div>
+		<label for="newsletter">Sign me up for News Letter</label>
+		<input type="checkbox" name="newsletter" id="newsletter" value="subscribed">
+	</div>
+	
+	<input type="submit" value="Sign Up">
+</form>

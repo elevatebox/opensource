@@ -1,0 +1,21 @@
+body {
+    font-family: Arial, sans-serif;
+    padding: 10px;
+    color: black;
+    background-color: white;
+  }
+  
+  body.dark-mode {
+    background-color: #333;
+    color: white;
+  }
+  
+  button {
+    padding: 10px;
+    margin: 5px;
+  }
+  
+  select {
+    margin: 5px;
+  }
+  

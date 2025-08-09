@@ -1,0 +1,25 @@
+{
+    "manifest_version": 3,
+    "name": "Multilingual Content Translator",
+    "version": "1.0",
+    "description": "Real-time translation of web pages with customizable settings",
+    "permissions": ["activeTab", "storage", "contextMenus", "notifications"],
+    "default_locale": "en",
+    "background": {
+      "service_worker": "background/background.js"
+    },
+    "content_scripts": [
+      {
+        "matches": ["https://*/*"],
+        "js": ["content/content.js"]
+      }
+    ],
+    "action": {
+      "default_popup": "popup/popup.html"
+    },
+    "host_permissions": [
+      "http://*/*",
+      "https://*/*"
+    ]
+  }
+  
