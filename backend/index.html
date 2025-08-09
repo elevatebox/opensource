@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VNR Project</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    form { margin-bottom: 20px; }
+    input, select { display: block; margin-bottom: 10px; }
+    button { margin-top: 10px; }
+  </style>
+</head>
+<body>
+  <h1>VNR Project</h1>
+
+  <section>
+    <h2>About VNR</h2>
+    <button onclick="loadAboutPage()">Load About Page</button>
+    <div id="about-content"></div>
+  </section>
+
+  <section>
+    <h2>Add Student</h2>
+    <form id="student-form">
+      <input type="text" id="name" placeholder="Name" required>
+      <input type="text" id="rollNumber" placeholder="Roll Number" required>
+      <input type="text" id="section" placeholder="Section" required>
+      <input type="text" id="branch" placeholder="Branch" required>
+      <input type="email" id="email" placeholder="Email (xxxx@vnrvjiet.in)" required>
+      <button type="submit">Add Student</button>
+    </form>
+    <div id="student-result"></div>
+  </section>
+
+  <section>
+    <h2>Todo List</h2>
+    <form id="todo-form">
+      <input type="text" id="taskName" placeholder="Task Name" required>
+      <input type="date" id="deadline" required>
+      <select id="priority" required>
+        <option value="Low">Low</option>
+        <option value="Medium">Medium</option>
+        <option value="High">High</option>
+      </select>
+      <button type="submit">Create Todo Task</button>
+    </form>
+    <div id="todo-result"></div>
+
+    <h3>Update Todo Task</h3>
+    <form id="todo-update-form">
+      <input type="text" id="taskNameUpdate" placeholder="Current Task Name" required>
+      <input type="text" id="newTaskName" placeholder="New Task Name">
+      <input type="date" id="newDeadline">
+      <select id="newPriority">
+        <option value="">Select New Priority</option>
+        <option value="Low">Low</option>
+        <option value="Medium">Medium</option>
+        <option value="High">High</option>
+      </select>
+      <button type="submit">Update Todo Task</button>
+    </form>
+    <div id="todo-update-result"></div>
+
+    <h3>Delete Todo Task</h3>
+    <form id="todo-delete-form">
+      <input type="text" id="taskNameDelete" placeholder="Task Name to Delete" required>
+      <button type="submit">Delete Todo Task</button>
+    </form>
+    <div id="todo-delete-result"></div>
+
+    <h3>Delete All Todo Tasks</h3>
+    <button onclick="deleteAllTodos()">Delete All Todo Tasks</button>
+    <div id="todo-deleteall-result"></div>
+  </section>
+
+  <script>
+    // Load About Page
+    function loadAboutPage() {
+      fetch('http://localhost:3000/vnr_about')
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById('about-content').innerHTML = data;
+        })
+        .catch(error => {
+          console.error('Error loading about page:', error);
+        });
+    }
+
+    // Add Student
+    document.getElementById('student-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const name = document.getElementById('name').value;
+      const rollNumber = document.getElementById('rollNumber').value;
+      const section = document.getElementById('section').value;
+      const branch = document.getElementById('branch').value;
+      const email = document.getElementById('email').value;
+
+      fetch('http://localhost:3000/vnr_students', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ name, rollNumber, section, branch, email })
+      })
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('student-result').textContent = data;
+      })
+      .catch(error => {
+        console.error('Error adding student:', error);
+      });
+    });
+
+    // Create Todo Task
+    document.getElementById('todo-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const taskName = document.getElementById('taskName').value;
+      const deadline = document.getElementById('deadline').value;
+      const priority = document.getElementById('priority').value;
+
+      fetch('http://localhost:3000/todo_create', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ taskName, deadline, priority })
+      })
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('todo-result').textContent = data;
+      })
+      .catch(error => {
+        console.error('Error creating todo task:', error);
+      });
+    });
+
+    // Update Todo Task
+    document.getElementById('todo-update-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const taskName = document.getElementById('taskNameUpdate').value;
+      const newTaskName = document.getElementById('newTaskName').value;
+      const newDeadline = document.getElementById('newDeadline').value;
+      const newPriority = document.getElementById('newPriority').value;
+
+      fetch('http://localhost:3000/todo_update', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ taskName, newTaskName, newDeadline, newPriority })
+      })
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('todo-update-result').textContent = data;
+      })
+      .catch(error => {
+        console.error('Error updating todo task:', error);
+      });
+    });
+
+    // Delete Todo Task
+    document.getElementById('todo-delete-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const taskName = document.getElementById('taskNameDelete').value;
+
+      fetch('http://localhost:3000/todo_delete', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ taskName })
+      })
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('todo-delete-result').textContent = data;
+      })
+      .catch(error => {
+        console.error('Error deleting todo task:', error);
+      });
+    });
+
+    // Delete All Todo Tasks
+    function deleteAllTodos() {
+      fetch('http://localhost:3000/todo_deleteall', {
+        method: 'DELETE'
+      })
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('todo-deleteall-result').textContent = data;
+      })
+      .catch(error => {
+        console.error('Error deleting all todo tasks:', error);
+      });
+    }
+  </script>
+</body>
+</html>
