@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Co-admin Dashboard - grant.it</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f0f0f0; /* Light background */
+        }
+
+        .container {
+            background-color: #6a0dad; /* Vibrant purple */
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            color: #ffffff;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #ffffff; /* White color for heading */
+        }
+
+        .nav-tabs {
+            border-bottom: 2px solid #ffffff;
+        }
+
+        .nav-link {
+            color: #ffffff;
+            font-weight: bold;
+        }
+
+        .nav-link.active {
+            background-color: #8a2be2; /* Lighter purple for active tab */
+            border-radius: 5px 5px 0 0;
+        }
+
+        .tab-pane {
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 0 0 10px 10px;
+            color: #000;
+        }
+
+        .btn {
+            background-color: #8a2be2; /* Button color */
+            color: #ffffff; /* White text */
+            border: none;
+        }
+
+        .btn:hover {
+            background-color: #6a0dad; /* Darker purple on hover */
+        }
+
+        .btn-approve {
+            background-color: #28a745; /* Green for approve */
+            color: #ffffff; /* White text */
+        }
+
+        .btn-decline {
+            background-color: #dc3545; /* Red for decline */
+            color: #ffffff; /* White text */
+        }
+
+        /* Custom table styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #eaeaea;
+        }
+
+        th {
+            background-color: #6a0dad; /* Dark purple for headers */
+            color: #ffffff; /* White text for headers */
+        }
+
+        tr:hover {
+            background-color: #f1f1f1; /* Light gray on row hover */
+        }
+
+        /* Modal styles */
+        .modal-content {
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center font-weight-bold">Co-admin Dashboard</h1>
+        <div class="tab-content mt-4">
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#student-management">Student Management</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#requests">Requests</a>
+                </li>
+            </ul>
+
+            <!-- Student Management Tab -->
+            <div class="tab-pane active" id="student-management">
+                <h3>Manage Students</h3>
+                <button class="btn mb-3" onclick="openAddStudentModal()">Add Student</button>
+                <table id="studentTable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Branch</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>John Doe</td>
+                            <td>Computer Science</td>
+                            <td>
+                                <button class="btn" onclick="openEditModal(1)">Edit</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Jane Smith</td>
+                            <td>Electrical Engineering</td>
+                            <td>
+                                <button class="btn" onclick="openEditModal(2)">Edit</button>
+                            </td>
+                        </tr>
+                        <!-- More student rows -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Requests Tab -->
+            <div class="tab-pane" id="requests">
+                <h3>Student Requests</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Request ID</th>
+                            <th>Student Name</th>
+                            <th>Permission Type</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>101</td>
+                            <td>John Doe</td>
+                            <td>Outpass</td>
+                            <td>Pending</td>
+                            <td>
+                                <button class="btn" onclick="viewRequest(101)">View</button>
+                                <button class="btn-approve" onclick="approveRequest(101)">Approve</button>
+                                <button class="btn-decline" onclick="declineRequest(101)">Decline</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>102</td>
+                            <td>Jane Smith</td>
+                            <td>Gatepass</td>
+                            <td>Approved</td>
+                            <td>
+                                <button class="btn" onclick="viewRequest(102)">View</button>
+                                <button class="btn-approve" onclick="approveRequest(102)">Approve</button>
+                                <button class="btn-decline" onclick="declineRequest(102)">Decline</button>
+                            </td>
+                        </tr>
+                        <!-- More request rows -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Editing Student Details -->
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel">Edit Student Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="editForm" onsubmit="saveChanges(event)">
+                        <div class="form-group">
+                            <label for="studentName">Student Name</label>
+                            <input type="text" class="form-control" id="studentName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="studentBranch">Branch</label>
+                            <input type="text" class="form-control" id="studentBranch" required>
+                        </div>
+                        <button type="submit" class="btn">Save Changes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Adding Student -->
+    <div class="modal fade" id="addStudentModal" tabindex="-1" role="dialog" aria-labelledby="addStudentModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addStudentModalLabel">Add New Student</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="addStudentForm" onsubmit="addStudent(event)">
+                        <div class="form-group">
+                            <label for="newStudentName">Student Name</label>
+                            <input type="text" class="form-control" id="newStudentName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="newStudentBranch">Branch</label>
+                            <input type="text" class="form-control" id="newStudentBranch" required>
+                        </div>
+                        <button type="submit" class="btn">Add Student</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Viewing Requests -->
+    <div class="modal fade" id="requestModal" tabindex="-1" role="dialog" aria-labelledby="requestModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="requestModalLabel">Request Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="requestDetails">
+                    <!-- Request details will be filled dynamically -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        let currentStudentId = null; // Variable to hold current student ID for editing
+
+        function openEditModal(id) {
+            // Fetch student data (in reality, this would come from the server)
+            const students = {
+                1: { name: "John Doe", branch: "Computer Science" },
+                2: { name: "Jane Smith", branch: "Electrical Engineering" }
+            };
+            currentStudentId = id;
+            const student = students[id];
+
+            // Fill the modal with student details
+            document.getElementById('studentName').value = student.name;
+            document.getElementById('studentBranch').value = student.branch;
+
+            // Show the modal
+            $('#editModal').modal('show');
+        }
+
+        function saveChanges(event) {
+            event.preventDefault(); // Prevent form submission
+            const studentName = document.getElementById('studentName').value;
+            const studentBranch = document.getElementById('studentBranch').value;
+
+            // Save changes logic goes here, for now just log it
+            console.log(`Updated Student ID ${currentStudentId}: Name - ${studentName}, Branch - ${studentBranch}`);
+
+            $('#editModal').modal('hide'); // Hide the modal
+        }
+
+        function openAddStudentModal() {
+            $('#addStudentModal').modal('show'); // Show the add student modal
+        }
+
+        function addStudent(event) {
+            event.preventDefault(); // Prevent form submission
+            const newStudentName = document.getElementById('newStudentName').value;
+            const newStudentBranch = document.getElementById('newStudentBranch').value;
+
+            // Add student logic goes here, for now just log it
+            console.log(`Added Student: Name - ${newStudentName}, Branch - ${newStudentBranch}`);
+
+            // Optionally, clear the form fields
+            document.getElementById('newStudentName').value = '';
+            document.getElementById('newStudentBranch').value = '';
+
+            $('#addStudentModal').modal('hide'); // Hide the modal
+        }
+
+        function viewRequest(id) {
+            // Fetch request data (in reality, this would come from the server)
+            const requests = {
+                101: { student: "John Doe", type: "Outpass", status: "Pending", details: "Need to go home." },
+                102: { student: "Jane Smith", type: "Gatepass", status: "Approved", details: "Urgent family matter." }
+            };
+            const request = requests[id];
+
+            // Display the request details in the modal
+            document.getElementById('requestDetails').innerHTML = `
+                <p><strong>Student Name:</strong> ${request.student}</p>
+                <p><strong>Permission Type:</strong> ${request.type}</p>
+                <p><strong>Status:</strong> ${request.status}</p>
+                <p><strong>Details:</strong> ${request.details}</p>
+            `;
+
+            // Show the modal
+            $('#requestModal').modal('show');
+        }
+
+        function approveRequest(id) {
+            // Logic for approving the request
+            console.log(`Request ID ${id} approved.`);
+            // You can add code here to update the request status on the server
+        }
+
+        function declineRequest(id) {
+            // Logic for declining the request
+            console.log(`Request ID ${id} declined.`);
+            // You can add code here to update the request status on the server
+        }
+    </script>
+</body>
+</html>
