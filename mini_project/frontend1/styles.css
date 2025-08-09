@@ -1,0 +1,314 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Arial', sans-serif;
+    color: #333;
+    line-height: 1.6;
+  }
+  
+  header.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
+    background-color: #007BFF;
+    color: white;
+  }
+  
+  header.navbar .logo {
+    display: flex;
+    align-items: center;
+  }
+  
+  header.navbar .logo img {
+    height: 40px;
+    margin-right: 10px;
+  }
+  
+  header.navbar .menu a {
+    margin: 0 15px;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  header.navbar .menu a:hover {
+    text-decoration: underline;
+  }
+  
+  header.navbar .login-btn {
+    padding: 10px 20px;
+    background-color: white;
+    color: #007BFF;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  header.navbar .login-btn:hover {
+    background-color: #0056b3;
+    color: white;
+  }
+  
+  .hero {
+    text-align: center;
+    padding: 100px 20px;
+    background: linear-gradient(to right, #007BFF, #00C6FF);
+    color: white;
+  }
+  
+  .hero h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+  }
+  
+  .hero .cta-btn {
+    margin-top: 20px;
+    padding: 15px 30px;
+    background: white;
+    color: #007BFF;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  .hero .cta-btn:hover {
+    background: #0056b3;
+    color: white;
+  }
+  
+  .features {
+    padding: 50px 20px;
+    text-align: center;
+    background-color: #f9f9f9;
+  }
+  
+  .features h2 {
+    font-size: 2rem;
+    margin-bottom: 30px;
+  }
+  
+  .features .feature-cards {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .features .card {
+    background: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    width: 300px;
+    margin: 15px;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .features .card img {
+    height: 60px;
+    margin-bottom: 15px;
+  }
+  
+  footer {
+    text-align: center;
+    padding: 20px;
+    background: #007BFF;
+    color: white;
+  }
+  /* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f0f0;
+    color: #333;
+    line-height: 1.6;
+  }
+  /* Login Container */
+.login-container {
+    max-width: 400px;
+    margin: 100px auto;
+    padding: 30px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  .login-container h2 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+  }
+  .role-select {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  /* Login Fields */
+.login-fields {
+    display: block;
+    margin-top: 20px;
+  }
+  .role-fields {
+    margin-bottom: 15px;
+    text-align: left;
+  }
+  input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  /* Styling for Select Dropdown */
+.select-container {
+    text-align: left;
+  }
+  
+  select {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+  }
+ 
+  /* Label Styling */
+  label {
+    font-size: 1rem;
+    margin-bottom: 5px;
+    display: block;
+    text-align: left;
+    margin-left: 10px;
+  }
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #1e3a8a; /* Blue Background */
+    color: white;
+  }
+  
+  /* Header Section */
+  header {
+    background-color: #1d4ed8; /* Darker Blue */
+    padding: 20px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+  }
+  
+  .logo h1 {
+    font-size: 2rem;
+    margin-left: 10px;
+    color: white;
+  }
+  
+  nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 1rem;
+  }
+  
+  nav a.active {
+    border-bottom: 2px solid #fff;
+  }
+  
+  nav a:hover {
+    opacity: 0.8;
+  }
+  
+  /* Contact Info Section */
+  .contact-info {
+    text-align: center;
+    margin: 40px auto;
+    padding: 20px;
+    max-width: 900px;
+  }
+  
+  /* Title Styling */
+  .contact-info h2 {
+    font-size: 3rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-decoration: underline;
+    color: #003366; /* Dark Blue */
+    margin-bottom: 20px;
+  }
+  
+  /* Paragraph Styling */
+  .contact-info p {
+    font-size: 1.5rem;
+    color: black; /* Black color text */
+    margin-bottom: 20px;
+  }
+  
+  /* Contact Information Styling */
+  .info-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .info-item img {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .info-item p {
+    font-size: 1.2rem;
+    color: #ddd;
+    margin: 0;
+  }
+  
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 20px;
+    font-size: 1rem;
+    background-color: #1d4ed8;
+    margin-top: 40px;
+  }
+  
+  /* Responsive Design */
+  @media screen and (max-width: 768px) {
+    .contact-info h2 {
+      font-size: 2rem;
+    }
+  
+    .contact-info p {
+      font-size: 1rem;
+    }
+  
+    .info-item {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+  

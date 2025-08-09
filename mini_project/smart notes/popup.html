@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notes & Bookmarks</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <h1>Notes & Bookmarks</h1>
+  <div id="tabs">
+    <button id="notes-tab" class="tab active">Notes</button>
+    <button id="bookmarks-tab" class="tab">Bookmarks</button>
+  </div>
+  <div id="content">
+    <div id="notes" class="content active">
+      <textarea id="note-input" placeholder="Write a new note..."></textarea>
+      <button id="add-note">Add Note</button>
+      <ul id="notes-list"></ul>
+    </div>
+    <div id="bookmarks" class="content">
+      <input type="text" id="bookmark-input" placeholder="Enter bookmark URL">
+      <button id="add-bookmark">Add Bookmark</button>
+      <ul id="bookmarks-list"></ul>
+    </div>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>
