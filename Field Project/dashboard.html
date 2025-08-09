@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retail Analytics Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            text-align: center;
+        }
+        .container {
+            display: flex;
+            justify-content: space-around;
+            padding: 20px;
+            background-color: #ffffff;
+            margin: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .metric {
+            font-size: 1.2em;
+            color: #333;
+        }
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 20px;
+            padding: 0 20px;
+        }
+        #chartContainer {
+            margin: 20px;
+            width: 50%; /* Set width of chart to 50% of the parent container */
+            max-width: 800px; /* Optional: Set a maximum width */
+            margin-left: auto;
+            margin-right: auto;
+        }
+        #dropdownContainer, #datePickerContainer {
+            margin: 20px;
+        }
+        .calendar-icon {
+            cursor: pointer;
+            font-size: 1.5em;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+</head>
+<body>
+
+    <!-- Profit Metrics -->
+    <div class="container">
+        <div class="metric" id="yearlyProfit">Yearly Profit: $0</div>
+        <div class="metric" id="monthlyProfit">Monthly Profit: $0</div>
+        <div class="metric" id="todaysProfit">Today's Profit: $0</div>
+    </div>
+
+    <!-- Store Dropdown and Date Picker -->
+    <div class="top-bar">
+        <div id="dropdownContainer">
+            <label for="storeSelect">Choose Store:</label>
+            <select id="storeSelect" onchange="updateDashboard()">
+                <option value="Store A">Store A</option>
+                <option value="Store B">Store B</option>
+            </select>
+        </div>
+        <div id="datePickerContainer">
+            <span class="calendar-icon" onclick="openDatePicker()">📅</span>
+            <input type="text" id="datePicker" style="display:none;" />
+        </div>
+    </div>
+
+    <!-- Chart Area -->
+    <div id="chartContainer">
+        <canvas id="profitChart"></canvas>
+    </div>
+
+    <script>
+        let chart;
+
+        // Initialize flatpickr for date selection
+        flatpickr("#datePicker", {
+            onChange: updateDashboard,
+            altInput: true,
+            altFormat: "F j, Y",
+            dateFormat: "Y-m-d"
+        });
+
+        function openDatePicker() {
+            document.getElementById("datePicker").focus();
+        }
+
+        // Load JSON data
+        async function loadData() {
+            const response = await fetch('data.json');
+            const data = await response.json();
+            return data.stores;
+        }
+
+        async function updateDashboard() {
+            const stores = await loadData();
+            const selectedStore = document.getElementById('storeSelect').value;
+            const selectedDate = document.getElementById('datePicker').value;
+            const storeData = stores[selectedStore];
+
+            // Update profit metrics
+            document.getElementById('yearlyProfit').textContent = `Yearly Profit: $${storeData.yearlyProfit}`;
+            document.getElementById('monthlyProfit').textContent = `Monthly Profit: $${storeData.monthlyProfit}`;
+            document.getElementById('todaysProfit').textContent = `Today's Profit: $${storeData.todaysProfit}`;
+
+            // Get sales and expenditure data for the selected date
+            const dateData = storeData.dates[selectedDate] || { sales: [], expenditure: [] };
+            updateChart(dateData.sales, dateData.expenditure);
+        }
+
+        function initializeChart() {
+            const ctx = document.getElementById('profitChart').getContext('2d');
+            chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"],
+                    datasets: [
+                        {
+                            label: 'Sales',
+                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            data: []
+                        },
+                        {
+                            label: 'Expenditure',
+                            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                            borderColor: 'rgba(255, 99, 132, 1)',
+                            data: []
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    animation: {
+                        duration: 1000,
+                        easing: 'easeOutBounce'
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+
+        function updateChart(salesData, expenditureData) {
+            chart.data.datasets[0].data = salesData;
+            chart.data.datasets[1].data = expenditureData;
+            chart.update();
+        }
+
+        // Initialize dashboard
+        window.onload = async () => {
+            initializeChart();
+            await updateDashboard();
+        };
+    </script>
+
+</body>
+</html>

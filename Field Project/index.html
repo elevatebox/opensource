@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retail Analytics Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .container {
+            display: flex;
+            justify-content: space-around;
+            padding: 20px;
+            background-color: #ffffff;
+            margin: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .metric {
+            font-size: 1.2em;
+            color: #333;
+            padding: 10px;
+            background-color: #e6ffe6;
+            border-radius: 12px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+        .metric-container {
+            display: flex;
+            justify-content: space-between;
+            width: 80%;
+            margin: 20px;
+            padding: 20px;
+            border-radius: 15px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transform: translateX(0);
+            transition: transform 0.5s ease;
+        }
+        #chartContainer {
+            width: 60%;
+            margin-left: 20px;
+            transition: all 0.5s ease;
+        }
+        #detailsContainer {
+            width: 30%;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-left: 20px;
+            border-radius: 15px;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+        #dropdownContainer, #datePickerContainer {
+            margin: 20px;
+        }
+        .calendar-icon {
+            cursor: pointer;
+            font-size: 1.5em;
+        }
+        #detailsContainer h3 {
+            margin-top: 0;
+            color: #333;
+        }
+        #detailsContainer p {
+            font-size: 1.2em;
+            margin: 10px 0;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+</head>
+<body>
+
+    <!-- Profit Metrics -->
+    <div class="container">
+        <div class="metric" id="yearlyProfit">Yearly Profit: $0</div>
+        <div class="metric" id="monthlyProfit">Monthly Profit: $0</div>
+        <div class="metric" id="todaysProfit">Today's Profit: $0</div>
+    </div>
+
+    <!-- Store Dropdown and Date Picker -->
+    <div class="top-bar">
+        <div id="dropdownContainer">
+            <label for="storeSelect">Choose Store:</label>
+            <select id="storeSelect" onchange="updateDashboard()">
+                <option value="Store A">Store A</option>
+                <option value="Store B">Store B</option>
+            </select>
+        </div>
+        <div id="datePickerContainer">
+            <span class="calendar-icon" onclick="openDatePicker()">📅</span>
+            <input type="text" id="datePicker" style="display:none;" />
+        </div>
+    </div>
+
+    <!-- Chart Area -->
+    <div style="display: flex; justify-content: flex-start; width: 100%;">
+        <div id="chartContainer">
+            <canvas id="profitChart"></canvas>
+        </div>
+        <div id="detailsContainer">
+            <h3>Month Details</h3>
+            <p><strong>Gross Profit:</strong> $0</p>
+            <p><strong>Total Profit:</strong> $0</p>
+        </div>
+    </div>
+
+    <script>
+        let chart;
+        let selectedStoreData;
+
+        // Set date to today by default
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('datePicker').value = today;
+
+        // Initialize flatpickr for date selection
+        flatpickr("#datePicker", {
+            onChange: updateDashboard,
+            altInput: true,
+            altFormat: "F j, Y",
+            dateFormat: "Y-m-d"
+        });
+
+        function openDatePicker() {
+            document.getElementById("datePicker").focus();
+        }
+
+        // Load JSON data
+        async function loadData() {
+            const response = await fetch('data.json');
+            const data = await response.json();
+            return data.stores;
+        }
+
+        async function updateDashboard() {
+            const stores = await loadData();
+            const selectedStore = document.getElementById('storeSelect').value;
+            const selectedDate = document.getElementById('datePicker').value;
+            selectedStoreData = stores[selectedStore];
+
+            // Update profit metrics
+            document.getElementById('yearlyProfit').textContent = `Yearly Profit: $${selectedStoreData.yearlyProfit}`;
+            document.getElementById('monthlyProfit').textContent = `Monthly Profit: $${selectedStoreData.monthlyProfit}`;
+            document.getElementById('todaysProfit').textContent = `Today's Profit: $${selectedStoreData.todaysProfit}`;
+
+            // Get sales and expenditure data for the selected date
+            const dateData = selectedStoreData.dates[selectedDate];
+
+            if (dateData) {
+                // Create the chart
+                if (chart) {
+                    chart.destroy(); // Destroy existing chart
+                }
+
+                const ctx = document.getElementById('profitChart').getContext('2d');
+                chart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: ['Morning', 'Afternoon', 'Evening', 'Night'],
+                        datasets: [{
+                            label: 'Sales',
+                            data: dateData.sales,
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            fill: false
+                        }, {
+                            label: 'Expenditure',
+                            data: dateData.expenditure,
+                            borderColor: 'rgba(255, 99, 132, 1)',
+                            fill: false
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        },
+                        onClick: (event, elements) => {
+                            if (elements.length > 0) {
+                                const elementIndex = elements[0].index;
+                                const month = chart.data.labels[elementIndex];
+                                const monthData = selectedStoreData.monthlyProfits[month];
+
+                                if (monthData) {
+                                    // Smoothly slide the graph to the left and fade in the details container
+                                    document.getElementById('chartContainer').style.transform = 'translateX(-50%)';
+                                    const detailsContainer = document.getElementById('detailsContainer');
+                                    detailsContainer.style.display = 'block';
+                                    detailsContainer.style.opacity = 1;  // Fade in the details container
+                                    detailsContainer.innerHTML = `
+                                        <h3>Details for ${month}</h3>
+                                        <p><strong>Gross Profit:</strong> $${monthData.grossProfit}</p>
+                                        <p><strong>Total Profit:</strong> $${monthData.totalProfit}</p>
+                                    `;
+                                }
+                            }
+                        }
+                    }
+                });
+
+            } else {
+                alert('No data available for this date.');
+            }
+        }
+
+        // Initial data load
+        updateDashboard();
+    </script>
+</body>
+</html>
