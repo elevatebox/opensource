@@ -1,0 +1,21 @@
+[
+  {
+    "id": 1730624914355,
+    "name": "Damon Salvatore",
+    "rollNumber": "23071A10B8",
+    "section": "B",
+    "branch": "ECE",
+    "email": "adishkumar068@gmail.com"
+  },
+  {
+    "id": 1730624981788,
+    "name": "Stefan Salvatore",
+    "rollNumber": "23071A10A7",
+    "section": "A",
+    "branch": "CSE",
+    "email": "Elena068@gmail.com"
+  },
+  {
+    "id": 1730625223855
+  }
+]
