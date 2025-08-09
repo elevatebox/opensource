@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eventify - Event Ticketing</title>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Header with Eventify Title */
+        header {
+            background-color: #1e3a5f; /* Dark middle blue color */
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+            font-size: 48px; /* Increased font size */
+            font-weight: bold;
+            width: 80%; /* Increased width */
+            margin: 30px auto;
+            border-radius: 8px;
+        }
+
+        /* Main Container for Login/Signup */
+        .container {
+            max-width: 450px;
+            margin: 0 auto;
+            padding: 30px;
+            background-color: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            margin-bottom: 50px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        label {
+            font-size: 16px;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            margin-top: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #1e3a5f; /* Dark blue color */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #123456; /* Darker shade on hover */
+        }
+
+        /* Form toggle links */
+        .form-toggle {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .form-toggle a {
+            color: #1e3a5f;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .form-toggle a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                width: 90%;
+                padding: 20px;
+            }
+
+            header {
+                font-size: 40px;
+                padding: 20px 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header with Eventify Title -->
+    <header>
+        Eventify
+    </header>
+
+    <!-- Main Container for Login/Signup -->
+    <div class="container">
+        
+        <!-- Login Form -->
+        <div id="loginForm">
+            <h2>Login</h2>
+            <form id="loginFormData">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" placeholder="Enter your username" required>
+
+                <label for="loginPassword">Password</label>
+                <input type="password" id="loginPassword" name="password" placeholder="Enter your password" required>
+
+                <button type="submit" onclick="window.location.href='event.html';">Login</button>
+
+            </form>
+
+            <!-- Toggle to Signup -->
+            <div class="form-toggle">
+                <p>Don't have an account? <a href="#" onclick="showSignupForm()">Signup</a></p>
+            </div>
+        </div>
+
+        <!-- Signup Form -->
+        <div id="signupForm" style="display:none;">
+            <h2>Signup</h2>
+            <form id="signupFormData">
+                <label for="firstName">First Name</label>
+                <input type="text" id="firstName" name="firstName" placeholder="Enter your first name" required>
+
+                <label for="lastName">Last Name</label>
+                <input type="text" id="lastName" name="lastName" placeholder="Enter your last name" required>
+
+                <label for="signupEmail">Email Address</label>
+                <input type="email" id="signupEmail" name="email" placeholder="Enter your email" required>
+
+                <label for="signupPassword">Password</label>
+                <input type="password" id="signupPassword" name="password" placeholder="Enter your password" required>
+
+                <label for="confirmPassword">Confirm Password</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm your password" required>
+
+                <button type="submit">Signup</button>
+            </form>
+
+            <!-- Toggle to Login -->
+            <div class="form-toggle">
+                <p>Already have an account? <a href="#" onclick="showLoginForm()">Login</a></p>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Function to toggle between Login and Signup forms
+        function showSignupForm() {
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('signupForm').style.display = 'block';
+        }
+
+        function showLoginForm() {
+            document.getElementById('signupForm').style.display = 'none';
+            document.getElementById('loginForm').style.display = 'block';
+        }
+
+        // Basic form validation for Signup and Login forms
+        document.getElementById('loginFormData').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            // Logic for logging in
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('loginPassword').value;
+
+            if (username && password) {
+                alert('Logging in...');
+                // Redirect to main events page or dashboard
+                window.location.href = 'events.html'; // Example redirect
+            } else {
+                alert('Please fill in all fields.');
+            }
+        });
+
+        document.getElementById('signupFormData').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            // Logic for signup
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const email = document.getElementById('signupEmail').value;
+            const password = document.getElementById('signupPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            if (firstName && lastName && email && password && confirmPassword) {
+                if (password === confirmPassword) {
+                    alert('Signup successful!');
+                    // Redirect to main events page or dashboard
+                    window.location.href = 'events.html'; // Example redirect
+                } else {
+                    alert('Passwords do not match.');
+                }
+            } else {
+                alert('Please fill in all fields.');
+            }
+        });
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment - Eventify</title>
+    <style>
+        /* Basic Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #003366;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-size: 30px;
+        }
+
+        .container {
+            width: 60%;
+            margin: 50px auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-size: 18px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #003366;
+            color: white;
+            border: none;
+            padding: 15px;
+            width: 100%;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #00509e;
+        }
+
+        .thank-you {
+            text-align: center;
+            font-size: 24px;
+            color: green;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    Payment for Event
+</header>
+
+<div class="container">
+    <h2>Payment</h2>
+
+    <div id="payment-form">
+        <h3>Choose Payment Method</h3>
+        <form id="paymentForm">
+            <!-- Payment Option - UPI -->
+            <div class="form-group">
+                <input type="radio" id="upi" name="payment-method" value="UPI" onclick="showPaymentDetails('upi')">
+                <label for="upi">UPI</label>
+            </div>
+            <div class="form-group" id="upi-details" style="display:none;">
+                <label for="upi-id">Enter UPI ID:</label>
+                <input type="text" id="upi-id" name="upi-id" placeholder="e.g., example@upi" required>
+            </div>
+
+            <!-- Payment Option - Credit/Debit Card -->
+            <div class="form-group">
+                <input type="radio" id="card" name="payment-method" value="Card" onclick="showPaymentDetails('card')">
+                <label for="card">Credit/Debit Card</label>
+            </div>
+            <div class="form-group" id="card-details" style="display:none;">
+                <label for="card-name">Cardholder Name:</label>
+                <input type="text" id="card-name" name="card-name" placeholder="Enter cardholder name" required>
+                
+                <label for="card-number">Card Number:</label>
+                <input type="text" id="card-number" name="card-number" placeholder="Enter card number" required>
+                
+                <label for="expiry-month">Expiry Month:</label>
+                <input type="number" id="expiry-month" name="expiry-month" placeholder="MM" required>
+                
+                <label for="expiry-year">Expiry Year:</label>
+                <input type="number" id="expiry-year" name="expiry-year" placeholder="YYYY" required>
+                
+                <label for="cvv">CVV:</label>
+                <input type="text" id="cvv" name="cvv" placeholder="CVV" required>
+                
+                <label for="otp">OTP:</label>
+                <input type="text" id="otp" name="otp" placeholder="Enter OTP" required>
+            </div>
+
+            <!-- Payment Amount -->
+            <div class="form-group">
+                <label for="amount">Amount to Pay:</label>
+                <select id="amount" name="amount" onchange="updateAmount()">
+                    <option value="800">800 - Badminton Singles</option>
+                    <option value="1000">1000 - Badminton Doubles</option>
+                    <option value="400">400 - Throwball</option>
+                    <option value="600">600 - Basketball</option>
+                    <option value="850">850 - Cricket</option>
+                    <option value="1100">1100 - Convergence</option>
+                    <option value="900">900 - Sintilashunz</option>
+                </select>
+            </div>
+
+            <button type="button" onclick="processPayment()">Pay Now</button>
+        </form>
+    </div>
+
+    <!-- Thank you message -->
+    <div class="thank-you" id="thank-you-message">
+        <h3 id="thank-you-text"></h3>
+    </div>
+</div>
+
+<script>
+    // Function to show payment details based on selected payment method
+    function showPaymentDetails(paymentMethod) {
+        document.getElementById("upi-details").style.display = 'none';
+        document.getElementById("card-details").style.display = 'none';
+
+        if (paymentMethod === 'upi') {
+            document.getElementById("upi-details").style.display = 'block';
+        } else if (paymentMethod === 'card') {
+            document.getElementById("card-details").style.display = 'block';
+        }
+    }
+
+    // Function to update the payment amount based on the selected event
+    function updateAmount() {
+        const selectedAmount = document.getElementById('amount').value;
+        console.log("Selected Amount: ", selectedAmount);
+    }
+
+    // Function to process payment and show a thank you message
+    function processPayment() {
+        var paymentMethod = document.querySelector('input[name="payment-method"]:checked');
+        if (!paymentMethod) {
+            alert('Please select a payment method.');
+            return;
+        }
+
+        var method = paymentMethod.value;
+        if (method === "UPI" && document.getElementById("upi-id").value === "") {
+            alert('Please enter your UPI ID.');
+            return;
+        } else if (method === "Card" && (document.getElementById("card-number").value === "" || 
+                    document.getElementById("card-name").value === "" || 
+                    document.getElementById("expiry-month").value === "" || 
+                    document.getElementById("expiry-year").value === "" || 
+                    document.getElementById("cvv").value === "" || 
+                    document.getElementById("otp").value === "")) {
+            alert('Please fill in all card details.');
+            return;
+        }
+
+        // Get the selected amount
+        const amount = document.getElementById('amount').value;
+        let eventName = '';
+        if (amount === '800') {
+            eventName = 'Badminton Singles';
+        } else if (amount === '1000') {
+            eventName = 'Badminton Doubles';
+        } else if (amount === '400') {
+            eventName = 'Throwball';
+        } else if (amount === '600') {
+            eventName = 'Basketball';
+        } else if (amount === '850') {
+            eventName = 'Cricket';
+        } else if (amount === '1100') {
+            eventName = 'Convergence';
+        } else if (amount === '900') {
+            eventName = 'Sintilashunz';
+        }
+
+        // Hide payment form and show Thank You message
+        document.getElementById("payment-form").style.display = 'none';
+        document.getElementById("thank-you-message").style.display = 'block';
+        document.getElementById("thank-you-text").innerHTML = 'Thank you for registering for ' + eventName + '!';
+    }
+</script>
+
+</body>
+</html>
