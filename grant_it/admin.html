@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - grant.it</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container">
+    <h2 class="text-success font-weight-bold text-underline">Admin Dashboard</h2>
+    
+    <ul class="nav nav-tabs" id="adminTabs" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" id="coadmin-tab" data-toggle="tab" href="#coadmin" role="tab">Co-admin Management</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="student-tab" data-toggle="tab" href="#student" role="tab">Student Management</a>
+      </li>
+    </ul>
+    
+    <div class="tab-content" id="adminTabContent">
+      <div class="tab-pane fade show active" id="coadmin" role="tabpanel">
+        <h3>Manage Co-admins</h3>
+        
+        <!-- Add Co-admin Form -->
+        <form id="addCoadminForm" class="mb-3">
+          <div class="form-group">
+            <label for="coadminName">Co-admin Name:</label>
+            <input type="text" class="form-control" id="coadminName" required>
+          </div>
+          <div class="form-group">
+            <label for="coadminBranch">Branch:</label>
+            <input type="text" class="form-control" id="coadminBranch" required>
+          </div>
+          <div class="form-group">
+            <label for="coadminPhone">Phone Number:</label>
+            <input type="tel" class="form-control" id="coadminPhone" required>
+          </div>
+          <button type="button" id="addCoadminButton" class="btn btn-primary">Add Co-admin</button>
+        </form>
+
+        <table class="table table-bordered mt-3" id="coadminTable">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Branch</th>
+              <th>Phone Number</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Co-admin entries will be dynamically added here -->
+          </tbody>
+        </table>
+      </div>
+
+      <div class="tab-pane fade" id="student" role="tabpanel">
+        <h3>Manage Students</h3>
+        
+        <!-- Add Student Form -->
+        <form id="addStudentForm" class="mb-3">
+          <div class="form-group">
+            <label for="studentName">Student Name:</label>
+            <input type="text" class="form-control" id="studentName" required>
+          </div>
+          <div class="form-group">
+            <label for="studentBranch">Branch:</label>
+            <input type="text" class="form-control" id="studentBranch" required>
+          </div>
+          <div class="form-group">
+            <label for="studentRollNumber">Roll Number:</label>
+            <input type="text" class="form-control" id="studentRollNumber" required>
+          </div>
+          <button type="button" id="addStudentButton" class="btn btn-primary">Add Student</button>
+        </form>
+
+        <table class="table table-bordered mt-3" id="studentTable">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Branch</th>
+              <th>Roll Number</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Student entries will be dynamically added here -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // JavaScript for handling add, edit, and delete operations for Co-admins
+
+    // Handle adding a new co-admin
+    $('#addCoadminButton').on('click', function() {
+      const name = $('#coadminName').val();
+      const branch = $('#coadminBranch').val();
+      const phone = $('#coadminPhone').val();
+
+      if (name && branch && phone) {
+        const newRow = `<tr>
+                          <td></td>
+                          <td>${name}</td>
+                          <td>${branch}</td>
+                          <td>${phone}</td>
+                          <td>
+                            <button class="btn btn-warning btn-sm editCoadminBtn">Edit</button>
+                            <button class="btn btn-danger btn-sm deleteCoadminBtn">Delete</button>
+                          </td>
+                        </tr>`;
+        
+        $('#coadminTable tbody').append(newRow);
+        $('#coadminName').val(''); // Clear input field
+        $('#coadminBranch').val(''); // Clear input field
+        $('#coadminPhone').val(''); // Clear input field
+        updateCoadminRowNumbers(); // Update row numbers
+      } else {
+        alert("Please fill in all fields."); // Alert if fields are empty
+      }
+    });
+
+    // Handle editing a co-admin
+    $(document).on('click', '.editCoadminBtn', function() {
+      const row = $(this).closest('tr');
+      const name = row.find('td:eq(1)').text();
+      const branch = row.find('td:eq(2)').text();
+      const phone = row.find('td:eq(3)').text();
+
+      $('#coadminName').val(name);
+      $('#coadminBranch').val(branch);
+      $('#coadminPhone').val(phone);
+
+      // Remove the row to allow adding it again
+      row.remove();
+      updateCoadminRowNumbers(); // Update row numbers
+    });
+
+    // Handle deleting a co-admin
+    $(document).on('click', '.deleteCoadminBtn', function() {
+      $(this).closest('tr').remove();
+      updateCoadminRowNumbers(); // Update row numbers
+    });
+
+    // Function to update co-admin row numbers
+    function updateCoadminRowNumbers() {
+      $('#coadminTable tbody tr').each(function(index) {
+        $(this).find('td:first').text(index + 1);
+      });
+    }
+
+    // JavaScript for handling add, edit, and delete operations for Students
+
+    // Handle adding a new student
+    $('#addStudentButton').on('click', function() {
+      const name = $('#studentName').val();
+      const branch = $('#studentBranch').val();
+      const rollNumber = $('#studentRollNumber').val();
+
+      if (name && branch && rollNumber) {
+        const newRow = `<tr>
+                          <td></td>
+                          <td>${name}</td>
+                          <td>${branch}</td>
+                          <td>${rollNumber}</td>
+                          <td>
+                            <button class="btn btn-warning btn-sm editStudentBtn">Edit</button>
+                            <button class="btn btn-danger btn-sm deleteStudentBtn">Delete</button>
+                          </td>
+                        </tr>`;
+        
+        $('#studentTable tbody').append(newRow);
+        $('#studentName').val(''); // Clear input field
+        $('#studentBranch').val(''); // Clear input field
+        $('#studentRollNumber').val(''); // Clear input field
+        updateStudentRowNumbers(); // Update row numbers
+      } else {
+        alert("Please fill in all fields."); // Alert if fields are empty
+      }
+    });
+
+    // Handle editing a student
+    $(document).on('click', '.editStudentBtn', function() {
+      const row = $(this).closest('tr');
+      const name = row.find('td:eq(1)').text();
+      const branch = row.find('td:eq(2)').text();
+      const rollNumber = row.find('td:eq(3)').text();
+
+      $('#studentName').val(name);
+      $('#studentBranch').val(branch);
+      $('#studentRollNumber').val(rollNumber);
+
+      // Remove the row to allow adding it again
+      row.remove();
+      updateStudentRowNumbers(); // Update row numbers
+    });
+
+    // Handle deleting a student
+    $(document).on('click', '.deleteStudentBtn', function() {
+      $(this).closest('tr').remove();
+      updateStudentRowNumbers(); // Update row numbers
+    });
+
+    // Function to update student row numbers
+    function updateStudentRowNumbers() {
+      $('#studentTable tbody tr').each(function(index) {
+        $(this).find('td:first').text(index + 1);
+      });
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Dashboard - grant.it</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    /* Popup message styles */
+    .popup-message {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1050; /* Ensure it appears above other content */
+      display: none;
+      padding: 10px 20px;
+      background-color: #28a745; /* Bootstrap success color */
+      color: white;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      transition: opacity 0.5s ease;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2 class="text-success font-weight-bold text-underline">Student Dashboard</h2>
+
+    <!-- Display Student Information -->
+    <div class="alert alert-info" role="alert">
+      <strong>Student Name:</strong> John Doe<br>
+      <strong>Roll Number:</strong> 123456<br>
+      <strong>Assigned Branch:</strong> Computer Science
+    </div>
+
+    <ul class="nav nav-tabs" id="studentTabs" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" id="request-permission-tab" data-toggle="tab" href="#requestPermission" role="tab">Request Permission</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="request-history-tab" data-toggle="tab" href="#requestHistory" role="tab">Request History</a>
+      </li>
+    </ul>
+
+    <div class="tab-content" id="studentTabContent">
+      <div class="tab-pane fade show active" id="requestPermission" role="tabpanel">
+        <h3>Request Permission</h3>
+        
+        <form id="requestForm" class="mb-3">
+          <div class="form-group">
+            <label for="subjectLine">Subject Line:</label>
+            <input type="text" class="form-control" id="subjectLine" required>
+          </div>
+          <div class="form-group">
+            <label for="permissionDetails">Permission Details:</label>
+            <textarea class="form-control" id="permissionDetails" rows="4" required></textarea>
+          </div>
+          <button type="button" id="sendRequestButton" class="btn btn-primary">Send</button>
+          <button type="button" id="cancelRequestButton" class="btn btn-secondary">Cancel</button>
+        </form>
+      </div>
+
+      <div class="tab-pane fade" id="requestHistory" role="tabpanel">
+        <h3>Request History</h3>
+        <table class="table table-bordered mt-3" id="historyTable">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Subject</th>
+              <th>Details</th>
+              <th>Status</th>
+              <th>Progress</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Request history will be dynamically added here -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Popup Message -->
+    <div class="popup-message" id="popupMessage">Request sent successfully!</div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // JavaScript for handling request submission and history
+
+    // Handle sending a new request
+    $('#sendRequestButton').on('click', function() {
+      const subject = $('#subjectLine').val();
+      const details = $('#permissionDetails').val();
+
+      if (subject && details) {
+        // Add the new request to the history table
+        const newRow = `<tr>
+                          <td></td>
+                          <td>${subject}</td>
+                          <td>${details}</td>
+                          <td>Pending</td>
+                          <td>
+                            <div class="progress">
+                              <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+                            </div>
+                          </td>
+                        </tr>`;
+        
+        $('#historyTable tbody').append(newRow);
+        $('#subjectLine').val(''); // Clear input field
+        $('#permissionDetails').val(''); // Clear textarea
+
+        // Show success popup message
+        $('#popupMessage').fadeIn().delay(2000).fadeOut(); // Show for 2 seconds
+      } else {
+        alert("Please fill in both fields."); // Alert if fields are empty
+      }
+    });
+
+    // Handle canceling the request
+    $('#cancelRequestButton').on('click', function() {
+      $('#subjectLine').val(''); // Clear input field
+      $('#permissionDetails').val(''); // Clear textarea
+      alert("Cancelled");
+    });
+  </script>
+</body>
+</html>

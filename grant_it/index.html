@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/styles.css">
+    <title>grant.it - Login</title>
+</head>
+<body>
+    <div class="background">
+        <h1 class="app-title">grant.it</h1>
+        <div class="login-box">
+            <h2>Select Role to Login</h2>
+            <select id="role" onchange="showLoginFields()">
+                <option value="admin">Admin</option>
+                <option value="co-admin">Co-admin</option>
+                <option value="student">Student</option>
+            </select>
+            <input type="text" id="username" placeholder="Username" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <button onclick="login()">Login</button>
+        </div>
+    </div>
+    <script src="../js/scripts.js"></script>
+</body>
+</html>
