@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - Add Products</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: url("adminback.jpg") no-repeat center center/cover;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background-color: rgba(0, 0, 0, 0.7);
+      color: #fff;
+    }
+
+    .logo img {
+      height: 50px;
+    }
+
+    .admin-header h1 {
+      font-size: 24px;
+      margin: 0;
+    }
+
+    .login-btn {
+      padding: 10px 15px;
+      background-color: #57A6A1;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 5px;
+      font-size: 14px;
+      transition: background-color 0.3s ease;
+    }
+
+    .login-btn:hover {
+      background-color: #344C64;
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .admin-form {
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    .admin-form h2 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .admin-form label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+      color: #555;
+    }
+
+    .admin-form input,
+    .admin-form select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+
+    .admin-form button {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      background-color: #57A6A1;
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .admin-form button:hover {
+      background-color: #344C64;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="logo">
+      <img src="farmscape_logo.webp" alt="Admin Logo">
+    </div>
+    <div class="admin-header">
+      <h1>Admin Dashboard</h1>
+    </div>
+    <a href="login.html" class="login-btn">Login</a>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <section class="admin-form">
+      <h2>Add a New Product</h2>
+      <form id="productForm">
+        <label for="productName">Product Name:</label>
+        <input type="text" id="productName" name="productName" required>
+      
+        <label for="productPrice">Price:</label>
+        <input type="number" id="productPrice" name="productPrice" required>
+      
+        <label for="productImage">Image URL:</label>
+        <input type="url" id="productImage" name="productImage" required>
+      
+        <label for="productCategory">Category:</label>
+        <select id="productCategory" name="productCategory" required>
+          <option value="vegetables">Vegetables</option>
+          <option value="fruits">Fruits</option>
+          <option value="organic">Organic Seeds</option>
+          <option value="equipment">Farming Equipment</option>
+        </select>
+      
+        <button type="submit">Add Product</button>
+      </form>
+    </section>
+  </main>
+
+  <script src="admin.js"></script>
+</body>
+</html>

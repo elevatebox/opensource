@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: url("backgroundlogin.jpeg") no-repeat center center/cover;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-container {
+            background: #fff; /* Solid white background */
+            border-radius: 15px;
+            padding: 20px 30px;
+            width: 300px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        .login-container h2 {
+            color: #000; /* Black text */
+            margin-bottom: 20px;
+        }
+
+        .login-container label {
+            display: block;
+            color: #000; /* Black text */
+            margin-bottom: 5px;
+            text-align: left;
+        }
+
+        .login-container input,
+        .login-container select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            color: #000; /* Black text */
+            font-size: 14px;
+            background: #f9f9f9;
+        }
+
+        .login-container input::placeholder {
+            color: #666; /* Gray placeholder text */
+        }
+
+        .login-container button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #57A6A1;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .login-container button:hover {
+            background-color: #344C64;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <label for="role">Role:</label>
+            <select id="role" required>
+                <option value="" disabled selected>Select your role</option>
+                <option value="admin">Admin</option>
+                <option value="user">User</option>
+            </select>
+            <label for="username">Username:</label>
+            <input type="text" id="username" placeholder="Enter your username" required>
+            <label for="password">Password:</label>
+            <input type="password" id="password" placeholder="Enter your password" required>
+            <button type="submit">Login</button>
+        </form>
+    </div>
+
+    <script>
+        const form = document.getElementById('loginForm');
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault(); // Prevent default form submission
+
+            const role = document.getElementById('role').value;
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            if (!role) {
+                alert('Please select your role!');
+                return;
+            }
+
+            // Login logic based on role
+            if (role === 'admin' && username === 'admin' && password === 'adminpassword') {
+                alert('Welcome Admin!');
+                window.location.href = 'admin.html'; // Redirect to admin dashboard
+            } else if (role === 'user' && username === 'user' && password === 'userpassword') {
+                alert('Welcome User!');
+                window.location.href = 'index.html'; // Redirect to user dashboard
+            } else {
+                alert('Invalid username or password!');
+            }
+        });
+    </script>
+</body>
+</html>

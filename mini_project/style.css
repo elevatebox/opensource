@@ -1,0 +1,115 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #fff;
+    height: 100%; /* Full height */
+    background: url("") no-repeat center center/cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
+    background: rgba(0, 0, 0, 0.8);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.main-header img {
+    height: 60px;
+}
+
+.main-header nav {
+    display: flex;
+    gap: 25px;
+}
+
+.main-header nav a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    transition: color 0.3s;
+}
+
+.main-header nav a:hover {
+    color: #00ff11;
+}
+.login-btn {
+    padding: 10px 20px;
+    background-color: #57A6A1;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+.logo{
+    width: 50px;
+}
+
+.sow{
+    font-size: large;
+}
+/* Hero Section */
+.hero {
+    height: 100vh;
+    background-image: url('backgroundimage.jpg'); /* Replace with your actual image URL */
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4); /* Add a dark overlay to improve text visibility */
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.hero p {
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+}
+
+.hero button {
+    padding: 12px 24px;
+    background-color: #57A6A1;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+.hero button:hover {
+    background-color: #344C64;
+}
