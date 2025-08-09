@@ -1,0 +1,58 @@
+import requests
+from bs4 import BeautifulSoup
+import csv
+import json
+
+# URL to scrape
+url = "https://www.workatastartup.com/jobs/69639"
+
+# Send a request to the URL
+response = requests.get(url)
+
+# Check if the request was successful
+if response.status_code == 200:
+    # Parse the content with BeautifulSoup
+    soup = BeautifulSoup(response.content, "html.parser")
+    
+    # Find the job container (this may vary based on the page structure)
+    jobs = soup.find_all('div', class_='flex-none sm:flex mt-2 flex-wrap')
+    
+    job_data = []
+
+    for job in jobs:
+        # Check if the elements exist before accessing their text
+        job_title_element = job.find('div', class_='job-name')
+        job_type_element = job.find('span', class_='text-sm font-thin')
+        location_elements = job.find_all('span', class_='text-sm font-thin')
+        
+        # Extract text only if the elements are found
+        job_title = job_title_element.text.strip() if job_title_element else "N/A"
+        job_type = job_type_element.text.strip() if job_type_element else "N/A"
+        location = location_elements[1].text.strip() if len(location_elements) > 1 else "N/A"
+        
+        company = "N/A"  # Company data is not available in this block
+
+        job_entry = {
+            "company": company,
+            "job_title": job_title,
+            "job_type": job_type,
+            "location": location
+        }
+        job_data.append(job_entry)
+
+    # Print job data in console
+    for job in job_data:
+        print(f"Company: {job['company']}, Job Title: {job['job_title']}, Job Type: {job['job_type']}, Location: {job['location']}")
+
+    # Write to CSV file
+    with open('jobs.csv', mode='w', newline='', encoding='utf-8') as file:
+        writer = csv.DictWriter(file, fieldnames=["company", "job_title", "job_type", "location"])
+        writer.writeheader()
+        for job in job_data:
+            writer.writerow(job)
+
+    # Write to JSON file
+    with open('jobs.json', mode='w', encoding='utf-8') as file:
+        json.dump(job_data, file, indent=4)
+else:
+    print(f"Failed to retrieve page: {response.status_code}")
