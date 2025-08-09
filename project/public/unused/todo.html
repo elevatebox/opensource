@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Todo Management</title>
+  <link rel="stylesheet" href="C:/Users/kashy/Desktop/opensource/project/public/unused/todo.css">
+  <style>
+    /* Style for the background image */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Arial', sans-serif;
+      background-color: #f0f0f0; /* Fallback color */
+    }
+
+    .background-image {
+      background-image: url('https://plus.unsplash.com/premium_photo-1694743671394-60034a1b2f65?q=80&w=1856&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+      background-size: cover;
+      background-position: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+
+    /* Main content styling */
+    .content::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.3); /* Dark overlay */
+    z-index: -1; /* Place it behind the text */
+}
+
+.content {
+    position: relative;
+    z-index: 1;
+    padding: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    color: #FFFFFF;
+    text-align: center;
+}
+
+
+    /* Title styling */
+    .title {
+      font-size: 2.5em; /* Large size for the title */
+      margin-bottom: 20px; /* Space below the title */
+      font-family: 'Helvetica Neue', sans-serif; /* Attractive font */
+      color: #ebeff9; /* Dark color for contrast */
+    }
+
+    /* Button styles */
+    button {
+      background-color: #5785d5;
+      color: white;
+      padding: 15px 20px;
+      border: none;
+      border-radius: 25px; /* Curvy shape */
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.2s;
+      font-size: 1.1em; /* Slightly larger text */
+      margin: 10px; /* Space around buttons */
+      font-weight: bold;
+    }
+
+    button:hover {
+      background-color: #3e2b13; /* Darker green on hover */
+      transform: scale(1.05); /* Slightly enlarge on hover */
+    }
+
+    /* Flex container for buttons */
+    .button-container {
+      display: flex;
+      justify-content: center; /* Center buttons horizontally */
+      flex-wrap: wrap; /* Allow wrapping on smaller screens */
+      margin-bottom: 20px; /* Space below the button section */
+      font-weight: bold;
+    }
+
+    /* Form sections */
+    section {
+      display: none; /* Hide all forms initially */
+      margin-top: 20px;
+    }
+
+    /* Existing todos section */
+    #todoList {
+      text-align: left; /* Align text to the left */
+      margin-top: 20px; /* Space above the list */
+      font-weight: bold;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse; /* Collapse borders */
+      margin-top: 40px;
+      font-weight: bold;
+    }
+
+    th, td {
+      padding: 10px;
+      text-align: left;
+      border: 1px solid #000000; /* Border for table cells */
+    }
+
+    th {
+      background-color: #4d90a2; /* Header background color */
+      color: white; /* Header text color */
+      font-weight: bold; /* Bold font for headers */
+      text-transform: uppercase; /* Uppercase letters for headers */
+    }
+
+    /* Loading effect */
+    #loading {
+      display: none;
+      font-size: 1.5em;
+      color: #333;
+      font-weight: bold;
+    }
+
+    /* Combined priority bar styles */
+    .priority-bar {
+      display: flex;
+      height: 5px;
+      border-radius: 2px;
+      width: 50%;
+    }
+    .priority-low {
+      background-color: green;
+      flex: 0.3; /* Low: 1/3 */
+      width: 100%;
+    }
+    .priority-medium {
+      background-color: orange;
+      flex: 2; /* Medium: 2/3 */
+    }
+    .priority-high {
+      background-color: red;
+      flex: 1; /* High: 1/3 */
+    }
+    /* Input and select styling */
+    input[type="text"],
+        input[type="date"],
+        select {
+            width: 100%;
+            max-width: 200px;
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+  </style>
+</head>
+<body>
+  <div class="background-image"></div>
+
+  <div class="content">
+    <h1 class="title">Todo Management</h1>
+
+    <!-- Loading Indicator -->
+    <div id="loading">Loading...</div>
+
+    <!-- Button Options -->
+    <div class="button-container">
+      <button onclick="showSection('createTodoForm')">Create Todo</button>
+      <button onclick="showSection('updateTodoForm')">Update Todo</button>
+      <button onclick="showSection('deleteTodoForm')">Delete Todo</button>
+      <button id="deleteAllTodosBtn">Delete All Todos</button>
+      <button onclick="showSection('todoList')">Show Existing Todos</button>
+    </div>
+
+    <!-- Create Todo Form -->
+    <section id="createTodoForm">
+      <h1>Create New Todo</h1>
+     
+      <form>
+        <label>Task Name:</label><input type="text" id="task_name" required><br>
+        <label>Deadline:</label><input type="date" id="deadline" required><br>
+        <label>Priority:</label>
+        <select id="priority">
+          <option value="Low">Low</option>
+          <option value="Medium">Medium</option>
+          <option value="High">High</option>
+        </select><br>
+        <button type="submit">Create Todo</button>
+      </form>
+    </section>
+
+    <!-- Update Todo Form -->
+    <section id="updateTodoForm">
+      <h1>Update Todo</h1>
+      <form>
+        <label>Todo ID:</label><input type="text" id="update_id" required><br>
+        <label>Task Name:</label><input type="text" id="update_task_name"><br>
+        <label>Deadline:</label><input type="date" id="update_deadline"><br>
+        <label>Priority:</label>
+        <select id="update_priority">
+          <option value="Low">Low</option>
+          <option value="Medium">Medium</option>
+          <option value="High">High</option>
+        </select><br>
+        <button type="submit">Update Todo</button>
+      </form>
+    </section>
+
+    <!-- Delete Todo Form -->
+    <section id="deleteTodoForm">
+      <h3>Delete Todo</h3>
+      <form>
+        <label>Todo ID:</label><input type="text" id="delete_id" required><br>
+        <button type="submit">Delete Todo</button>
+      </form>
+    </section>
+
+    <!-- Existing Todos Section -->
+    <section id="todoList">
+      <h3>Existing Todos</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Task</th>
+            <th>Deadline</th>
+            <th>Priority</th>
+          </tr>
+        </thead>
+        <tbody id="existingTodos"></tbody> <!-- Updated ID -->
+      </table>
+    </section>
+  </div>
+
+  <script>
+    // Function to show the relevant section
+    function showSection(sectionId) {
+      // Hide loading indicator
+      document.getElementById("loading").style.display = "none";
+
+      // Hide all sections
+      const sections = document.querySelectorAll('section');
+      sections.forEach(section => section.style.display = 'none');
+
+      // Show the selected section
+      if (sectionId === 'todoList') {
+        document.getElementById("loading").style.display = "block"; // Show loading
+        setTimeout(fetchTodos, 500); // Simulate lag
+      } else {
+        document.getElementById(sectionId).style.display = 'block'; // Show the form
+      }
+    }
+
+    // Handle Create Todo Form Submission
+    document.getElementById("createTodoForm").querySelector('form').addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const task_name = document.getElementById("task_name").value;
+      const deadline = document.getElementById("deadline").value;
+      const priority = document.getElementById("priority").value;
+
+      try {
+        const response = await fetch("http://localhost:3000/todo_create", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ task_name, deadline, priority }),
+        });
+
+        const data = await response.json();
+        if (response.ok) {
+          alert(data.message);
+          fetchTodos(); // Refresh todos
+        } else {
+          alert(data.error);
+        }
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    });
+
+    // Handle Update Todo Form Submission
+    document.getElementById("updateTodoForm").querySelector('form').addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const id = document.getElementById("update_id").value;
+      const task_name = document.getElementById("update_task_name").value;
+      const deadline = document.getElementById("update_deadline").value;
+      const priority = document.getElementById("update_priority").value;
+
+      try {
+        const response = await fetch(`http://localhost:3000/todo_update/${id}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ task_name, deadline, priority }),
+        });
+
+        const data = await response.json();
+        if (response.ok) {
+          alert(data.message);
+          fetchTodos(); // Refresh todos
+        } else {
+          alert(data.error);
+        }
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    });
+
+    // Handle Delete Todo Form Submission
+    document.getElementById("deleteTodoForm").querySelector('form').addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const id = document.getElementById("delete_id").value;
+
+      try {
+        const response = await fetch(`http://localhost:3000/todo_delete/${id}`, {
+          method: "DELETE",
+        });
+
+        const data = await response.json();
+        if (response.ok) {
+          alert(data.message);
+          fetchTodos(); // Refresh todos
+        } else {
+          alert(data.error);
+        }
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    });
+
+    // Handle Delete All Todos Button Click
+    document.getElementById("deleteAllTodosBtn").addEventListener("click", async () => {
+      if (confirm("Are you sure you want to delete all todos?")) {
+        try {
+          const response = await fetch("http://localhost:3000/todo_delete_all", {
+            method: "DELETE",
+          });
+
+          const data = await response.json();
+          if (response.ok) {
+            alert(data.message);
+            fetchTodos(); // Refresh todos
+          } else {
+            alert(data.error);
+          }
+        } catch (error) {
+          console.error("Error:", error);
+        }
+      }
+    });
+
+    // Function to fetch and display existing todos
+    async function fetchTodos() {
+      try {
+        const response = await fetch("http://localhost:3000/todos");
+        const todos = await response.json();
+
+        const existingTodosDiv = document.getElementById("existingTodos");
+        existingTodosDiv.innerHTML = ""; // Clear previous todos
+
+        todos.forEach(todo => {
+          const todoItem = document.createElement("tr");
+          todoItem.innerHTML = `
+            <td>${todo.id}</td>
+            <td>${todo.task_name}</td>
+            <td>${todo.deadline}</td>
+            <td>
+              <div class="priority-bar">
+                <div class="priority-low" style="flex: ${todo.priority === 'Low' ? 1 : 0};"></div>
+                <div class="priority-medium" style="flex: ${todo.priority === 'Medium' ? 2 : 0};"></div>
+                <div class="priority-high" style="flex: ${todo.priority === 'High' ? 1 : 0};"></div>
+              </div>
+              ${todo.priority}
+            </td>
+          `;
+          existingTodosDiv.appendChild(todoItem);
+        });
+
+        // Hide loading indicator and show the todo list
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("todoList").style.display = 'block'; // Show the todo list
+      } catch (error) {
+        console.error("Error fetching todos:", error);
+      }
+    }
+
+    // Initial setup
+    window.onload = () => {
+      showSection('createTodoForm'); // Show the create todo form by default
+    };
+  </script>
+</body>
+</html>

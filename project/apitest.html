@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Interface</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="mt-5">Interface</h1>
+
+        <!-- Navigation Buttons -->
+        <div class="mt-4">
+            <button class="btn btn-primary" onclick="showSection('students')">Students</button>
+            <button class="btn btn-secondary" onclick="showSection('todos')">Todos</button>
+        </div>
+
+        <!-- Student API Section -->
+        <div id="students" class="mt-4 section hidden">
+            <h2>Students</h2>
+            <form id="studentForm">
+                <div class="form-group">
+                    <label for="studentName">Name</label>
+                    <input type="text" class="form-control" id="studentName" required>
+                </div>
+                <div class="form-group">
+                    <label for="studentRollNo">Roll No</label>
+                    <input type="text" class="form-control" id="studentRollNo" required>
+                </div>
+                <div class="form-group">
+                    <label for="studentBranch">Branch</label>
+                    <select class="form-control" id="studentBranch" required>
+                        <option value="" disabled selected>Select your branch</option>
+                        <option value="CSE">CSE</option>
+                        <option value="ECE">ECE</option>
+                        <option value="EEE">EEE</option>
+                        <option value="ME">ME</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="studentSection">Section</label>
+                    <select class="form-control" id="studentSection" required>
+                        <option value="" disabled selected>Select your section</option>
+                        <option value="A">A</option>
+                        <option value="B">B</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="studentEmail">Email</label>
+                    <input type="email" class="form-control" id="studentEmail" required>
+                </div>
+                <button type="button" class="btn btn-primary" onclick="addStudent()">Add Student</button>
+                <button type="button" class="btn btn-danger" onclick="deleteAllStudents()">Delete All Students</button>
+            </form>
+
+            <h3 class="mt-4">Existing Students</h3>
+            <ul id="studentList" class="list-group">
+                <!-- Student items will be appended here -->
+            </ul>
+        </div>
+
+        <!-- Todo API Section -->
+        <div id="todos" class="mt-4 section hidden">
+            <h2>Todos</h2>
+            <form id="todoForm">
+                <div class="form-group">
+                    <label for="taskName">Task Name</label>
+                    <input type="text" class="form-control" id="taskName" required>
+                </div>
+                <div class="form-group">
+                    <label for="todoDeadline">Deadline</label>
+                    <input type="date" class="form-control" id="todoDeadline" required>
+                </div>
+                <div class="form-group">
+                    <label for="todoPriority">Priority</label>
+                    <select class="form-control" id="todoPriority" required>
+                        <option value="" disabled selected>Select priority level</option>
+                        <option value="Low">Low</option>
+                        <option value="Medium">Medium</option>
+                        <option value="High">High</option>
+                    </select>
+                </div>
+                <button type="button" class="btn btn-primary" onclick="addTodo()">Add Todo</button>
+                <button type="button" class="btn btn-danger" onclick="deleteAllTodos()">Delete All Todos</button>
+            </form>
+
+            <h3 class="mt-4">Existing Todos</h3>
+            <ul id="todoList" class="list-group">
+                <!-- Todo items will be appended here -->
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        const apiUrl = 'http://localhost:3000'; // Adjust based on your server URL
+
+        function showSection(section) {
+            document.getElementById('students').classList.add('hidden');
+            document.getElementById('todos').classList.add('hidden');
+
+            if (section === 'students') {
+                document.getElementById('students').classList.remove('hidden');
+                fetchStudents(); // Fetch existing students when the section is shown
+            } else {
+                document.getElementById('todos').classList.remove('hidden');
+                fetchTodos(); // Fetch existing todos when the section is shown
+            }
+        }
+
+        function addStudent() {
+            const name = document.getElementById('studentName').value;
+            const rollNo = document.getElementById('studentRollNo').value;
+            const branch = document.getElementById('studentBranch').value;
+            const section = document.getElementById('studentSection').value;
+            const email = document.getElementById('studentEmail').value;
+
+            fetch(`${apiUrl}/vnr_students`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ name, roll_no: rollNo, branch, section, email }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+                document.getElementById('studentForm').reset();
+                fetchStudents(); // Refresh the student list
+            })
+            .catch((error) => console.error('Error:', error));
+        }
+
+        function deleteAllStudents() {
+            fetch(`${apiUrl}/student_delete_all`, {
+                method: 'POST',
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+                fetchStudents(); // Refresh the student list
+            })
+            .catch((error) => console.error('Error:', error));
+        }
+
+        function fetchStudents() {
+            fetch(`${apiUrl}/students`)
+                .then(response => response.json())
+                .then(data => {
+                    console.log("Fetched student data:", data); // Debug log
+                    const studentList = document.getElementById('studentList');
+                    studentList.innerHTML = ''; // Clear existing list
+
+                    if (data.students && data.students.length) {
+                        data.students.forEach(student => {
+                            const li = document.createElement('li');
+                            li.className = 'list-group-item';
+                            li.textContent = `${student.name} - ${student.roll_no} (${student.branch} - ${student.section})`;
+                            studentList.appendChild(li);
+                        });
+                    } else {
+                        const li = document.createElement('li');
+                        li.className = 'list-group-item';
+                        li.textContent = 'No students found';
+                        studentList.appendChild(li);
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                    const studentList = document.getElementById('studentList');
+                    studentList.innerHTML = '<li class="list-group-item text-danger">Error loading students</li>';
+                });
+        }
+
+        function addTodo() {
+            const taskName = document.getElementById('taskName').value;
+            const deadline = document.getElementById('todoDeadline').value;
+            const priority = document.getElementById('todoPriority').value;
+
+            fetch(`${apiUrl}/todo_create`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ task_name: taskName, deadline, priority }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+                document.getElementById('todoForm').reset();
+                fetchTodos(); // Refresh the todo list
+            })
+            .catch((error) => console.error('Error:', error));
+        }
+
+        function deleteAllTodos() {
+            fetch(`${apiUrl}/todo_delete_all`, {
+                method: 'POST',
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+                fetchTodos(); // Refresh the todo list
+            })
+            .catch((error) => console.error('Error:', error));
+        }
+
+        function fetchTodos() {
+            fetch(`${apiUrl}/todos`)
+                .then(response => response.json())
+                .then(data => {
+                    console.log("Fetched todo data:", data); // Debug log
+                    const todoList = document.getElementById('todoList');
+                    todoList.innerHTML = ''; // Clear existing list
+
+                    if (data.todos && data.todos.length) {
+                        data.todos.forEach(todo => {
+                            const li = document.createElement('li');
+                            li.className = 'list-group-item';
+                            li.textContent = `${todo.task_name} - ${todo.deadline} (Priority: ${todo.priority})`;
+                            todoList.appendChild(li);
+                        });
+                    } else {
+                        const li = document.createElement('li');
+                        li.className = 'list-group-item';
+                        li.textContent = 'No todos found';
+                        todoList.appendChild(li);
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                    const todoList = document.getElementById('todoList');
+                    todoList.innerHTML = '<li class="list-group-item text-danger">Error loading todos</li>';
+                });
+        }
+    </script>
+</body>
+</html>
