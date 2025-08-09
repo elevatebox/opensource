@@ -1,0 +1,83 @@
+import requests
+from bs4 import BeautifulSoup
+import pandas as pd
+import json
+
+def fetch_job_listings(url, max_jobs=20):
+    # Step 1: Make a request to the URL
+    response = requests.get(url)
+    
+    # Check if the request was successful
+    if response.status_code != 200:
+        print("Failed to retrieve the page")
+        return []
+    
+    # Step 2: Parse the HTML using BeautifulSoup
+    soup = BeautifulSoup(response.content, 'html.parser')
+    
+    # Step 3: Extract job listings
+    job_listings = soup.find_all('div', class_='sMn82b')  # Adjust the class based on actual site structure
+    
+    # Initialize a list to hold extracted data
+    data = []
+    job_count = 0
+    
+    # Loop through each job listing
+    for job in job_listings:
+        if job_count >= max_jobs:
+            break
+            
+        # Extract the company name
+        company_name = job.find('span', class_='RP7SMd').text.strip()
+        
+        # Extract the job title
+        job_title = job.find('h3', class_='QJPWVe').text.strip()
+        
+        # Extract the job location(s)
+        location_elements = job.find_all('span', class_='r0wTof')
+        job_location = ", ".join(location.text.strip() for location in location_elements)
+        
+        # Extract the job description (minimum qualifications)
+        qualifications = job.find('div', class_='Xsxa1e').find_all('li')
+        job_description = "\n".join(qualification.text.strip() for qualification in qualifications)
+        
+        # Store the data
+        data.append({
+            'Company Name': company_name,
+            'Job Title': job_title,
+            'Job Location': job_location,
+            'Job Description': job_description
+        })
+        
+        job_count += 1
+    
+    return data
+
+def save_to_csv(data, filename='job_listings.csv'):
+    # Step 4: Save data to CSV
+    df = pd.DataFrame(data)
+    df.to_csv(filename, index=False)
+
+def save_to_json(data, filename='job_listings.json'):
+    # Step 5: Save data to JSON
+    with open(filename, 'w') as json_file:
+        json.dump(data, json_file, indent=4)
+
+def print_job_data(data):
+    # Print the extracted data
+    for job in data:
+        print(f"Company Name: {job['Company Name']}")
+        print(f"Job Title: {job['Job Title']}")
+        print("Job Location:", job['Job Location'])
+        print("Job Description:")
+        print(job['Job Description'])
+        print("\n" + "-" * 40 + "\n")
+
+if __name__ == "__main__":
+    url = "https://www.google.com/about/careers/applications/jobs/results/?location=India"
+    job_data = fetch_job_listings(url)
+    
+    if job_data:
+        save_to_csv(job_data)
+        save_to_json(job_data)
+        print_job_data(job_data)
