@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Summary - Smart Grocery</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 20px;
+      background-color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      margin-top: 50px;
+      border-radius: 8px;
+    }
+    h1 {
+      text-align: center;
+      color: #4CAF50;
+    }
+    .order-details {
+      margin-bottom: 20px;
+    }
+    .order-item {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid #ddd;
+      padding: 10px 0;
+    }
+    .order-item p {
+      margin: 0;
+      font-size: 16px;
+    }
+    .order-summary {
+      font-size: 18px;
+      font-weight: bold;
+      margin-top: 20px;
+      text-align: right;
+    }
+    .delivery-info {
+      margin-top: 30px;
+    }
+    .proceed-button {
+      display: block;
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      text-align: center;
+      width: 100%;
+      margin-top: 30px;
+      font-size: 18px;
+      cursor: pointer;
+    }
+    .proceed-button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Order Summary</h1>
+
+    <div class="order-details" id="order-details">
+      <!-- Order items will be dynamically added here -->
+    </div>
+
+    <div class="order-summary" id="order-summary">
+      <p>Total Price: ₹0</p>
+      <p>Estimated Arrival Time: 30 minutes</p>
+    </div>
+
+    <div class="delivery-info">
+      <p><strong>Delivery Partner:</strong> John Doe</p>
+      <p><strong>Phone:</strong> 180093456</p>
+    </div>
+
+    <button class="proceed-button" onclick="window.location.href='index.html'">Proceed to Home</button>
+  </div>
+
+  <script>
+    // Function to update the order summary page with cart items
+    function updateOrderSummary() {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      let orderDetailsContainer = document.getElementById('order-details');
+      let orderSummaryContainer = document.getElementById('order-summary');
+      let totalPrice = 0;
+
+      // Clear the current order details
+      orderDetailsContainer.innerHTML = '';
+
+      // Loop through the cart and add each item to the order summary
+      cart.forEach(item => {
+        totalPrice += item.price * item.quantity;
+
+        // Create and append order item details
+        let orderItem = document.createElement('div');
+        orderItem.className = 'order-item';
+        orderItem.innerHTML = `
+          <div>
+            <p>${item.name}</p>
+            <p><strong>₹${item.price}</strong> x ${item.quantity}</p>
+          </div>
+        `;
+        orderDetailsContainer.appendChild(orderItem);
+      });
+
+      // Update the total price
+      orderSummaryContainer.innerHTML = `
+        <p>Total Price: ₹${totalPrice}</p>
+        <p>Estimated Arrival Time: 30 minutes</p>
+      `;
+    }
+
+    // Call the function to update the order summary when the page loads
+    window.onload = updateOrderSummary;
+  </script>
+
+</body>
+</html>
