@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<!-- saved from url=(0107)https://matlabacademy.mathworks.com/R2024a/portal.html?course=gettingstarted#chapter=2v1&lesson=3&section=1 -->
+<html class="dj_webkit dj_chrome dj_contentbox" lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <title>MATLAB Onramp</title>
+
+    <link rel="shortcut icon" href="https://matlabacademy.mathworks.com/favicon.ico">
+    <link href="./datafile_files/bootstrap.min.css" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="./datafile_files/training.webwidget.css">
+    <link rel="stylesheet" href="./datafile_files/training.motw.app.css">
+    <link rel="stylesheet" href="./datafile_files/training.app.css">
+
+    <link rel="stylesheet" href="./datafile_files/omk6upx.css">
+
+    <script src="./datafile_files/quant.js.download" async="" type="text/javascript"></script><script type="text/javascript" async="" src="./datafile_files/ahy.js.download"></script><script>
+        digitalData = {
+            pageInstanceID: document.title,
+            page:{
+                pageInfo:{
+                    destinationURL: document.location.href
+                },
+                category:{
+                    primaryCategory: "matlabacademy",
+                    subCategory1: "matlabacademy/" + "gettingstarted",
+                    pageType: "mlac"
+                },
+                attributes:{
+                    descriptonCode:"mlac",
+                    courseName: "gettingstarted",
+                    fullCourseName: "MATLAB Onramp"
+                }
+            }
+        };
+    </script>
+
+    <script src="./datafile_files/jquery-latest.js.download"></script>
+    <script src="./datafile_files/bootstrap.min.js.download"></script>
+
+    <!-- Currently needs to be in head tag -->
+    <script async="async" type="text/javascript" src="./datafile_files/satelliteLib-e8d23c2e444abadc572df06537e2def59c01db09.js.download"></script>
+
+    <!--  Mobile viewport optimized: j.mp/bplateviewport -->
+    <meta name="viewport" content="initial-scale=1.0">
+
+<style>
+.headernav_matrix button { 
+  width:24px; 
+  height:24px; 
+  padding:0;
+  border: none;
+  background:none transparent; 
+  display:inline-block;
+  transition:color .3s ease;
+  position: relative;
+}
+
+.headernav_matrix button > .icon-matrix { color:#777; font-size:24px; line-height:1.00 !important;}
+.headernav_matrix button:hover > .icon-matrix,
+.headernav_matrix button:focus > .icon-matrix { color:#333; }
+
+/* MATRIX MENU TABLET AND MOBILE*/
+#header_mobile .matrix_container { 
+  margin:1px auto 0; 
+  border:none; 
+  box-shadow:none; 
+  background:#fff; 
+  float:none; 
+  overflow:hidden; 
+  position:relative;
+  z-index:3;
+  display:block !important; 
+  height:auto !important;
+}
+#header_mobile .headernav_matrix > button { 
+  width:auto; 
+  min-width:37px; 
+  height:auto; 
+  min-height:37px; 
+  margin:3.5px -1.5px 0 0; 
+  float:right; 
+}
+#header_mobile .headernav_matrix > button > .icon-matrix { color:#0076a8; }
+
+@media (min-width:768px) and (max-width:991px) {
+  .matrix_menu_container_mobile { border-top:1px solid #e7e7e7; }
+}
+
+/* DESKTOP MATRIX MENU */
+.matrix_container { 
+  width:319px; 
+  padding:0 10px 10px; 
+  margin-top:2px; 
+  border:1px solid #999; 
+  background:#fff; 
+  box-shadow:0 1px 3px 0 rgba(0,0,0,0.25); 
+  float:right; 
+  overflow:hidden; 
+  position:absolute; 
+  right:0; 
+  z-index:1037; 
+}
+.matrix_container ul.matrix_links_primary { 
+  border-bottom:1px solid #ccc; 
+}
+.matrix_container ul[class*="matrix_links_"] { 
+  width:100%; 
+  padding:10px 0 0; 
+  margin-bottom:0; 
+  float:left; 
+} 
+.matrix_container ul[class*="matrix_links_"] > li { 
+  width:99px; 
+  height:72px;
+  padding:0 5px;
+  margin:0 0 10px; 
+  float:left;
+  font-size:12px; 
+  line-height:1.25; 
+  text-align:center; 
+  white-space:nowrap; 
+} 
+.matrix_container ul[class*="matrix_links_"] > li > a { 
+  width:100%; 
+  padding:7px 0 0 0; 
+  border:none;
+  color: #0076a8 !important;
+  background:transparent; 
+  display:block; 
+  text-decoration:none !important; 
+}
+
+.matrix_container ul[class*="matrix_links_"] > li > a > img { 
+  height:38px; 
+  padding:2px; 
+  width:auto; 
+  margin:0 auto 7px; 
+  border:1px solid transparent; 
+  border-radius:5px; 
+  background-color:#fff; 
+  display:block; 
+  transition:background-color .3s ease, border-color 0.3s ease; 
+}
+.matrix_container ul[class*="matrix_links_"] > li > a > .matrix_link_title { 
+  max-width:89px; 
+  display:block; 
+  line-height:1.15; 
+  white-space:normal; 
+}
+
+.matrix_container ul[class*="matrix_links_"] > li > a:hover > img,
+.matrix_container ul[class*="matrix_links_"] > li.matrix_active > a > img { 
+  border-color:#999;  
+  background-color:#f5f5f5; 
+}
+.matrix_container_zh { 
+  font-family:"Microsoft YaHei","Segoe UI",Arial,Helvetica; 
+}
+.matrix_container_ja { 
+  font-family:Meiryo,Verdana,Arial,Helvetica,"MS P ゴシック"; 
+}
+.matrix_container_kr { 
+  font-family:Malgun Gothic, Apple Gothic, Arial, sans-serif; 
+}
+
+[class*="matrix_container_"].matrix_container ul[class*="matrix_links_"] > li { 
+  height:90px; 
+}
+[class*="matrix_container_"] { padding-bottom:0; }
+[class*="matrix_container_"].matrix_container ul[class*="matrix_links_"] > li > a { 
+  padding-bottom:2px; 
+}
+[class*="matrix_container_"].matrix_container .matrix_link_title { 
+  font-size:13px !important; 
+  line-height:1.20 !important; 
+}</style><script src="./datafile_files/AppMeasurement.min.js.download" async=""></script><script src="./datafile_files/AppMeasurement_Module_ActivityMap.min.js.download" async=""></script><script src="./datafile_files/RC974b32ae31d543638be38b5169a96bd7-source.min.js.download" async=""></script><style type="text/css" id="ki-ma3-mkf"></style><style type="text/css" id="ki-ma3-me1"></style><script src="./datafile_files/RC7b35c41fa96d4374855b047fbc43ee8e-source.min.js.download" async=""></script><script src="./datafile_files/RC8a63a930e1424560a03dcf8a25e394f7-source.min.js.download" async=""></script><script src="./datafile_files/RCb721adba20764bcfb94f83ebfb62dc6b-source.min.js.download" async=""></script></head>
+<body class="tundra hideFocusOutline mw-theme-dark" data-content="https://matlabacademy-content.mathworks.com/4.71.0/R2024a/content/" style="color-scheme: dark;">
+
+<div id="trainingApp">
+    <div id="courseView" widgetid="courseView"> <button id="skip_link" class="skip_link sr-only" data-dojo-attach-point="skipLink"> Skip to content </button> <div id="courseViewport" data-dojo-attach-point="courseViewport"> <div id="contentArea"> <header> <div class="academyHeader"> <div class="headerElement leftColumn"> <button id="logo" data-dojo-attach-point="logoDiv" data-test-id="btnExitCourse"><span class="icon-arrow-rounded-left exitSpan"></span><span style="text-transform: uppercase; font-size: 12px; letter-spacing: 0;">Exit Course</span></button> </div> <div class="headerElement middleColumn"> <button id="courseTitle" data-dojo-attach-point="courseTitleDiv" disabled=""><h1 id="courseHeader" title="MATLAB Onramp">MATLAB Onramp</h1></button> <div id="courseProgressHeader" data-dojo-attach-point="courseProgressHeaderDiv" style="">(9% complete)</div> </div> <div class="headerElement rightColumn"> <div id="userName" data-dojo-attach-point="userNameDiv" style=""><span>abhinav reddy katukuri</span></div> <button id="userMenu" class="sectionIcon icon-account floatingMenuToggleButton noselect" aria-label="User Menu" title="User Menu" data-dojo-attach-point="userMenuDiv" style=""> <div class="dijitContentPane userMenu right white floatingMenu" id="uniqName_1_2" widgetid="uniqName_1_2" role="menu" tabindex="-1" style="display: none;"><div class="floatingMenuPointer"></div><div class="dijitContentPane" id="dijit_layout_ContentPane_1" widgetid="dijit_layout_ContentPane_1"><ul class="userMenuList"><li class="logoutMenuItem" data-test-id="progressReport"><a target="_blank" href="https://matlabacademy.mathworks.com/progress/report.html?course=gettingstarted&amp;language=en&amp;release=R2024a" data-dropdownindex="0">Download progress report</a></li><li class="logoutMenuItem"><button data-test-id="logoutBtn" data-dropdownindex="1">Sign out</button></li></ul></div></div></button> <button id="helpMenu" class="sectionIcon icon-help-circle floatingMenuToggleButton noselect" aria-label="Help Menu" title="Help Menu" data-dojo-attach-point="helpMenuDiv" style=""> <div class="dijitContentPane helpMenu right white floatingMenu" id="uniqName_1_3" widgetid="uniqName_1_3" role="menu" tabindex="-1" style="display: none;"><div class="floatingMenuPointer"></div><div class="dijitContentPane" id="dijit_layout_ContentPane_2" widgetid="dijit_layout_ContentPane_2"><ul><li><a data-udc="ResourcesMenu.ReportProblem" target="_blank" href="https://www.mathworks.com/support/contact_us.html" data-dropdownindex="0">Contact Support</a></li><li><a data-udc="ResourcesMenu.CourseFiles" target="_blank" href="https://matlabacademy-content.mathworks.com/4.55.1/courseartifacts/gettingstarted_course_files.zip" data-dropdownindex="1">Download course files</a></li><li><a data-udc="ResourcesMenu.QuickReference" target="qrg" href="https://matlabacademy.mathworks.com/artifacts/quick-reference.html?course=gettingstarted&amp;language=en&amp;release=R2024a" data-dropdownindex="2">Course Quick Reference</a></li></ul></div></div></button> <span class="headernav_matrix" id="headernav_matrix" data-dojo-attach-point="matrixMenuSpan" style=""><div id="wrapper"><button title="Matrix Menu" class="waffle" id="matrix_waffle_large" aria-label="Mathworks Menu" type="button"><span class="icon-matrix"></span></button><header class="App-header"><div class="matrix_container collapse" aria-describedby="matrix_title"><nav class="matrix_content"><h3 class="sr-only" id="matrix_title">MathWorks Matrix Menu</h3><ul class="list-unstyled matrix_links_primary"><li class=""><a class="svg_link" href="https://matlab.mathworks.com/" role="button" aria-label="MATLAB" id="matrix_link_matlab_home"><img src="./datafile_files/ico-matrix-matlabonline.svg" alt="matlab_home" aria-hidden="true"><span class="matrix_link_title">MATLAB</span></a></li><li class=""><a class="svg_link" href="https://www.mathworks.com/help/" role="button" aria-label="Help Center" id="matrix_link_help_center"><img src="./datafile_files/ico-matrix-helpcenter.svg" alt="help_center" aria-hidden="true"><span class="matrix_link_title">Help Center</span></a></li><li class=""><a class="svg_link" href="https://www.mathworks.com/" role="button" aria-label="MathWorks" id="matrix_link_mathworks_dotcom"><img src="./datafile_files/ico-matrix-mathworks.svg" alt="mathworks_dotcom" aria-hidden="true"><span class="matrix_link_title">MathWorks</span></a></li></ul><ul class="list-unstyled matrix_links_secondary"><li class=""><a class="svg_link" href="https://www.mathworks.com/matlabcentral/answers/index" role="button" aria-label="MATLAB Answers" id="matrix_link_answers"><img src="./datafile_files/ico-matrix-answers.svg" alt="answers" aria-hidden="true"><span class="matrix_link_title">MATLAB Answers</span></a></li><li class=""><a class="svg_link" href="https://www.mathworks.com/matlabcentral/fileexchange" role="button" aria-label="File Exchange" id="matrix_link_file_exchange"><img src="./datafile_files/ico-matrix-fileexchange.svg" alt="file_exchange" aria-hidden="true"><span class="matrix_link_title">File Exchange</span></a></li><li class=""><a class="svg_link" href="https://www.mathworks.com/videos.html" role="button" aria-label="Videos" id="matrix_link_videos"><img src="./datafile_files/ico-matrix-videos.svg" alt="videos" aria-hidden="true"><span class="matrix_link_title">Videos</span></a></li><li class=""><a class="svg_link" href="https://matlabacademy.mathworks.com/" role="button" aria-label="Online Training" id="matrix_link_online_training"><img src="./datafile_files/ico-matrix-onlinetraining.svg" alt="online_training" aria-hidden="true"><span class="matrix_link_title">Online Training</span></a></li><li class=""><a class="svg_link" href="https://blogs.mathworks.com/" role="button" aria-label="Blogs" id="matrix_link_blogs"><img src="./datafile_files/ico-matrix-blogs.svg" alt="blogs" aria-hidden="true"><span class="matrix_link_title">Blogs</span></a></li><li class=""><a class="svg_link" href="https://www.mathworks.com/matlabcentral/cody" role="button" aria-label="Cody" id="matrix_link_cody"><img src="./datafile_files/ico-matrix-cody.svg" alt="cody" aria-hidden="true"><span class="matrix_link_title">Cody</span></a></li><li class=""><a class="svg_link" href="https://drive.mathworks.com/" role="button" aria-label="MATLAB Drive" id="matrix_link_matlab_drive"><img src="./datafile_files/ico-matrix-matlabdrive.svg" alt="matlab_drive" aria-hidden="true"><span class="matrix_link_title">MATLAB Drive</span></a></li><li class=""><a class="svg_link" href="https://thingspeak.com/" role="button" aria-label="ThingSpeak" id="matrix_link_thingspeak"><img src="./datafile_files/ico-matrix-thingspeak.svg" alt="thingspeak" aria-hidden="true"><span class="matrix_link_title">ThingSpeak</span></a></li><li class=""><a class="svg_link" href="https://www.mathworks.com/support/bugreports/" role="button" aria-label="Bug Reports" id="matrix_link_bug_reports"><img src="./datafile_files/ico-matrix-bugreports.svg" alt="bug_reports" aria-hidden="true"><span class="matrix_link_title">Bug Reports</span></a></li><li class=""><a class="svg_link" href="https://www.mathworks.com/matlabcentral/" role="button" aria-label="Community" id="matrix_link_community"><img src="./datafile_files/ico-matrix-community.svg" alt="community" aria-hidden="true"><span class="matrix_link_title">Community</span></a></li></ul></nav></div></header></div></span> </div> </div> </header> <div class="wra" data-dojo-attach-point="wraDiv" style="display: none;"><div class="wraView" id="dijit__WidgetsInTemplateMixin_0" widgetid="dijit__WidgetsInTemplateMixin_0" style="opacity: 0.6;"> <div class="wraTask" data-dojo-attach-point="wraTask"> <h3 data-dojo-attach-point="messageNode" style="display: none;"></h3> <div class="content" data-dojo-attach-point="contentNode"></div> </div> <div class="preloader" style="top: 100px; display: none;" data-dojo-attach-point="wraPreloaderContainer"><div id="dijit__WidgetsInTemplateMixin_1" widgetid="dijit__WidgetsInTemplateMixin_1"> <div class="busyOverlayContainer"> <div class="busyOverlay" data-dojo-attach-point="busyOverlay"><div class="mw-busyIndicator" data-dojo-attach-point="_busyOverlayNode" id="MW_utils_BusyOverlay_0" widgetid="MW_utils_BusyOverlay_0" style="display: none;"> <div class="underlayNode" data-dojo-attach-point="_underlayNode" style="z-index: 2000000000;"></div> <div class="spinnerBgPanel" tabindex="0" data-dojo-attach-point="_spinnerBgPanel"> <div class="spinnerNode" data-dojo-attach-point="_spinnerNode"></div> <div class="spinnerText" style="display: none;"><span></span></div></div> </div></div> <div class="busyOverlayMessage" data-dojo-attach-point="busyMessage" aria-live="assertive" aria-atomic="true"></div> </div> </div></div> </div></div> <div id="player" data-dojo-attach-point="playerDiv" style=""> <div id="contentPanes"> <div id="topNavigator" data-dojo-attach-point="topNavigatorDiv"> <nav aria-labelledby="courseNavButton"> <button id="courseNavButton" aria-label="Table of Contents Menu" title="Table of Contents Menu" data-dojo-attach-point="courseNavButtonDiv" class="floatingMenuToggleButton noselect icon-menu-reverse" aria-expanded="false"><div class="dijitContentPane chapterNavMenu left floatingMenu" id="uniqName_1_1" widgetid="uniqName_1_1" role="menu" tabindex="-1" style="display: none;"><div class="floatingMenuPointer"></div></div></button> </nav> <div id="sectionHeader" data-dojo-attach-point="sectionHeaderDiv"><span title="Commands &gt; Save and Load Variables"><b>Commands</b><span class="icon-arrow-open-right"></span><span>Save and Load Variables</span></span></div> <div id="sectionNavContainer" data-dojo-attach-point="sectionNavContainerDiv"><nav aria-label="Navigate sections" class="sectionNavigator" id="dijit__WidgetsInTemplateMixin_5" widgetid="dijit__WidgetsInTemplateMixin_5"> <button data-dojo-attach-point="previousButtonDiv" class="previousButton" style="cursor: pointer;"><span class="icon-arrow-open-left buttonIcon"></span><span>Previous</span></button><button data-dojo-attach-point="nextButtonDiv" class="nextButton" style="cursor: pointer;"><span>Next</span><span class="icon-arrow-open-right buttonIcon"></span></button> </nav></div> </div> <div id="notificationStripContainer" data-dojo-attach-point="notificationStripContainerDiv"></div> <main data-dojo-attach-point="mainContainer" tabindex="-1"> <div id="content" data-dojo-attach-point="contentDiv" style="top: 32px; opacity: 1;"> <div class="" style="width: 100%; height: 100%;"><iframe allow="camera;microphone" style="width: 100%; height: 100%;" src="./datafile_files/index.html" title="Practice"></iframe></div><div class="dijitContentPane interactiveContentPane squirrelAway" id="dijit_layout_ContentPane_6" widgetid="dijit_layout_ContentPane_6"></div></div> </main> <div class="preloader" data-dojo-attach-point="coursePreloaderContainer" style="display: none;"><div id="dijit__WidgetsInTemplateMixin_4" widgetid="dijit__WidgetsInTemplateMixin_4"> <div class="busyOverlayContainer"> <div class="busyOverlay" data-dojo-attach-point="busyOverlay"><div class="mw-busyIndicator" data-dojo-attach-point="_busyOverlayNode" id="MW_utils_BusyOverlay_1" widgetid="MW_utils_BusyOverlay_1" style="display: none;"> <div class="underlayNode" data-dojo-attach-point="_underlayNode" style="z-index: 2000000000;"></div> <div class="spinnerBgPanel" tabindex="0" data-dojo-attach-point="_spinnerBgPanel"> <div class="spinnerNode" data-dojo-attach-point="_spinnerNode"></div> <div class="spinnerText" style="display: none;"><span></span></div></div> </div></div> <div class="busyOverlayMessage" data-dojo-attach-point="busyMessage" aria-live="assertive" aria-atomic="true"></div> </div> </div></div> <div aria-live="assertive" aria-atomic="true" class="sr-only" data-dojo-attach-point="announceDiv" id="statusAnnouncer" aria-hidden="true">Loaded Practice section</div> <button class="feedbackButton btn btn_secondary" title="Give Us Feedback" data-test-id="feedbackBtn" data-dojo-attach-point="feedbackBtn" style="display: inline-block;"><span class="icon-feedback"></span> Give Us Feedback</button> </div> </div> </div> </div> </div>
+</div>
+
+<script>
+        var dojoConfig = {
+            async: true,
+            has: {
+                "production": 1
+            },
+            map: {
+                "*": {
+                    "MW/Log": "mw-log/Log",
+                    "MW/dialog": "mw-dialog-utils",
+                    "MW/dnd": "mw-dnd",
+                    "MW/utils/HtmlUtils": "mw-utils/HtmlUtils",
+                    "MW/utils/InMemoryStore": "mw-utils/InMemoryStore",
+                    "MW/utils/Utils": "mw-utils/Utils",
+                    "mw-mixins": "mw-form/mixins",
+                    "mw-menu": "mw-form"
+                }
+            },
+            cacheBust: false,
+            locale: "en",
+            domain: "https:\/\/www.mathworks.com",
+            isRelease: true
+        };
+    </script>
+<script>
+        dojoConfig.blankGif = "https:\/\/matlabacademy-content.mathworks.com\/4.71.0\/dist-webpack\/images\/blank.gif";
+        dojoConfig.baseUrl = "https:\/\/matlabacademy-content.mathworks.com\/4.71.0";
+    </script>
+
+
+
+<script>
+    window.academyAppArgs = {
+        lrsContentPath: "https:\/\/matlabacademy.mathworks.com\/R2024a\/content\/",
+        courseReleaseStatus: "active",
+        latestReleaseURL: "https:\/\/matlabacademy.mathworks.com\/R2024a\/portal.html?course=gettingstarted",
+        mwEnvironment: null,
+        courseArtifactsFolder: "https:\/\/matlabacademy-content.mathworks.com\/4.55.1\/courseartifacts\/",
+        default_trainingaddon_path: "\/CourseData\/",
+        enableNextGenFeatures: true,
+        enableLMSFeatures: null,
+        enableDarkMode: true,
+        useAuthNZ: true,
+        useValueEngine: true,
+        valueEngineEndpoint: "https:\/\/matlab.mathworks.com",
+        moshenvironment: "",
+        defaultResourceType: "mss",
+        defaultResourceEndpoint: "",
+        enableFeedback: true,
+        catalog: {"meta":{"matlabRelease":"R2017a"},"courses":[{"title":"MATLAB Onramp","courseCode":"gettingstarted","courseType":"free","language":"en","variant":"gettingStarted","hasZipFile":"true","customEnrollment":false,"showDetails":true,"hasQuickReference":true,"recommendChromium":false,"showTopNav":false,"chapters":[{"title":"Course Overview","description":"Familiarize yourself with the course.","objectives":"","conceptSequence":["5adba527-e472-49fd-b1f4-4049c49bea40"],"availableVersions":["1.1"],"duration":0,"lcmsDocumentId":"bb8d0cc8-f04f-45fb-934a-fb59fe04136c","lcmsSnapshotId":"7d244c84-8b83-492b-98fc-d367c0f7a34e","moduleDocumentId":"d3828364-0e4f-40eb-abb9-d8a7c379a852","version":"1.1"},{"title":"Commands","description":"Enter commands in MATLAB to perform calculations and create variables.","objectives":"","conceptSequence":["a1c872af-20d5-4ee6-a6cc-e4e1f80e0dd5","cbd8475b-3fb7-41b5-a4e4-20dbb5c41020","3e666508-87cf-49ce-98df-ca3b679d6237","a3b8699b-acf6-49ce-8155-fe9deb176013"],"availableVersions":["1.2"],"duration":0,"lcmsDocumentId":"8a69fc7f-c48d-4190-b553-dfd721a12445","lcmsSnapshotId":"7b9e147e-6208-4265-b0d3-1c5ab04a3530","moduleDocumentId":"10b84805-49f0-4ba4-af14-6758ef66db07","version":"1.2"},{"title":"MATLAB Desktop and Editor","description":"Write and save your own MATLAB programs.","objectives":"","conceptSequence":["37f78dbf-c1c5-40ad-a42b-99246f94d718","83ec25a8-181c-4360-900b-192e3be86dff","8edc5441-7715-4bf9-91ca-3ebdd4166ee8","290bb6c8-6cbc-4427-83b7-4c79387ad50e"],"availableVersions":["1.2"],"duration":0,"lcmsDocumentId":"fe5e71f3-8ead-490c-91a9-edc8d18aeeea","lcmsSnapshotId":"ddd822c9-7d26-479c-9790-a3bb28bbd8d9","moduleDocumentId":"f821ef07-c7a4-4269-b37f-efe9884563d0","version":"1.2"},{"title":"Vectors and Matrices","description":"Create MATLAB variables that contain multiple elements.","objectives":"","conceptSequence":["6f42452e-ee9d-4acc-b0d3-0277305edc81","5f29c644-1b3c-4b81-9b34-e7037d73f44c","15a42f79-3d60-4765-a79c-5fb962032ec6"],"availableVersions":["1.2"],"duration":0,"lcmsDocumentId":"ace3b913-ad3a-442c-a093-ec0fe1956e5b","lcmsSnapshotId":"2d51bc72-158b-4b4d-b2e5-bd2b078f6c6f","moduleDocumentId":"b5926e93-713f-4965-8236-3ba7cb2f928a","version":"1.2"},{"title":"Array Indexing and Modification","description":"Use indexing to extract and modify rows, columns, and elements of MATLAB arrays.","objectives":"","conceptSequence":["ccfcff84-a840-4126-92a0-c677218a84c4","127df890-a15c-4df5-9192-f0605171e9cf","3b566f53-a7ff-4120-9de7-07ad4fa73b07","937e3f0c-3549-4847-a3ff-22fbfbe4bfd0"],"availableVersions":["2.3"],"duration":0,"lcmsDocumentId":"7923c4a0-e74e-411f-856c-d4868ac7eefa","lcmsSnapshotId":"2a6c2447-41ce-413f-a83e-2bb1a4e45f93","moduleDocumentId":"7d73bce2-912f-409e-9207-f26e23a59b0f","version":"2.3"},{"title":"Array Calculations","description":"Perform calculations on entire arrays at once.","objectives":"","conceptSequence":["5b8bf9db-a19d-4c29-89bb-7ed1add4b2c9"],"availableVersions":["1.1"],"duration":0,"lcmsDocumentId":"42942039-ae5e-404c-ba4c-b6351996fc6f","lcmsSnapshotId":"ed1f945d-0ecd-4f34-814d-2688dcad78de","moduleDocumentId":"8e80c346-3ac6-4e97-85dd-649ac464591f","version":"1.1"},{"title":"Function Calls","description":"Call functions with multiple outputs.","objectives":"","conceptSequence":["da042be7-c907-47a8-ab1f-3974b613a8f1"],"availableVersions":["1.1"],"duration":0,"lcmsDocumentId":"518d0951-389c-4897-af1b-02635276dff6","lcmsSnapshotId":"fcd0b053-6b4f-46d8-8665-a8d67134373c","moduleDocumentId":"d4f238ea-7ce1-4a56-a4de-99a03148435f","version":"1.1"},{"title":"Documentation","description":"Use the MATLAB documentation to learn more about MATLAB features.","objectives":"","conceptSequence":["179c189e-78d7-4bda-a0e6-2daf60a5964a","94f55d87-2545-4ae0-945c-2a7dadfa71be"],"availableVersions":["2.2"],"duration":0,"lcmsDocumentId":"d5c2e640-0fdc-461a-81a6-d7ec11c56fb0","lcmsSnapshotId":"3090e6c7-5594-4fd6-86cb-2ba37d8be73f","moduleDocumentId":"cb219294-b3f9-46c7-ad75-a082e3f98cb2","version":"2.2"},{"title":"Plots","description":"Visualize variables using plotting functions.","objectives":"","conceptSequence":["053c88d1-7e91-4bd3-814c-728b48428ba6","4a413802-30a4-41a0-9136-a02db8905709"],"availableVersions":["1.4"],"duration":0,"lcmsDocumentId":"e6ac848f-3a1a-44ee-825c-fc865edc244b","lcmsSnapshotId":"34aee779-2d88-4f4d-98a0-91962cd8a46d","moduleDocumentId":"173f2db1-2e0e-4dfc-8ee0-ed3b75c1b252","version":"1.4"},{"title":"Data Import","description":"Bring data from external files into MATLAB.","objectives":"","conceptSequence":["ddcc687b-2054-415e-a4ad-5154782b7718","c02030b0-16a4-4eea-bf7e-ada105851aa5"],"availableVersions":["1.2"],"duration":0,"lcmsDocumentId":"6accd2c9-91f6-4d16-9a36-e51e0cf848ba","lcmsSnapshotId":"fc50a1c5-b9da-4525-8af6-c200abc1d3c9","moduleDocumentId":"7f37ee12-8575-4a0c-9fbe-26b1a339d4a2","version":"1.2"},{"title":"Logical Arrays","description":"Use relational operators and logical indexing to extract elements of interest from MATLAB arrays.","objectives":"","conceptSequence":["bc55871e-8c7d-487e-ace9-15b8f13c6c5c"],"availableVersions":["1"],"duration":0,"lcmsDocumentId":"6c6d869e-a1d9-4678-91cc-19a581cefe7b","lcmsSnapshotId":"65673d61-8375-4a80-95e5-8d2d91a76b28","moduleDocumentId":"c699f219-694a-4007-8040-2675728878c4","version":"1"},{"title":"Programming","description":"Write programs that execute code based on specified conditions.","objectives":"","conceptSequence":["8d136b9e-55a2-4a45-9f46-4532191def80","941b6351-d8c4-4a00-9415-df0fd4c33ad8","82c2e581-f99e-4ad2-baa3-6ae4d8996a5d"],"availableVersions":["1.4"],"duration":0,"lcmsDocumentId":"858d4672-1a7f-4f8d-b4e2-02de896fc597","lcmsSnapshotId":"1606e748-4fa6-43ac-8821-7a695bc43c23","moduleDocumentId":"675d851c-efe3-42cd-9395-a0da2b292853","version":"1.4"},{"title":"Final Project","description":"Apply concepts that you learned in this course to a project.","objectives":"","conceptSequence":["53feb507-7185-4e14-b9f7-2df7895a5a3c","739d0c69-57ee-4a2f-82d2-46bca7bd1229"],"availableVersions":["1.6"],"duration":0,"lcmsDocumentId":"c91d19f0-1b95-4c5e-9f3e-8bdea391a476","lcmsSnapshotId":"7d593588-037f-4884-9f07-255399a38325","moduleDocumentId":"b6699cf7-a0b4-4cb5-9d81-a8f9d85f5c04","version":"1.6"},{"title":"Conclusion","description":"Learn next steps and give feedback on the course.","objectives":"","conceptSequence":["73ab85d7-dd75-4499-b338-0a61c4b99db5","7dc7b42b-e34b-4f33-9b70-a47f59e02f4b","35d26794-54ea-46de-862b-f63580122378"],"availableVersions":["3"],"duration":0,"lcmsDocumentId":"fc2151af-bb6a-4975-8f8d-15e5e698773d","lcmsSnapshotId":"5840b40e-7734-4fd5-a278-023d68a403b4","moduleDocumentId":"e6eaab41-ea47-4bf6-8d3a-60a7813afb5b","version":"3"}],"type":"free"}],"catalog":{"053c88d1-7e91-4bd3-814c-728b48428ba6":{"description":"Create plots of vector data.","lcmsDocumentId":"053c88d1-7e91-4bd3-814c-728b48428ba6","lcmsSnapshotId":"afe55d96-35f7-4171-b9d3-e6f54b588134","sections":[{"lcmsDocumentId":"d37d69e0-39ea-4f08-943c-f66aeb090be2","lcmsSnapshotId":"d330b58e-a21e-41af-9923-10c603368062","src":"053c88d1-7e91-4bd3-814c-728b48428ba6\/d37d69e0-39ea-4f08-943c-f66aeb090be2.json","title":"Practice","type":"matlabInteraction"}],"title":"Plot Vectors","type":"contentUnit"},"127df890-a15c-4df5-9192-f0605171e9cf":{"description":"Learn syntax for extracting subsets of MATLAB variables.","lcmsDocumentId":"127df890-a15c-4df5-9192-f0605171e9cf","lcmsSnapshotId":"bc487fbd-2458-44a3-8cb9-b401a808400e","sections":[{"lcmsDocumentId":"522260cd-b7b2-4163-983c-8df04f7dfd72","lcmsSnapshotId":"9e6d8c26-bdee-444d-9804-00d6b62f78d7","src":"127df890-a15c-4df5-9192-f0605171e9cf\/522260cd-b7b2-4163-983c-8df04f7dfd72.json","title":"Practice","type":"matlabInteraction"}],"title":"Index into Arrays","type":"contentUnit"},"15a42f79-3d60-4765-a79c-5fb962032ec6":{"description":"Create common matrices, such as the identity matrix.","lcmsDocumentId":"15a42f79-3d60-4765-a79c-5fb962032ec6","lcmsSnapshotId":"3ec106da-78f4-41e3-8f3c-b0d88f2487f8","sections":[{"lcmsDocumentId":"91c90395-7169-40b9-9ef7-3fb54b24f2d6","lcmsSnapshotId":"690feb24-6fc0-46bb-9828-a7a2ea85e988","src":"15a42f79-3d60-4765-a79c-5fb962032ec6\/91c90395-7169-40b9-9ef7-3fb54b24f2d6.json","title":"Practice","type":"matlabInteraction"}],"title":"Create Arrays with Functions","type":"contentUnit"},"179c189e-78d7-4bda-a0e6-2daf60a5964a":{"description":"New lesson description","lcmsDocumentId":"179c189e-78d7-4bda-a0e6-2daf60a5964a","lcmsSnapshotId":"cec7525d-de94-4703-ad11-eb00104faf0c","sections":[{"jsonSrc":"179c189e-78d7-4bda-a0e6-2daf60a5964a\/e117bdaa-311b-441c-ad20-80642764b5f0.json","lcmsDocumentId":"e117bdaa-311b-441c-ad20-80642764b5f0","lcmsSnapshotId":"4d5efff6-f6bd-48ef-a77b-6c5535a1226a","src":"6084986934001","title":"Video","type":"video"}],"title":"MATLAB Documentation","type":"contentUnit"},"290bb6c8-6cbc-4427-83b7-4c79387ad50e":{"description":"Identify and fix an error in MATLAB code.","lcmsDocumentId":"290bb6c8-6cbc-4427-83b7-4c79387ad50e","lcmsSnapshotId":"7b74eedf-39a7-4694-bc1f-31568b4d85cf","sections":[{"lcmsDocumentId":"23fd8d3d-c122-4975-a278-43c5d42933c8","lcmsSnapshotId":"622ec914-069d-4635-aa55-53d43619eb2e","src":"290bb6c8-6cbc-4427-83b7-4c79387ad50e\/23fd8d3d-c122-4975-a278-43c5d42933c8.json","title":"Practice","type":"matlabInteraction"}],"title":"Debug MATLAB Code","type":"contentUnit"},"35d26794-54ea-46de-862b-f63580122378":{"description":"Provide feedback on the course.","lcmsDocumentId":"35d26794-54ea-46de-862b-f63580122378","lcmsSnapshotId":"9e5ddc84-d79f-436f-8b12-29267f973f67","sections":[{"lcmsDocumentId":"cd561866-1848-41d7-b357-1795ec638434","lcmsSnapshotId":"4b656cc2-1fda-41a0-8cf3-079b602a20a7","src":"N\/A","title":"Course survey","type":"survey"}],"title":"Survey","type":"contentUnit"},"37f78dbf-c1c5-40ad-a42b-99246f94d718":{"description":"Become familiar with the course software and content organization.","lcmsDocumentId":"37f78dbf-c1c5-40ad-a42b-99246f94d718","lcmsSnapshotId":"3b504abc-eba6-4151-97ab-549e87639623","sections":[{"jsonSrc":"37f78dbf-c1c5-40ad-a42b-99246f94d718\/b8ed17a3-da88-4ad0-8ce7-c77b0fbc337c.json","lcmsDocumentId":"b8ed17a3-da88-4ad0-8ce7-c77b0fbc337c","lcmsSnapshotId":"a171a458-4278-42a7-b120-4635e452a1e6","src":"6084982824001","title":"MATLAB Desktop and Editor","type":"video"}],"title":"MATLAB Desktop and Editor","type":"contentUnit"},"3b566f53-a7ff-4120-9de7-07ad4fa73b07":{"description":"Learn syntax for extracting multiple elements from an array.","lcmsDocumentId":"3b566f53-a7ff-4120-9de7-07ad4fa73b07","lcmsSnapshotId":"d9c072a7-9179-4c40-a9cd-dfaa704bdda6","sections":[{"lcmsDocumentId":"a15bb566-56b5-49c8-8c84-f86a0cea498e","lcmsSnapshotId":"7b01171c-59de-4396-931b-367a5de56add","src":"3b566f53-a7ff-4120-9de7-07ad4fa73b07\/a15bb566-56b5-49c8-8c84-f86a0cea498e.json","title":"Practice","type":"matlabInteraction"}],"title":"Extract Multiple Elements","type":"contentUnit"},"3e666508-87cf-49ce-98df-ca3b679d6237":{"description":"Discuss syntax of creating and removing MATLAB variables.","lcmsDocumentId":"3e666508-87cf-49ce-98df-ca3b679d6237","lcmsSnapshotId":"a49c1ddb-488f-4d2a-83fd-829be06e868a","sections":[{"lcmsDocumentId":"140f3f8b-c51c-4cd3-950d-20601ba182ed","lcmsSnapshotId":"298ddd60-b1d7-4363-a149-bf8687706e57","src":"3e666508-87cf-49ce-98df-ca3b679d6237\/140f3f8b-c51c-4cd3-950d-20601ba182ed.json","title":"Practice","type":"matlabInteraction"}],"title":"Save and Load Variables","type":"contentUnit"},"4a413802-30a4-41a0-9136-a02db8905709":{"description":"Add labels and annotations to a plot.","lcmsDocumentId":"4a413802-30a4-41a0-9136-a02db8905709","lcmsSnapshotId":"9d27462c-94bb-44eb-aa5e-a2571cb3ac4a","sections":[{"lcmsDocumentId":"4ec37111-0ed6-445e-bf4e-6c8c4d5e4bcc","lcmsSnapshotId":"dfd2705c-699c-4bac-bba6-669649a256db","src":"4a413802-30a4-41a0-9136-a02db8905709\/4ec37111-0ed6-445e-bf4e-6c8c4d5e4bcc.json","title":"Practice","type":"matlabInteraction"}],"title":"Annotate Plots","type":"contentUnit"},"53feb507-7185-4e14-b9f7-2df7895a5a3c":{"description":"Calculate frequency shift of a star's light to determine if it is moving towards or away from us.","lcmsDocumentId":"53feb507-7185-4e14-b9f7-2df7895a5a3c","lcmsSnapshotId":"e241eda2-41ad-47ba-be65-5cd48e569eee","sections":[{"lcmsDocumentId":"91e5f023-6b5b-4ed5-b54a-437d3b7e2854","lcmsSnapshotId":"203b1ead-0bed-4f2d-a45a-dc7c4e256c14","src":"53feb507-7185-4e14-b9f7-2df7895a5a3c\/91e5f023-6b5b-4ed5-b54a-437d3b7e2854.json","title":"Practice","type":"matlabInteraction"}],"title":"Project - Stellar Motion","type":"contentUnit"},"5adba527-e472-49fd-b1f4-4049c49bea40":{"description":"Introduce the purpose and flow of MATLAB Onramp.","lcmsDocumentId":"5adba527-e472-49fd-b1f4-4049c49bea40","lcmsSnapshotId":"6ea1b81b-54af-463b-8ca8-fb6883248010","sections":[{"jsonSrc":"5adba527-e472-49fd-b1f4-4049c49bea40\/81578733-6ecf-4dd3-8406-422ecfa8f11f.json","lcmsDocumentId":"81578733-6ecf-4dd3-8406-422ecfa8f11f","lcmsSnapshotId":"1d635520-79fd-4660-b25c-12ba3729ec42","src":"6084985398001","title":"Course Overview","type":"video"}],"title":"Course Overview","type":"contentUnit"},"5b8bf9db-a19d-4c29-89bb-7ed1add4b2c9":{"description":"Apply operations to vectors element-by-element.","lcmsDocumentId":"5b8bf9db-a19d-4c29-89bb-7ed1add4b2c9","lcmsSnapshotId":"01b8e77a-c901-48fb-ad41-3234f4fd193b","sections":[{"lcmsDocumentId":"c09adb4b-c816-4197-855c-0a4d89abac0c","lcmsSnapshotId":"089d1841-e975-4c15-9a3f-fc725779f506","src":"5b8bf9db-a19d-4c29-89bb-7ed1add4b2c9\/c09adb4b-c816-4197-855c-0a4d89abac0c.json","title":"Practice","type":"matlabInteraction"}],"title":"Perform Array Operations on Vectors","type":"contentUnit"},"5f29c644-1b3c-4b81-9b34-e7037d73f44c":{"description":"Create vectors with evenly-spaced elements.","lcmsDocumentId":"5f29c644-1b3c-4b81-9b34-e7037d73f44c","lcmsSnapshotId":"eda02633-18e1-4bb9-9810-7a93849e60c1","sections":[{"lcmsDocumentId":"d5f83a7d-bd90-4e61-af8a-cfd4fa308e9f","lcmsSnapshotId":"64717b3b-fb11-44d4-b1a1-3cb4f4e239a0","src":"5f29c644-1b3c-4b81-9b34-e7037d73f44c\/d5f83a7d-bd90-4e61-af8a-cfd4fa308e9f.json","title":"Practice","type":"matlabInteraction"}],"title":"Create Evenly Spaced Vectors","type":"contentUnit"},"6f42452e-ee9d-4acc-b0d3-0277305edc81":{"description":"Learn syntax for creating MATLAB arrays.","lcmsDocumentId":"6f42452e-ee9d-4acc-b0d3-0277305edc81","lcmsSnapshotId":"f9b92b1c-0685-4439-a515-ac3e6437c595","sections":[{"lcmsDocumentId":"0513f6bb-47a0-4089-ad77-1e4edb6995ba","lcmsSnapshotId":"25714309-555d-4e75-b171-904ac81c03c9","src":"6f42452e-ee9d-4acc-b0d3-0277305edc81\/0513f6bb-47a0-4089-ad77-1e4edb6995ba.json","title":"Practice","type":"matlabInteraction"}],"title":"Manually Enter Arrays","type":"contentUnit"},"739d0c69-57ee-4a2f-82d2-46bca7bd1229":{"description":"Calculate the speed relative to the Earth of multiple stars and identify which stars are moving away from us.","lcmsDocumentId":"739d0c69-57ee-4a2f-82d2-46bca7bd1229","lcmsSnapshotId":"18d47c6d-780f-4234-8f58-aa7d5878bd97","sections":[{"lcmsDocumentId":"95651580-7af3-492b-a6e2-62cf9e775b86","lcmsSnapshotId":"56b3111a-cc76-49e9-a79e-74e0506f2174","src":"739d0c69-57ee-4a2f-82d2-46bca7bd1229\/95651580-7af3-492b-a6e2-62cf9e775b86.json","title":"Practice","type":"matlabInteraction"}],"title":"Project - Compare Stellar Spectra","type":"contentUnit"},"73ab85d7-dd75-4499-b338-0a61c4b99db5":{"description":"","lcmsDocumentId":"73ab85d7-dd75-4499-b338-0a61c4b99db5","lcmsSnapshotId":"3905c8d5-2da9-4d88-89cd-90cd70314357","sections":[{"lcmsDocumentId":"f7062fd2-cf63-47c1-addf-0395ad030872","lcmsSnapshotId":"79e2fd8f-a4cb-4ad2-82bd-6f3820d1f5a4","src":"73ab85d7-dd75-4499-b338-0a61c4b99db5\/f7062fd2-cf63-47c1-addf-0395ad030872.html","title":"Summary","type":"iframe"}],"title":"Summary","type":"contentUnit"},"7dc7b42b-e34b-4f33-9b70-a47f59e02f4b":{"description":"Obtain an overview of other resources that will help you use MathWorks software.","lcmsDocumentId":"7dc7b42b-e34b-4f33-9b70-a47f59e02f4b","lcmsSnapshotId":"00bc2dd6-724c-4171-b513-eacafd2748c4","sections":[{"lcmsDocumentId":"7302d454-0675-46ab-8273-4f0aa46487df","lcmsSnapshotId":"6f40fca0-1e8c-4e54-999a-8e5ae4b15fce","src":"7dc7b42b-e34b-4f33-9b70-a47f59e02f4b\/7302d454-0675-46ab-8273-4f0aa46487df.html","title":"MATLAB Resources","type":"iframe"}],"title":"Next Steps","type":"contentUnit"},"82c2e581-f99e-4ad2-baa3-6ae4d8996a5d":{"description":"Use for loops to execute code statements a specified number of times.","lcmsDocumentId":"82c2e581-f99e-4ad2-baa3-6ae4d8996a5d","lcmsSnapshotId":"f31b571d-1761-4646-9508-4b9f958f0a2c","sections":[{"lcmsDocumentId":"01beb3fa-990d-437a-90f6-ce2c23a8c0e0","lcmsSnapshotId":"f4dd0f83-63d1-429d-9058-bb79f15618a0","src":"82c2e581-f99e-4ad2-baa3-6ae4d8996a5d\/01beb3fa-990d-437a-90f6-ce2c23a8c0e0.json","title":"Practice","type":"matlabInteraction"}],"title":"For Loops","type":"contentUnit"},"83ec25a8-181c-4360-900b-192e3be86dff":{"description":"Use the MATLAB Editor to enter and execute commands.","lcmsDocumentId":"83ec25a8-181c-4360-900b-192e3be86dff","lcmsSnapshotId":"079f436c-ba7a-4c9e-b78a-90d2a41b76a6","sections":[{"lcmsDocumentId":"1e9ae818-88fa-4555-a610-650c481dd9ef","lcmsSnapshotId":"5e2f67ff-2744-4ae8-9ee5-2aadf9c79beb","src":"83ec25a8-181c-4360-900b-192e3be86dff\/1e9ae818-88fa-4555-a610-650c481dd9ef.json","title":"Practice","type":"matlabInteraction"}],"title":"The MATLAB Editor","type":"contentUnit"},"8d136b9e-55a2-4a45-9f46-4532191def80":{"description":"Use programming constructs to control the execution of MATLAB code.","lcmsDocumentId":"8d136b9e-55a2-4a45-9f46-4532191def80","lcmsSnapshotId":"7aee7290-3aa1-4a6a-beda-ca8ce1babe43","sections":[{"jsonSrc":"8d136b9e-55a2-4a45-9f46-4532191def80\/0eb93cb5-0450-46a1-9fc3-02617beacc6a.json","lcmsDocumentId":"0eb93cb5-0450-46a1-9fc3-02617beacc6a","lcmsSnapshotId":"6aa89504-8e8b-4e24-a084-11b1ab9b6a2f","src":"6084982825001","title":"Video","type":"video"}],"title":"Programming Constructs","type":"contentUnit"},"8edc5441-7715-4bf9-91ca-3ebdd4166ee8":{"description":"Run and modify scripts.","lcmsDocumentId":"8edc5441-7715-4bf9-91ca-3ebdd4166ee8","lcmsSnapshotId":"dfc1f457-e4b8-4164-bbea-f8f52c68a653","sections":[{"lcmsDocumentId":"0d037bcb-3dda-440a-ac29-a8dc3b7db00f","lcmsSnapshotId":"6e6df68a-ff8b-4b32-a06c-3ec80b9c4e7c","src":"8edc5441-7715-4bf9-91ca-3ebdd4166ee8\/0d037bcb-3dda-440a-ac29-a8dc3b7db00f.json","title":"Practice","type":"matlabInteraction"}],"title":"Run Scripts","type":"contentUnit"},"937e3f0c-3549-4847-a3ff-22fbfbe4bfd0":{"description":"Modify the values of elements within an array.","lcmsDocumentId":"937e3f0c-3549-4847-a3ff-22fbfbe4bfd0","lcmsSnapshotId":"786b3e1a-c851-4784-85ae-d881b5ef215c","sections":[{"lcmsDocumentId":"8a591ed5-d9f1-49a0-9550-c3f030e8600b","lcmsSnapshotId":"bd0b22e4-ec01-40b8-b780-b6fb21361def","src":"937e3f0c-3549-4847-a3ff-22fbfbe4bfd0\/8a591ed5-d9f1-49a0-9550-c3f030e8600b.json","title":"Practice","type":"matlabInteraction"}],"title":"Change Values in Arrays","type":"contentUnit"},"941b6351-d8c4-4a00-9415-df0fd4c33ad8":{"description":"Use programming constructs for making decisions in MATLAB code.","lcmsDocumentId":"941b6351-d8c4-4a00-9415-df0fd4c33ad8","lcmsSnapshotId":"b3f5ed08-4742-4bb0-bceb-e3311626309b","sections":[{"lcmsDocumentId":"87efa732-8c7a-405f-ad4d-52105699ef86","lcmsSnapshotId":"cb48615a-c530-448f-ad1d-29a25b51185e","src":"941b6351-d8c4-4a00-9415-df0fd4c33ad8\/87efa732-8c7a-405f-ad4d-52105699ef86.json","title":"Practice","type":"matlabInteraction"}],"title":"Decision Branching","type":"contentUnit"},"94f55d87-2545-4ae0-945c-2a7dadfa71be":{"description":"Learn how to use the MATLAB documentation.","lcmsDocumentId":"94f55d87-2545-4ae0-945c-2a7dadfa71be","lcmsSnapshotId":"2aa84061-98bb-4206-843e-f101483bd22d","sections":[{"lcmsDocumentId":"bef49d79-8c73-420c-aba4-6f3baf81e875","lcmsSnapshotId":"445ae7d8-e2d1-4b93-a25c-acc60176236a","src":"94f55d87-2545-4ae0-945c-2a7dadfa71be\/bef49d79-8c73-420c-aba4-6f3baf81e875.json","title":"Practice","type":"matlabInteraction"}],"title":"Use MATLAB Documentation","type":"contentUnit"},"a1c872af-20d5-4ee6-a6cc-e4e1f80e0dd5":{"description":"Use the Command Window to enter MATLAB commands.","lcmsDocumentId":"a1c872af-20d5-4ee6-a6cc-e4e1f80e0dd5","lcmsSnapshotId":"b5236d54-dc59-4a1c-952e-ce6df57fcfa2","sections":[{"lcmsDocumentId":"85b1faba-450f-448d-9a76-5a3c61519af1","lcmsSnapshotId":"3cc866be-d43e-4b14-ac23-5a2527d70eca","src":"a1c872af-20d5-4ee6-a6cc-e4e1f80e0dd5\/85b1faba-450f-448d-9a76-5a3c61519af1.json","title":"Practice","type":"matlabInteraction"}],"title":"Enter Commands","type":"contentUnit"},"a3b8699b-acf6-49ce-8155-fe9deb176013":{"description":"Learn how to call common MATLAB functions.","lcmsDocumentId":"a3b8699b-acf6-49ce-8155-fe9deb176013","lcmsSnapshotId":"8749d18d-269b-499d-8149-8cdb6ffa5933","sections":[{"lcmsDocumentId":"502d3871-11ef-4dae-a901-92b56f1ae5f9","lcmsSnapshotId":"a8dea6fc-7946-4381-ab8e-b287a5823c75","src":"a3b8699b-acf6-49ce-8155-fe9deb176013\/502d3871-11ef-4dae-a901-92b56f1ae5f9.json","title":"Practice","type":"matlabInteraction"}],"title":"Use Built-in Functions and Constants","type":"contentUnit"},"bc55871e-8c7d-487e-ace9-15b8f13c6c5c":{"description":"Discuss syntax of creating and removing MATLAB variables.","lcmsDocumentId":"bc55871e-8c7d-487e-ace9-15b8f13c6c5c","lcmsSnapshotId":"e5647c12-c119-44dd-95b1-d4657ccfddf3","sections":[{"lcmsDocumentId":"4e51bc98-3837-4d93-b229-c7c9caf0e4fd","lcmsSnapshotId":"fd4a1d83-db14-4cb8-993b-7a6e4415fd75","src":"bc55871e-8c7d-487e-ace9-15b8f13c6c5c\/4e51bc98-3837-4d93-b229-c7c9caf0e4fd.json","title":"Practice","type":"matlabInteraction"}],"title":"Logical Indexing","type":"contentUnit"},"c02030b0-16a4-4eea-bf7e-ada105851aa5":{"description":"Work with data imported as a table.","lcmsDocumentId":"c02030b0-16a4-4eea-bf7e-ada105851aa5","lcmsSnapshotId":"f294e2e1-383b-4849-a241-208022e646a6","sections":[{"lcmsDocumentId":"9f5d23a8-6717-4ad7-8d40-c482ff4631cb","lcmsSnapshotId":"8dbb5c8c-b896-4225-b1e6-ebb7b5677e89","src":"c02030b0-16a4-4eea-bf7e-ada105851aa5\/9f5d23a8-6717-4ad7-8d40-c482ff4631cb.json","title":"Practice","type":"matlabInteraction"}],"title":"Import Data as a Table","type":"contentUnit"},"cbd8475b-3fb7-41b5-a4e4-20dbb5c41020":{"description":"Learn the rules for valid MATLAB variable names.","lcmsDocumentId":"cbd8475b-3fb7-41b5-a4e4-20dbb5c41020","lcmsSnapshotId":"cf0d7b0e-59a7-4bc6-b227-ad297f39876c","sections":[{"lcmsDocumentId":"81b033ce-65bc-4d0c-a277-43529367c5d7","lcmsSnapshotId":"2cfa349c-8d72-4354-8ed4-2b70d05aed54","src":"cbd8475b-3fb7-41b5-a4e4-20dbb5c41020\/81b033ce-65bc-4d0c-a277-43529367c5d7.json","title":"Practice","type":"matlabInteraction"}],"title":"Name Variables","type":"contentUnit"},"ccfcff84-a840-4126-92a0-c677218a84c4":{"description":"New lesson description","lcmsDocumentId":"ccfcff84-a840-4126-92a0-c677218a84c4","lcmsSnapshotId":"db90ac58-1b4b-40e1-abf6-8b93180875ed","sections":[{"jsonSrc":"ccfcff84-a840-4126-92a0-c677218a84c4\/318800f0-9f15-4c99-93e8-762447294ca8.json","lcmsDocumentId":"318800f0-9f15-4c99-93e8-762447294ca8","lcmsSnapshotId":"35532d0b-32f3-4383-b683-f7705ebae471","src":"6084985607001","title":"Video","type":"video"}],"title":"Indexing","type":"contentUnit"},"da042be7-c907-47a8-ab1f-3974b613a8f1":{"description":"Obtain more than one output from a function.","lcmsDocumentId":"da042be7-c907-47a8-ab1f-3974b613a8f1","lcmsSnapshotId":"85446cdf-3c5d-4adf-95cd-d319f61a377e","sections":[{"lcmsDocumentId":"829b88d4-e7b5-481e-b7a9-8e46566cdb49","lcmsSnapshotId":"4fb07e33-6bd3-4c17-9901-546071c90126","src":"da042be7-c907-47a8-ab1f-3974b613a8f1\/829b88d4-e7b5-481e-b7a9-8e46566cdb49.json","title":"Practice","type":"matlabInteraction"}],"title":"Request Multiple Outputs in Function Calls","type":"contentUnit"},"ddcc687b-2054-415e-a4ad-5154782b7718":{"description":"Learn how to interactively import data using the Import Tool.","lcmsDocumentId":"ddcc687b-2054-415e-a4ad-5154782b7718","lcmsSnapshotId":"150d33f3-03fb-4875-bffc-4410ed452028","sections":[{"jsonSrc":"ddcc687b-2054-415e-a4ad-5154782b7718\/ce14f5a3-bc38-4ef1-8834-cbb11c199599.json","lcmsDocumentId":"ce14f5a3-bc38-4ef1-8834-cbb11c199599","lcmsSnapshotId":"bc423c90-ade8-421c-aaa1-f6f91e26af7c","src":"6084983047001","title":"Video","type":"video"}],"title":"Import Tool","type":"contentUnit"}},"contentBaseEndpoint":"https:\/\/matlabacademy-content.mathworks.com\/4.71.0","courseLaunchBaseEndpoint":"https:\/\/matlabacademy.mathworks.com","lrsContentBaseEndpoint":"https:\/\/matlabacademy.mathworks.com","release":"R2024a","language":"en"}
+    };
+</script>
+
+<script src="./datafile_files/bundle.app.js.download"></script>
+
+<!-- Adobe DTM footer -->
+<script type="text/javascript">
+    try {
+        _satellite.pageBottom();
+    } catch (e) {
+//something went wrong
+    }
+</script>
+
+
+
+<container id="my-app-container"></container><script>_satellite["_runScript1"](function(event, target, Promise) {
+_satellite.cookie.set("_sdsat_eid",_satellite.getVar('eid'),1);
+});</script><script>_satellite["_runScript2"](function(event, target, Promise) {
+var _kiq=_kiq||[];_kiq.push(["enableAccessibilityMode"]),setTimeout((function(){var e=document,t=e.getElementsByTagName("script")[0],s=e.createElement("script");s.type="text/javascript",s.async=!0,s.src="https://cl.qualaroo.com/ki.js/49559/ahy.js",t.parentNode.insertBefore(s,t)}),1);
+});</script><iframe id="qualaroo_dnt_frame" src="./datafile_files/frame.html" title="Qualaroo iframe for nudge" style="width: 1px; height: 1px; display: none; opacity: 0;"></iframe><script>_satellite["_runScript3"](function(event, target, Promise) {
+var inboundCourseName=_satellite.getVar("matlabAcademyCourseName");console.log("course name = "+inboundCourseName),console.log("google = "+typeof gtag),console.log("facebook = "+typeof fbq),console.log("quantcast = "+typeof _qevents);
+});</script><script>
+var inboundCourseName=_satellite.getVar("matlabAcademyCourseName");console.log("course name = "+inboundCourseName),console.log("google = "+typeof gtag),console.log("facebook = "+typeof fbq),console.log("quantcast = "+typeof _qevents),"undefined"!=typeof fbq&&fbq("track","Lead",{content_category:inboundCourseName,content_name:"MATLAB Academy Start"}),"undefined"!=typeof gtag&&(gtag("event","page_view",{send_to:"AW-1023777138",onrampStatus:"mlac_start",onrampCourse:inboundCourseName}),gtag("event","conversion",{send_to:"AW-1023777138/lJ45CITQqHMQ8rKW6AM"})),console.log("start fired"),_satellite.track("quantcastBase"),"undefined"!=typeof _qevents&&(console.log("start fired & quantcast fired"),_qevents.push({qacct:"p-zfNtLVVEHXE-1",labels:"_fp.event.Course Started,_fp.coursename."+inboundCourseName,event:"refresh"})),"undefined"!=typeof ytag&&(ytag({type:"yss_conversion",config:{yahoo_conversion_id:"1000315120",yahoo_conversion_label:"sxEECOaF2t4BEMupjrgD",yahoo_conversion_value:"1"}}),ytag({type:"yjad_conversion",config:{yahoo_ydn_conv_io:"g4ZvwO4OLDVmfCZwx5Sw",yahoo_ydn_conv_label:"A5FS31DXIQ0FNK2G4SL736262",yahoo_ydn_conv_value:"1"}}));
+</script><script>_satellite["_runScript4"](function(event, target, Promise) {
+var _qevents=_qevents||[];!function(){var e=document.createElement("script");e.src=("https:"==document.location.protocol?"https://secure":"http://edge")+".quantserve.com/quant.js",e.async=!0,e.type="text/javascript";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}(),_qevents.push({qacct:"p-zfNtLVVEHXE-1",labels:" ",orderid:" ",revenue:" ",event:"refresh"});
+});</script></body></html>
