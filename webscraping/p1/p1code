@@ -1,0 +1,32 @@
+import requests
+from bs4 import BeautifulSoup
+import json
+import csv
+import pandas as pd
+
+# URL of the Adobe webpage
+url = "https://www.adobe.com/in/creativecloud.html?gclid=CjwKCAjw1NK4BhAwEiwAVUHPUM0DNSkLQhRrbI0CTpYkolmR6vB4cuHj2jiUJiwRC4oUELAQwV0UjxoCRdsQAvD_BwE&sdid=DHWC19Q8&mv=search&mv2=paidsearch&ef_id=CjwKCAjw1NK4BhAwEiwAVUHPUM0DNSkLQhRrbI0CTpYkolmR6vB4cuHj2jiUJiwRC4oUELAQwV0UjxoCRdsQAvD_BwE:G:s&s_kwcid=AL!3085!3!645660843518!e!!g!!adobe!221174108!17525765108&gad_source=1"
+
+# Fetch the content of the webpage
+response = requests.get(url)
+html_content = response.content
+
+# Parse the webpage content
+soup = BeautifulSoup(html_content, 'html.parser')
+
+# Find the desired heading by ID
+heading = soup.find('h1', id="start-your-creative-cloud-free-trial").text.strip()
+
+# Prepare the data for JSON and CSV formats
+data = {"heading": heading}
+
+# Save the data as a JSON file
+with open('heading.json', 'w') as json_file:
+    json.dump(data, json_file, indent=4)
+
+# Save the data as a CSV file using pandas
+df = pd.DataFrame([list(data.values())], columns=data.keys())
+df.to_csv('heading.csv', index=False)
+
+print("Data scraped and saved as 'heading.json' and 'heading.csv'")
+#compiled in google colab
