@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Manage Co-admins and Students</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f4f8;
+        }
+        .tab-content {
+            margin-top: 20px;
+        }
+        .btn-add {
+            background-color: #5cb85c;
+            color: white;
+            transition: background-color 0.3s;
+        }
+        .btn-add:hover {
+            background-color: #4cae4c;
+            transform: scale(1.05);
+        }
+        .btn-edit {
+            background-color: #f0ad4e;
+            color: white;
+            transition: background-color 0.3s;
+        }
+        .btn-edit:hover {
+            background-color: #ec971f;
+            transform: scale(1.05);
+        }
+        .btn-delete {
+            background-color: #d9534f;
+            color: white;
+            transition: background-color 0.3s;
+        }
+        .btn-delete:hover {
+            background-color: #c9302c;
+            transform: scale(1.05);
+        }
+        h3 {
+            color: #4a90e2;
+        }
+        .login-section {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container mt-5">
+    <h1 class="text-center">Admin - Manage Co-admins and Students</h1>
+
+    <!-- User Login Section -->
+    <div class="login-section">
+        <h3 class="text-center">Login</h3>
+        <form id="login-form" onsubmit="handleLogin(event)">
+            <div class="form-group">
+                <label for="rollNo">Roll No.</label>
+                <input type="text" class="form-control" id="rollNo" required>
+            </div>
+            <div class="form-group">
+                <label for="adminName">Name</label>
+                <input type="text" class="form-control" id="adminName" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Login</button>
+        </form>
+        <div id="login-message" class="mt-2"></div>
+    </div>
+
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#coAdminTab">Manage Co-admins</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#studentTab">Manage Students</a>
+        </li>
+    </ul>
+
+    <div class="tab-content">
+        <!-- Co-admin Management Tab -->
+        <div id="coAdminTab" class="tab-pane fade show active">
+            <form id="add-co-admin-form" onsubmit="addCoAdmin(event)">
+                <div class="form-group">
+                    <label for="coAdminName">Co-admin Name</label>
+                    <input type="text" class="form-control" id="coAdminName" required>
+                </div>
+                <div class="form-group">
+                    <label for="branch">Select Engineering Branch</label>
+                    <select class="form-control" id="branch" required>
+                        <option value="" disabled selected>Select your branch</option>
+                        <option value="Computer Science">Computer Science</option>
+                        <option value="Information Technology">Information Technology</option>
+                        <option value="Mechanical Engineering">Mechanical Engineering</option>
+                        <option value="Civil Engineering">Civil Engineering</option>
+                        <option value="Electrical Engineering">Electrical Engineering</option>
+                        <option value="Electronics and Communication">Electronics and Communication</option>
+                        <option value="Electronics and Instrumentation">Electronics and Instrumentation</option>
+                        <option value="Chemical Engineering">Chemical Engineering</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-add btn-block">Add Co-admin</button>
+            </form>
+            <h3 class="mt-4">Co-admin List</h3>
+            <table class="table table-striped" id="coAdminTable">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Branch</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Co-admin names will be added here -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Student Management Tab -->
+        <div id="studentTab" class="tab-pane fade">
+            <form id="add-student-form" onsubmit="addStudent(event)">
+                <div class="form-group">
+                    <label for="studentName">Student Name</label>
+                    <input type="text" class="form-control" id="studentName" required>
+                </div>
+                <div class="form-group">
+                    <label for="rollNoStudent">Roll No.</label>
+                    <input type="text" class="form-control" id="rollNoStudent" required>
+                </div>
+                <div class="form-group">
+                    <label for="userName">User Name</label>
+                    <input type="text" class="form-control" id="userName" required>
+                </div>
+                <div class="form-group">
+                    <label for="studentBranch">Select Engineering Branch</label>
+                    <select class="form-control" id="studentBranch" required>
+                        <option value="" disabled selected>Select your branch</option>
+                        <option value="Computer Science">Computer Science</option>
+                        <option value="Information Technology">Information Technology</option>
+                        <option value="Mechanical Engineering">Mechanical Engineering</option>
+                        <option value="Civil Engineering">Civil Engineering</option>
+                        <option value="Electrical Engineering">Electrical Engineering</option>
+                        <option value="Electronics and Communication">Electronics and Communication</option>
+                        <option value="Electronics and Instrumentation">Electronics and Instrumentation</option>
+                        <option value="Chemical Engineering">Chemical Engineering</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-add btn-block">Add Student</button>
+            </form>
+            <h3 class="mt-4">Student List</h3>
+            <table class="table table-striped" id="studentTable">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Student names will be added here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    let isLoggedIn = false; // Flag to check login status
+    const coAdmins = [];
+    const students = [];
+
+    function handleLogin(event) {
+        event.preventDefault();
+        const rollNo = document.getElementById('rollNo').value;
+        const adminName = document.getElementById('adminName').value;
+
+        // Here you can implement your login logic, e.g., check rollNo and adminName against a database
+        isLoggedIn = true; // Assuming login is successful
+        document.getElementById('login-message').innerText = `Welcome, ${adminName}!`;
+        document.getElementById('login-form').style.display = 'none'; // Hide the login form
+    }
+
+    function addCoAdmin(event) {
+        if (!isLoggedIn) return alert('Please log in first!');
+        event.preventDefault();
+        const coAdminName = document.getElementById('coAdminName').value;
+        const branch = document.getElementById('branch').value;
+
+        const coAdmin = { name: coAdminName, branch };
+        coAdmins.push(coAdmin);
+        updateCoAdminTable();
+        alert('Co-admin added successfully');
+        document.getElementById('add-co-admin-form').reset();
+    }
+
+    function updateCoAdminTable() {
+        const coAdminTableBody = document.querySelector('#coAdminTable tbody');
+        coAdminTableBody.innerHTML = ''; // Clear the table body
+
+        // Populate the table with co-admins
+        coAdmins.forEach((coAdmin, index) => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${coAdmin.name}</td>
+                <td>${coAdmin.branch}</td>
+                <td>
+                    <button class="btn btn-edit" onclick="editCoAdmin(${index})">Edit</button>
+                    <button class="btn btn-delete" onclick="deleteCoAdmin(${index})">Delete</button>
+                </td>
+            `;
+            coAdminTableBody.appendChild(row);
+        });
+    }
+
+    function deleteCoAdmin(index) {
+        coAdmins.splice(index, 1);
+        updateCoAdminTable(); // Refresh the table
+        alert('Co-admin deleted successfully');
+    }
+
+    function editCoAdmin(index) {
+        const coAdmin = coAdmins[index];
+        document.getElementById('coAdminName').value = coAdmin.name;
+        document.getElementById('branch').value = coAdmin.branch;
+
+        deleteCoAdmin(index); // Remove the old entry
+    }
+
+    function addStudent(event) {
+        if (!isLoggedIn) return alert('Please log in first!');
+        event.preventDefault();
+        const studentName = document.getElementById('studentName').value;
+        const rollNoStudent = document.getElementById('rollNoStudent').value;
+        const userName = document.getElementById('userName').value;
+        const studentBranch = document.getElementById('studentBranch').value;
+
+        const studentRow = document.createElement('tr');
+        studentRow.innerHTML = `<td>${studentName} (${rollNoStudent}) - ${userName} (${studentBranch})</td>`;
+        document.querySelector('#studentTable tbody').appendChild(studentRow);
+        document.getElementById('add-student-form').reset();
+        alert('Student added successfully');
+    }
+</script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
