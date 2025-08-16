@@ -1,0 +1,7 @@
+- First open Arrythmia_AI in Google Colab
+- Then run the code
+- The model will be saved as ecg_vgg19_model.h5
+- Then run the code in the next notebook
+- The model will be loaded and used to predict Arrythmia
+- The model will be saved as Arrythmia_AI_model.h5
+- use ecg testing gui to test the model

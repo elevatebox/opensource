@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Diary Application</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>My Diary</h1>
+            <div class="today-info">
+                <span id="today-date"></span>
+                <span id="today-time"></span>
+            </div>
+        </header>
+
+        <main>
+            <div class="calendar-container">
+                <div class="calendar-header">
+                    <button id="prev-month"><i class="fas fa-chevron-left"></i></button>
+                    <h2 id="month-year"></h2>
+                    <button id="next-month"><i class="fas fa-chevron-right"></i></button>
+                </div>
+                <div class="weekdays">
+                    <div>Sun</div>
+                    <div>Mon</div>
+                    <div>Tue</div>
+                    <div>Wed</div>
+                    <div>Thu</div>
+                    <div>Fri</div>
+                    <div>Sat</div>
+                </div>
+                <div class="days" id="calendar-days"></div>
+            </div>
+
+            <div class="entry-container" id="entry-container">
+                <div class="entry-header">
+                    <h3>Diary Entry</h3>
+                    <span id="entry-date"></span>
+                </div>
+                <div class="entry-content" id="view-entry">
+                    <p id="entry-text"></p>
+                </div>
+                <div class="entry-form" id="entry-form">
+                    <textarea id="entry-textarea" placeholder="Write your thoughts for today..."></textarea>
+                    <div class="form-buttons">
+                        <button id="save-entry">Save Entry</button>
+                        <button id="cancel-entry">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Modal for viewing entries or setting reminders -->
+        <div class="modal" id="modal">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <h3 id="modal-title">Entry for <span id="modal-date"></span></h3>
+                <div id="modal-view-entry">
+                    <p id="modal-entry-text"></p>
+                </div>
+                <div id="modal-set-reminder" class="hidden">
+                    <p>Set a reminder for this date:</p>
+                    <input type="text" id="reminder-title" placeholder="Reminder title">
+                    <button id="save-reminder">Save Reminder</button>
+                </div>
+                <div id="modal-reminder-list" class="hidden">
+                    <h4>Reminders:</h4>
+                    <ul id="reminder-list"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
