@@ -65,7 +65,7 @@ function updateVirtualDom(data) {
           description: item.description
         };
       });
-    createDomElements(vDOM);
+    createDomElements();
 }
 window.setInterval(() => {
   let todos = [];
