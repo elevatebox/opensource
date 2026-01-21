@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Appointment Booking</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Appointment Booking</h1>
+  <div id="app">
+    <div id="appointments-view"></div>
+    <div id="booking-view">
+      <input type="date" id="date-picker" />
+      <button onclick="fetchSlots()">Check Availability</button>
+      <div id="slots-view"></div>
+      <form id="booking-form" onsubmit="bookAppointment(event)">
+        <input type="text" id="name" placeholder="Your Name" required />
+        <input type="text" id="reason" placeholder="Reason" required />
+        <input type="text" id="time" placeholder="Time (e.g., 10:00 AM)" required />
+        <button type="submit">Book</button>
+      </form>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+[
+  {
+    "id": 1735898499107,
+    "name": "student1",
+    "rollNumber": "21Rh46t632",
+    "attendance": 0
+  },
+  {
+    "id": 1735898521759,
+    "name": "student2",
+    "rollNumber": "21Rh46t645"
+  },
+  {
+    "id": 1735898539303,
+    "name": "student3",
+    "rollNumber": "21Rh46t656",
+    "attendance": 0
+  },
+  {
+    "id": 1735898551964,
+    "name": "student4",
+    "rollNumber": "21Rh46t786"
+  }
+]
