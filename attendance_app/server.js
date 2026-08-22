@@ -27,8 +27,8 @@ function writeData(data) {
 
 }
 
-app.get("/students", (req, res) => {
-  res.json(readData());
+app.get("/students", async (req, res) => {
+  res.json(await readData());
 });
 
 app.post("/students", async (req, res) => {
@@ -63,8 +63,8 @@ app.delete("/students/:id", (req, res) => {
   res.status(204).send();
 });
 
-app.get("/download", (req, res) => {
-  const students = readData();
+app.get("/download", async (req, res) => {
+  const students = await readData();
   const csvData = "Roll Number,Name,Attendance\n" + students.map(s => `${s.rollNumber},${s.name},${s.attendance}`).join("\n");
 
   const filePath = path.join(__dirname, `attendance_${Date.now()}.csv`);
